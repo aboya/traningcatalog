@@ -35,6 +35,9 @@
             this.TrainingList = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cbTraningCategory = new System.Windows.Forms.ComboBox();
+            this.txtBodyWeigh = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSaveWeight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,11 +110,40 @@
             this.cbTraningCategory.TabIndex = 6;
             this.cbTraningCategory.SelectedIndexChanged += new System.EventHandler(this.cbTraningCategory_SelectedIndexChanged);
             // 
+            // txtBodyWeigh
+            // 
+            this.txtBodyWeigh.Location = new System.Drawing.Point(204, 35);
+            this.txtBodyWeigh.Name = "txtBodyWeigh";
+            this.txtBodyWeigh.Size = new System.Drawing.Size(48, 20);
+            this.txtBodyWeigh.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(145, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Вес тела:";
+            // 
+            // btnSaveWeight
+            // 
+            this.btnSaveWeight.Location = new System.Drawing.Point(258, 35);
+            this.btnSaveWeight.Name = "btnSaveWeight";
+            this.btnSaveWeight.Size = new System.Drawing.Size(105, 21);
+            this.btnSaveWeight.TabIndex = 9;
+            this.btnSaveWeight.Text = "Сохранить вес";
+            this.btnSaveWeight.UseVisualStyleBackColor = true;
+            this.btnSaveWeight.Click += new System.EventHandler(this.btnSaveWeight_Click);
+            // 
             // Training
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(568, 342);
+            this.Controls.Add(this.btnSaveWeight);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtBodyWeigh);
             this.Controls.Add(this.cbTraningCategory);
             this.Controls.Add(this.TrainingList);
             this.Controls.Add(this.dateTime);
@@ -138,5 +170,8 @@
         private System.Windows.Forms.ComboBox TrainingList;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox cbTraningCategory;
+        private System.Windows.Forms.TextBox txtBodyWeigh;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSaveWeight;
     }
 }
