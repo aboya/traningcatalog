@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace TrainingCatalog
 {
@@ -20,15 +21,13 @@ namespace TrainingCatalog
 
         public Training()
         {
-
-
             lastPressKeyTime = DateTime.MinValue;
             InitializeComponent();
         }
 
         private void AddExersize_Click(object sender, EventArgs e)
         {
-            uint weight = 0, count = 0;
+            uint weight = 0, count = 0, bodyWeight;
             int TrainingId = 0, ExersizeId = 0;
             int lastId, lastLinkId;
             Object o;
@@ -41,6 +40,7 @@ namespace TrainingCatalog
                 connection.Open();
                 weight = Convert.ToUInt32(txtWeight.Text);
                 count = Convert.ToUInt32(txtCount.Text);
+                bodyWeight = Convert.ToUInt32(txtBodyWeigh.Text);
                 cmd.Connection = connection;
                 cmd.CommandText = "select max(ID) from Training";
                 lastId = (int)cmd.ExecuteScalar();
@@ -49,7 +49,7 @@ namespace TrainingCatalog
                 if (o == null)
                 {
                     // создаем новый тренировочный день
-                    cmd.CommandText = String.Format("insert into Training  values({0},DateValue(\"{1}\"), \'\',0)", lastId + 1, date);
+                    cmd.CommandText = String.Format("insert into Training  values({0},DateValue(\"{1}\"), \'\',{2})", lastId + 1, date, bodyWeight);
                     cmd.ExecuteNonQuery();
                     TrainingId = lastId + 1;
                 }
@@ -57,6 +57,7 @@ namespace TrainingCatalog
                 {
                     // используем уже созданный день
                     TrainingId = (int)o;
+
                 }
                 cmd.CommandText = "select max(ID) from Link";
                 lastLinkId = (int)cmd.ExecuteScalar();
@@ -159,7 +160,7 @@ namespace TrainingCatalog
         }
         private void GridBind()
         {
-            OleDbCommand cmd = new OleDbCommand(); 
+            OleDbCommand cmd = new OleDbCommand();
             try
             {
                 dataGridView1.Columns.Clear();
@@ -175,13 +176,13 @@ namespace TrainingCatalog
                 DataSet TrainingIds = new DataSet();
                 tableAdapter.SelectCommand.CommandText = String.Format("select Link.ID from( ( Link inner join Training on Training.ID = Link.TrainingID ) inner  join Exersize on Exersize.ExersizeID = Link.ExersizeID) where Day = DateValue(\"{0}\") order by Link.ID", date);
                 tableAdapter.Fill(TrainingIds);
-                
+
                 dataGridView1.Columns.Add("Exersize", "Exersize");
                 dataGridView1.Columns.Add("Weight", "Weight");
                 dataGridView1.Columns.Add("Count", "Count");
                 DataGridViewColumn col = new System.Windows.Forms.DataGridViewButtonColumn();
                 col.HeaderText = "-";
-                
+
                 dataGridView1.Columns.Add(col);
                 for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                 {
@@ -191,7 +192,7 @@ namespace TrainingCatalog
                     );
                     dataGridView1.Rows[i].Cells[3].Value = "Remove";
                     dataGridView1.Rows[i].Tag = TrainingIds.Tables[0].Rows[i][0];
-                       
+
                 }
                 dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                 dataGridView1.BorderStyle = BorderStyle.Fixed3D;
@@ -199,12 +200,27 @@ namespace TrainingCatalog
                 // Put the cells in edit mode when user enters them.
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
+                // get body weight
+                cmd.CommandText = string.Format("select BodyWeight from Training where Day = DateValue(\"{0}\")", date);
+                object bodyWeight = (object)cmd.ExecuteScalar();
+                if (bodyWeight == null)
+                {
+                    txtBodyWeigh.Text = "0";
+                }
+                else
+                {
+                    txtBodyWeigh.Text = Convert.ToString(bodyWeight);
+                }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+                cmd.Dispose();
+            }
         }
 
         private void Training_Resize(object sender, EventArgs e)
@@ -256,6 +272,33 @@ namespace TrainingCatalog
             // внутырь функции ExersizeLoad не пихать эти две строчки, поотому что там идут реукрсивные вызовы
             // когда вызывается .selectedIndex = 0
             ExersizeLoad();
+        }
+
+ 
+
+        private void btnSaveWeight_Click(object sender, EventArgs e)
+        {
+            string date = dateTime.Value.ToString("dd/MM/yyyy");
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.Connection = connection;
+            // обновляем вес тела
+            try
+            {
+                cmd.Connection.Open();
+                double bodyWeight = Convert.ToDouble(txtBodyWeigh.Text);
+                cmd.CommandText = string.Format("UPDATE Training set BodyWeight = {0} where Day = DateValue(\"{1}\")", bodyWeight.ToString("F1", CultureInfo.InvariantCulture), date);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                cmd.Connection.Close();
+                cmd.Dispose();
+            }
+
         }
     }
 }
