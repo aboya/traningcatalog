@@ -40,7 +40,6 @@ namespace TrainingCatalog
                 connection.Open();
                 weight = Convert.ToUInt32(txtWeight.Text);
                 count = Convert.ToUInt32(txtCount.Text);
-                bodyWeight = Convert.ToUInt32(txtBodyWeigh.Text);
                 cmd.Connection = connection;
                 cmd.CommandText = "select max(ID) from Training";
                 lastId = (int)cmd.ExecuteScalar();
@@ -49,7 +48,7 @@ namespace TrainingCatalog
                 if (o == null)
                 {
                     // создаем новый тренировочный день
-                    cmd.CommandText = String.Format("insert into Training  values({0},DateValue(\"{1}\"), \'\',{2})", lastId + 1, date, bodyWeight);
+                    cmd.CommandText = String.Format("insert into Training  values({0},DateValue(\"{1}\"), \'\',{2})", lastId + 1, date, 0);
                     cmd.ExecuteNonQuery();
                     TrainingId = lastId + 1;
                 }
@@ -287,7 +286,16 @@ namespace TrainingCatalog
                 cmd.Connection.Open();
                 double bodyWeight = Convert.ToDouble(txtBodyWeigh.Text);
                 cmd.CommandText = string.Format("UPDATE Training set BodyWeight = {0} where Day = DateValue(\"{1}\")", bodyWeight.ToString("F1", CultureInfo.InvariantCulture), date);
-                cmd.ExecuteNonQuery();
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows == 0)
+                {
+                    MessageBox.Show("Необходимо добавить хотя бы 1 упражнение");
+                }
+                if (affectedRows > 1)
+                {
+                    MessageBox.Show("Вес записался в другие тренировочные дни!!");
+                }
+                
             }
             catch (Exception ee)
             {
