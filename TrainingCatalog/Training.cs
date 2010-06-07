@@ -27,7 +27,7 @@ namespace TrainingCatalog
 
         private void AddExersize_Click(object sender, EventArgs e)
         {
-            uint weight = 0, count = 0, bodyWeight;
+            uint weight = 0, count = 0;
             int TrainingId = 0, ExersizeId = 0;
             int lastId, lastLinkId;
             Object o;
@@ -307,6 +307,25 @@ namespace TrainingCatalog
                 cmd.Dispose();
             }
 
+        }
+        private void txtWeight_KeyDown(object sender, KeyEventArgs e)
+        {
+            DisableIncorectKeys(e);
+        }
+        private void txtCount_KeyDown(object sender, KeyEventArgs e)
+        {
+            DisableIncorectKeys(e);
+        }
+        private void DisableIncorectKeys(KeyEventArgs e)
+        {
+            //8-backspace
+            // 46 - delete
+            // 37 - left arrow
+            // 39 - right arrow
+            if (e.KeyValue != 8 && e.KeyValue != 46 && e.KeyValue != 37 && e.KeyValue != 39)
+            {
+                if(e.KeyValue < '0' || e.KeyValue > '9') e.SuppressKeyPress = true; 
+            }
         }
     }
 }
