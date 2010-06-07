@@ -58,6 +58,7 @@
             this.txtWeight.Size = new System.Drawing.Size(51, 20);
             this.txtWeight.TabIndex = 2;
             this.txtWeight.Text = "Вес";
+            this.txtWeight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtWeight_KeyDown);
             // 
             // txtCount
             // 
@@ -66,6 +67,7 @@
             this.txtCount.Size = new System.Drawing.Size(48, 20);
             this.txtCount.TabIndex = 3;
             this.txtCount.Text = "Количество";
+            this.txtCount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCount_KeyDown);
             // 
             // dateTime
             // 
