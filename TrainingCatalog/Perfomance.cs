@@ -51,7 +51,7 @@ namespace TrainingCatalog
                 {
                     cmd.Connection = connection;
                     cmd.CommandText =
-                        String.Format("select Day,Weight,Count from Link " +
+                        String.Format("select Day,Weight,Count,BodyWeight from Link " +
                                       "inner join Training on Training.ID = Link.TrainingID " +
                                       "where ExersizeID = {0} " +
                                       "and Day between DateValue(\"{1}\") and  DateValue(\"{2}\") " +
@@ -69,14 +69,26 @@ namespace TrainingCatalog
                     // Make up some data arrays based on the Sine function
 
                     //double x, y1, y2;
-                    PointPairList list1 = new PointPairList();
-                    PointPairList list2 = new PointPairList();
+                    PointPairList pointWeightCount = new PointPairList();
+                    PointPairList pointBodyWeight = new PointPairList();
+                    PointPairList pointWeight = new PointPairList();
                     while (reader.Read())
                     {
                         DateTime t;
                         t = (DateTime)reader["Day"];
-                        list1.Add(t.ToOADate(), (int)reader["Weight"] * (int)reader["Count"]);
-                        list2.Add(t.ToOADate(), (int)reader["Weight"] * 7);
+                        if (chkWeighCount.Checked)
+                        {
+                            pointWeightCount.Add(t.ToOADate(), (int)reader["Weight"] * (int)reader["Count"]);
+                        }
+                        if (chkBodyWeight.Checked)
+                        {
+                            if (!(reader["BodyWeight"] is DBNull || Convert.ToInt32(reader["BodyWeight"])==0)) 
+                                pointBodyWeight.Add(t.ToOADate(), Convert.ToDouble(reader["BodyWeight"]));
+                        }
+                        if (chkWeight.Checked)
+                        {
+                            pointWeightCount.Add(t.ToOADate(), (int)reader["Weight"]);
+                        }
                     }
 
                     // Generate a red curve with diamond
@@ -84,16 +96,18 @@ namespace TrainingCatalog
                     // symbols, and "Porsche" in the legend
                     myPane.CurveList.Clear();
                     LineItem myCurve = myPane.AddCurve("Weight * Count",
-                          list1, Color.Red, SymbolType.Circle);
+                          pointWeightCount, Color.Red, SymbolType.Circle);
 
 
                     // Generate a blue curve with circle
 
                     // symbols, and "Piper" in the legend
 
-                    LineItem myCurve2 = myPane.AddCurve("Weight",
-                         list2, Color.Blue, SymbolType.Circle);
+                    LineItem myCurve2 = myPane.AddCurve("BodyWeight",
+                         pointBodyWeight, Color.Blue, SymbolType.Circle);
 
+
+                    myPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
                     // Tell ZedGraph to refigure the
 
                     // axes since the data have changed
@@ -117,8 +131,8 @@ namespace TrainingCatalog
 
         private void Perfomance_Resize(object sender, EventArgs e)
         {
-            SetSize();
-            TrainingList.Top = this.Height - 65;
+            //SetSize();
+            //TrainingList.Top = this.Height - 65;
         }
         public void ExersizeLoad()
         {
@@ -182,6 +196,21 @@ namespace TrainingCatalog
         {
             dtpTo.Value = MaxDateTime;
             dtpFrom.Value = MinDateTime;
+        }
+
+        private void chkBodyWeight_CheckedChanged(object sender, EventArgs e)
+        {
+            CreateGraph(zedGraphControl1);
+        }
+
+        private void chkWeighCount_CheckedChanged(object sender, EventArgs e)
+        {
+            CreateGraph(zedGraphControl1);
+        }
+
+        private void chkWeight_CheckedChanged(object sender, EventArgs e)
+        {
+            CreateGraph(zedGraphControl1);
         }
 
     }

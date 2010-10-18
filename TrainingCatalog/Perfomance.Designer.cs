@@ -28,30 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.zedGraphControl1 = new ZedGraph.ZedGraphControl();
             this.TrainingList = new System.Windows.Forms.ComboBox();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.bntClear = new System.Windows.Forms.Button();
+            this.chkWeighCount = new System.Windows.Forms.CheckBox();
+            this.chkBodyWeight = new System.Windows.Forms.CheckBox();
+            this.chkWeight = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // zedGraphControl1
             // 
+            this.zedGraphControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.zedGraphControl1.Location = new System.Drawing.Point(12, 36);
             this.zedGraphControl1.Name = "zedGraphControl1";
-            this.zedGraphControl1.ScrollGrace = 0;
-            this.zedGraphControl1.ScrollMaxX = 0;
-            this.zedGraphControl1.ScrollMaxY = 0;
-            this.zedGraphControl1.ScrollMaxY2 = 0;
-            this.zedGraphControl1.ScrollMinX = 0;
-            this.zedGraphControl1.ScrollMinY = 0;
-            this.zedGraphControl1.ScrollMinY2 = 0;
+            this.zedGraphControl1.ScrollGrace = 0D;
+            this.zedGraphControl1.ScrollMaxX = 0D;
+            this.zedGraphControl1.ScrollMaxY = 0D;
+            this.zedGraphControl1.ScrollMaxY2 = 0D;
+            this.zedGraphControl1.ScrollMinX = 0D;
+            this.zedGraphControl1.ScrollMinY = 0D;
+            this.zedGraphControl1.ScrollMinY2 = 0D;
             this.zedGraphControl1.Size = new System.Drawing.Size(328, 208);
             this.zedGraphControl1.TabIndex = 0;
             // 
             // TrainingList
             // 
+            this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.TrainingList.FormattingEnabled = true;
             this.TrainingList.Location = new System.Drawing.Point(12, 250);
             this.TrainingList.Name = "TrainingList";
@@ -85,11 +92,56 @@
             this.bntClear.UseVisualStyleBackColor = true;
             this.bntClear.Click += new System.EventHandler(this.bntClear_Click);
             // 
+            // chkWeighCount
+            // 
+            this.chkWeighCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkWeighCount.AutoSize = true;
+            this.chkWeighCount.Checked = true;
+            this.chkWeighCount.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWeighCount.Location = new System.Drawing.Point(347, 54);
+            this.chkWeighCount.Name = "chkWeighCount";
+            this.chkWeighCount.Size = new System.Drawing.Size(110, 17);
+            this.chkWeighCount.TabIndex = 10;
+            this.chkWeighCount.Text = "Вес*Повторения";
+            this.chkWeighCount.UseVisualStyleBackColor = true;
+            this.chkWeighCount.CheckedChanged += new System.EventHandler(this.chkWeighCount_CheckedChanged);
+            // 
+            // chkBodyWeight
+            // 
+            this.chkBodyWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkBodyWeight.AutoSize = true;
+            this.chkBodyWeight.Checked = true;
+            this.chkBodyWeight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBodyWeight.Location = new System.Drawing.Point(347, 100);
+            this.chkBodyWeight.Name = "chkBodyWeight";
+            this.chkBodyWeight.Size = new System.Drawing.Size(73, 17);
+            this.chkBodyWeight.TabIndex = 11;
+            this.chkBodyWeight.Text = "Вес Тела";
+            this.chkBodyWeight.UseVisualStyleBackColor = true;
+            this.chkBodyWeight.CheckedChanged += new System.EventHandler(this.chkBodyWeight_CheckedChanged);
+            // 
+            // chkWeight
+            // 
+            this.chkWeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkWeight.AutoSize = true;
+            this.chkWeight.Checked = true;
+            this.chkWeight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWeight.Location = new System.Drawing.Point(347, 77);
+            this.chkWeight.Name = "chkWeight";
+            this.chkWeight.Size = new System.Drawing.Size(45, 17);
+            this.chkWeight.TabIndex = 12;
+            this.chkWeight.Text = "Вес";
+            this.chkWeight.UseVisualStyleBackColor = true;
+            this.chkWeight.CheckedChanged += new System.EventHandler(this.chkWeight_CheckedChanged);
+            // 
             // Perfomance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 283);
+            this.ClientSize = new System.Drawing.Size(455, 279);
+            this.Controls.Add(this.chkWeight);
+            this.Controls.Add(this.chkBodyWeight);
+            this.Controls.Add(this.chkWeighCount);
             this.Controls.Add(this.bntClear);
             this.Controls.Add(this.dtpTo);
             this.Controls.Add(this.dtpFrom);
@@ -100,6 +152,7 @@
             this.Load += new System.EventHandler(this.Perfomance_Load);
             this.Resize += new System.EventHandler(this.Perfomance_Resize);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -110,5 +163,8 @@
         private System.Windows.Forms.DateTimePicker dtpFrom;
         private System.Windows.Forms.DateTimePicker dtpTo;
         private System.Windows.Forms.Button bntClear;
+        private System.Windows.Forms.CheckBox chkWeighCount;
+        private System.Windows.Forms.CheckBox chkBodyWeight;
+        private System.Windows.Forms.CheckBox chkWeight;
     }
 }
