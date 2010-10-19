@@ -28,28 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dtpFrom = new System.Windows.Forms.DateTimePicker();
-            this.dtpTo = new System.Windows.Forms.DateTimePicker();
+            this.dtpStart = new System.Windows.Forms.DateTimePicker();
+            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.lblFrom = new System.Windows.Forms.Label();
             this.lblTo = new System.Windows.Forms.Label();
             this.lblReport = new System.Windows.Forms.Label();
+            this.btnCreateReport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // dtpFrom
+            // dtpStart
             // 
-            this.dtpFrom.Location = new System.Drawing.Point(52, 34);
-            this.dtpFrom.Name = "dtpFrom";
-            this.dtpFrom.Size = new System.Drawing.Size(200, 20);
-            this.dtpFrom.TabIndex = 0;
-            this.dtpFrom.ValueChanged += new System.EventHandler(this.dtpFrom_ValueChanged);
+            this.dtpStart.Location = new System.Drawing.Point(52, 34);
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.Size = new System.Drawing.Size(200, 20);
+            this.dtpStart.TabIndex = 0;
+            this.dtpStart.ValueChanged += new System.EventHandler(this.dtpFrom_ValueChanged);
             // 
-            // dtpTo
+            // dtpEnd
             // 
-            this.dtpTo.Location = new System.Drawing.Point(52, 66);
-            this.dtpTo.Name = "dtpTo";
-            this.dtpTo.Size = new System.Drawing.Size(200, 20);
-            this.dtpTo.TabIndex = 1;
-            this.dtpTo.ValueChanged += new System.EventHandler(this.dtpTo_ValueChanged);
+            this.dtpEnd.Location = new System.Drawing.Point(52, 66);
+            this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.Size = new System.Drawing.Size(200, 20);
+            this.dtpEnd.TabIndex = 1;
+            this.dtpEnd.ValueChanged += new System.EventHandler(this.dtpTo_ValueChanged);
             // 
             // lblFrom
             // 
@@ -77,17 +78,29 @@
             this.lblReport.Size = new System.Drawing.Size(79, 13);
             this.lblReport.TabIndex = 4;
             this.lblReport.Text = "Создать отчет";
+            this.lblReport.Click += new System.EventHandler(this.lblReport_Click);
+            // 
+            // btnCreateReport
+            // 
+            this.btnCreateReport.Location = new System.Drawing.Point(98, 4);
+            this.btnCreateReport.Name = "btnCreateReport";
+            this.btnCreateReport.Size = new System.Drawing.Size(98, 23);
+            this.btnCreateReport.TabIndex = 5;
+            this.btnCreateReport.Text = "Создать Отчет";
+            this.btnCreateReport.UseVisualStyleBackColor = true;
+            this.btnCreateReport.Click += new System.EventHandler(this.btnCreateReport_Click);
             // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 302);
+            this.Controls.Add(this.btnCreateReport);
             this.Controls.Add(this.lblReport);
             this.Controls.Add(this.lblTo);
             this.Controls.Add(this.lblFrom);
-            this.Controls.Add(this.dtpTo);
-            this.Controls.Add(this.dtpFrom);
+            this.Controls.Add(this.dtpEnd);
+            this.Controls.Add(this.dtpStart);
             this.Name = "Report";
             this.Text = "Report";
             this.Load += new System.EventHandler(this.Report_Load);
@@ -98,11 +111,12 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dtpFrom;
-        private System.Windows.Forms.DateTimePicker dtpTo;
+        private System.Windows.Forms.DateTimePicker dtpStart;
+        private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.Label lblFrom;
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.Label lblReport;
+        private System.Windows.Forms.Button btnCreateReport;
 
     }
 }
