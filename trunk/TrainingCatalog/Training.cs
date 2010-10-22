@@ -324,7 +324,8 @@ namespace TrainingCatalog
             // 39 - right arrow
             if (e.KeyValue != 8 && e.KeyValue != 46 && e.KeyValue != 37 && e.KeyValue != 39)
             {
-                if(e.KeyValue < '0' || e.KeyValue > '9') e.SuppressKeyPress = true; 
+                if(e.KeyValue < '0' || e.KeyValue > '9') e.SuppressKeyPress = true;
+                if (e.KeyValue >= 96 && e.KeyValue <= 105) e.SuppressKeyPress = false;
             }
         }
     }

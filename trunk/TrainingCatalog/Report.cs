@@ -99,11 +99,12 @@ namespace TrainingCatalog
 
         private void btnCreateReport_Click(object sender, EventArgs e)
         {
+            System.Windows.Forms.Application.DoEvents();
             try
             {
+                
                 DateTime start = dtpStart.Value;
                 DateTime end = dtpEnd.Value;
-                string s;
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
                     saveFileDialog.Filter = "Excel CSV File|*.csv";
@@ -113,6 +114,9 @@ namespace TrainingCatalog
                         GenerateReport(path, start, end);
                     }
                 }
+
+                MessageBox.Show("Отчет Создан");
+                pbProgress.Value = 0;
             }
             catch (Exception ee)
             {
@@ -130,14 +134,22 @@ namespace TrainingCatalog
                     using (OleDbCommand command = new OleDbCommand())
                     {
                         command.Connection = connection;
+                        command.CommandText = String.Format("select count(Day) from Training " +
+                                      "where  " +
+                                      "Day between DateValue(\"{0}\") and  DateValue(\"{1}\") ",
+                                        start.ToString("dd/MM/yyyy"),
+                                                                    end.ToString("dd/MM/yyyy"));
+                        pbProgress.Maximum = Convert.ToInt32(command.ExecuteScalar());
+                        pbProgress.Minimum = 0;
                         command.CommandText =
-                        String.Format("select Day,Weight,Count,BodyWeight,Exersize.ShortName, Exersize.ExersizeID from (( Link " +
+                        String.Format("select distinct Day,Weight,Count,BodyWeight,Exersize.ShortName, Exersize.ExersizeID from (( Link " +
                                       "inner join Training on Training.ID = Link.TrainingID) " +
                                       "inner join Exersize on Exersize.ExersizeID = Link.ExersizeID ) " +
                                       "where  " +
                                       "Day between DateValue(\"{0}\") and  DateValue(\"{1}\") " +
                                       "order by Day asc", start.ToString("dd/MM/yyyy"),
                                                                     end.ToString("dd/MM/yyyy"));
+
                         using (OleDbDataReader dr = command.ExecuteReader())
                         {
                             DateTime lastDate = DateTime.MinValue;
@@ -154,8 +166,9 @@ namespace TrainingCatalog
                                     lastDate = currentDate;
                                     if (reportDay != null)
                                     {
-                                        
                                          sw.WriteLine(reportDay.ToString());
+                                         pbProgress.Value++;
+                                         System.Windows.Forms.Application.DoEvents();
                                     }
                                     reportDay = new ReportDay(currentDate, bodyWeight);
                                 }
