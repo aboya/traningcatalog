@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ZedGraph;
 using System.Data.OleDb;
+using System.Configuration;
 namespace TrainingCatalog
 {
     public partial class Perfomance : Form
@@ -24,8 +25,8 @@ namespace TrainingCatalog
 
         private void Perfomance_Load(object sender, EventArgs e)
         {
-            connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database2.accdb");
-
+            connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            this.MinimumSize = new Size(475, 319);
  
             ExersizeLoad();
             CreateGraph(zedGraphControl1);

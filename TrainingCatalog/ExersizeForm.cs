@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Configuration;
 namespace TrainingCatalog
 {
     public partial class ExersizeForm : Form
@@ -18,7 +19,7 @@ namespace TrainingCatalog
             InitializeComponent();
             try
             {
-                connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database2.accdb");
+                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             }
             catch (Exception e)
             {

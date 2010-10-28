@@ -38,14 +38,16 @@
             this.txtBodyWeigh = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSaveWeight = new System.Windows.Forms.Button();
+            this.btnAddFromTemplate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // AddExersize
             // 
-            this.AddExersize.Location = new System.Drawing.Point(533, 9);
+            this.AddExersize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddExersize.Location = new System.Drawing.Point(533, 11);
             this.AddExersize.Name = "AddExersize";
-            this.AddExersize.Size = new System.Drawing.Size(25, 23);
+            this.AddExersize.Size = new System.Drawing.Size(25, 21);
             this.AddExersize.TabIndex = 0;
             this.AddExersize.Text = "+";
             this.AddExersize.UseVisualStyleBackColor = true;
@@ -79,6 +81,8 @@
             // 
             // TrainingList
             // 
+            this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.TrainingList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.TrainingList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.TrainingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -87,11 +91,14 @@
             this.TrainingList.Name = "TrainingList";
             this.TrainingList.Size = new System.Drawing.Size(269, 21);
             this.TrainingList.TabIndex = 5;
-            this.TrainingList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TrainingList_KeyPress);
             this.TrainingList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrainingList_KeyDown);
+            this.TrainingList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TrainingList_KeyPress);
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 62);
             this.dataGridView1.Name = "dataGridView1";
@@ -138,11 +145,22 @@
             this.btnSaveWeight.UseVisualStyleBackColor = true;
             this.btnSaveWeight.Click += new System.EventHandler(this.btnSaveWeight_Click);
             // 
+            // btnAddFromTemplate
+            // 
+            this.btnAddFromTemplate.Location = new System.Drawing.Point(369, 35);
+            this.btnAddFromTemplate.Name = "btnAddFromTemplate";
+            this.btnAddFromTemplate.Size = new System.Drawing.Size(158, 21);
+            this.btnAddFromTemplate.TabIndex = 10;
+            this.btnAddFromTemplate.Text = "Добавить из шаблона";
+            this.btnAddFromTemplate.UseVisualStyleBackColor = true;
+            this.btnAddFromTemplate.Click += new System.EventHandler(this.btnAddFromTemplate_Click);
+            // 
             // Training
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(568, 342);
+            this.Controls.Add(this.btnAddFromTemplate);
             this.Controls.Add(this.btnSaveWeight);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBodyWeigh);
@@ -156,6 +174,8 @@
             this.Name = "Training";
             this.Text = "Training";
             this.Load += new System.EventHandler(this.Training_Load);
+            this.ResizeBegin += new System.EventHandler(this.Training_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.Training_ResizeEnd);
             this.Resize += new System.EventHandler(this.Training_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -175,5 +195,6 @@
         private System.Windows.Forms.TextBox txtBodyWeigh;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSaveWeight;
+        private System.Windows.Forms.Button btnAddFromTemplate;
     }
 }

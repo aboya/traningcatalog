@@ -37,6 +37,8 @@
             // 
             // txtExersizeName
             // 
+            this.txtExersizeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExersizeName.Location = new System.Drawing.Point(12, 39);
             this.txtExersizeName.Multiline = true;
             this.txtExersizeName.Name = "txtExersizeName";
@@ -45,6 +47,9 @@
             // 
             // txtDescription
             // 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(12, 98);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
@@ -53,9 +58,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(405, 249);
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(297, 199);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 43);
+            this.btnSave.Size = new System.Drawing.Size(75, 24);
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -63,6 +69,8 @@
             // 
             // chkLstExersizeCategories
             // 
+            this.chkLstExersizeCategories.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLstExersizeCategories.CheckOnClick = true;
             this.chkLstExersizeCategories.FormattingEnabled = true;
             this.chkLstExersizeCategories.Location = new System.Drawing.Point(252, 39);
@@ -72,10 +80,12 @@
             // 
             // TrainingList
             // 
+            this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.TrainingList.FormattingEnabled = true;
             this.TrainingList.Location = new System.Drawing.Point(12, 12);
             this.TrainingList.Name = "TrainingList";
-            this.TrainingList.Size = new System.Drawing.Size(352, 21);
+            this.TrainingList.Size = new System.Drawing.Size(360, 21);
             this.TrainingList.TabIndex = 7;
             this.TrainingList.SelectedIndexChanged += new System.EventHandler(this.TrainingList_SelectedIndexChanged);
             // 
@@ -83,7 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 304);
+            this.ClientSize = new System.Drawing.Size(384, 238);
             this.Controls.Add(this.chkLstExersizeCategories);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtDescription);

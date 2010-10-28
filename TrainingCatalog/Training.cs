@@ -8,12 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Globalization;
+using System.Configuration;
 
 namespace TrainingCatalog
 {
     public partial class Training : Form
     {
-        OleDbConnection connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database2.accdb");
+        OleDbConnection connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
         OleDbDataAdapter table = new OleDbDataAdapter();
         DataSet Exersizes = new DataSet();
         DataSet ExersizeCategoryTable = new DataSet();
@@ -23,6 +24,7 @@ namespace TrainingCatalog
         {
             lastPressKeyTime = DateTime.MinValue;
             InitializeComponent();
+            this.MinimumSize = new Size(588, 382);
         }
 
         private void AddExersize_Click(object sender, EventArgs e)
@@ -224,10 +226,7 @@ namespace TrainingCatalog
 
         private void Training_Resize(object sender, EventArgs e)
         {
-            dataGridView1.Height = this.Height - 107;
-            dataGridView1.Width = this.Width - 32;
-            TrainingList.Width = this.Width - 307;
-            AddExersize.Left = this.Width - 45;
+
         }
 
         private void dateTime_ValueChanged(object sender, EventArgs e)
@@ -327,6 +326,20 @@ namespace TrainingCatalog
                 if(e.KeyValue < '0' || e.KeyValue > '9') e.SuppressKeyPress = true;
                 if (e.KeyValue >= 96 && e.KeyValue <= 105) e.SuppressKeyPress = false;
             }
+        }
+
+        private void Training_ResizeBegin(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Training_ResizeEnd(object sender, EventArgs e)
+        {
+        }
+
+        private void btnAddFromTemplate_Click(object sender, EventArgs e)
+        {
+            new TemplateAdd().ShowDialog(this);
         }
     }
 }
