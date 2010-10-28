@@ -10,7 +10,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
-using Microsoft.Office.Interop.Excel;
+
 
 namespace TrainingCatalog
 {
@@ -61,7 +61,7 @@ namespace TrainingCatalog
                 {
                     try
                     {
-                        _connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database2.accdb");
+                        _connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                     }
                     catch (Exception ee)
                     {

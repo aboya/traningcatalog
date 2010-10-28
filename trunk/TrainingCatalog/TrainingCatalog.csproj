@@ -37,10 +37,6 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Office.Interop.Access, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -65,6 +61,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditTemplate.Designer.cs">
+      <DependentUpon>EditTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExersizeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,11 +79,11 @@
     <Compile Include="ExersizesList.Designer.cs">
       <DependentUpon>ExersizesList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="mainForm.Designer.cs">
+      <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Perfomance.cs">
       <SubType>Form</SubType>
@@ -91,14 +93,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="EditTemplate.resx">
+      <DependentUpon>EditTemplate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExersizeForm.resx">
       <DependentUpon>ExersizeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExersizesList.resx">
       <DependentUpon>ExersizesList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="mainForm.resx">
+      <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Perfomance.resx">
       <DependentUpon>Perfomance.cs</DependentUpon>
@@ -110,6 +115,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TemplateAdd.resx">
+      <DependentUpon>TemplateAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates.resx">
+      <DependentUpon>Templates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Training.resx">
       <DependentUpon>Training.cs</DependentUpon>
@@ -137,6 +148,18 @@
     </Compile>
     <Compile Include="ReportDay.cs" />
     <Compile Include="ReportExersize.cs" />
+    <Compile Include="TemplateAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TemplateAdd.Designer.cs">
+      <DependentUpon>TemplateAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates.Designer.cs">
+      <DependentUpon>Templates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Training.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,14 +179,6 @@
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>aximp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Access.Dao">
-      <Guid>{4AC9E1DA-5BAD-4AC7-86E3-24F4CDCECA28}</Guid>
-      <VersionMajor>12</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
     <COMReference Include="Microsoft.Vbe.Interop.Forms">

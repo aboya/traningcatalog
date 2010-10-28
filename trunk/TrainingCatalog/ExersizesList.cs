@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Configuration;
 
 namespace TrainingCatalog
 {
@@ -18,14 +19,15 @@ namespace TrainingCatalog
         DataSet categories = new DataSet();
         public ExersizesList()
         {
-            connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Database2.accdb");
+
+            connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             InitializeComponent();
         }
 
         private void ExersizesList_Load(object sender, EventArgs e)
         {
             LoadPage();
-
+            this.MinimumSize = new Size(404, 278);
 
         }
         private void LoadPage()
