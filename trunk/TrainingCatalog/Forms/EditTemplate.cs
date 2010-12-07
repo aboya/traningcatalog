@@ -22,7 +22,7 @@ namespace TrainingCatalog
 
         private void btnAddExersize_Click(object sender, EventArgs e)
         {
-            templateViewer.AddRow();
+            
             
         }
 
