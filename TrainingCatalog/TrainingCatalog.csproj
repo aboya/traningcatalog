@@ -47,6 +47,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq">
@@ -66,119 +67,101 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditTemplate.cs">
+    <Compile Include="Forms\EditTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditTemplate.Designer.cs">
+    <Compile Include="Forms\EditTemplate.Designer.cs">
       <DependentUpon>EditTemplate.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExersizeForm.cs">
+    <Compile Include="Forms\ExersizeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExersizeForm.Designer.cs">
+    <Compile Include="Forms\ExersizeForm.Designer.cs">
       <DependentUpon>ExersizeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExersizesList.cs">
+    <Compile Include="Forms\ExersizesList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExersizesList.Designer.cs">
+    <Compile Include="Forms\ExersizesList.Designer.cs">
       <DependentUpon>ExersizesList.cs</DependentUpon>
     </Compile>
-    <Compile Include="mainForm.cs">
+    <Compile Include="Forms\mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="mainForm.Designer.cs">
+    <Compile Include="Forms\mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Perfomance.cs">
+    <Compile Include="Forms\Perfomance.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Perfomance.Designer.cs">
+    <Compile Include="Forms\Perfomance.Designer.cs">
       <DependentUpon>Perfomance.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="EditTemplate.resx">
+    <EmbeddedResource Include="Forms\EditTemplate.resx">
       <DependentUpon>EditTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExersizeForm.resx">
+    <EmbeddedResource Include="Forms\ExersizeForm.resx">
       <DependentUpon>ExersizeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExersizesList.resx">
+    <EmbeddedResource Include="Forms\ExersizesList.resx">
       <DependentUpon>ExersizesList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="mainForm.resx">
+    <EmbeddedResource Include="Forms\mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Perfomance.resx">
+    <EmbeddedResource Include="Forms\Perfomance.resx">
       <DependentUpon>Perfomance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Report.resx">
+    <EmbeddedResource Include="Forms\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TemplateAdd.resx">
+    <EmbeddedResource Include="Forms\TemplateAdd.resx">
       <DependentUpon>TemplateAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Templates.resx">
+    <EmbeddedResource Include="Forms\Templates.resx">
       <DependentUpon>Templates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TemplateViewerControl.resx">
+    <EmbeddedResource Include="Forms\TemplateViewerControl.resx">
       <DependentUpon>TemplateViewerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Training.resx">
+    <EmbeddedResource Include="Forms\Training.resx">
       <DependentUpon>Training.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <None Include="App.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
     </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Report.cs">
+    <Compile Include="Forms\Report.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Report.Designer.cs">
+    <Compile Include="Forms\Report.Designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
     <Compile Include="ReportDay.cs" />
     <Compile Include="ReportExersize.cs" />
-    <Compile Include="TemplateAdd.cs">
+    <Compile Include="Forms\TemplateAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TemplateAdd.Designer.cs">
+    <Compile Include="Forms\TemplateAdd.Designer.cs">
       <DependentUpon>TemplateAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Templates.cs">
+    <Compile Include="Forms\Templates.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Templates.Designer.cs">
+    <Compile Include="Forms\Templates.Designer.cs">
       <DependentUpon>Templates.cs</DependentUpon>
     </Compile>
-    <Compile Include="TemplateViewerControl.cs">
+    <Compile Include="Forms\TemplateViewerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TemplateViewerControl.Designer.cs">
+    <Compile Include="Forms\TemplateViewerControl.Designer.cs">
       <DependentUpon>TemplateViewerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Training.cs">
+    <Compile Include="Forms\Training.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Training.Designer.cs">
+    <Compile Include="Forms\Training.Designer.cs">
       <DependentUpon>Training.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -212,6 +195,9 @@
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
