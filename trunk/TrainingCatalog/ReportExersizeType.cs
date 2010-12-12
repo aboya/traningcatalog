@@ -5,13 +5,13 @@ using System.Text;
 
 namespace TrainingCatalog
 {
-    public class ReportExersize
+    public class ReportExersizeType
     {
         public int Id;
         public string Name;
         public int count;
         public int weight;
-        public ReportExersize(int _id, string _Name, int _count, int _weight)
+        public ReportExersizeType(int _id, string _Name, int _count, int _weight)
         {
             Id = _id;
             Name = _Name;

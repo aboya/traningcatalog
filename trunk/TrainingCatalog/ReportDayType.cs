@@ -5,19 +5,19 @@ using System.Text;
 
 namespace TrainingCatalog
 {
-    public class ReportDay
+    public class ReportDayType
     {
         private static string Delimetr = ";";
-        List<ReportExersize> exersizes;
+        List<ReportExersizeType> exersizes;
         double bodyWeight;
         DateTime date;
-        public ReportDay(DateTime _date, double _bodyWeight)
+        public ReportDayType(DateTime _date, double _bodyWeight)
         {
             date = _date;
             bodyWeight = _bodyWeight;
-            exersizes = new List<ReportExersize>();
+            exersizes = new List<ReportExersizeType>();
         }
-        public void Add(ReportExersize exersizeItem)
+        public void Add(ReportExersizeType exersizeItem)
         {
             exersizes.Add(exersizeItem);
         }
@@ -44,7 +44,7 @@ namespace TrainingCatalog
             
             Dictionary <int, int> LineForExersize = new Dictionary<int,int>();
             int avaibleLine = 0;
-            foreach(ReportExersize e in exersizes)
+            foreach(ReportExersizeType e in exersizes)
             {
                 if(!LineForExersize.ContainsKey(e.Id))
                 {
@@ -53,7 +53,7 @@ namespace TrainingCatalog
                 }
             }
             string [,] resulst = new string[LineForExersize.Count + 1, 2];
-            foreach(ReportExersize e in exersizes)
+            foreach(ReportExersizeType e in exersizes)
             {
                 int row = LineForExersize[e.Id];
                 resulst[row, 1] += string.Format("{0}({1})x", e.weight, e.count);

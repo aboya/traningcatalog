@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.IO;
-using System.Data.SqlClient;
 using System.Configuration;
 
 
@@ -154,7 +148,7 @@ namespace TrainingCatalog
                         {
                             DateTime lastDate = DateTime.MinValue;
                             DateTime currentDate = DateTime.MinValue;
-                            ReportDay reportDay = null;
+                            ReportDayType reportDay = null;
                             double bodyWeight;
                             while (dr.Read())
                             {
@@ -170,9 +164,9 @@ namespace TrainingCatalog
                                          pbProgress.Value++;
                                          System.Windows.Forms.Application.DoEvents();
                                     }
-                                    reportDay = new ReportDay(currentDate, bodyWeight);
+                                    reportDay = new ReportDayType(currentDate, bodyWeight);
                                 }
-                                ReportExersize exersize = new ReportExersize(Convert.ToInt32(dr["ExersizeID"]),Convert.ToString(dr["ShortName"]), Convert.ToInt32(dr["Count"]), Convert.ToInt32(dr["Weight"]));
+                                ReportExersizeType exersize = new ReportExersizeType(Convert.ToInt32(dr["ExersizeID"]),Convert.ToString(dr["ShortName"]), Convert.ToInt32(dr["Count"]), Convert.ToInt32(dr["Weight"]));
                                 reportDay.Add(exersize);
                             }
                             if (reportDay != null)
@@ -185,7 +179,7 @@ namespace TrainingCatalog
                 }
             }
         }
-        private void WriteDayToStream(StreamWriter sw, ReportDay day)
+        private void WriteDayToStream(StreamWriter sw, ReportDayType day)
         {
             //Microsoft.Office.Interop.Excel.Application xla = new Microsoft.Office.Interop.Excel.Application();
 
