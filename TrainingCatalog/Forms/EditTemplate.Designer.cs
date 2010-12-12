@@ -34,13 +34,13 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.btnAddExersize = new System.Windows.Forms.Button();
-            this.templateViewer = new TrainingCatalog.TemplateViewerControl();
+            this.templateViewerControl1 = new TrainingCatalog.TemplateViewerControl();
             this.SuspendLayout();
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(264, 232);
+            this.btnOk.Location = new System.Drawing.Point(368, 370);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(68, 23);
             this.btnOk.TabIndex = 0;
@@ -51,7 +51,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(338, 232);
+            this.btnSave.Location = new System.Drawing.Point(442, 370);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(68, 23);
             this.btnSave.TabIndex = 1;
@@ -61,7 +61,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(412, 232);
+            this.btnCancel.Location = new System.Drawing.Point(516, 370);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(68, 23);
             this.btnCancel.TabIndex = 2;
@@ -74,7 +74,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(78, 7);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(369, 20);
+            this.textBox1.Size = new System.Drawing.Size(473, 20);
             this.textBox1.TabIndex = 4;
             // 
             // lblName
@@ -90,7 +90,7 @@
             // btnAddExersize
             // 
             this.btnAddExersize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddExersize.Location = new System.Drawing.Point(453, 7);
+            this.btnAddExersize.Location = new System.Drawing.Point(557, 7);
             this.btnAddExersize.Name = "btnAddExersize";
             this.btnAddExersize.Size = new System.Drawing.Size(27, 20);
             this.btnAddExersize.TabIndex = 6;
@@ -98,30 +98,28 @@
             this.btnAddExersize.UseVisualStyleBackColor = true;
             this.btnAddExersize.Click += new System.EventHandler(this.btnAddExersize_Click);
             // 
-            // templateViewer
+            // templateViewerControl1
             // 
-            this.templateViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.templateViewer.Location = new System.Drawing.Point(15, 33);
-            this.templateViewer.Name = "templateViewer";
-            this.templateViewer.Size = new System.Drawing.Size(465, 193);
-            this.templateViewer.TabIndex = 7;
+            this.templateViewerControl1.Location = new System.Drawing.Point(15, 33);
+            this.templateViewerControl1.Name = "templateViewerControl1";
+            this.templateViewerControl1.Size = new System.Drawing.Size(569, 329);
+            this.templateViewerControl1.TabIndex = 7;
             // 
             // EditTemplate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 267);
+            this.ClientSize = new System.Drawing.Size(596, 405);
+            this.Controls.Add(this.templateViewerControl1);
             this.Controls.Add(this.btnAddExersize);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.templateViewer);
             this.Name = "EditTemplate";
             this.Text = "Редактирование шаблона";
+            this.Load += new System.EventHandler(this.EditTemplate_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,6 +133,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnAddExersize;
-        private TrainingCatalog.TemplateViewerControl templateViewer;
+        private TemplateViewerControl templateViewerControl1;
     }
 }
