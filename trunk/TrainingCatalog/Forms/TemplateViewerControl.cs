@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Configuration;
-using System.Web.UI.WebControls;
 using System.Diagnostics;
 
 
@@ -40,9 +39,30 @@ namespace TrainingCatalog
         }
         public bool IsNewTemplate = false;
 
-        public void Save()
+        public List<TemplateExersizesType> GetTemplateExersizes()
         {
- 
+            List<TemplateExersizesType> res = new List<TemplateExersizesType>();
+            foreach (DataGridViewRow dr in dataGridView1.Rows)
+            {
+                int exersizeId = Convert.ToInt32((dr.Cells["Exersize"] as DataGridViewComboBoxCell).Value);
+                int weight = Convert.ToInt32((dr.Cells["Weight"] as DataGridViewTextBoxCell).Value);
+                int count = Convert.ToInt32((dr.Cells["Count"] as DataGridViewTextBoxCell).Value);
+                res.Add(new TemplateExersizesType() {  ExersizeID = exersizeId, Count = count, Weight = weight });
+            }
+            return res;
+        }
+        public void LoadTemplateExersizes(List<TemplateExersizesType> input)
+        {
+            int i = 0;
+            dataGridView1.Rows.Clear();
+            foreach (TemplateExersizesType e in input)
+            {
+                this.AddNewRow();
+                dataGridView1.Rows[i].Cells["Exersize"].Value = e.ExersizeID;
+                dataGridView1.Rows[i].Cells["Weight"].Value = e.Weight;
+                dataGridView1.Rows[i].Cells["Count"].Value = e.Count;
+                i++;
+            }
         }
         public void AddNewRow()
         {
@@ -217,8 +237,6 @@ namespace TrainingCatalog
         
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            int a;
-            a = 0;
             SetDefaultValuesForNewRow(dataGridView1.Rows[e.RowIndex]);
         }
 
@@ -277,8 +295,17 @@ namespace TrainingCatalog
             // this need for one click on combobox drop down
             DataGridView gv = (sender as DataGridView);
             gv.BeginEdit(true);
-            ComboBox comboBox = (ComboBox)gv.EditingControl;
-            comboBox.DroppedDown = true;
+            if (gv.EditingControl is ComboBox)
+            {
+                gv.BeginEdit(true);
+                ComboBox comboBox = (ComboBox)gv.EditingControl;
+                comboBox.DroppedDown = true;
+            }
+            if (gv.EditingControl is TextBox)
+            {
+                int a;
+                a = 0;
+            }
         }
 
 
