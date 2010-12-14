@@ -45,13 +45,13 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 32);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(513, 224);
+            this.dataGridView1.Size = new System.Drawing.Size(591, 250);
             this.dataGridView1.TabIndex = 0;
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Location = new System.Drawing.Point(451, 264);
+            this.btnAdd.Location = new System.Drawing.Point(529, 290);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 1;
@@ -70,7 +70,7 @@
             // btnSaveTemplate
             // 
             this.btnSaveTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSaveTemplate.Location = new System.Drawing.Point(16, 264);
+            this.btnSaveTemplate.Location = new System.Drawing.Point(16, 290);
             this.btnSaveTemplate.Name = "btnSaveTemplate";
             this.btnSaveTemplate.Size = new System.Drawing.Size(107, 23);
             this.btnSaveTemplate.TabIndex = 3;
@@ -80,7 +80,7 @@
             // btnSaveTemplateAndAdd
             // 
             this.btnSaveTemplateAndAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSaveTemplateAndAdd.Location = new System.Drawing.Point(129, 264);
+            this.btnSaveTemplateAndAdd.Location = new System.Drawing.Point(129, 290);
             this.btnSaveTemplateAndAdd.Name = "btnSaveTemplateAndAdd";
             this.btnSaveTemplateAndAdd.Size = new System.Drawing.Size(135, 23);
             this.btnSaveTemplateAndAdd.TabIndex = 4;
@@ -94,14 +94,14 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(95, 5);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(431, 21);
+            this.comboBox1.Size = new System.Drawing.Size(509, 21);
             this.comboBox1.TabIndex = 5;
             // 
             // TemplateAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 299);
+            this.ClientSize = new System.Drawing.Size(616, 325);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btnSaveTemplateAndAdd);
             this.Controls.Add(this.btnSaveTemplate);

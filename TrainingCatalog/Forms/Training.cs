@@ -47,7 +47,7 @@ namespace TrainingCatalog
                 lastId = (int)cmd.ExecuteScalar();
                 cmd.CommandText = String.Format("select ID from Training where Day = DateValue(\"{0}\")", date);
                 o = cmd.ExecuteScalar();
-                if (o == null)
+                if (o == null || o is DBNull)
                 {
                     // создаем новый тренировочный день
                     cmd.CommandText = String.Format("insert into Training  values({0},DateValue(\"{1}\"), \'\',{2})", lastId + 1, date, 0);
@@ -73,6 +73,7 @@ namespace TrainingCatalog
                 MessageBox.Show(ee.Message);
             }
             connection.Close();
+            cmd.Dispose();
             GridBind();
         }
 
