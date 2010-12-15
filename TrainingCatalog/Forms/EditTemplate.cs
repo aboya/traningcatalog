@@ -97,8 +97,8 @@ namespace TrainingCatalog
                             foreach (TemplateExersizesType exersize in list)
                             {
                                 cmd.Parameters.Clear();
-                                cmd.CommandText = string.Format("insert into TrainingTemplate (ID, TemplateID, ExersizeID, Weight, Count) values({0}, {1}, {2}, {3}, {4}) ",
-                                                        trainingTemplateLastId,
+                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, Count) values({0}, {1}, {2}, {3}) ",
+                                                      //  trainingTemplateLastId,
                                                          templateLastId,
                                                           exersize.ExersizeID,
                                                          exersize.Weight,
