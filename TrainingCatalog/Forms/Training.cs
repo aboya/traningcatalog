@@ -340,7 +340,8 @@ namespace TrainingCatalog
 
         private void btnAddFromTemplate_Click(object sender, EventArgs e)
         {
-            new TemplateAdd().ShowDialog(this);
+            new TemplateAdd(dateTime.Value).ShowDialog(this);
+            GridBind();
         }
     }
 }
