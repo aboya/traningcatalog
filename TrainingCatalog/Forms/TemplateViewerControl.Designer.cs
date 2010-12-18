@@ -28,17 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Category = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Exersize = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remove = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Exersize = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
+            // Remove
+            // 
+            this.Remove.FillWeight = 50F;
+            this.Remove.HeaderText = "Remove";
+            this.Remove.Name = "Remove";
+            this.Remove.Width = 50;
+            // 
+            // Count
+            // 
+            this.Count.FillWeight = 40F;
+            this.Count.HeaderText = "Count";
+            this.Count.Name = "Count";
+            this.Count.Width = 40;
+            // 
+            // Weight
+            // 
+            this.Weight.FillWeight = 40F;
+            this.Weight.HeaderText = "Weight";
+            this.Weight.Name = "Weight";
+            this.Weight.Width = 40;
+            // 
+            // Exersize
+            // 
+            this.Exersize.HeaderText = "Column2";
+            this.Exersize.Name = "Exersize";
+            this.Exersize.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Exersize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Exersize.Width = 300;
+            // 
+            // Category
+            // 
+            this.Category.HeaderText = "Column1";
+            this.Category.Name = "Category";
+            this.Category.Width = 150;
+            // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -61,41 +98,6 @@
             this.dataGridView1.NewRowNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_NewRowNeeded);
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
             // 
-            // Category
-            // 
-            this.Category.HeaderText = "Column1";
-            this.Category.Name = "Category";
-            this.Category.Width = 150;
-            // 
-            // Exersize
-            // 
-            this.Exersize.HeaderText = "Column2";
-            this.Exersize.Name = "Exersize";
-            this.Exersize.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Exersize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Exersize.Width = 300;
-            // 
-            // Weight
-            // 
-            this.Weight.FillWeight = 40F;
-            this.Weight.HeaderText = "Weight";
-            this.Weight.Name = "Weight";
-            this.Weight.Width = 40;
-            // 
-            // Count
-            // 
-            this.Count.FillWeight = 40F;
-            this.Count.HeaderText = "Count";
-            this.Count.Name = "Count";
-            this.Count.Width = 40;
-            // 
-            // Remove
-            // 
-            this.Remove.FillWeight = 50F;
-            this.Remove.HeaderText = "Remove";
-            this.Remove.Name = "Remove";
-            this.Remove.Width = 50;
-            // 
             // TemplateViewerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -111,12 +113,13 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Category;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Exersize;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
         private System.Windows.Forms.DataGridViewButtonColumn Remove;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Exersize;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Category;
+        private System.Windows.Forms.DataGridView dataGridView1;
+
 
 
     }

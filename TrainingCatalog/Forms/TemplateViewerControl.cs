@@ -265,6 +265,7 @@ namespace TrainingCatalog
                     DataGridViewComboBoxColumn col2 = dataGridView1.Columns[1] as DataGridViewComboBoxColumn;
                     col2.ValueMember = "ExersizeID";
                     col2.DisplayMember = "ShortName";
+                    col2.Width = 290;
 
                     dataGridView1.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
                     dataGridView1.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
