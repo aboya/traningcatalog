@@ -7,6 +7,7 @@ namespace TrainingCatalog
 {
     public class TemplateExersizesType
     {
+        public int ID;
         public int ExersizeID;
         public int Weight;
         public int Count;

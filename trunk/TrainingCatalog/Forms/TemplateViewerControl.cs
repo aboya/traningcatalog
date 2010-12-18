@@ -37,7 +37,6 @@ namespace TrainingCatalog
 
 
         }
-        public bool IsNewTemplate = false;
 
         public List<TemplateExersizesType> GetTemplateExersizes()
         {
@@ -47,7 +46,13 @@ namespace TrainingCatalog
                 int exersizeId = Convert.ToInt32((dr.Cells["Exersize"] as DataGridViewComboBoxCell).Value);
                 int weight = Convert.ToInt32((dr.Cells["Weight"] as DataGridViewTextBoxCell).Value);
                 int count = Convert.ToInt32((dr.Cells["Count"] as DataGridViewTextBoxCell).Value);
-                res.Add(new TemplateExersizesType() {  ExersizeID = exersizeId, Count = count, Weight = weight });
+                int id = 0;
+                if (dr.Tag is int) id = Convert.ToInt32(dr.Tag);
+                res.Add(new TemplateExersizesType() {  ExersizeID = exersizeId, 
+                                                        Count = count, 
+                                                        Weight = weight, 
+                                                        ID = id
+                                                    });
             }
             return res;
         }
@@ -57,13 +62,16 @@ namespace TrainingCatalog
             dataGridView1.Rows.Clear();
             foreach (TemplateExersizesType e in input)
             {
-                this.AddNewRow();
+                this.AddNewRow();   
                 dataGridView1.Rows[i].Cells["Exersize"].Value = e.ExersizeID;
                 dataGridView1.Rows[i].Cells["Weight"].Value = e.Weight;
                 dataGridView1.Rows[i].Cells["Count"].Value = e.Count;
+                dataGridView1.Rows[i].Tag = e.ID;
+                
                 i++;
             }
         }
+
         public void AddNewRow()
         {
             dataGridView1.Rows.Add();
@@ -164,9 +172,6 @@ namespace TrainingCatalog
         //    //}
         //}
 
-
-
-
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //int a;
@@ -194,7 +199,8 @@ namespace TrainingCatalog
             if (e.ColumnIndex == 0 )
             {
                 DataGridView gv = (sender as DataGridView);
-                OnCnageCategory(gv.CurrentRow);
+                if(e.RowIndex >= 0)
+                    OnCnageCategory(gv.Rows[e.RowIndex]);
             }
         }
         private void OnCnageCategory(DataGridViewRow row)
@@ -203,27 +209,21 @@ namespace TrainingCatalog
             int categoryId = Convert.ToInt32((row.Cells[0] as DataGridViewComboBoxCell).Value);
             Debug.WriteLine(string.Format("categoryId = {0}", categoryId));
             List<ExersizeSource> exersizes =  FillExersizes(categoryId);
-            if (exersizes.Count > 0)
-            {
-                DataGridViewComboBoxCell exers = (row.Cells[1] as DataGridViewComboBoxCell);
-                //exers.Items.Clear();
-                exers.DataSource = exersizes;
-                exers.ValueMember = "ExersizeID";
-                exers.DisplayMember = "ShortName";
-                //foreach (ExersizeSource e in exersizes)
-                //{
-                //    exers.Items.Add(e);
-                //}
-
-                exers.Value = exersizes[0].ExersizeID;
-            }
+            DataGridViewComboBoxCell exers = (row.Cells[1] as DataGridViewComboBoxCell);
+            exers.DataSource = exersizes;
+            exers.Value = exersizes[0].ExersizeID;
         }
         private void SetDefaultValuesForNewRow(DataGridViewRow row)
         {
             DataGridViewComboBoxCell cellCategory = row.Cells[0] as DataGridViewComboBoxCell;
             DataGridViewComboBoxCell cellExersize = row.Cells[1] as DataGridViewComboBoxCell;
+            DataGridViewTextBoxCell txtWeight = row.Cells[2] as DataGridViewTextBoxCell;
+            DataGridViewTextBoxCell txtCount = row.Cells[3] as DataGridViewTextBoxCell;
+            row.Cells[4].Value = "Remove";
+            row.Tag = 0;
+            
             cellCategory.Value = -1;
-            OnCnageCategory(row);
+          //  OnCnageCategory(row);
  
         }
         private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -257,27 +257,18 @@ namespace TrainingCatalog
                 try
                 {
                     DataGridViewComboBoxColumn col1 = dataGridView1.Columns[0] as DataGridViewComboBoxColumn;
-                    col1.DataSource = ExersizeCategoryTable.Tables[0];
                     col1.ValueMember = "ID";
                     col1.DisplayMember = "Name";
+                    col1.DataSource = ExersizeCategoryTable.Tables[0];
+
 
                     DataGridViewComboBoxColumn col2 = dataGridView1.Columns[1] as DataGridViewComboBoxColumn;
                     col2.ValueMember = "ExersizeID";
                     col2.DisplayMember = "ShortName";
-                    if (IsNewTemplate)
-                    {
-                        //DataGridViewComboBoxCell f = dataGridView1.Rows[0].Cells[0] as DataGridViewComboBoxCell;
-                        //if (f != null) // set default value for exersize category its -1
-                        //{
-                        //    f.Value = -1;
-                        //}
-                        
-                        dataGridView1.Rows.Add();
-                        this.SetDefaultValuesForNewRow(dataGridView1.Rows[0]);
-                    }
 
-
-
+                    dataGridView1.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dataGridView1.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dataGridView1.Columns[4].SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
                 catch (Exception ee)
                 {
@@ -301,11 +292,57 @@ namespace TrainingCatalog
                 ComboBox comboBox = (ComboBox)gv.EditingControl;
                 comboBox.DroppedDown = true;
             }
-            if (gv.EditingControl is TextBox)
+            
+            if (e.ColumnIndex == 4) // remove button
             {
-                int a;
-                a = 0;
+                object id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Tag);
+                dataGridView1.Rows.RemoveAt(e.RowIndex);
+                //this.RemoveTrainingTemplateById(id);
             }
+        }
+        //private void RemoveTrainingTemplateById(int id)
+        //{
+        //    try
+        //    {
+        //        connection.Open();
+        //        using (OleDbCommand cmd = connection.CreateCommand())
+        //        {
+        //            cmd.CommandText = string.Format("delete from TrainingTemplate where ID={0}", id);
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        MessageBox.Show(e.Message);
+        //    }
+        //    connection.Close();
+        //}
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            TextBox txt = e.Control as TextBox;
+
+            if (txt != null)
+            {
+                // Remove an existing event-handler, if present, to avoid 
+                // adding multiple handlers when the editing control is reused.
+                txt.KeyPress -=
+                    new KeyPressEventHandler(txt_KeyPress);
+
+                // Add the event handler. 
+                txt.KeyPress +=
+                    new KeyPressEventHandler(txt_KeyPress);
+            }
+        }
+        private void txt_KeyPress(object sender, KeyPressEventArgs args)
+        {
+            int a;
+            a = 0;
+            if ((args.KeyChar < 48 || args.KeyChar > 57) && args.KeyChar != 8)
+            {
+                args.Handled = true;
+ 
+            }
+ 
         }
 
 
