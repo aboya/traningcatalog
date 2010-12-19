@@ -36,6 +36,12 @@
             this.chkWeighCount = new System.Windows.Forms.CheckBox();
             this.chkBodyWeight = new System.Windows.Forms.CheckBox();
             this.chkWeight = new System.Windows.Forms.CheckBox();
+            this.pnlFilters = new System.Windows.Forms.Panel();
+            this.rbNone = new System.Windows.Forms.RadioButton();
+            this.rbWork = new System.Windows.Forms.RadioButton();
+            this.rbMaxWeight = new System.Windows.Forms.RadioButton();
+            this.lblFilters = new System.Windows.Forms.Label();
+            this.pnlFilters.SuspendLayout();
             this.SuspendLayout();
             // 
             // zedGraphControl1
@@ -134,11 +140,67 @@
             this.chkWeight.UseVisualStyleBackColor = true;
             this.chkWeight.CheckedChanged += new System.EventHandler(this.chkWeight_CheckedChanged);
             // 
+            // pnlFilters
+            // 
+            this.pnlFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlFilters.Controls.Add(this.rbNone);
+            this.pnlFilters.Controls.Add(this.rbWork);
+            this.pnlFilters.Controls.Add(this.rbMaxWeight);
+            this.pnlFilters.Controls.Add(this.lblFilters);
+            this.pnlFilters.Location = new System.Drawing.Point(347, 123);
+            this.pnlFilters.Name = "pnlFilters";
+            this.pnlFilters.Size = new System.Drawing.Size(96, 94);
+            this.pnlFilters.TabIndex = 13;
+            // 
+            // rbNone
+            // 
+            this.rbNone.AutoSize = true;
+            this.rbNone.Checked = true;
+            this.rbNone.Location = new System.Drawing.Point(3, 68);
+            this.rbNone.Name = "rbNone";
+            this.rbNone.Size = new System.Drawing.Size(51, 17);
+            this.rbNone.TabIndex = 3;
+            this.rbNone.TabStop = true;
+            this.rbNone.Text = "None";
+            this.rbNone.UseVisualStyleBackColor = true;
+            this.rbNone.CheckedChanged += new System.EventHandler(this.rbNone_CheckedChanged);
+            // 
+            // rbWork
+            // 
+            this.rbWork.AutoSize = true;
+            this.rbWork.Location = new System.Drawing.Point(3, 44);
+            this.rbWork.Name = "rbWork";
+            this.rbWork.Size = new System.Drawing.Size(91, 17);
+            this.rbWork.TabIndex = 2;
+            this.rbWork.Text = "Макс Работа";
+            this.rbWork.UseVisualStyleBackColor = true;
+            this.rbWork.CheckedChanged += new System.EventHandler(this.rbWork_CheckedChanged);
+            // 
+            // rbMaxWeight
+            // 
+            this.rbMaxWeight.AutoSize = true;
+            this.rbMaxWeight.Location = new System.Drawing.Point(3, 21);
+            this.rbMaxWeight.Name = "rbMaxWeight";
+            this.rbMaxWeight.Size = new System.Drawing.Size(74, 17);
+            this.rbMaxWeight.TabIndex = 1;
+            this.rbMaxWeight.Text = "Макс Вес";
+            this.rbMaxWeight.UseVisualStyleBackColor = true;
+            // 
+            // lblFilters
+            // 
+            this.lblFilters.AutoSize = true;
+            this.lblFilters.Location = new System.Drawing.Point(4, 4);
+            this.lblFilters.Name = "lblFilters";
+            this.lblFilters.Size = new System.Drawing.Size(55, 13);
+            this.lblFilters.TabIndex = 0;
+            this.lblFilters.Text = "Фильтры";
+            // 
             // Perfomance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 279);
+            this.Controls.Add(this.pnlFilters);
             this.Controls.Add(this.chkWeight);
             this.Controls.Add(this.chkBodyWeight);
             this.Controls.Add(this.chkWeighCount);
@@ -151,6 +213,8 @@
             this.Text = "Perfomance";
             this.Load += new System.EventHandler(this.Perfomance_Load);
             this.Resize += new System.EventHandler(this.Perfomance_Resize);
+            this.pnlFilters.ResumeLayout(false);
+            this.pnlFilters.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,5 +230,10 @@
         private System.Windows.Forms.CheckBox chkWeighCount;
         private System.Windows.Forms.CheckBox chkBodyWeight;
         private System.Windows.Forms.CheckBox chkWeight;
+        private System.Windows.Forms.Panel pnlFilters;
+        private System.Windows.Forms.RadioButton rbWork;
+        private System.Windows.Forms.RadioButton rbMaxWeight;
+        private System.Windows.Forms.Label lblFilters;
+        private System.Windows.Forms.RadioButton rbNone;
     }
 }
