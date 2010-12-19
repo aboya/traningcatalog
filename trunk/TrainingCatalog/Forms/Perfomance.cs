@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ZedGraph;
 using System.Data.OleDb;
 using System.Configuration;
+using TrainingCatalog.BusinessLogic.Types;
 namespace TrainingCatalog
 {
     public partial class Perfomance : Form
@@ -39,11 +40,148 @@ namespace TrainingCatalog
 
             zedGraphControl1.Size = new Size(ClientRectangle.Width - 20,
                                     ClientRectangle.Height - 65);
+            
         }
         private void CreateGraph(ZedGraphControl zgc)
         {
             // get a reference to the GraphPane
-           
+
+            try
+            {
+                zedGraphControl1.IsShowPointValues = true;
+                GraphPane myPane = zgc.GraphPane;
+                myPane.XAxis.Type = AxisType.Date;
+                // Set the Titles
+
+                myPane.Title.Text = "Perfomance";
+                myPane.XAxis.Title.Text = "Date";
+                myPane.YAxis.Title.Text = "Weight";
+
+                // Make up some data arrays based on the Sine function
+
+                //double x, y1, y2;
+                PointPairList pointWeightCount = new PointPairList();
+                PointPairList pointBodyWeight = new PointPairList();
+                PointPairList pointWeight = new PointPairList();
+                List<PerfomanceDataType> items = GetPerfomance();
+                items = ApplyFilters(items);
+                int lastTrainingId = -1;
+                foreach (PerfomanceDataType p in items)
+                {
+
+                    if (chkWeighCount.Checked)
+                    {
+                        pointWeightCount.Add(p.Day.ToOADate(), p.Weight * p.Count,
+                            string.Format("Дата:{0} {1}x{2}={3}", p.Day.ToString("dd.MM.yyyy"), p.Weight, p.Count, p.Weight * p.Count));
+                    }
+                    if (chkBodyWeight.Checked)
+                    {
+                        if (p.BodyWeight > 0)
+                            pointBodyWeight.Add(p.Day.ToOADate(), p.BodyWeight);
+                    }
+                    if (chkWeight.Checked && lastTrainingId != p.TrainingID) // exculde dublicates
+                    {
+                        pointWeight.Add(p.Day.ToOADate(), p.Weight);
+                    }
+                }
+
+                 
+                // Generate a red curve with diamond
+
+                // symbols, and "Porsche" in the legend
+                myPane.CurveList.Clear();
+                LineItem myCurve = myPane.AddCurve("Weight * Count",
+                      pointWeightCount, Color.Red, SymbolType.Circle);
+
+
+                // Generate a blue curve with circle
+
+                // symbols, and "Piper" in the legend
+
+                LineItem myCurve2 = myPane.AddCurve("BodyWeight",
+                     pointBodyWeight, Color.Blue, SymbolType.Circle);
+
+
+                myPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
+                // Tell ZedGraph to refigure the
+
+                // axes since the data have changed
+
+
+                zgc.AxisChange();
+                zgc.Refresh();
+
+
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+
+        }
+
+        private List<PerfomanceDataType> ApplyFilters(List<PerfomanceDataType> items)
+        {
+            if (rbNone.Checked) return items;
+            List<PerfomanceDataType> res = new List<PerfomanceDataType>();
+            Dictionary<int, int> maxes = new Dictionary<int, int>();
+            Dictionary<int, int> indexes = new Dictionary<int,int>();
+            int index = 0;
+            if (rbWork.Checked)
+            {
+                foreach (PerfomanceDataType p in items)
+                {
+                    int m;
+                    if (maxes.TryGetValue(p.TrainingID, out m))
+                    {
+                        if (m < p.Weight * p.Count)
+                        {
+                            maxes[p.TrainingID] = p.Weight * p.Count;
+                            indexes[p.TrainingID] = index;
+                        }
+                    }
+                    else
+                    {
+                        maxes[p.TrainingID] = p.Weight * p.Count;
+                        indexes[p.TrainingID] = index;
+                    }
+                    index++;
+
+                }
+
+            }
+            if (rbMaxWeight.Checked)
+            {
+                foreach (PerfomanceDataType p in items)
+                {
+                    int m;
+                    if (maxes.TryGetValue(p.TrainingID, out m))
+                    {
+                        if (m < p.Weight * p.Count)
+                        {
+                            maxes[p.TrainingID] = p.Weight ;
+                            indexes[p.TrainingID] = index;
+                        }
+                    }
+                    else
+                    {
+                        maxes[p.TrainingID] = p.Weight ;
+                        indexes[p.TrainingID] = index;
+                    }
+                    index++;
+
+                }
+            }
+            foreach (int i in indexes.Values)
+            {
+                res.Add(items[i]);
+            }
+            return res;
+        }
+
+        private List<PerfomanceDataType> GetPerfomance()
+        {
+            List<PerfomanceDataType> res = new List<PerfomanceDataType>();
             try
             {
                 int ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
@@ -52,70 +190,28 @@ namespace TrainingCatalog
                 {
                     cmd.Connection = connection;
                     cmd.CommandText =
-                        String.Format("select Day,Weight,Count,BodyWeight from Link " +
+                        String.Format("select Day,Weight,Count,BodyWeight,Training.ID as TrainingID from Link " +
                                       "inner join Training on Training.ID = Link.TrainingID " +
                                       "where ExersizeID = {0} " +
                                       "and Day between DateValue(\"{1}\") and  DateValue(\"{2}\") " +
-                                      "order by Day, Weight * Count", ExersizeId, dtpFrom.Value.ToString("dd/MM/yyyy"),
+                                      "order by Day, Weight", ExersizeId, dtpFrom.Value.ToString("dd/MM/yyyy"),
                                                                     dtpTo.Value.ToString("dd/MM/yyyy"));
-                    OleDbDataReader reader = cmd.ExecuteReader();
-                    GraphPane myPane = zgc.GraphPane;
-                    myPane.XAxis.Type = AxisType.Date;
-                    // Set the Titles
-
-                    myPane.Title.Text = "Perfomance";
-                    myPane.XAxis.Title.Text = "Date";
-                    myPane.YAxis.Title.Text = "Weight";
-
-                    // Make up some data arrays based on the Sine function
-
-                    //double x, y1, y2;
-                    PointPairList pointWeightCount = new PointPairList();
-                    PointPairList pointBodyWeight = new PointPairList();
-                    PointPairList pointWeight = new PointPairList();
-                    while (reader.Read())
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
                     {
-                        DateTime t;
-                        t = (DateTime)reader["Day"];
-                        if (chkWeighCount.Checked)
+
+                        while (reader.Read())
                         {
-                            pointWeightCount.Add(t.ToOADate(), (int)reader["Weight"] * (int)reader["Count"]);
-                        }
-                        if (chkBodyWeight.Checked)
-                        {
-                            if (!(reader["BodyWeight"] is DBNull || Convert.ToInt32(reader["BodyWeight"])==0)) 
-                                pointBodyWeight.Add(t.ToOADate(), Convert.ToDouble(reader["BodyWeight"]));
-                        }
-                        if (chkWeight.Checked)
-                        {
-                            pointWeightCount.Add(t.ToOADate(), (int)reader["Weight"]);
+                            PerfomanceDataType dt = new PerfomanceDataType();
+                            dt.Weight = (int)reader["Weight"];
+                            dt.Count = (int)reader["Count"];
+                            dt.Day = (DateTime)reader["Day"];
+                            if (reader["BodyWeight"] is DBNull) dt.BodyWeight = 0;
+                            else dt.BodyWeight = Convert.ToDouble(reader["BodyWeight"]);
+                            dt.TrainingID = (int) reader["TrainingID"];
+                            res.Add(dt);
                         }
                     }
 
-                    // Generate a red curve with diamond
-
-                    // symbols, and "Porsche" in the legend
-                    myPane.CurveList.Clear();
-                    LineItem myCurve = myPane.AddCurve("Weight * Count",
-                          pointWeightCount, Color.Red, SymbolType.Circle);
-
-
-                    // Generate a blue curve with circle
-
-                    // symbols, and "Piper" in the legend
-
-                    LineItem myCurve2 = myPane.AddCurve("BodyWeight",
-                         pointBodyWeight, Color.Blue, SymbolType.Circle);
-
-
-                    myPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
-                    // Tell ZedGraph to refigure the
-
-                    // axes since the data have changed
-
-
-                    zgc.AxisChange();
-                    zgc.Refresh();
                 }
 
                 //zgc.Refresh();
@@ -128,8 +224,8 @@ namespace TrainingCatalog
             {
                 connection.Close();
             }
+            return res;
         }
-
         private void Perfomance_Resize(object sender, EventArgs e)
         {
             //SetSize();
@@ -213,6 +309,17 @@ namespace TrainingCatalog
         {
             CreateGraph(zedGraphControl1);
         }
+
+        private void rbWork_CheckedChanged(object sender, EventArgs e)
+        {
+            CreateGraph(zedGraphControl1);
+        }
+
+        private void rbNone_CheckedChanged(object sender, EventArgs e)
+        {
+            CreateGraph(zedGraphControl1);
+        }
+ 
 
     }
 }
