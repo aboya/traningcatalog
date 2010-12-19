@@ -136,11 +136,6 @@ namespace TrainingCatalog
                         }
                     }
         
-
-                    //foreach (DataRow dr in Exersizes.Tables[0].Rows)
-                    //{
-                    //    Debug.WriteLine(string.Format("Id={0}, Name={1}", dr[0], dr[1]));
-                    //}
                 }
             }
             catch (Exception e)
@@ -221,9 +216,7 @@ namespace TrainingCatalog
             DataGridViewTextBoxCell txtCount = row.Cells[3] as DataGridViewTextBoxCell;
             row.Cells[4].Value = "Remove";
             row.Tag = 0;
-            
             cellCategory.Value = -1;
-          //  OnCnageCategory(row);
  
         }
         private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -238,12 +231,6 @@ namespace TrainingCatalog
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             SetDefaultValuesForNewRow(dataGridView1.Rows[e.RowIndex]);
-        }
-
-        private void dataGridView1_NewRowNeeded(object sender, DataGridViewRowEventArgs e)
-        {
-            int a;
-            a = 0;
         }
 
         private void TemplateViewerControl_Load(object sender, EventArgs e)
@@ -336,14 +323,53 @@ namespace TrainingCatalog
         }
         private void txt_KeyPress(object sender, KeyPressEventArgs args)
         {
-            int a;
-            a = 0;
             if ((args.KeyChar < 48 || args.KeyChar > 57) && args.KeyChar != 8)
             {
                 args.Handled = true;
  
             }
+            
  
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                SelectNextEditableCell(sender as DataGridView);
+            }
+        }
+
+        private void SelectNextEditableCell(DataGridView dataGridView)
+        {
+            DataGridViewCell currentCell = dataGridView.CurrentCell;
+            if (currentCell != null)
+            {
+                int nextRow = currentCell.RowIndex;
+                int nextCol = currentCell.ColumnIndex + 1;
+                if (nextCol >= dataGridView.ColumnCount)
+                {
+                    nextCol = 0;
+                    nextRow++;
+                }
+                if (nextRow > dataGridView.RowCount)
+                {
+                    nextRow = 0;
+                }
+                DataGridViewCell nextCell = dataGridView.Rows[nextRow].Cells[nextCol];
+                if (nextCell != null && nextCell.Visible)
+                {
+                    dataGridView.CurrentCell = nextCell;
+                }
+            }
+        }
+
+        private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Tab)
+            {
+                 
+            }
         }
 
 

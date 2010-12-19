@@ -65,6 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\CustomDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\EditTemplate.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -33,7 +33,8 @@
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Exersize = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+           // this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new CustomDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,8 +96,9 @@
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             this.dataGridView1.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView1_CurrentCellDirtyStateChanged);
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
-            this.dataGridView1.NewRowNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_NewRowNeeded);
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
+            this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
             // 
             // TemplateViewerControl
             // 
@@ -118,7 +120,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.DataGridViewComboBoxColumn Exersize;
         private System.Windows.Forms.DataGridViewComboBoxColumn Category;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private CustomDataGridView dataGridView1;
 
 
 
