@@ -33,6 +33,7 @@
             this.btnSaveTemplate = new System.Windows.Forms.Button();
             this.btnSaveTemplateAndAdd = new System.Windows.Forms.Button();
             this.ddlTemplates = new System.Windows.Forms.ComboBox();
+            this.btnTemplateAdd = new System.Windows.Forms.Button();
             this.ucTemplate = new TrainingCatalog.TemplateViewerControl();
             this.SuspendLayout();
             // 
@@ -86,9 +87,20 @@
             this.ddlTemplates.FormattingEnabled = true;
             this.ddlTemplates.Location = new System.Drawing.Point(95, 5);
             this.ddlTemplates.Name = "ddlTemplates";
-            this.ddlTemplates.Size = new System.Drawing.Size(545, 21);
+            this.ddlTemplates.Size = new System.Drawing.Size(504, 21);
             this.ddlTemplates.TabIndex = 5;
             this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
+            // 
+            // btnTemplateAdd
+            // 
+            this.btnTemplateAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTemplateAdd.Location = new System.Drawing.Point(605, 5);
+            this.btnTemplateAdd.Name = "btnTemplateAdd";
+            this.btnTemplateAdd.Size = new System.Drawing.Size(34, 21);
+            this.btnTemplateAdd.TabIndex = 7;
+            this.btnTemplateAdd.Text = "+";
+            this.btnTemplateAdd.UseVisualStyleBackColor = true;
+            this.btnTemplateAdd.Click += new System.EventHandler(this.btnTemplateAdd_Click);
             // 
             // ucTemplate
             // 
@@ -105,6 +117,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 466);
+            this.Controls.Add(this.btnTemplateAdd);
             this.Controls.Add(this.ucTemplate);
             this.Controls.Add(this.ddlTemplates);
             this.Controls.Add(this.btnSaveTemplateAndAdd);
@@ -127,5 +140,6 @@
         private System.Windows.Forms.Button btnSaveTemplateAndAdd;
         private System.Windows.Forms.ComboBox ddlTemplates;
         private TemplateViewerControl ucTemplate;
+        private System.Windows.Forms.Button btnTemplateAdd;
     }
 }

@@ -281,5 +281,10 @@ namespace TrainingCatalog
             AddToTrainingDay(_trainingDay);
             this.Close();
         }
+
+        private void btnTemplateAdd_Click(object sender, EventArgs e)
+        {
+            ucTemplate.AddNewRow();
+        }
     }
 }
