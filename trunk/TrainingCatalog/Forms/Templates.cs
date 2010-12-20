@@ -69,7 +69,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -108,10 +111,13 @@ namespace TrainingCatalog
             }
             catch (Exception e)
             {
-                
+
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

@@ -35,8 +35,8 @@ namespace TrainingCatalog
             Object o;
             string date;
             date = dateTime.Value.ToString("dd/MM/yyyy");
-            OleDbCommand cmd = new OleDbCommand(); 
-             
+            OleDbCommand cmd = new OleDbCommand();
+
             try
             {
                 connection.Open();
@@ -63,16 +63,19 @@ namespace TrainingCatalog
                 cmd.CommandText = "select max(ID) from Link";
                 lastLinkId = (int)cmd.ExecuteScalar();
 
-                ExersizeId =(int) Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
+                ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
                 cmd.CommandText = String.Format("insert into Link values({0},{1},{2},{3},{4})", lastLinkId + 1, TrainingId, ExersizeId, weight, count);
                 cmd.ExecuteNonQuery();
-                
+
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             cmd.Dispose();
             GridBind();
         }
@@ -101,13 +104,16 @@ namespace TrainingCatalog
                 {
                     cbTraningCategory.Items.Add(row["Name"]);
                 }
-                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             // этой строчкой мы фактически вызываем ExersizeLoad()
             cbTraningCategory.SelectedIndex = 0;
         }
@@ -122,8 +128,8 @@ namespace TrainingCatalog
                 OleDbCommand cmd = new OleDbCommand();
                 cmd.Connection = connection;
                 // теперь загружаем список учитывая наш фильтр ExersizeCategoryTable
-                
-                
+
+
                 // если в фильтре указали что бы показывать все упражнения
                 if (cbTraningCategory.SelectedIndex == 0)
                 {
@@ -139,7 +145,7 @@ namespace TrainingCatalog
                                         order by ShortName";
                     cmd.Parameters.Add("@exersizeCategoryId", OleDbType.Integer).Value = exersizeCategoryId;
                 }
- 
+
                 table.SelectCommand = cmd;
                 Exersizes.Clear();
                 TrainingList.Items.Clear();
@@ -158,7 +164,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(ee.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
         private void GridBind()
         {
@@ -239,7 +248,7 @@ namespace TrainingCatalog
         {
             if (e.ColumnIndex != 3) return;
             if (e.RowIndex >= dataGridView1.Rows.Count) return;
-            OleDbCommand cmd = new OleDbCommand(); 
+            OleDbCommand cmd = new OleDbCommand();
             try
             {
                 int LinkId = (int)dataGridView1.Rows[e.RowIndex].Tag;
@@ -252,7 +261,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(ee.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             this.GridBind();
         }
 

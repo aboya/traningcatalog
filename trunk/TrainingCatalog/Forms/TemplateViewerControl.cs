@@ -95,7 +95,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
         private List<ExersizeSource> FillExersizes(int categoryId)
         {
@@ -107,7 +110,7 @@ namespace TrainingCatalog
                 {
                     cmd.Connection = connection;
                     connection.Open();
-                    
+
                     if (categoryId <= 0)
                     {
                         cmd.CommandText = "select * from Exersize order by ShortName";
@@ -135,14 +138,17 @@ namespace TrainingCatalog
                             });
                         }
                     }
-        
+
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return Exersizes;
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
