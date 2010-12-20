@@ -84,7 +84,7 @@ namespace TrainingCatalog
             string res = string.Empty;
             try
             {
-               
+
                 connection.Open();
                 using (OleDbCommand cmd = connection.CreateCommand())
                 {
@@ -96,7 +96,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return res;
         }
  
@@ -129,7 +132,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return res;
         }
         private void AddNewTemplate()
@@ -176,7 +182,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
         private void SaveTemplate()
         {
@@ -192,7 +201,7 @@ namespace TrainingCatalog
                     using (OleDbCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
-                        cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}",txtTemplateName.Text.Trim(), _TemplateID);
+                        cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}", txtTemplateName.Text.Trim(), _TemplateID);
                         cmd.ExecuteNonQuery();
                         foreach (TemplateExersizesType exersize in list)
                         {
@@ -222,7 +231,8 @@ namespace TrainingCatalog
                             }
                         }
                         // deleting exersizes witch user delete
-                        if(_TemplateID > 0) {
+                        if (_TemplateID > 0)
+                        {
                             string existsid = string.Join(",", (from ex in list select ex.ID.ToString()).ToArray());
                             cmd.CommandText = string.Format("delete from TrainingTemplate where TemplateID={0} and ID not in({1})", _TemplateID, existsid);
                             cmd.ExecuteNonQuery();
@@ -241,7 +251,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {

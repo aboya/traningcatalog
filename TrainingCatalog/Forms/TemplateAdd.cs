@@ -55,7 +55,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(ex.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
  
         }
         private void ddlBind()
@@ -77,7 +80,7 @@ namespace TrainingCatalog
             List<TemplateExersizesType> list = ucTemplate.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
             OleDbTransaction transaction = null;
-            
+
             try
             {
                 int _TemplateID = Convert.ToInt32(ddlTemplates.SelectedValue);
@@ -136,7 +139,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
 
         private void ddlTemplates_SelectedIndexChanged(object sender, EventArgs e)
@@ -173,7 +179,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return res;
         }
 

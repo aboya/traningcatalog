@@ -25,15 +25,18 @@ namespace TrainingCatalog
                             cmd.Connection = connection;
                             cmd.Connection.Open();
                             cmd.CommandText = "select min(Day) from Training";
-                            _minDateTime =  Convert.ToDateTime(cmd.ExecuteScalar());
+                            _minDateTime = Convert.ToDateTime(cmd.ExecuteScalar());
                         }
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message);
-                        _minDateTime =  DateTime.Today;
+                        _minDateTime = DateTime.Today;
                     }
-                    connection.Close();
+                    finally
+                    {
+                        connection.Close();
+                    }
                 }
                 return _minDateTime;
             }

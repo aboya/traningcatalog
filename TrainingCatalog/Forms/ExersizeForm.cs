@@ -55,6 +55,10 @@ namespace TrainingCatalog
                 ok = false;
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                connection.Close();
+            }
             if(ok) MessageBox.Show("Упражнение успешно добавленно");
             textBox1.Text = String.Empty;
             textBox2.Text = String.Empty;
@@ -62,8 +66,7 @@ namespace TrainingCatalog
             {
                 chkLstExersizeCategories.SetItemChecked(index, false);
             }
-            
-            connection.Close();
+
         }
 
         private void ExersizeForm_Load(object sender, EventArgs e)
@@ -85,7 +88,7 @@ namespace TrainingCatalog
                 dataAdapter.SelectCommand = cmd;
                 dataAdapter.Fill(categories);
 
-                foreach(DataRow dr in categories.Tables[0].Rows)
+                foreach (DataRow dr in categories.Tables[0].Rows)
                 {
                     chkLstExersizeCategories.Items.Add(dr["Name"], false);
                 }
@@ -94,7 +97,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             cmd = null;
         }
         private void AddLinkToExersizeCategories(int ExersizeID)

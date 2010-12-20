@@ -72,7 +72,10 @@ namespace TrainingCatalog
                 ok = false;
                 MessageBox.Show(ee.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             
             if(ok) TrainingList.SelectedIndex = 0;
         }
@@ -85,7 +88,7 @@ namespace TrainingCatalog
                 connection.Open();
                 int exersizeId = Convert.ToInt32(Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"]);
                 // processing categories
-                for (int i  = 0; i < chkLstExersizeCategories.Items.Count; i++)
+                for (int i = 0; i < chkLstExersizeCategories.Items.Count; i++)
                 {
                     int categoryId = Convert.ToInt32(categories.Tables[0].Rows[i]["ID"]);
                     bool check = chkLstExersizeCategories.GetItemChecked(i);
@@ -99,7 +102,7 @@ namespace TrainingCatalog
                         if (!isExistLink(exersizeId, categoryId)) continue;
                         deleteLink(exersizeId, categoryId);
                     }
-                    
+
                 }
                 //saving name & description
                 OleDbCommand cmd = new OleDbCommand();
@@ -119,7 +122,10 @@ namespace TrainingCatalog
                 ok = false;
                 MessageBox.Show(ee.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             LoadPage();
             if (ok) MessageBox.Show("Упражнение успешно сохраненно");
         }
@@ -195,7 +201,7 @@ namespace TrainingCatalog
                             chkLstExersizeCategories.SetItemChecked(k, true);
                         }
                         k++;
-                    } 
+                    }
                 }
 
             }
@@ -203,7 +209,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(rr.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
         }
         private void LoadExersizeCategories()
         {
@@ -225,7 +234,10 @@ namespace TrainingCatalog
             {
                 MessageBox.Show(e.Message);
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             cmd = null;
         }
  
