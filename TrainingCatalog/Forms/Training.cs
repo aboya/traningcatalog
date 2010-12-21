@@ -75,6 +75,7 @@ namespace TrainingCatalog
             finally
             {
                 connection.Close();
+                cmd.Dispose();
             }
             cmd.Dispose();
             GridBind();
@@ -94,15 +95,17 @@ namespace TrainingCatalog
                 connection.Open();
                 cbTraningCategory.Items.Add("Все");
 
-                OleDbCommand cmd = new OleDbCommand();
-                cmd.Connection = connection;
-                cmd.Parameters.Clear();
-                cmd.CommandText = "select * from ExersizeCategory order by Name";
-                table.SelectCommand = cmd;
-                table.Fill(ExersizeCategoryTable);
-                foreach (DataRow row in ExersizeCategoryTable.Tables[0].Rows)
+                using (OleDbCommand cmd = new OleDbCommand())
                 {
-                    cbTraningCategory.Items.Add(row["Name"]);
+                    cmd.Connection = connection;
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "select * from ExersizeCategory order by Name";
+                    table.SelectCommand = cmd;
+                    table.Fill(ExersizeCategoryTable);
+                    foreach (DataRow row in ExersizeCategoryTable.Tables[0].Rows)
+                    {
+                        cbTraningCategory.Items.Add(row["Name"]);
+                    }
                 }
 
             }
@@ -125,39 +128,40 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                OleDbCommand cmd = new OleDbCommand();
-                cmd.Connection = connection;
-                // теперь загружаем список учитывая наш фильтр ExersizeCategoryTable
+                using (OleDbCommand cmd = new OleDbCommand())
+                {
+                    cmd.Connection = connection;
+                    // теперь загружаем список учитывая наш фильтр ExersizeCategoryTable
 
 
-                // если в фильтре указали что бы показывать все упражнения
-                if (cbTraningCategory.SelectedIndex == 0)
-                {
-                    cmd.CommandText = "select * from Exersize order by ShortName";
-                }
-                else
-                {
-                    int exersizeCategoryId = (int)ExersizeCategoryTable.Tables[0].Rows[cbTraningCategory.SelectedIndex - 1]["ID"];
-                    cmd.CommandText = @"select Exersize.ExersizeID, Exersize.ShortName from Exersize 
+                    // если в фильтре указали что бы показывать все упражнения
+                    if (cbTraningCategory.SelectedIndex == 0)
+                    {
+                        cmd.CommandText = "select * from Exersize order by ShortName";
+                    }
+                    else
+                    {
+                        int exersizeCategoryId = (int)ExersizeCategoryTable.Tables[0].Rows[cbTraningCategory.SelectedIndex - 1]["ID"];
+                        cmd.CommandText = @"select Exersize.ExersizeID, Exersize.ShortName from Exersize 
                                         inner join ExersizeCategoryLink on
                                         ExersizeCategoryLink.ExersizeID = Exersize.ExersizeID
                                         where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
                                         order by ShortName";
-                    cmd.Parameters.Add("@exersizeCategoryId", OleDbType.Integer).Value = exersizeCategoryId;
+                        cmd.Parameters.Add("@exersizeCategoryId", OleDbType.Integer).Value = exersizeCategoryId;
+                    }
+
+                    table.SelectCommand = cmd;
+                    Exersizes.Clear();
+                    TrainingList.Items.Clear();
+                    table.Fill(Exersizes);
+                    for (int i = 0; i < Exersizes.Tables[0].Rows.Count; i++)
+                    {
+                        TrainingList.Items.Add(Exersizes.Tables[0].Rows[i]["ShortName"]);
+                    }
+
+                    TrainingList.SelectedIndex = 0;
+                    TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
                 }
-
-                table.SelectCommand = cmd;
-                Exersizes.Clear();
-                TrainingList.Items.Clear();
-                table.Fill(Exersizes);
-                for (int i = 0; i < Exersizes.Tables[0].Rows.Count; i++)
-                {
-                    TrainingList.Items.Add(Exersizes.Tables[0].Rows[i]["ShortName"]);
-                }
-
-                TrainingList.SelectedIndex = 0;
-                TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
-
 
             }
             catch (Exception ee)
@@ -167,6 +171,7 @@ namespace TrainingCatalog
             finally
             {
                 connection.Close();
+                
             }
         }
         private void GridBind()
