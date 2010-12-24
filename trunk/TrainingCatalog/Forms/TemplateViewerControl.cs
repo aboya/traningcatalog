@@ -223,6 +223,18 @@ namespace TrainingCatalog
             row.Cells[4].Value = "Remove";
             row.Tag = 0;
             cellCategory.Value = -1;
+
+            if (dataGridView1.Rows.Count > 0)
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Value =
+                            (selectedRow.Cells[0] as DataGridViewComboBoxCell).Value;
+                    dataGridView1.Rows[dataGridView1.Rows.Count-1].Cells[1].Value =
+                            (selectedRow.Cells[1] as DataGridViewComboBoxCell).Value;
+                }
+            }
  
         }
         private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
