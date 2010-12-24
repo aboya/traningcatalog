@@ -94,7 +94,7 @@
     <Compile Include="Forms\Perfomance.Designer.cs">
       <DependentUpon>Perfomance.cs</DependentUpon>
     </Compile>
-    <Compile Include="TemplateExersizesType.cs" />
+    <Compile Include="BusinessLogic\Types\TemplateExersizesType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\EditTemplate.resx">
@@ -136,8 +136,8 @@
     <Compile Include="Forms\Report.Designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReportDayType.cs" />
-    <Compile Include="ReportExersizeType.cs" />
+    <Compile Include="BusinessLogic\Types\ReportDayType.cs" />
+    <Compile Include="BusinessLogic\Types\ReportExersizeType.cs" />
     <Compile Include="Forms\TemplateAdd.cs">
       <SubType>Form</SubType>
     </Compile>

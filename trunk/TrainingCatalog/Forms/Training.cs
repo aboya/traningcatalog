@@ -77,7 +77,6 @@ namespace TrainingCatalog
                 connection.Close();
                 cmd.Dispose();
             }
-            cmd.Dispose();
             GridBind();
         }
 
