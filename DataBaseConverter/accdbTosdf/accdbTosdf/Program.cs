@@ -82,20 +82,20 @@ namespace accdbTosdf
 
         private static Dictionary<int, int> GetTraining(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
-            Dictionary<int, int> res = new Dictionary<int, int>();
-            return res;
+            accessCmd.CommandText = "select * from Training";
+            return MoveData(accessCmd, sdfCommand, "Training", "ID");
         }
 
         private static Dictionary<int, int> GetExersize(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
-            Dictionary<int, int> res = new Dictionary<int, int>();
-            return res;
+            accessCmd.CommandText = "select * from Exersize";
+            return MoveData(accessCmd, sdfCommand, "Exersize", "ID");
         }
 
         private static Dictionary<int, int> GetExersizeCategory(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
-            Dictionary<int, int> res = new Dictionary<int, int>();
-            return res;
+            accessCmd.CommandText = "select * from ExersizeCategory";
+            return MoveData(accessCmd, sdfCommand, "ExersizeCategory", "ID");
         }
 
         private static Dictionary<int, int> GetTemplate(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
@@ -104,44 +104,77 @@ namespace accdbTosdf
             accessCmd.CommandText = "select * from Template";
             return MoveData(accessCmd, sdfCommand, "Template", "ID");
         }
-        public static Dictionary<string, object> GetValues(OleDbDataReader reader)
+        public static List<string> GetFiledNames(OleDbDataReader reader)
         {
-            Dictionary<string, object> res = new Dictionary<string, object>();
+            List<string> res = new List<string>();
             int i, n = reader.FieldCount;
             for (i = 0; i < n; i++)
             {
                 string name = reader.GetName(i);
-                object val = reader.GetValue(i);
-                res.Add(name, val);
+                res.Add(name);
 
             }
             return res;
         }
-        public static string GenerateInsert(DbDataReader reader)
-        {
-            return string.Empty;
-        }
-        public static Dictionary<int, int> MoveData(DbCommand from, DbCommand to, string table, string primaryKeyColumn)
+
+        /// <summary>
+        /// возвращает маппинг объектов id в старой базе и id в новой.
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="table"></param>
+        /// <param name="primaryKeyColumn"></param>
+        /// <returns></returns>
+        public static Dictionary<int, int> MoveData(OleDbCommand from, SqlCeCommand to, string table, string primaryKeyColumn)
         {
             Dictionary<int, int> res = new Dictionary<int, int>();
             from.Parameters.Clear();
             from.CommandText = "select * from " + table;
-            using (DbDataReader reader = from.ExecuteReader())
+            using (OleDbDataReader reader = from.ExecuteReader())
             {
-                GenerateCommand(reader, to);
-                while (reader.Read())
+                reader.Read();
+                List<string> fromFields = GetFiledNames(reader);
+                fromFields.Remove(primaryKeyColumn);
+                string insertStatement = GenerateInsert(fromFields, table);
+                to.CommandText = insertStatement;
+                do
                 {
-                    DbParameter p = new DbParameter();
+                    FillParams(to.Parameters, fromFields, reader);
+                    to.ExecuteNonQuery();
+                    to.CommandText = "Select @@Identity";
+                    int toId = (int)to.ExecuteScalar();
+                    int fromId = (int)reader[primaryKeyColumn];
+                    res[fromId] = toId;
 
-                     //to.Parameters.Add(
-                }
+                } while (reader.Read());
             }
             return res;
         }
 
-        private static void GenerateCommand(DbDataReader reader, DbCommand to)
+        private static void FillParams(SqlCeParameterCollection sqlCeParameterCollection, List<string> fromFields, OleDbDataReader reader)
         {
-           
+            sqlCeParameterCollection.Clear();
+            foreach (string par in fromFields)
+            {
+                sqlCeParameterCollection.AddWithValue(par, reader[par]);
+            }
+        }
+
+        private static string GenerateInsert(List<string> fromFields, string table)
+        {
+            string insert = string.Format("insert into {0}  ({1})  values(", table, string.Join(",", fromFields.ToArray()));
+            foreach (string par in fromFields)
+            {
+                insert += "@" + par + ",";
+            }
+            if (insert[insert.Length - 1] == ',') insert = insert.Substring(0, insert.Length - 1);
+            insert += ")";
+            return insert;
+        }
+
+        private static List<string> GetFields(Dictionary<string, object> fromValues)
+        {
+            throw new NotImplementedException();
         }
     }
 }
