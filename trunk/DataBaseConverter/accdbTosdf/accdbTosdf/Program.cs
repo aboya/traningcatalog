@@ -40,7 +40,7 @@ namespace accdbTosdf
                                     Dictionary<int, int> Template = GetTemplate(accessCmd, sdfCommand);
                                     MoveLinkData(Training, Exersize, accessCmd, sdfCommand);
                                     MoveExersizeCategoryLink(ExersizeCategory, Exersize, accessCmd, sdfCommand);
-                                    MoveTrainingTemplate(Template, accessCmd, sdfCommand);
+                                    MoveTrainingTemplate(Template, Exersize, accessCmd, sdfCommand);
                                     transaction.Commit();
                                 }
                                 catch (Exception e)
@@ -65,19 +65,69 @@ namespace accdbTosdf
             }
         }
 
-        private static void MoveTrainingTemplate(Dictionary<int, int> Template, OleDbCommand accessCmd, SqlCeCommand sdfCommand)
+        private static void MoveTrainingTemplate(Dictionary<int, int> Template, Dictionary<int,int> Exersize, OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
-            throw new NotImplementedException();
+            accessCmd.CommandText = "select * from TrainingTemplate";
+            using (OleDbDataReader reader = accessCmd.ExecuteReader())
+            {
+                sdfCommand.Parameters.Clear();
+                sdfCommand.CommandText = "insert into TrainingTemplate(TemplateID, ExersizeID, Weight, Count) values(@TemplateID, @ExersizeID, @Weight, @Count)";
+                sdfCommand.Parameters.Add("@TemplateID", null);
+                sdfCommand.Parameters.Add("@ExersizeID", null);
+                sdfCommand.Parameters.Add("@Weight", null);
+                sdfCommand.Parameters.Add("@Count", null);
+
+                while (reader.Read())
+                {
+                    sdfCommand.Parameters["@TemplateID"].Value = Template[Convert.ToInt32(reader["TemplateID"])];
+                    sdfCommand.Parameters["@ExersizeID"].Value = Exersize[Convert.ToInt32(reader["ExersizeID"])];
+                    sdfCommand.Parameters["@Weight"].Value = reader["Weight"];
+                    sdfCommand.Parameters["@Count"].Value = reader["Count"];
+                    sdfCommand.ExecuteNonQuery();
+                }
+            }
         }
 
         private static void MoveExersizeCategoryLink(Dictionary<int, int> ExersizeCategory, Dictionary<int, int> Exersize, OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
-            throw new NotImplementedException();
+            accessCmd.CommandText = "select * from ExersizeCategoryLink";
+            using (OleDbDataReader reader = accessCmd.ExecuteReader())
+            {
+                sdfCommand.Parameters.Clear();
+                sdfCommand.CommandText = "insert into ExersizeCategoryLink(ExersizeID, ExersizeCategoryID) values(@ExersizeID, @ExersizeCategoryID)";
+                sdfCommand.Parameters.Add("@ExersizeCategoryID", null);
+                sdfCommand.Parameters.Add("@ExersizeID", null);
+
+                while (reader.Read())
+                {
+                    sdfCommand.Parameters["@ExersizeCategoryID"].Value = ExersizeCategory[Convert.ToInt32(reader["ExersizeCategoryID"])];
+                    sdfCommand.Parameters["@ExersizeID"].Value = Exersize[Convert.ToInt32(reader["ExersizeID"])];
+                    sdfCommand.ExecuteNonQuery();
+                }
+            }
         }
 
         private static void MoveLinkData(Dictionary<int, int> Training, Dictionary<int, int> Exersize, OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
-            throw new NotImplementedException();
+            accessCmd.CommandText = "select * from Link";
+            using (OleDbDataReader reader = accessCmd.ExecuteReader())
+            {
+                sdfCommand.Parameters.Clear();
+                sdfCommand.CommandText = "insert into Link(TrainingID, ExersizeID, Weight, Count) values(@TrainingID, @ExersizeID, @Weight, @Count)";
+                sdfCommand.Parameters.Add("@TrainingID", null);
+                sdfCommand.Parameters.Add("@ExersizeID", null);
+                sdfCommand.Parameters.Add("@Weight", null);
+                sdfCommand.Parameters.Add("@Count", null);
+
+                while (reader.Read())
+                {
+                    sdfCommand.Parameters["@TrainingID"].Value =  Training[Convert.ToInt32(reader["TrainingID"])];
+                    sdfCommand.Parameters["@ExersizeID"].Value = Exersize[Convert.ToInt32(reader["ExersizeID"])];
+                    sdfCommand.Parameters["@Weight"].Value = reader["Weight"];
+                    sdfCommand.Parameters["@Count"].Value = reader["Count"];
+                    sdfCommand.ExecuteNonQuery();
+                }
+            }
         }
 
         private static Dictionary<int, int> GetTraining(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
