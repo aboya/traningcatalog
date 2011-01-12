@@ -139,7 +139,7 @@ namespace accdbTosdf
         private static Dictionary<int, int> GetExersize(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
             accessCmd.CommandText = "select * from Exersize";
-            return MoveData(accessCmd, sdfCommand, "Exersize", "ID");
+            return MoveData(accessCmd, sdfCommand, "Exersize", "ExersizeID");
         }
 
         private static Dictionary<int, int> GetExersizeCategory(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
@@ -183,20 +183,24 @@ namespace accdbTosdf
             using (OleDbDataReader reader = from.ExecuteReader())
             {
                 reader.Read();
-                List<string> fromFields = GetFiledNames(reader);
-                fromFields.Remove(primaryKeyColumn);
-                string insertStatement = GenerateInsert(fromFields, table);
-                to.CommandText = insertStatement;
-                do
+                if (reader.HasRows)
                 {
-                    FillParams(to.Parameters, fromFields, reader);
-                    to.ExecuteNonQuery();
-                    to.CommandText = "Select @@Identity";
-                    int toId = (int)to.ExecuteScalar();
-                    int fromId = (int)reader[primaryKeyColumn];
-                    res[fromId] = toId;
+                    List<string> fromFields = GetFiledNames(reader);
+                    fromFields.Remove(primaryKeyColumn);
+                    fromFields.Remove("Field1");
+                    string insertStatement = GenerateInsert(fromFields, table);
+                    to.CommandText = insertStatement;
+                    do
+                    {
+                        FillParams(to.Parameters, fromFields, reader);
+                        to.ExecuteNonQuery();
+                        to.CommandText = "SELECT @@IDENTITY";
+                        int toId = Convert.ToInt32(to.ExecuteScalar());
+                        int fromId = (int)reader[primaryKeyColumn];
+                        res[fromId] = toId;
 
-                } while (reader.Read());
+                    } while (reader.Read());
+                }
             }
             return res;
         }
