@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 using System.Diagnostics;
 
@@ -23,9 +23,9 @@ namespace TrainingCatalog
         }
         DataSet ExersizeCategoryTable = new DataSet();
         //List<ExersizeSource> Exersizes = new List<ExersizeSource>();
-        OleDbConnection connection;
-        OleDbCommand command;
-        OleDbDataAdapter table = new OleDbDataAdapter();
+        SqlCeConnection connection;
+        SqlCeCommand command;
+        SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataTable dt = new DataTable();
         public TemplateViewerControl()
         {
@@ -106,7 +106,7 @@ namespace TrainingCatalog
             try
             {
 
-                using (OleDbCommand cmd = new OleDbCommand())
+                using (SqlCeCommand cmd = new SqlCeCommand())
                 {
                     cmd.Connection = connection;
                     connection.Open();
@@ -118,15 +118,15 @@ namespace TrainingCatalog
                     else
                     {
 
-                        cmd.CommandText = @"select Exersize.ExersizeID, Exersize.ShortName from Exersize 
+                        cmd.CommandText = @"select Exersize.ID, Exersize.ShortName from Exersize 
                                         inner join ExersizeCategoryLink on
-                                        ExersizeCategoryLink.ExersizeID = Exersize.ExersizeID
+                                        ExersizeCategoryLink.ExersizeID = Exersize.ID
                                         where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
                                         order by ShortName";
-                        cmd.Parameters.Add("@exersizeCategoryId", OleDbType.Integer).Value = categoryId;
+                        cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = categoryId;
 
                     }
-                    using (OleDbDataReader dr = cmd.ExecuteReader())
+                    using (SqlCeDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
@@ -255,8 +255,8 @@ namespace TrainingCatalog
         {
             if (ConfigurationManager.ConnectionStrings["db"] != null)
             {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-                command = new OleDbCommand();
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                command = new SqlCeCommand();
                 command.Connection = connection;
                 FillCategoryList();
                 try
@@ -311,7 +311,7 @@ namespace TrainingCatalog
         //    try
         //    {
         //        connection.Open();
-        //        using (OleDbCommand cmd = connection.CreateCommand())
+        //        using (SqlCeCommand cmd = connection.CreateCommand())
         //        {
         //            cmd.CommandText = string.Format("delete from TrainingTemplate where ID={0}", id);
         //            cmd.ExecuteNonQuery();

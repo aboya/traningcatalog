@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ZedGraph;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic.Types;
 namespace TrainingCatalog
 {
     public partial class Perfomance : Form
     {
-        OleDbConnection connection;
-        OleDbDataAdapter table = new OleDbDataAdapter();
+        SqlCeConnection connection;
+        SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataSet Exersizes = new DataSet();
         protected DateTime MinDateTime;
         protected DateTime MaxDateTime;
@@ -23,10 +23,11 @@ namespace TrainingCatalog
         {
             InitializeComponent();
         }
+        
 
         private void Perfomance_Load(object sender, EventArgs e)
         {
-            connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             this.MinimumSize = new Size(475, 319);
  
             ExersizeLoad();
@@ -186,7 +187,7 @@ namespace TrainingCatalog
             {
                 int ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
                 connection.Open();
-                using (OleDbCommand cmd = new OleDbCommand())
+                using (SqlCeCommand cmd = new SqlCeCommand())
                 {
                     cmd.Connection = connection;
                     cmd.CommandText =
@@ -196,7 +197,7 @@ namespace TrainingCatalog
                                       "and Day between DateValue(\"{1}\") and  DateValue(\"{2}\") " +
                                       "order by Day, Weight", ExersizeId, dtpFrom.Value.ToString("dd/MM/yyyy"),
                                                                     dtpTo.Value.ToString("dd/MM/yyyy"));
-                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    using (SqlCeDataReader reader = cmd.ExecuteReader())
                     {
 
                         while (reader.Read())
@@ -236,7 +237,7 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = new OleDbCommand("select * from Exersize order by ShortName", connection))
+                using (SqlCeCommand cmd = new SqlCeCommand("select * from Exersize order by ShortName", connection))
                 {
                     // fill exersizes
                     cmd.Connection = connection;

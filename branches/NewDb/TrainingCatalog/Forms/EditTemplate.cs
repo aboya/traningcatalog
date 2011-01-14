@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 
 
@@ -15,7 +15,7 @@ namespace TrainingCatalog
     public partial class EditTemplate : Form
     {
         private int _TemplateID;
-        OleDbConnection connection;
+        SqlCeConnection connection;
         public EditTemplate()
         {
             InitializeComponent();
@@ -61,7 +61,7 @@ namespace TrainingCatalog
         {
             try
             {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 if (_TemplateID > 0)
                 {
                     List<TemplateExersizesType>  templateExersizes = LoadTemplateExersizesById(_TemplateID);
@@ -86,7 +86,7 @@ namespace TrainingCatalog
             {
 
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = string.Format("select Name from Template where ID={0}", templateId);
                     res = Convert.ToString(cmd.ExecuteScalar());
@@ -109,10 +109,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = string.Format("select * from TrainingTemplate where TemplateID={0}", templateId);
-                    using (OleDbDataReader dr = cmd.ExecuteReader())
+                    using (SqlCeDataReader dr = cmd.ExecuteReader())
                     {
                         for (int i = 0; dr.Read(); i++)
                         {
@@ -142,14 +142,14 @@ namespace TrainingCatalog
         {
             List<TemplateExersizesType> list = templateViewerControl1.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
-            OleDbTransaction transaction = null;
+            SqlCeTransaction transaction = null;
             try
             {
                 connection.Open();
                 transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
 
@@ -191,14 +191,14 @@ namespace TrainingCatalog
         {
             List<TemplateExersizesType> list = templateViewerControl1.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
-            OleDbTransaction transaction = null;
+            SqlCeTransaction transaction = null;
             try
             {
                 connection.Open();
                 transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
                         cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}", txtTemplateName.Text.Trim(), _TemplateID);

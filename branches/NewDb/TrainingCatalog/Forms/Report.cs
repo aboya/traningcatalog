@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.IO;
 using System.Configuration;
 
@@ -20,7 +20,7 @@ namespace TrainingCatalog
                 {
                     try
                     {
-                        using (OleDbCommand cmd = new OleDbCommand())
+                        using (SqlCeCommand cmd = new SqlCeCommand())
                         {
                             cmd.Connection = connection;
                             cmd.Connection.Open();
@@ -49,8 +49,8 @@ namespace TrainingCatalog
             }
         }
 
-        private OleDbConnection _connection;
-        protected OleDbConnection connection
+        private SqlCeConnection _connection;
+        protected SqlCeConnection connection
         {
             get
             {
@@ -58,7 +58,7 @@ namespace TrainingCatalog
                 {
                     try
                     {
-                        _connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                        _connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                     }
                     catch (Exception ee)
                     {
@@ -125,10 +125,10 @@ namespace TrainingCatalog
         {
             using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.Default))
             {
-                using (OleDbConnection connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
+                using (SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
                 {
                     connection.Open();
-                    using (OleDbCommand command = new OleDbCommand())
+                    using (SqlCeCommand command = new SqlCeCommand())
                     {
                         command.Connection = connection;
                         command.CommandText = String.Format("select count(Day) from Training " +
@@ -139,15 +139,15 @@ namespace TrainingCatalog
                         pbProgress.Maximum = Convert.ToInt32(command.ExecuteScalar());
                         pbProgress.Minimum = 0;
                         command.CommandText =
-                        String.Format("select distinct Day,Weight,Count,BodyWeight,Exersize.ShortName, Exersize.ExersizeID from (( Link " +
+                        String.Format("select distinct Day,Weight,Count,BodyWeight,Exersize.ShortName, Exersize.ID from (( Link " +
                                       "inner join Training on Training.ID = Link.TrainingID) " +
-                                      "inner join Exersize on Exersize.ExersizeID = Link.ExersizeID ) " +
+                                      "inner join Exersize on Exersize.ID = Link.ExersizeID ) " +
                                       "where  " +
                                       "Day between DateValue(\"{0}\") and  DateValue(\"{1}\") " +
                                       "order by Day asc", start.ToString("dd/MM/yyyy"),
                                                                     end.ToString("dd/MM/yyyy"));
 
-                        using (OleDbDataReader dr = command.ExecuteReader())
+                        using (SqlCeDataReader dr = command.ExecuteReader())
                         {
                             DateTime lastDate = DateTime.MinValue;
                             DateTime currentDate = DateTime.MinValue;

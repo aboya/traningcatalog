@@ -6,21 +6,21 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 
 namespace TrainingCatalog
 {
     public partial class ExersizesList : Form
     {
-        OleDbConnection connection;
-        OleDbDataAdapter table = new OleDbDataAdapter();
+        SqlCeConnection connection;
+        SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataSet Exersizes = new DataSet();
         DataSet categories = new DataSet();
         public ExersizesList()
         {
 
-            connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             InitializeComponent();
         }
 
@@ -54,9 +54,9 @@ namespace TrainingCatalog
             {
                 connection.Open();
 
-                OleDbCommand cmd = new OleDbCommand("select * from Exersize order by ShortName asc", connection);
+                SqlCeCommand cmd = new SqlCeCommand("select * from Exersize order by ShortName asc", connection);
                 cmd.Connection = connection;
-                //OleDbDataReader reader = cmd.ExecuteReader();
+                //SqlCeDataReader reader = cmd.ExecuteReader();
 
                 table.SelectCommand = cmd;
                 table.Fill(Exersizes);
@@ -105,7 +105,7 @@ namespace TrainingCatalog
 
                 }
                 //saving name & description
-                OleDbCommand cmd = new OleDbCommand();
+                SqlCeCommand cmd = new SqlCeCommand();
                 string shortName = txtExersizeName.Text.Trim().Replace("\"", "").Replace(@"'", "").Replace(";", "");
                 string description = txtDescription.Text.Trim().Replace("\"", "").Replace(@"'", "").Replace(";", "");
                 cmd.Connection = connection;
@@ -131,7 +131,7 @@ namespace TrainingCatalog
         }
         private void deleteLink(int exersizeId, int exersizeCategoryId)
         {
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             cmd.Connection = connection;
 
 
@@ -143,7 +143,7 @@ namespace TrainingCatalog
         private void addLink(int exersizeId, int exersizeCategoryId)
         {
             // assume connection is open & do Not close
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             cmd.Connection = connection;
             cmd.CommandText = "select max(ID)+1 from ExersizeCategoryLink";
             int lastId = Convert.ToInt32(cmd.ExecuteScalar());
@@ -157,7 +157,7 @@ namespace TrainingCatalog
         private bool isExistLink(int exersizeId, int exersizeCategoryId)
         {
             // assume connection is open & do Not close
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             cmd.Connection = connection;
             cmd.CommandText = string.Format(@"select count(*) from ExersizeCategoryLink inner join 
                                                 ExersizeCategory on
@@ -182,13 +182,13 @@ namespace TrainingCatalog
                 txtDescription.Text = Convert.ToString(Exersizes.Tables[0].Rows[index]["Description"]);
 
                 int exersizeId = Convert.ToInt32(Exersizes.Tables[0].Rows[index]["ExersizeID"]);
-                OleDbCommand cmd = new OleDbCommand();
+                SqlCeCommand cmd = new SqlCeCommand();
                 cmd.Connection = connection;
                 cmd.CommandText = string.Format(@"select * from ExersizeCategoryLink inner join 
                                                 ExersizeCategory on
                                                 ExersizeCategoryLink.ExersizeCategoryID = ExersizeCategory.ID
                                                 where ExersizeID = {0}", exersizeId);
-                OleDbDataReader dataReader = cmd.ExecuteReader();
+                SqlCeDataReader dataReader = cmd.ExecuteReader();
 
                 while (dataReader.Read())
                 {
@@ -216,13 +216,13 @@ namespace TrainingCatalog
         }
         private void LoadExersizeCategories()
         {
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             try
             {
                 connection.Open();
                 cmd.Connection = connection;
                 cmd.CommandText = "select * from ExersizeCategory order by Name";
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter();
+                SqlCeDataAdapter dataAdapter = new SqlCeDataAdapter();
                 dataAdapter.SelectCommand = cmd;
                 dataAdapter.Fill(categories);
                 foreach (DataRow dr in categories.Tables[0].Rows)

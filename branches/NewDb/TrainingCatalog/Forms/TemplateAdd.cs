@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 
 namespace TrainingCatalog
 {
     public partial class TemplateAdd : Form
     {
-        OleDbConnection connection;
+        SqlCeConnection connection;
         DataSet templates;
         DateTime _trainingDay;
         public TemplateAdd(DateTime trainingDay)
@@ -25,7 +25,7 @@ namespace TrainingCatalog
         private void TemplateAdd_Load(object sender, EventArgs e)
         {
             try {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 templates = new DataSet();
                 LoadData();
                 ddlBind();
@@ -41,10 +41,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = "select * from Template";
-                    using (OleDbDataAdapter da = new OleDbDataAdapter())
+                    using (SqlCeDataAdapter da = new SqlCeDataAdapter())
                     {
                         da.SelectCommand = cmd;
                         da.Fill(templates);
@@ -79,7 +79,7 @@ namespace TrainingCatalog
         {
             List<TemplateExersizesType> list = ucTemplate.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
-            OleDbTransaction transaction = null;
+            SqlCeTransaction transaction = null;
 
             try
             {
@@ -88,7 +88,7 @@ namespace TrainingCatalog
                 transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
                         foreach (TemplateExersizesType exersize in list)
@@ -156,10 +156,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = string.Format("select * from TrainingTemplate where TemplateID={0}", templateId);
-                    using (OleDbDataReader dr = cmd.ExecuteReader())
+                    using (SqlCeDataReader dr = cmd.ExecuteReader())
                     {
                         for (int i = 0; dr.Read(); i++)
                         {
@@ -190,7 +190,7 @@ namespace TrainingCatalog
         {
             SaveTemplate();
         }
-        private int GetTrainingDayId(string date, OleDbCommand cmd)
+        private int GetTrainingDayId(string date, SqlCeCommand cmd)
         {
             int trainingdayId;
             cmd.CommandText = string.Format("select ID from Training where Day = DateValue(\"{0}\")", date);
@@ -220,10 +220,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                OleDbTransaction transaction = connection.BeginTransaction();
+                SqlCeTransaction transaction = connection.BeginTransaction();
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
                         string strDate = _date.ToString("dd/MM/yyyy");

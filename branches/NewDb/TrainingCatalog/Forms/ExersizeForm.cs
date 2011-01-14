@@ -6,20 +6,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 namespace TrainingCatalog
 {
     public partial class ExersizeForm : Form
     {
-        OleDbConnection connection;
+        SqlCeConnection connection;
         DataSet categories = new DataSet();
         public ExersizeForm()
         {
             InitializeComponent();
             try
             {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             }
             catch (Exception e)
             {
@@ -32,7 +32,7 @@ namespace TrainingCatalog
         {
             bool ok = true;
             int lastExersizeId = 0;
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             String ShortName = String.Empty, Description = String.Empty;
             try
             {
@@ -78,13 +78,13 @@ namespace TrainingCatalog
         }
         private void LoadExersizeCategories()
         {
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             try
             {
                 connection.Open();
                 cmd.Connection = connection;
                 cmd.CommandText = "select * from ExersizeCategory order by Name";
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter();
+                SqlCeDataAdapter dataAdapter = new SqlCeDataAdapter();
                 dataAdapter.SelectCommand = cmd;
                 dataAdapter.Fill(categories);
 
@@ -106,7 +106,7 @@ namespace TrainingCatalog
         private void AddLinkToExersizeCategories(int ExersizeID)
         {
             // assume that connection alredy open and DONT close 
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             cmd.Connection = connection;
             foreach (int index in chkLstExersizeCategories.CheckedIndices)
             {

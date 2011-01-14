@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Globalization;
 using System.Configuration;
 
@@ -14,8 +14,8 @@ namespace TrainingCatalog
 {
     public partial class Training : Form
     {
-        OleDbConnection connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-        OleDbDataAdapter table = new OleDbDataAdapter();
+        SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+        SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataSet Exersizes = new DataSet();
         DataSet ExersizeCategoryTable = new DataSet();
         DateTime lastPressKeyTime;
@@ -35,7 +35,7 @@ namespace TrainingCatalog
             Object o;
             string date;
             date = dateTime.Value.ToString("dd/MM/yyyy");
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
 
             try
             {
@@ -94,7 +94,7 @@ namespace TrainingCatalog
                 connection.Open();
                 cbTraningCategory.Items.Add("Все");
 
-                using (OleDbCommand cmd = new OleDbCommand())
+                using (SqlCeCommand cmd = new SqlCeCommand())
                 {
                     cmd.Connection = connection;
                     cmd.Parameters.Clear();
@@ -127,7 +127,7 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = new OleDbCommand())
+                using (SqlCeCommand cmd = new SqlCeCommand())
                 {
                     cmd.Connection = connection;
                     // теперь загружаем список учитывая наш фильтр ExersizeCategoryTable
@@ -141,12 +141,12 @@ namespace TrainingCatalog
                     else
                     {
                         int exersizeCategoryId = (int)ExersizeCategoryTable.Tables[0].Rows[cbTraningCategory.SelectedIndex - 1]["ID"];
-                        cmd.CommandText = @"select Exersize.ExersizeID, Exersize.ShortName from Exersize 
+                        cmd.CommandText = @"select Exersize.ID, Exersize.ShortName from Exersize 
                                         inner join ExersizeCategoryLink on
                                         ExersizeCategoryLink.ExersizeID = Exersize.ExersizeID
                                         where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
                                         order by ShortName";
-                        cmd.Parameters.Add("@exersizeCategoryId", OleDbType.Integer).Value = exersizeCategoryId;
+                        cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = exersizeCategoryId;
                     }
 
                     table.SelectCommand = cmd;
@@ -175,21 +175,21 @@ namespace TrainingCatalog
         }
         private void GridBind()
         {
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             try
             {
                 dataGridView1.Columns.Clear();
                 string date = dateTime.Value.ToString("dd/MM/yyyy");
                 connection.Open();
                 cmd.Connection = connection;
-                cmd.CommandText = String.Format("select ShortName,Weight, Count from( ( Link inner join Training on Training.ID = Link.TrainingID ) inner  join Exersize on Exersize.ExersizeID = Link.ExersizeID) where Day = DateValue(\"{0}\") order by Link.ID", date);
+                cmd.CommandText = String.Format("select ShortName,Weight, Count from( ( Link inner join Training on Training.ID = Link.TrainingID ) inner  join Exersize on Exersize.ID = Link.ExersizeID) where Day = DateValue(\"{0}\") order by Link.ID", date);
                 DataSet dataSet = new DataSet();
-                OleDbDataAdapter tableAdapter = new OleDbDataAdapter();
+                SqlCeDataAdapter tableAdapter = new SqlCeDataAdapter();
                 tableAdapter.SelectCommand = cmd;
                 tableAdapter.Fill(dataSet);
 
                 DataSet TrainingIds = new DataSet();
-                tableAdapter.SelectCommand.CommandText = String.Format("select Link.ID from( ( Link inner join Training on Training.ID = Link.TrainingID ) inner  join Exersize on Exersize.ExersizeID = Link.ExersizeID) where Day = DateValue(\"{0}\") order by Link.ID", date);
+                tableAdapter.SelectCommand.CommandText = String.Format("select Link.ID from( ( Link inner join Training on Training.ID = Link.TrainingID ) inner  join Exersize on Exersize.ID = Link.ExersizeID) where Day = DateValue(\"{0}\") order by Link.ID", date);
                 tableAdapter.Fill(TrainingIds);
 
                 dataGridView1.Columns.Add("Exersize", "Exersize");
@@ -252,7 +252,7 @@ namespace TrainingCatalog
         {
             if (e.ColumnIndex != 3) return;
             if (e.RowIndex >= dataGridView1.Rows.Count) return;
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             try
             {
                 int LinkId = (int)dataGridView1.Rows[e.RowIndex].Tag;
@@ -294,7 +294,7 @@ namespace TrainingCatalog
         private void btnSaveWeight_Click(object sender, EventArgs e)
         {
             string date = dateTime.Value.ToString("dd/MM/yyyy");
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             cmd.Connection = connection;
             // обновляем вес тела
             try
