@@ -65,11 +65,10 @@
     <Compile Include="ExersizeInstance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrainingDayInstance.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database1.sdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database2.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

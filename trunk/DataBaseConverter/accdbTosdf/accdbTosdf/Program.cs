@@ -14,8 +14,7 @@ namespace accdbTosdf
     {
         static void Main(string[] args)
         {
-            string tableName = "Exersize";
-            string IdColumn = "ExersizeID";
+
             try
             {
 
@@ -28,10 +27,10 @@ namespace accdbTosdf
                         using (SqlCeConnection sdfConnection = new SqlCeConnection(ConfigurationManager.AppSettings["sdf"]))
                         {
                             sdfConnection.Open();
-                            SqlCeTransaction transaction = sdfConnection.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                            //SqlCeTransaction transaction = sdfConnection.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
                             using (SqlCeCommand sdfCommand = sdfConnection.CreateCommand())
                             {
-                                sdfCommand.Transaction = transaction;
+                                //sdfCommand.Transaction = transaction;
                                 try
                                 {
                                     Dictionary<int, int> Training = GetTraining(accessCmd, sdfCommand);
@@ -41,31 +40,85 @@ namespace accdbTosdf
                                     MoveLinkData(Training, Exersize, accessCmd, sdfCommand);
                                     MoveExersizeCategoryLink(ExersizeCategory, Exersize, accessCmd, sdfCommand);
                                     MoveTrainingTemplate(Template, Exersize, accessCmd, sdfCommand);
-                                    transaction.Commit();
+                                    //transaction.Commit();
+                                    CheckCorrects(accessCmd, sdfCommand);
                                 }
                                 catch (Exception e)
                                 {
                                     Console.WriteLine(e.Message);
-                                    transaction.Rollback();
+                                    //transaction.Rollback();
                                 }
                             }
                         }
-
                     }
-
                 }
-
-
-
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
         }
+        private static int cmp(ExersizeInstance x, ExersizeInstance y)
+        {
+            if (x < y) return 1;
+            if (x == y) return 0;
+            return -1;
+        }
 
-        private static void MoveTrainingTemplate(Dictionary<int, int> Template, Dictionary<int,int> Exersize, OleDbCommand accessCmd, SqlCeCommand sdfCommand)
+        private static void CheckCorrects(OleDbCommand accessCmd, SqlCeCommand sdfCommand)
+        {
+            accessCmd.CommandText = @"select Day,Weight,Count,ShortName from (Training 
+                                        inner join Link on Training.ID = Link.TrainingID )
+                                        inner join Exersize on Exersize.ExersizeID = Link.ExersizeID
+                                        Order by Day,ShortName, Weight, Count ";
+            List<ExersizeInstance> source = new List<ExersizeInstance>();
+            using (OleDbDataReader reader = accessCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+
+                    ExersizeInstance exersize = new ExersizeInstance()
+                    {
+                        Day = Convert.ToDateTime(reader["Day"]),
+                        Count = Convert.ToInt32(reader["count"]),
+                        Weight = Convert.ToInt32(reader["Weight"]),
+                        name = Convert.ToString(reader["ShortName"]).Trim()
+                    };
+                    source.Add(exersize);
+
+                }
+            }
+            sdfCommand.CommandText = @"select Day,Weight,Count,ShortName from (Training 
+                                       inner join Link on Training.ID = Link.TrainingID )
+                                       inner join Exersize on Exersize.ID = Link.ExersizeID
+                                        Order by Day,ShortName, Weight, Count ";
+            List<ExersizeInstance> desistation = new List<ExersizeInstance>();
+            using (SqlCeDataReader reader = sdfCommand.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    ExersizeInstance exersize = new ExersizeInstance()
+                    {
+                        Day = Convert.ToDateTime(reader["Day"]),
+                        Count = Convert.ToInt32(reader["count"]),
+                        Weight = Convert.ToInt32(reader["Weight"]),
+                        name = Convert.ToString(reader["ShortName"]).Trim()
+                    };
+                    desistation.Add(exersize);
+                }
+            }
+
+          //  source.Sort(cmp);
+           // desistation.Sort(cmp);
+            int n = source.Count;
+            if (n != desistation.Count) throw new Exception("Length is different");
+            for (int i = 0; i < n; i++)
+            {
+                if (source[i] != desistation[i]) throw new Exception(string.Format("Incorrect values at{0}", i));
+            }
+        }
+
+        private static void MoveTrainingTemplate(Dictionary<int, int> Template, Dictionary<int, int> Exersize, OleDbCommand accessCmd, SqlCeCommand sdfCommand)
         {
             accessCmd.CommandText = "select * from TrainingTemplate";
             using (OleDbDataReader reader = accessCmd.ExecuteReader())
@@ -192,6 +245,7 @@ namespace accdbTosdf
                     to.CommandText = insertStatement;
                     do
                     {
+                        to.CommandText = insertStatement;
                         FillParams(to.Parameters, fromFields, reader);
                         to.ExecuteNonQuery();
                         to.CommandText = "SELECT @@IDENTITY";
@@ -210,7 +264,11 @@ namespace accdbTosdf
             sqlCeParameterCollection.Clear();
             foreach (string par in fromFields)
             {
-                sqlCeParameterCollection.AddWithValue(par, reader[par]);
+                object value = reader[par];
+                if (value is DBNull) {
+                    if(par == "Comment" || par == "Description") value = string.Empty;
+                }
+                sqlCeParameterCollection.AddWithValue(par, value);
             }
         }
 
