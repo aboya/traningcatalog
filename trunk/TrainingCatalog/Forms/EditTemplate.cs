@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 
 
@@ -15,7 +15,7 @@ namespace TrainingCatalog
     public partial class EditTemplate : Form
     {
         private int _TemplateID;
-        OleDbConnection connection;
+        SqlCeConnection connection;
         public EditTemplate()
         {
             InitializeComponent();
@@ -29,7 +29,7 @@ namespace TrainingCatalog
 
         private void btnAddExersize_Click(object sender, EventArgs e)
         {
-            templateViewerControl1.AddNewRow();
+            templateViewerControl.AddNewRow();
             
         }
 
@@ -61,16 +61,16 @@ namespace TrainingCatalog
         {
             try
             {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 if (_TemplateID > 0)
                 {
                     List<TemplateExersizesType>  templateExersizes = LoadTemplateExersizesById(_TemplateID);
-                    templateViewerControl1.LoadTemplateExersizes(templateExersizes);
+                    templateViewerControl.LoadTemplateExersizes(templateExersizes);
                     txtTemplateName.Text = GetTemplateName(_TemplateID);
                 }
                 else
                 {
-                    templateViewerControl1.AddNewRow();
+                    templateViewerControl.AddNewRow();
                 }
             }
             catch (Exception ex)
@@ -86,7 +86,7 @@ namespace TrainingCatalog
             {
 
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = string.Format("select Name from Template where ID={0}", templateId);
                     res = Convert.ToString(cmd.ExecuteScalar());
@@ -109,10 +109,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = string.Format("select * from TrainingTemplate where TemplateID={0}", templateId);
-                    using (OleDbDataReader dr = cmd.ExecuteReader())
+                    using (SqlCeDataReader dr = cmd.ExecuteReader())
                     {
                         for (int i = 0; dr.Read(); i++)
                         {
@@ -120,7 +120,7 @@ namespace TrainingCatalog
                             res.Add(new TemplateExersizesType()
                             {
                                 ID = Convert.ToInt32(dr["ID"]),
-                                Count = Convert.ToInt32(dr["Count1"]),
+                                Count = Convert.ToInt32(dr["Count"]),
                                 Weight = Convert.ToInt32(dr["Weight"]),
                                 ExersizeID = Convert.ToInt32(dr["ExersizeID"]),
                             });
@@ -140,27 +140,28 @@ namespace TrainingCatalog
         }
         private void AddNewTemplate()
         {
-            List<TemplateExersizesType> list = templateViewerControl1.GetTemplateExersizes();
+            List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
-            OleDbTransaction transaction = null;
+            SqlCeTransaction transaction = null;
             try
             {
                 connection.Open();
                 transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
 
-                        cmd.CommandText = string.Format("insert into Template (Name) values('{0}')", txtTemplateName.Text.Trim());
+                        cmd.CommandText = "insert into Template (Name) values(@name)";
+                        cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = txtTemplateName.Text.Replace("'", "").Trim();
                         cmd.ExecuteNonQuery();
 
                         cmd.CommandText = "SELECT @@Identity";
                         int templateLastId = Convert.ToInt32(cmd.ExecuteScalar());
                         foreach (TemplateExersizesType exersize in list)
                         {
-                            cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, Count1) values({0}, {1}, {2}, {3}) ",
+                            cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count]) values({0}, {1}, {2}, {3}) ",
                                                        templateLastId,
                                                        exersize.ExersizeID,
                                                        exersize.Weight,
@@ -189,16 +190,16 @@ namespace TrainingCatalog
         }
         private void SaveTemplate()
         {
-            List<TemplateExersizesType> list = templateViewerControl1.GetTemplateExersizes();
+            List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
-            OleDbTransaction transaction = null;
+            SqlCeTransaction transaction = null;
             try
             {
                 connection.Open();
                 transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
                         cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}", txtTemplateName.Text.Trim(), _TemplateID);
@@ -207,7 +208,7 @@ namespace TrainingCatalog
                         {
                             if (exersize.ID == 0)
                             {
-                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, Count1) values({0}, {1}, {2}, {3}) ",
+                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count]) values({0}, {1}, {2}, {3}) ",
                                                            _TemplateID,
                                                            exersize.ExersizeID,
                                                            exersize.Weight,
@@ -216,7 +217,7 @@ namespace TrainingCatalog
                             }
                             else
                             {
-                                cmd.CommandText = string.Format("update TrainingTemplate set ExersizeID={1}, Weight={2}, Count1={3} where ID={0}",
+                                cmd.CommandText = string.Format("update TrainingTemplate set ExersizeID={1}, Weight={2}, [Count]={3} where ID={0}",
                                                            exersize.ID,
                                                            exersize.ExersizeID,
                                                            exersize.Weight,

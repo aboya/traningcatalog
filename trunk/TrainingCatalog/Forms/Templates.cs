@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 
 namespace TrainingCatalog
@@ -9,7 +9,7 @@ namespace TrainingCatalog
     public partial class Templates : Form
     {
         DataSet templates;
-        OleDbConnection connection;
+        SqlCeConnection connection;
         public Templates()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace TrainingCatalog
         {
             try
             {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 templates = new DataSet();
                 FillData();
                 GridBind();
@@ -55,10 +55,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = "select * from Template";
-                    OleDbDataAdapter da = new OleDbDataAdapter();
+                    SqlCeDataAdapter da = new SqlCeDataAdapter();
                     da.SelectCommand = cmd;
                     templates.Clear();
                     da.Fill(templates);
@@ -90,10 +90,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                OleDbTransaction transaction = connection.BeginTransaction();
+                SqlCeTransaction transaction = connection.BeginTransaction();
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
                         cmd.CommandText = string.Format("delete from TrainingTemplate where TemplateID={0}", id);

@@ -7,26 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ZedGraph;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic.Types;
 namespace TrainingCatalog
 {
     public partial class Perfomance : Form
     {
-        OleDbConnection connection;
-        OleDbDataAdapter table = new OleDbDataAdapter();
+        SqlCeConnection connection;
+        SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataSet Exersizes = new DataSet();
         protected DateTime MinDateTime;
         protected DateTime MaxDateTime;
+        private bool IsShown = false;
         public Perfomance()
         {
             InitializeComponent();
         }
+        
 
         private void Perfomance_Load(object sender, EventArgs e)
         {
-            connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             this.MinimumSize = new Size(475, 319);
  
             ExersizeLoad();
@@ -45,7 +47,7 @@ namespace TrainingCatalog
         private void CreateGraph(ZedGraphControl zgc)
         {
             // get a reference to the GraphPane
-
+            if (IsShown == false) return;
             try
             {
                 zedGraphControl1.IsShowPointValues = true;
@@ -66,23 +68,33 @@ namespace TrainingCatalog
                 List<PerfomanceDataType> items = GetPerfomance();
                 items = ApplyFilters(items);
                 int lastTrainingId = -1;
+                PerfomanceDataType previous = null;
                 foreach (PerfomanceDataType p in items)
                 {
-
+                    string tag = string.Format("Дата:{0} {1}x{2}={3}", p.Day.ToString("dd.MM.yyyy"), p.Weight, p.Count, p.Weight * p.Count);
+                    if (previous != null)
+                    {
+                        double A,W;
+                        A = 100 * (double)(p.Weight * p.Count - previous.Weight * previous.Count) / (previous.Weight * previous.Count);
+                        W = 100 * (double)(p.Weight - previous.Weight) / (previous.Weight);
+                        tag += string.Format("\t\n A:{0:0.##}% W:{1:0.##}%", A, W);
+                    }
                     if (chkWeighCount.Checked)
                     {
-                        pointWeightCount.Add(p.Day.ToOADate(), p.Weight * p.Count,
-                            string.Format("Дата:{0} {1}x{2}={3}", p.Day.ToString("dd.MM.yyyy"), p.Weight, p.Count, p.Weight * p.Count));
+                        pointWeightCount.Add(p.Day.ToOADate(), p.Weight * p.Count, tag);
                     }
                     if (chkBodyWeight.Checked)
                     {
                         if (p.BodyWeight > 0)
                             pointBodyWeight.Add(p.Day.ToOADate(), p.BodyWeight);
                     }
-                    if (chkWeight.Checked && lastTrainingId != p.TrainingID) // exculde dublicates
+                    if (chkWeight.Checked) 
                     {
-                        pointWeight.Add(p.Day.ToOADate(), p.Weight);
+                        if (previous == null || lastTrainingId != p.TrainingID || previous.Weight != p.Weight)// exculde dublicates
+                             pointWeight.Add(p.Day.ToOADate(), p.Weight, tag);
                     }
+                    previous = p;
+                    lastTrainingId = p.TrainingID;
                 }
 
                  
@@ -125,24 +137,28 @@ namespace TrainingCatalog
             if (rbNone.Checked) return items;
             List<PerfomanceDataType> res = new List<PerfomanceDataType>();
             Dictionary<int, int> maxes = new Dictionary<int, int>();
+            Dictionary<int, int> maxes2 = new Dictionary<int, int>();
             Dictionary<int, int> indexes = new Dictionary<int,int>();
             int index = 0;
             if (rbWork.Checked)
             {
                 foreach (PerfomanceDataType p in items)
                 {
-                    int m;
+                    int m,m2;
                     if (maxes.TryGetValue(p.TrainingID, out m))
                     {
-                        if (m < p.Weight * p.Count)
+                        m2 = maxes2[p.TrainingID];
+                        if (m < p.Weight * p.Count || m == p.Weight * p.Count && m2 < p.Weight )
                         {
                             maxes[p.TrainingID] = p.Weight * p.Count;
+                            maxes2[p.TrainingID] = p.Weight;
                             indexes[p.TrainingID] = index;
                         }
                     }
                     else
                     {
                         maxes[p.TrainingID] = p.Weight * p.Count;
+                        maxes2[p.TrainingID] = p.Weight;
                         indexes[p.TrainingID] = index;
                     }
                     index++;
@@ -150,22 +166,25 @@ namespace TrainingCatalog
                 }
 
             }
-            if (rbMaxWeight.Checked)
+            else if (rbMaxWeight.Checked)
             {
                 foreach (PerfomanceDataType p in items)
                 {
-                    int m;
+                    int m,m2;
                     if (maxes.TryGetValue(p.TrainingID, out m))
                     {
-                        if (m < p.Weight * p.Count)
+                        m2 = maxes2[p.TrainingID];
+                        if (m < p.Weight || m == p.Weight && m2 < p.Weight * p.Count)
                         {
                             maxes[p.TrainingID] = p.Weight ;
+                            maxes2[p.TrainingID] = p.Weight * p.Count;
                             indexes[p.TrainingID] = index;
                         }
                     }
                     else
                     {
                         maxes[p.TrainingID] = p.Weight ;
+                        maxes2[p.TrainingID] = p.Weight * p.Count;
                         indexes[p.TrainingID] = index;
                     }
                     index++;
@@ -186,17 +205,19 @@ namespace TrainingCatalog
             {
                 int ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
                 connection.Open();
-                using (OleDbCommand cmd = new OleDbCommand())
+                using (SqlCeCommand cmd = new SqlCeCommand())
                 {
                     cmd.Connection = connection;
                     cmd.CommandText =
                         String.Format("select Day,Weight,Count,BodyWeight,Training.ID as TrainingID from Link " +
                                       "inner join Training on Training.ID = Link.TrainingID " +
-                                      "where ExersizeID = {0} " +
-                                      "and Day between DateValue(\"{1}\") and  DateValue(\"{2}\") " +
-                                      "order by Day, Weight", ExersizeId, dtpFrom.Value.ToString("dd/MM/yyyy"),
-                                                                    dtpTo.Value.ToString("dd/MM/yyyy"));
-                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                                      "where ExersizeID = @exersizeId " +
+                                      "and Day between @start and  @end " +
+                                      "order by Day, Weight");
+                    cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = dtpFrom.Value.Date;
+                    cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = dtpTo.Value.Date;
+                    cmd.Parameters.Add("@exersizeId", SqlDbType.Int).Value = ExersizeId;
+                    using (SqlCeDataReader reader = cmd.ExecuteReader())
                     {
 
                         while (reader.Read())
@@ -236,7 +257,7 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = new OleDbCommand("select * from Exersize order by ShortName", connection))
+                using (SqlCeCommand cmd = new SqlCeCommand("select Id as ExersizeId, ShortName from Exersize order by ShortName", connection))
                 {
                     // fill exersizes
                     cmd.Connection = connection;
@@ -319,7 +340,12 @@ namespace TrainingCatalog
         {
             CreateGraph(zedGraphControl1);
         }
- 
 
+        private void Perfomance_Shown(object sender, EventArgs e)
+        {
+            this.IsShown = true;
+            CreateGraph(zedGraphControl1);
+            
+        }
     }
 }

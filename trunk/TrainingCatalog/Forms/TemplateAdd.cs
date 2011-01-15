@@ -6,14 +6,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
+using TrainingCatalog.BusinessLogic;
 
 namespace TrainingCatalog
 {
     public partial class TemplateAdd : Form
     {
-        OleDbConnection connection;
+        SqlCeConnection connection;
         DataSet templates;
         DateTime _trainingDay;
         public TemplateAdd(DateTime trainingDay)
@@ -25,7 +26,7 @@ namespace TrainingCatalog
         private void TemplateAdd_Load(object sender, EventArgs e)
         {
             try {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 templates = new DataSet();
                 LoadData();
                 ddlBind();
@@ -41,10 +42,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = "select * from Template";
-                    using (OleDbDataAdapter da = new OleDbDataAdapter())
+                    using (SqlCeDataAdapter da = new SqlCeDataAdapter())
                     {
                         da.SelectCommand = cmd;
                         da.Fill(templates);
@@ -79,7 +80,7 @@ namespace TrainingCatalog
         {
             List<TemplateExersizesType> list = ucTemplate.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
-            OleDbTransaction transaction = null;
+            SqlCeTransaction transaction = null;
 
             try
             {
@@ -88,14 +89,14 @@ namespace TrainingCatalog
                 transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
                         foreach (TemplateExersizesType exersize in list)
                         {
                             if (exersize.ID == 0)
                             {
-                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, Count1) values({0}, {1}, {2}, {3}) ",
+                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count]) values({0}, {1}, {2}, {3}) ",
                                                            _TemplateID,
                                                            exersize.ExersizeID,
                                                            exersize.Weight,
@@ -104,7 +105,7 @@ namespace TrainingCatalog
                             }
                             else
                             {
-                                cmd.CommandText = string.Format("update TrainingTemplate set ExersizeID={1}, Weight={2}, Count1={3} where ID={0}",
+                                cmd.CommandText = string.Format("update TrainingTemplate set ExersizeID={1}, Weight={2}, [Count]={3} where ID={0}",
                                                            exersize.ID,
                                                            exersize.ExersizeID,
                                                            exersize.Weight,
@@ -156,10 +157,10 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (OleDbCommand cmd = connection.CreateCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = string.Format("select * from TrainingTemplate where TemplateID={0}", templateId);
-                    using (OleDbDataReader dr = cmd.ExecuteReader())
+                    using (SqlCeDataReader dr = cmd.ExecuteReader())
                     {
                         for (int i = 0; dr.Read(); i++)
                         {
@@ -167,7 +168,7 @@ namespace TrainingCatalog
                             res.Add(new TemplateExersizesType()
                             {
                                 ID = Convert.ToInt32(dr["ID"]),
-                                Count = Convert.ToInt32(dr["Count1"]),
+                                Count = Convert.ToInt32(dr["Count"]),
                                 Weight = Convert.ToInt32(dr["Weight"]),
                                 ExersizeID = Convert.ToInt32(dr["ExersizeID"]),
                             });
@@ -190,64 +191,25 @@ namespace TrainingCatalog
         {
             SaveTemplate();
         }
-        private int GetTrainingDayId(string date, OleDbCommand cmd)
-        {
-            int trainingdayId;
-            cmd.CommandText = string.Format("select ID from Training where Day = DateValue(\"{0}\")", date);
-            object o = cmd.ExecuteScalar();
-            if (o == null || o is DBNull)
-            {
-                int maxTrainingDayId = 0;
-                cmd.CommandText = "select max(ID) from Training";
-                o = cmd.ExecuteScalar();
-                if (o is int)
-                {
-                    maxTrainingDayId = Convert.ToInt32(o);
-                }
-                cmd.CommandText = string.Format("insert into Training  values({0},DateValue(\"{1}\"), \'\',{2})", maxTrainingDayId + 1, date, 0);
-                cmd.ExecuteNonQuery();
-                trainingdayId = maxTrainingDayId + 1;
 
-            }
-            else
-            {
-                trainingdayId = Convert.ToInt32(o);
-            }
-            return trainingdayId;
-        }
         private void AddToTrainingDay(DateTime _date)
         {
             try
             {
                 connection.Open();
-                OleDbTransaction transaction = connection.BeginTransaction();
+                SqlCeTransaction transaction = connection.BeginTransaction();
                 try
                 {
-                    using (OleDbCommand cmd = connection.CreateCommand())
+                    using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         cmd.Transaction = transaction;
                         string strDate = _date.ToString("dd/MM/yyyy");
                         List<TemplateExersizesType> list =  ucTemplate.GetTemplateExersizes();
-                        int trainingDayId = this.GetTrainingDayId(strDate, cmd);
-
-                        int lastLinkId = 0;
-                        cmd.CommandText = "select max(ID) from Link";
-                        object o = cmd.ExecuteScalar();
-                        if (o is int)
-                            lastLinkId = Convert.ToInt32(o);
+                        int trainingDayId = TrainingBusiness.GetTrainingDayId(_date, cmd);
 
                         foreach (TemplateExersizesType exersize in list)
                         {
-                            
-                            cmd.CommandText = String.Format("insert into Link values({0},{1},{2},{3},{4})",
-                                                                lastLinkId + 1, 
-                                                                trainingDayId, 
-                                                                exersize.ExersizeID,
-                                                                exersize.Weight, 
-                                                                exersize.Count);
-                            cmd.ExecuteNonQuery();
-                            lastLinkId++;
-          
+                            TrainingBusiness.AddExersize(cmd, trainingDayId, exersize.ExersizeID, exersize.Weight, exersize.Count);
                         }
 
                     }

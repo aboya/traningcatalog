@@ -28,45 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new TrainingCatalog.CustomDataGridView();
+            this.gv_templates = new TrainingCatalog.CustomDataGridView();
             this.Category = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Exersize = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remove = new System.Windows.Forms.DataGridViewButtonColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_templates)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // gv_templates
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.gv_templates.AllowUserToAddRows = false;
+            this.gv_templates.AllowUserToDeleteRows = false;
+            this.gv_templates.AllowUserToResizeRows = false;
+            this.gv_templates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gv_templates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gv_templates.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Category,
             this.Exersize,
             this.Weight,
             this.Count,
             this.Remove});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(624, 390);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
-            this.dataGridView1.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView1_CurrentCellDirtyStateChanged);
-            this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
-            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
-            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
-            this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
+            this.gv_templates.Location = new System.Drawing.Point(3, 3);
+            this.gv_templates.MultiSelect = false;
+            this.gv_templates.Name = "gv_templates";
+            this.gv_templates.RowHeadersVisible = false;
+            this.gv_templates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gv_templates.Size = new System.Drawing.Size(624, 390);
+            this.gv_templates.TabIndex = 0;
+            this.gv_templates.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gv_templates_CellClick);
+            this.gv_templates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gv_templates_CellContentClick);
+            this.gv_templates.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gv_templates_CellValueChanged);
+            this.gv_templates.CurrentCellDirtyStateChanged += new System.EventHandler(this.gv_templates_CurrentCellDirtyStateChanged);
+            this.gv_templates.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gv_templates_EditingControlShowing);
+            this.gv_templates.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.gv_templates_RowsAdded);
+            this.gv_templates.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gv_templates_KeyDown);
+            this.gv_templates.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.gv_templates_KeyPress);
             // 
             // Category
             // 
@@ -107,11 +107,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.gv_templates);
             this.Name = "TemplateViewerControl";
             this.Size = new System.Drawing.Size(629, 395);
             this.Load += new System.EventHandler(this.TemplateViewerControl_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_templates)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -123,7 +123,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.DataGridViewComboBoxColumn Exersize;
         private System.Windows.Forms.DataGridViewComboBoxColumn Category;
-        private CustomDataGridView dataGridView1;
+        private CustomDataGridView gv_templates;
 
 
 

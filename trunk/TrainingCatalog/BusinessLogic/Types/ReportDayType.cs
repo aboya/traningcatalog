@@ -63,7 +63,7 @@ namespace TrainingCatalog
             {
                 resulst[i, 1] =  resulst[i,1].Remove(resulst[i,1].Length - 1);
             }
-            resulst[0,0] = "Дата:" + date.ToString("dd/MM/yyyy");
+            resulst[0,0] = string.Format("Дата:{0} ({1})",date.ToString("dd/MM/yyyy"),date.DayOfWeek);
             resulst[0,1] = "Вес:" + bodyWeight.ToString();;
             return resulst;
         }
