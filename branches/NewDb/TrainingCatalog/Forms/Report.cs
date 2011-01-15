@@ -131,21 +131,20 @@ namespace TrainingCatalog
                     using (SqlCeCommand command = new SqlCeCommand())
                     {
                         command.Connection = connection;
-                        command.CommandText = String.Format("select count(Day) from Training " +
-                                      "where  " +
-                                      "Day between DateValue(\"{0}\") and  DateValue(\"{1}\") ",
-                                        start.ToString("dd/MM/yyyy"),
-                                                                    end.ToString("dd/MM/yyyy"));
+                        command.Parameters.Add("@start", System.Data.SqlDbType.DateTime).Value = start.Date;
+                        command.Parameters.Add("@end", System.Data.SqlDbType.DateTime).Value = end.Date;
+                        command.CommandText = @"select count(Day) from Training " +
+                                                "where Day between @start and  @end ";
+
                         pbProgress.Maximum = Convert.ToInt32(command.ExecuteScalar());
                         pbProgress.Minimum = 0;
                         command.CommandText =
-                        String.Format("select distinct Day,Weight,Count,BodyWeight,Exersize.ShortName, Exersize.ID from (( Link " +
+                                      "select Day,Weight,Count,BodyWeight,Exersize.ShortName, Exersize.ID as ExersizeID from (( Link " +
                                       "inner join Training on Training.ID = Link.TrainingID) " +
                                       "inner join Exersize on Exersize.ID = Link.ExersizeID ) " +
                                       "where  " +
-                                      "Day between DateValue(\"{0}\") and  DateValue(\"{1}\") " +
-                                      "order by Day asc", start.ToString("dd/MM/yyyy"),
-                                                                    end.ToString("dd/MM/yyyy"));
+                                      "Day between @start and  @end " +
+                                      "order by Day asc";
 
                         using (SqlCeDataReader dr = command.ExecuteReader())
                         {

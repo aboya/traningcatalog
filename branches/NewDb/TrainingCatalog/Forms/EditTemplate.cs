@@ -120,7 +120,7 @@ namespace TrainingCatalog
                             res.Add(new TemplateExersizesType()
                             {
                                 ID = Convert.ToInt32(dr["ID"]),
-                                Count = Convert.ToInt32(dr["Count1"]),
+                                Count = Convert.ToInt32(dr["Count"]),
                                 Weight = Convert.ToInt32(dr["Weight"]),
                                 ExersizeID = Convert.ToInt32(dr["ExersizeID"]),
                             });
@@ -153,14 +153,15 @@ namespace TrainingCatalog
                     {
                         cmd.Transaction = transaction;
 
-                        cmd.CommandText = string.Format("insert into Template (Name) values('{0}')", txtTemplateName.Text.Trim());
+                        cmd.CommandText = "insert into Template (Name) values(@name)";
+                        cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = txtTemplateName.Text.Replace("'", "").Trim();
                         cmd.ExecuteNonQuery();
 
                         cmd.CommandText = "SELECT @@Identity";
                         int templateLastId = Convert.ToInt32(cmd.ExecuteScalar());
                         foreach (TemplateExersizesType exersize in list)
                         {
-                            cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, Count1) values({0}, {1}, {2}, {3}) ",
+                            cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count]) values({0}, {1}, {2}, {3}) ",
                                                        templateLastId,
                                                        exersize.ExersizeID,
                                                        exersize.Weight,
@@ -207,7 +208,7 @@ namespace TrainingCatalog
                         {
                             if (exersize.ID == 0)
                             {
-                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, Count1) values({0}, {1}, {2}, {3}) ",
+                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count]) values({0}, {1}, {2}, {3}) ",
                                                            _TemplateID,
                                                            exersize.ExersizeID,
                                                            exersize.Weight,
@@ -216,7 +217,7 @@ namespace TrainingCatalog
                             }
                             else
                             {
-                                cmd.CommandText = string.Format("update TrainingTemplate set ExersizeID={1}, Weight={2}, Count1={3} where ID={0}",
+                                cmd.CommandText = string.Format("update TrainingTemplate set ExersizeID={1}, Weight={2}, [Count]={3} where ID={0}",
                                                            exersize.ID,
                                                            exersize.ExersizeID,
                                                            exersize.Weight,

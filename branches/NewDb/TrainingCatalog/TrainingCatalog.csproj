@@ -16,6 +16,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,7 +29,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -58,7 +58,9 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -72,10 +74,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="ZedGraph, Version=5.0.9.41461, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>zedgraph_dll_v5.0.9\ZedGraph.dll</HintPath>
+      <HintPath>zedgraph_dll_v515\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\TrainingBusiness.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
     <Compile Include="Forms\CustomDataGridView.cs">
       <SubType>Component</SubType>
@@ -186,6 +189,13 @@
     <Content Include="Database2.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SqlCeBin\sqlceca35.dll" />
+    <Content Include="SqlCeBin\sqlcecompact35.dll" />
+    <Content Include="SqlCeBin\sqlceer35EN.dll" />
+    <Content Include="SqlCeBin\sqlceme35.dll" />
+    <Content Include="SqlCeBin\sqlceoledb35.dll" />
+    <Content Include="SqlCeBin\sqlceqp35.dll" />
+    <Content Include="SqlCeBin\sqlcese35.dll" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -201,11 +211,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.3.5">
-      <Visible>False</Visible>
-      <ProductName>SQL Server Compact 3.5 SP2</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
       <Visible>False</Visible>
       <ProductName>Windows Installer 3.1</ProductName>
@@ -213,6 +218,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /Y $(ProjectDir)SqlCeBin\sqlceca35.dll $(TargetDir)
+xcopy /Y $(ProjectDir)SqlCeBin\sqlcecompact35.dll $(TargetDir)
+xcopy /Y $(ProjectDir)SqlCeBin\sqlceer35EN.dll $(TargetDir)
+xcopy /Y $(ProjectDir)SqlCeBin\sqlceme35.dll $(TargetDir)
+xcopy /Y $(ProjectDir)SqlCeBin\sqlceoledb35.dll $(TargetDir)
+xcopy /Y $(ProjectDir)SqlCeBin\sqlceqp35.dll $(TargetDir)
+xcopy /Y $(ProjectDir)SqlCeBin\sqlcese35.dll $(TargetDir)</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

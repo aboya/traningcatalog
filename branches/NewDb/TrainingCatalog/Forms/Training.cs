@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Globalization;
 using System.Configuration;
+using TrainingCatalog.BusinessLogic;
 
 namespace TrainingCatalog
 {
@@ -31,41 +32,19 @@ namespace TrainingCatalog
         {
             uint weight = 0, count = 0;
             int TrainingId = 0, ExersizeId = 0;
-            int lastId, lastLinkId;
-            Object o;
-            string date;
-            date = dateTime.Value.ToString("dd/MM/yyyy");
-            SqlCeCommand cmd = new SqlCeCommand();
-
             try
             {
                 connection.Open();
-                weight = Convert.ToUInt32(txtWeight.Text);
-                count = Convert.ToUInt32(txtCount.Text);
-                cmd.Connection = connection;
-                cmd.CommandText = "select max(ID) from Training";
-                lastId = (int)cmd.ExecuteScalar();
-                cmd.CommandText = String.Format("select ID from Training where Day = DateValue(\"{0}\")", date);
-                o = cmd.ExecuteScalar();
-                if (o == null || o is DBNull)
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    // создаем новый тренировочный день
-                    cmd.CommandText = String.Format("insert into Training  values({0},DateValue(\"{1}\"), \'\',{2})", lastId + 1, date, 0);
-                    cmd.ExecuteNonQuery();
-                    TrainingId = lastId + 1;
-                }
-                else
-                {
-                    // используем уже созданный день
-                    TrainingId = (int)o;
+                    weight = Convert.ToUInt32(txtWeight.Text);
+                    count = Convert.ToUInt32(txtCount.Text);
 
+                    TrainingId = TrainingBusiness.GetTrainingDayId(dateTime.Value, cmd);
+                    
+                    ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
+                    TrainingBusiness.AddExersize(cmd, TrainingId, ExersizeId, (int)weight, (int)count);
                 }
-                cmd.CommandText = "select max(ID) from Link";
-                lastLinkId = (int)cmd.ExecuteScalar();
-
-                ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
-                cmd.CommandText = String.Format("insert into Link values({0},{1},{2},{3},{4})", lastLinkId + 1, TrainingId, ExersizeId, weight, count);
-                cmd.ExecuteNonQuery();
 
             }
             catch (Exception ee)
@@ -75,7 +54,6 @@ namespace TrainingCatalog
             finally
             {
                 connection.Close();
-                cmd.Dispose();
             }
             GridBind();
         }
@@ -136,16 +114,16 @@ namespace TrainingCatalog
                     // если в фильтре указали что бы показывать все упражнения
                     if (cbTraningCategory.SelectedIndex == 0)
                     {
-                        cmd.CommandText = "select * from Exersize order by ShortName";
+                        cmd.CommandText = "select Id as ExersizeId, ShortName from Exersize order by ShortName";
                     }
                     else
                     {
                         int exersizeCategoryId = (int)ExersizeCategoryTable.Tables[0].Rows[cbTraningCategory.SelectedIndex - 1]["ID"];
-                        cmd.CommandText = @"select Exersize.ID, Exersize.ShortName from Exersize 
-                                        inner join ExersizeCategoryLink on
-                                        ExersizeCategoryLink.ExersizeID = Exersize.ExersizeID
-                                        where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
-                                        order by ShortName";
+                        cmd.CommandText = @"select Exersize.ID as ExersizeID, Exersize.ShortName from Exersize 
+                                            inner join ExersizeCategoryLink on
+                                            ExersizeCategoryLink.ExersizeID = Exersize.ID
+                                            where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
+                                            order by ShortName";
                         cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = exersizeCategoryId;
                     }
 
@@ -179,18 +157,29 @@ namespace TrainingCatalog
             try
             {
                 dataGridView1.Columns.Clear();
-                string date = dateTime.Value.ToString("dd/MM/yyyy");
+                //string date = dateTime.Value.ToString("dd/MM/yyyy");
+                DateTime date = dateTime.Value.Date;
                 connection.Open();
                 cmd.Connection = connection;
-                cmd.CommandText = String.Format("select ShortName,Weight, Count from( ( Link inner join Training on Training.ID = Link.TrainingID ) inner  join Exersize on Exersize.ID = Link.ExersizeID) where Day = DateValue(\"{0}\") order by Link.ID", date);
+                cmd.CommandText = @"select ShortName,Weight, Count from  Link 
+                                    inner join Training on Training.ID = Link.TrainingID  
+                                    inner  join Exersize on Exersize.ID = Link.ExersizeID
+                                    where Day = @day order by Link.ID";
+                cmd.Parameters.Add("@Day", SqlDbType.DateTime).Value = date;
                 DataSet dataSet = new DataSet();
                 SqlCeDataAdapter tableAdapter = new SqlCeDataAdapter();
                 tableAdapter.SelectCommand = cmd;
                 tableAdapter.Fill(dataSet);
+                cmd.Parameters.Clear();
 
                 DataSet TrainingIds = new DataSet();
-                tableAdapter.SelectCommand.CommandText = String.Format("select Link.ID from( ( Link inner join Training on Training.ID = Link.TrainingID ) inner  join Exersize on Exersize.ID = Link.ExersizeID) where Day = DateValue(\"{0}\") order by Link.ID", date);
+                tableAdapter.SelectCommand.CommandText = @"select Link.ID from Link 
+                                                           inner join Training on Training.ID = Link.TrainingID 
+                                                           inner join Exersize on Exersize.ID = Link.ExersizeID
+                                                           where Day = @Day order by Link.ID";
+                cmd.Parameters.Add("@Day", SqlDbType.DateTime).Value = date;
                 tableAdapter.Fill(TrainingIds);
+                cmd.Parameters.Clear();
 
                 dataGridView1.Columns.Add("Exersize", "Exersize");
                 dataGridView1.Columns.Add("Weight", "Weight");
@@ -216,8 +205,11 @@ namespace TrainingCatalog
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
                 // get body weight
-                cmd.CommandText = string.Format("select BodyWeight from Training where Day = DateValue(\"{0}\")", date);
+                cmd.CommandText = @"select BodyWeight from Training 
+                                    where Day = @Day";
+                cmd.Parameters.Add("@Day", SqlDbType.DateTime).Value = date;
                 object bodyWeight = (object)cmd.ExecuteScalar();
+                cmd.Parameters.Clear();
                 if (bodyWeight == null)
                 {
                     txtBodyWeigh.Text = "0";
@@ -301,7 +293,9 @@ namespace TrainingCatalog
             {
                 cmd.Connection.Open();
                 double bodyWeight = Convert.ToDouble(txtBodyWeigh.Text);
-                cmd.CommandText = string.Format("UPDATE Training set BodyWeight = {0} where Day = DateValue(\"{1}\")", bodyWeight.ToString("F1", CultureInfo.InvariantCulture), date);
+                cmd.CommandText = "UPDATE Training set BodyWeight = @bodyWeight where Day = @day";
+                cmd.Parameters.Add("@day", SqlDbType.DateTime).Value = dateTime.Value.Date;
+                cmd.Parameters.Add("@bodyWeight", SqlDbType.Float).Value = bodyWeight;
                 int affectedRows = cmd.ExecuteNonQuery();
                 if (affectedRows == 0)
                 {

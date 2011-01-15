@@ -39,14 +39,14 @@ namespace TrainingCatalog
                 connection.Open();
                 cmd.Connection = connection;
 
-                cmd.CommandText = "select max(ExersizeID) from Exersize";
-                lastExersizeId = (int)cmd.ExecuteScalar();
                 ShortName = textBox1.Text;
                 Description = textBox2.Text;
 
 
 
-                cmd.CommandText = String.Format("insert into Exersize (ExersizeID,ShortName,Description) values({0},'{1}','{2}')",lastExersizeId + 1, ShortName, Description);
+                cmd.CommandText = "insert into Exersize (ShortName,Description) values(@name,@description)";
+                cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = ShortName;
+                cmd.Parameters.Add("@description", SqlDbType.NVarChar).Value = Description;
                 cmd.ExecuteNonQuery();
                 AddLinkToExersizeCategories(lastExersizeId + 1);
             }
@@ -106,18 +106,16 @@ namespace TrainingCatalog
         private void AddLinkToExersizeCategories(int ExersizeID)
         {
             // assume that connection alredy open and DONT close 
-            SqlCeCommand cmd = new SqlCeCommand();
-            cmd.Connection = connection;
-            foreach (int index in chkLstExersizeCategories.CheckedIndices)
+            using (SqlCeCommand cmd = connection.CreateCommand())
             {
-                cmd.CommandText = "select max(ID)+1 from ExersizeCategoryLink";
-                int lastId = (int)cmd.ExecuteScalar();
-                int exersizeCategoryId = (int)categories.Tables[0].Rows[index]["ID"];
-                cmd.CommandText = string.Format("insert into ExersizeCategoryLink values({0},{1},{2})", lastId, ExersizeID, categories.Tables[0].Rows[index]["ID"]);
-                cmd.ExecuteNonQuery();
+                foreach (int index in chkLstExersizeCategories.CheckedIndices)
+                {
+                    int exersizeCategoryId = (int)categories.Tables[0].Rows[index]["ID"];
+                    cmd.CommandText = string.Format("insert into ExersizeCategoryLink (ExersizeId, ExersizeCategoryId) values({0},{1})", ExersizeID, categories.Tables[0].Rows[index]["ID"]);
+                    cmd.ExecuteNonQuery();
+                }
             }
-
-            cmd = null;
+         
         }
     }
 }

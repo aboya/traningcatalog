@@ -54,7 +54,7 @@ namespace TrainingCatalog
             {
                 connection.Open();
 
-                SqlCeCommand cmd = new SqlCeCommand("select * from Exersize order by ShortName asc", connection);
+                SqlCeCommand cmd = new SqlCeCommand("select ID as ExersizeID, ShortName, Description from Exersize order by ShortName asc", connection);
                 cmd.Connection = connection;
                 //SqlCeDataReader reader = cmd.ExecuteReader();
 
@@ -112,7 +112,7 @@ namespace TrainingCatalog
                 cmd.CommandText = string.Format(@"update Exersize
                                                 set ShortName = '{0}',
                                                 Description = '{1}'
-                                                where ExersizeID = {2}", shortName,
+                                                where ID = {2}", shortName,
                                                                         description, exersizeId);
 
                 cmd.ExecuteNonQuery();
@@ -145,11 +145,11 @@ namespace TrainingCatalog
             // assume connection is open & do Not close
             SqlCeCommand cmd = new SqlCeCommand();
             cmd.Connection = connection;
-            cmd.CommandText = "select max(ID)+1 from ExersizeCategoryLink";
-            int lastId = Convert.ToInt32(cmd.ExecuteScalar());
 
-            cmd.CommandText = string.Format(@"insert into ExersizeCategoryLink
-                                              values( {0},{1},{2} )", lastId, exersizeId, exersizeCategoryId);
+            cmd.CommandText = @"insert into ExersizeCategoryLink (ExersizeId, ExersizeCategoryId)
+                               values( @exersizeId, @exersizeCategoryId)";
+            cmd.Parameters.Add("@exersizeId", SqlDbType.Int).Value = exersizeId;
+            cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = exersizeCategoryId;
             cmd.ExecuteNonQuery();
             cmd = null;
         }
