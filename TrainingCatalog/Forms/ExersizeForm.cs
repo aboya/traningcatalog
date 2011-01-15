@@ -6,20 +6,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
+using System.Data.SqlServerCe;
 using System.Configuration;
 namespace TrainingCatalog
 {
     public partial class ExersizeForm : Form
     {
-        OleDbConnection connection;
+        SqlCeConnection connection;
         DataSet categories = new DataSet();
         public ExersizeForm()
         {
             InitializeComponent();
             try
             {
-                connection = new OleDbConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             }
             catch (Exception e)
             {
@@ -32,21 +32,21 @@ namespace TrainingCatalog
         {
             bool ok = true;
             int lastExersizeId = 0;
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             String ShortName = String.Empty, Description = String.Empty;
             try
             {
                 connection.Open();
                 cmd.Connection = connection;
 
-                cmd.CommandText = "select max(ExersizeID) from Exersize";
-                lastExersizeId = (int)cmd.ExecuteScalar();
                 ShortName = textBox1.Text;
                 Description = textBox2.Text;
 
 
 
-                cmd.CommandText = String.Format("insert into Exersize (ExersizeID,ShortName,Description) values({0},'{1}','{2}')",lastExersizeId + 1, ShortName, Description);
+                cmd.CommandText = "insert into Exersize (ShortName,Description) values(@name,@description)";
+                cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = ShortName;
+                cmd.Parameters.Add("@description", SqlDbType.NVarChar).Value = Description;
                 cmd.ExecuteNonQuery();
                 AddLinkToExersizeCategories(lastExersizeId + 1);
             }
@@ -78,13 +78,13 @@ namespace TrainingCatalog
         }
         private void LoadExersizeCategories()
         {
-            OleDbCommand cmd = new OleDbCommand();
+            SqlCeCommand cmd = new SqlCeCommand();
             try
             {
                 connection.Open();
                 cmd.Connection = connection;
                 cmd.CommandText = "select * from ExersizeCategory order by Name";
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter();
+                SqlCeDataAdapter dataAdapter = new SqlCeDataAdapter();
                 dataAdapter.SelectCommand = cmd;
                 dataAdapter.Fill(categories);
 
@@ -106,18 +106,16 @@ namespace TrainingCatalog
         private void AddLinkToExersizeCategories(int ExersizeID)
         {
             // assume that connection alredy open and DONT close 
-            OleDbCommand cmd = new OleDbCommand();
-            cmd.Connection = connection;
-            foreach (int index in chkLstExersizeCategories.CheckedIndices)
+            using (SqlCeCommand cmd = connection.CreateCommand())
             {
-                cmd.CommandText = "select max(ID)+1 from ExersizeCategoryLink";
-                int lastId = (int)cmd.ExecuteScalar();
-                int exersizeCategoryId = (int)categories.Tables[0].Rows[index]["ID"];
-                cmd.CommandText = string.Format("insert into ExersizeCategoryLink values({0},{1},{2})", lastId, ExersizeID, categories.Tables[0].Rows[index]["ID"]);
-                cmd.ExecuteNonQuery();
+                foreach (int index in chkLstExersizeCategories.CheckedIndices)
+                {
+                    int exersizeCategoryId = (int)categories.Tables[0].Rows[index]["ID"];
+                    cmd.CommandText = string.Format("insert into ExersizeCategoryLink (ExersizeId, ExersizeCategoryId) values({0},{1})", ExersizeID, categories.Tables[0].Rows[index]["ID"]);
+                    cmd.ExecuteNonQuery();
+                }
             }
-
-            cmd = null;
+         
         }
     }
 }
