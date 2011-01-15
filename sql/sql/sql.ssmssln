@@ -1,0 +1,9 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+Project("{1FCC92F3-F470-4421-9501-1C6E970181CC}") = "sql", "sql\sql.ssmsmobileproj", "{11761F91-D007-490E-BA25-BCB044D07ED2}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
