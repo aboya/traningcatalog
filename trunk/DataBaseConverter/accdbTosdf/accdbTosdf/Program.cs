@@ -57,6 +57,7 @@ namespace accdbTosdf
             {
                 Console.WriteLine(e.Message);
             }
+            Console.ReadKey();
         }
         private static int cmp(ExersizeInstance x, ExersizeInstance y)
         {
@@ -135,7 +136,7 @@ namespace accdbTosdf
                     sdfCommand.Parameters["@TemplateID"].Value = Template[Convert.ToInt32(reader["TemplateID"])];
                     sdfCommand.Parameters["@ExersizeID"].Value = Exersize[Convert.ToInt32(reader["ExersizeID"])];
                     sdfCommand.Parameters["@Weight"].Value = reader["Weight"];
-                    sdfCommand.Parameters["@Count"].Value = reader["Count"];
+                    sdfCommand.Parameters["@Count"].Value = reader["Count1"];
                     sdfCommand.ExecuteNonQuery();
                 }
             }
@@ -281,6 +282,7 @@ namespace accdbTosdf
             }
             if (insert[insert.Length - 1] == ',') insert = insert.Substring(0, insert.Length - 1);
             insert += ")";
+            insert = insert.Replace("Count", "[Count]");
             return insert;
         }
 
