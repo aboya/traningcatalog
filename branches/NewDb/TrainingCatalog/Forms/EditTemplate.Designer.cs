@@ -32,7 +32,7 @@
             this.txtTemplateName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.btnAddExersize = new System.Windows.Forms.Button();
-            this.templateViewerControl1 = new TrainingCatalog.TemplateViewerControl();
+            this.templateViewerControl = new TrainingCatalog.TemplateViewerControl();
             this.btnOk = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -79,13 +79,13 @@
             // 
             // templateViewerControl1
             // 
-            this.templateViewerControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.templateViewerControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.templateViewerControl1.Location = new System.Drawing.Point(15, 33);
-            this.templateViewerControl1.Name = "templateViewerControl1";
-            this.templateViewerControl1.Size = new System.Drawing.Size(626, 398);
-            this.templateViewerControl1.TabIndex = 7;
+            this.templateViewerControl.Location = new System.Drawing.Point(15, 33);
+            this.templateViewerControl.Name = "templateViewerControl1";
+            this.templateViewerControl.Size = new System.Drawing.Size(626, 398);
+            this.templateViewerControl.TabIndex = 7;
             // 
             // btnOk
             // 
@@ -103,7 +103,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(653, 473);
-            this.Controls.Add(this.templateViewerControl1);
+            this.Controls.Add(this.templateViewerControl);
             this.Controls.Add(this.btnAddExersize);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.txtTemplateName);
@@ -123,7 +123,7 @@
         private System.Windows.Forms.TextBox txtTemplateName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnAddExersize;
-        private TemplateViewerControl templateViewerControl1;
+        private TemplateViewerControl templateViewerControl;
         private System.Windows.Forms.Button btnOk;
     }
 }

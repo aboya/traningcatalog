@@ -29,7 +29,7 @@ namespace TrainingCatalog
 
         private void btnAddExersize_Click(object sender, EventArgs e)
         {
-            templateViewerControl1.AddNewRow();
+            templateViewerControl.AddNewRow();
             
         }
 
@@ -65,12 +65,12 @@ namespace TrainingCatalog
                 if (_TemplateID > 0)
                 {
                     List<TemplateExersizesType>  templateExersizes = LoadTemplateExersizesById(_TemplateID);
-                    templateViewerControl1.LoadTemplateExersizes(templateExersizes);
+                    templateViewerControl.LoadTemplateExersizes(templateExersizes);
                     txtTemplateName.Text = GetTemplateName(_TemplateID);
                 }
                 else
                 {
-                    templateViewerControl1.AddNewRow();
+                    templateViewerControl.AddNewRow();
                 }
             }
             catch (Exception ex)
@@ -140,7 +140,7 @@ namespace TrainingCatalog
         }
         private void AddNewTemplate()
         {
-            List<TemplateExersizesType> list = templateViewerControl1.GetTemplateExersizes();
+            List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
             SqlCeTransaction transaction = null;
             try
@@ -190,7 +190,7 @@ namespace TrainingCatalog
         }
         private void SaveTemplate()
         {
-            List<TemplateExersizesType> list = templateViewerControl1.GetTemplateExersizes();
+            List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
             if (list == null || list.Count == 0) return;
             SqlCeTransaction transaction = null;
             try
