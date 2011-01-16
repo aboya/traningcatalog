@@ -8,10 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
+using TrainingCatalog.Forms;
 
 namespace TrainingCatalog
 {
-    public partial class ExersizesList : Form
+    public partial class ExersizesList : BaseForm
     {
         SqlCeConnection connection;
         SqlCeDataAdapter table = new SqlCeDataAdapter();

@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TrainingCatalog.Forms;
 
 namespace TrainingCatalog
 {
-    public partial class mainForm : Form
+    public partial class mainForm : BaseForm
     {
         public mainForm()
         {

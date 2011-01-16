@@ -10,10 +10,11 @@ using System.Data.SqlServerCe;
 using System.Globalization;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic;
+using TrainingCatalog.Forms;
 
 namespace TrainingCatalog
 {
-    public partial class Training : Form
+    public partial class Training : BaseForm
     {
         SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
         SqlCeDataAdapter table = new SqlCeDataAdapter();

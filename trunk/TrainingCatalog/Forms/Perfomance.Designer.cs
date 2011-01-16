@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.zedGraphControl1 = new ZedGraph.ZedGraphControl();
+            this.mainGraphControl = new ZedGraph.ZedGraphControl();
             this.TrainingList = new System.Windows.Forms.ComboBox();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
@@ -41,25 +41,26 @@
             this.rbWork = new System.Windows.Forms.RadioButton();
             this.rbMaxWeight = new System.Windows.Forms.RadioButton();
             this.lblFilters = new System.Windows.Forms.Label();
+            this.chkTotalWork = new System.Windows.Forms.CheckBox();
             this.pnlFilters.SuspendLayout();
             this.SuspendLayout();
             // 
-            // zedGraphControl1
+            // mainGraphControl
             // 
-            this.zedGraphControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.mainGraphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.zedGraphControl1.Location = new System.Drawing.Point(12, 36);
-            this.zedGraphControl1.Name = "zedGraphControl1";
-            this.zedGraphControl1.ScrollGrace = 0D;
-            this.zedGraphControl1.ScrollMaxX = 0D;
-            this.zedGraphControl1.ScrollMaxY = 0D;
-            this.zedGraphControl1.ScrollMaxY2 = 0D;
-            this.zedGraphControl1.ScrollMinX = 0D;
-            this.zedGraphControl1.ScrollMinY = 0D;
-            this.zedGraphControl1.ScrollMinY2 = 0D;
-            this.zedGraphControl1.Size = new System.Drawing.Size(328, 208);
-            this.zedGraphControl1.TabIndex = 0;
+            this.mainGraphControl.Location = new System.Drawing.Point(12, 36);
+            this.mainGraphControl.Name = "mainGraphControl";
+            this.mainGraphControl.ScrollGrace = 0D;
+            this.mainGraphControl.ScrollMaxX = 0D;
+            this.mainGraphControl.ScrollMaxY = 0D;
+            this.mainGraphControl.ScrollMaxY2 = 0D;
+            this.mainGraphControl.ScrollMinX = 0D;
+            this.mainGraphControl.ScrollMinY = 0D;
+            this.mainGraphControl.ScrollMinY2 = 0D;
+            this.mainGraphControl.Size = new System.Drawing.Size(328, 208);
+            this.mainGraphControl.TabIndex = 0;
             // 
             // TrainingList
             // 
@@ -147,7 +148,7 @@
             this.pnlFilters.Controls.Add(this.rbWork);
             this.pnlFilters.Controls.Add(this.rbMaxWeight);
             this.pnlFilters.Controls.Add(this.lblFilters);
-            this.pnlFilters.Location = new System.Drawing.Point(347, 123);
+            this.pnlFilters.Location = new System.Drawing.Point(347, 150);
             this.pnlFilters.Name = "pnlFilters";
             this.pnlFilters.Size = new System.Drawing.Size(96, 94);
             this.pnlFilters.TabIndex = 13;
@@ -155,12 +156,10 @@
             // rbNone
             // 
             this.rbNone.AutoSize = true;
-            this.rbNone.Checked = true;
             this.rbNone.Location = new System.Drawing.Point(3, 68);
             this.rbNone.Name = "rbNone";
             this.rbNone.Size = new System.Drawing.Size(51, 17);
             this.rbNone.TabIndex = 3;
-            this.rbNone.TabStop = true;
             this.rbNone.Text = "None";
             this.rbNone.UseVisualStyleBackColor = true;
             this.rbNone.CheckedChanged += new System.EventHandler(this.rbNone_CheckedChanged);
@@ -179,10 +178,12 @@
             // rbMaxWeight
             // 
             this.rbMaxWeight.AutoSize = true;
+            this.rbMaxWeight.Checked = true;
             this.rbMaxWeight.Location = new System.Drawing.Point(3, 21);
             this.rbMaxWeight.Name = "rbMaxWeight";
             this.rbMaxWeight.Size = new System.Drawing.Size(74, 17);
             this.rbMaxWeight.TabIndex = 1;
+            this.rbMaxWeight.TabStop = true;
             this.rbMaxWeight.Text = "Макс Вес";
             this.rbMaxWeight.UseVisualStyleBackColor = true;
             // 
@@ -195,11 +196,24 @@
             this.lblFilters.TabIndex = 0;
             this.lblFilters.Text = "Фильтры";
             // 
+            // chkTotalWork
+            // 
+            this.chkTotalWork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkTotalWork.AutoSize = true;
+            this.chkTotalWork.Location = new System.Drawing.Point(347, 123);
+            this.chkTotalWork.Name = "chkTotalWork";
+            this.chkTotalWork.Size = new System.Drawing.Size(99, 17);
+            this.chkTotalWork.TabIndex = 14;
+            this.chkTotalWork.Text = "Общая работа";
+            this.chkTotalWork.UseVisualStyleBackColor = true;
+            this.chkTotalWork.CheckedChanged += new System.EventHandler(this.chkTotalWork_CheckedChanged);
+            // 
             // Perfomance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 279);
+            this.Controls.Add(this.chkTotalWork);
             this.Controls.Add(this.pnlFilters);
             this.Controls.Add(this.chkWeight);
             this.Controls.Add(this.chkBodyWeight);
@@ -208,7 +222,7 @@
             this.Controls.Add(this.dtpTo);
             this.Controls.Add(this.dtpFrom);
             this.Controls.Add(this.TrainingList);
-            this.Controls.Add(this.zedGraphControl1);
+            this.Controls.Add(this.mainGraphControl);
             this.Name = "Perfomance";
             this.Text = "Perfomance";
             this.Load += new System.EventHandler(this.Perfomance_Load);
@@ -223,7 +237,7 @@
 
         #endregion
 
-        private ZedGraph.ZedGraphControl zedGraphControl1;
+        private ZedGraph.ZedGraphControl mainGraphControl;
         private System.Windows.Forms.ComboBox TrainingList;
         private System.Windows.Forms.DateTimePicker dtpFrom;
         private System.Windows.Forms.DateTimePicker dtpTo;
@@ -236,5 +250,6 @@
         private System.Windows.Forms.RadioButton rbMaxWeight;
         private System.Windows.Forms.Label lblFilters;
         private System.Windows.Forms.RadioButton rbNone;
+        private System.Windows.Forms.CheckBox chkTotalWork;
     }
 }
