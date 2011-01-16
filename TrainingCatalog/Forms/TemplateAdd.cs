@@ -9,10 +9,11 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic;
+using TrainingCatalog.Forms;
 
 namespace TrainingCatalog
 {
-    public partial class TemplateAdd : Form
+    public partial class TemplateAdd : BaseForm
     {
         SqlCeConnection connection;
         DataSet templates;

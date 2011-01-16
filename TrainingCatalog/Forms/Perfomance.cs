@@ -10,9 +10,10 @@ using ZedGraph;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic.Types;
+using TrainingCatalog.Forms;
 namespace TrainingCatalog
 {
-    public partial class Perfomance : Form
+    public partial class Perfomance : BaseForm
     {
         SqlCeConnection connection;
         SqlCeDataAdapter table = new SqlCeDataAdapter();
@@ -32,15 +33,15 @@ namespace TrainingCatalog
             this.MinimumSize = new Size(475, 319);
  
             ExersizeLoad();
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
 
         }
         private void SetSize()
         {
-            zedGraphControl1.Location = new Point(10, 36);
+            mainGraphControl.Location = new Point(10, 36);
             // Leave a small margin around the outside of the control
 
-            zedGraphControl1.Size = new Size(ClientRectangle.Width - 20,
+            mainGraphControl.Size = new Size(ClientRectangle.Width - 20,
                                     ClientRectangle.Height - 65);
             
         }
@@ -50,7 +51,7 @@ namespace TrainingCatalog
             if (IsShown == false) return;
             try
             {
-                zedGraphControl1.IsShowPointValues = true;
+                mainGraphControl.IsShowPointValues = true;
                 GraphPane myPane = zgc.GraphPane;
                 myPane.XAxis.Type = AxisType.Date;
                 // Set the Titles
@@ -66,6 +67,12 @@ namespace TrainingCatalog
                 PointPairList pointBodyWeight = new PointPairList();
                 PointPairList pointWeight = new PointPairList();
                 List<PerfomanceDataType> items = GetPerfomance();
+                myPane.CurveList.Clear();
+                if (chkTotalWork.Checked)
+                {
+                    PointPairList totalWork = TotalWorkCreate(items);
+                    myPane.AddCurve("TotalWork", totalWork, Color.Black, SymbolType.Circle);
+                }
                 items = ApplyFilters(items);
                 int lastTrainingId = -1;
                 PerfomanceDataType previous = null;
@@ -101,8 +108,8 @@ namespace TrainingCatalog
                 // Generate a red curve with diamond
 
                 // symbols, and "Porsche" in the legend
-                myPane.CurveList.Clear();
-                LineItem myCurve = myPane.AddCurve("Weight * Count",
+                
+                LineItem myCurve = myPane.AddCurve("Вес * Повторения",
                       pointWeightCount, Color.Red, SymbolType.Circle);
 
 
@@ -110,7 +117,7 @@ namespace TrainingCatalog
 
                 // symbols, and "Piper" in the legend
 
-                LineItem myCurve2 = myPane.AddCurve("BodyWeight",
+                LineItem myCurve2 = myPane.AddCurve("Вес Тела",
                      pointBodyWeight, Color.Blue, SymbolType.Circle);
 
 
@@ -118,7 +125,7 @@ namespace TrainingCatalog
                 // Tell ZedGraph to refigure the
 
                 // axes since the data have changed
-
+                
 
                 zgc.AxisChange();
                 zgc.Refresh();
@@ -131,7 +138,48 @@ namespace TrainingCatalog
             }
 
         }
+        private PointPairList TotalWorkCreate(List<PerfomanceDataType> items)
+        {
+            Dictionary<int, List<PerfomanceDataType> > dic = new Dictionary<int, List<PerfomanceDataType> >();
+            foreach (PerfomanceDataType i in items)
+            {
+                List<PerfomanceDataType> t;
+                if (dic.TryGetValue(i.TrainingID, out t))
+                {
+                    t.Add(i);
+                }
+                else
+                {
+                    t = new List<PerfomanceDataType>();
+                    t.Add(i);
+                    dic[i.TrainingID] = t;
+                }
+            }
+            PointPairList res = new PointPairList();
+            foreach (int trainingId in dic.Keys)
+            {
+                string tag = string.Empty;
+                int val = 0;
+                DateTime dt = DateTime.MinValue;
+                foreach(PerfomanceDataType i in dic[trainingId])
+                {
+                    if (tag.Length == 0) {
+                        tag = string.Format("Дата:{0}\t\n", i.Day.ToString("dd.MM.yyyy"));
+                        dt = i.Day;
+                    }
 
+                    val += i.Weight * i.Count;
+                    tag += string.Format("{0}x({1})x", i.Weight, i.Count);
+                }
+                if (tag[tag.Length - 1] == 'x') tag = tag.Substring(0, tag.Length - 1);
+                tag += string.Format("={0}\t\n",val);
+                res.Add(dt.ToOADate(), val, tag);
+            }
+
+
+            return res;
+ 
+        }
         private List<PerfomanceDataType> ApplyFilters(List<PerfomanceDataType> items)
         {
             if (rbNone.Checked) return items;
@@ -294,20 +342,20 @@ namespace TrainingCatalog
 
         private void TrainingList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
         }
 
         private void dtpFrom_ValueChanged(object sender, EventArgs e)
         {
             if (dtpFrom.Value < MinDateTime) dtpFrom.Value = MinDateTime;
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
 
         }
 
         private void dtpTo_ValueChanged(object sender, EventArgs e)
         {
             if (dtpTo.Value > MaxDateTime) dtpTo.Value = MaxDateTime;
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
         }
 
         private void bntClear_Click(object sender, EventArgs e)
@@ -318,34 +366,39 @@ namespace TrainingCatalog
 
         private void chkBodyWeight_CheckedChanged(object sender, EventArgs e)
         {
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
         }
 
         private void chkWeighCount_CheckedChanged(object sender, EventArgs e)
         {
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
         }
 
         private void chkWeight_CheckedChanged(object sender, EventArgs e)
         {
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
         }
 
         private void rbWork_CheckedChanged(object sender, EventArgs e)
         {
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
         }
 
         private void rbNone_CheckedChanged(object sender, EventArgs e)
         {
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
         }
 
         private void Perfomance_Shown(object sender, EventArgs e)
         {
             this.IsShown = true;
-            CreateGraph(zedGraphControl1);
+            CreateGraph(mainGraphControl);
             
+        }
+
+        private void chkTotalWork_CheckedChanged(object sender, EventArgs e)
+        {
+            CreateGraph(mainGraphControl);
         }
     }
 }

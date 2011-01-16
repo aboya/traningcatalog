@@ -80,6 +80,9 @@
   <ItemGroup>
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CustomDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -116,6 +119,9 @@
     <Compile Include="BusinessLogic\Types\TemplateExersizesType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditTemplate.resx">
       <DependentUpon>EditTemplate.cs</DependentUpon>
     </EmbeddedResource>

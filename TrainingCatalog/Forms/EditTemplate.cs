@@ -8,11 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
+using TrainingCatalog.Forms;
 
 
 namespace TrainingCatalog
 {
-    public partial class EditTemplate : Form
+    public partial class EditTemplate : BaseForm
     {
         private int _TemplateID;
         SqlCeConnection connection;

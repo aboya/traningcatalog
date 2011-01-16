@@ -4,11 +4,12 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.IO;
 using System.Configuration;
+using TrainingCatalog.Forms;
 
 
 namespace TrainingCatalog
 {
-    public partial class Report : Form
+    public partial class Report : BaseForm
     {
        
         private DateTime _minDateTime;

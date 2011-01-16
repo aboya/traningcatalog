@@ -3,10 +3,11 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
+using TrainingCatalog.Forms;
 
 namespace TrainingCatalog
 {
-    public partial class Templates : Form
+    public partial class Templates : BaseForm
     {
         DataSet templates;
         SqlCeConnection connection;
