@@ -90,11 +90,6 @@ namespace TrainingCatalog
                     {
                         pointWeightCount.Add(p.Day.ToOADate(), p.Weight * p.Count, tag);
                     }
-                    if (chkBodyWeight.Checked)
-                    {
-                        if (p.BodyWeight > 0)
-                            pointBodyWeight.Add(p.Day.ToOADate(), p.BodyWeight);
-                    }
                     if (chkWeight.Checked) 
                     {
                         if (previous == null || lastTrainingId != p.TrainingID || previous.Weight != p.Weight)// exculde dublicates
@@ -104,7 +99,26 @@ namespace TrainingCatalog
                     lastTrainingId = p.TrainingID;
                 }
 
-                 
+                if (chkBodyWeight.Checked)
+                {
+                    List<PerfomanceDataType> BodyWeight = GetBodyWeight();
+                    PerfomanceDataType lastBodyWeight = null;
+                    string tag = string.Empty;
+                    foreach (PerfomanceDataType p in BodyWeight)
+                    {
+                        if (p.BodyWeight > 0)
+                        {
+                            tag = string.Format("Вес:{0:0.##} ", p.BodyWeight);
+                            if (lastBodyWeight != null)
+                            {
+                                tag += string.Format("({0:0.##}кг {0:0.##}%)",(p.BodyWeight - lastBodyWeight.BodyWeight), 100 * (double)(p.BodyWeight - lastBodyWeight.BodyWeight) / lastBodyWeight.BodyWeight);
+                            }
+                            pointBodyWeight.Add(p.Day.ToOADate(), p.BodyWeight, tag);
+                        }
+                        lastBodyWeight = p;
+                    }
+                }
+                
                 // Generate a red curve with diamond
 
                 // symbols, and "Porsche" in the legend
@@ -137,6 +151,43 @@ namespace TrainingCatalog
                 MessageBox.Show(ee.Message);
             }
 
+        }
+
+        private List<PerfomanceDataType> GetBodyWeight()
+        {
+            List<PerfomanceDataType> res = new List<PerfomanceDataType>();
+            try
+            {
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    cmd.CommandText = "select BodyWeight,Day from Training where Day between @start and @end";
+                    cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = dtpFrom.Value.Date;
+                    cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = dtpTo.Value.Date;
+                    using (SqlCeDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!(reader[0] is DBNull)) res.Add(new PerfomanceDataType()
+                            {
+                                BodyWeight = (double)reader["BodyWeight"],
+                                Day = Convert.ToDateTime(reader["Day"])
+                            });
+                        }
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return res;
         }
         private PointPairList TotalWorkCreate(List<PerfomanceDataType> items)
         {
