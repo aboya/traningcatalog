@@ -32,7 +32,7 @@ namespace TrainingCatalog
         private void button1_Click(object sender, EventArgs e)
         {
             bool ok = true;
-            int lastExersizeId = 0;
+            
             SqlCeCommand cmd = new SqlCeCommand();
             String ShortName = String.Empty, Description = String.Empty;
             try
@@ -49,7 +49,11 @@ namespace TrainingCatalog
                 cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = ShortName;
                 cmd.Parameters.Add("@description", SqlDbType.NVarChar).Value = Description;
                 cmd.ExecuteNonQuery();
-                AddLinkToExersizeCategories(lastExersizeId + 1);
+                int lastExersizeId = 0;
+                cmd.Parameters.Clear();
+                cmd.CommandText = "select @@Identity";
+                lastExersizeId = Convert.ToInt32(cmd.ExecuteScalar());
+                AddLinkToExersizeCategories(lastExersizeId);
             }
             catch (Exception ex)
             {
@@ -112,7 +116,7 @@ namespace TrainingCatalog
                 foreach (int index in chkLstExersizeCategories.CheckedIndices)
                 {
                     int exersizeCategoryId = (int)categories.Tables[0].Rows[index]["ID"];
-                    cmd.CommandText = string.Format("insert into ExersizeCategoryLink (ExersizeId, ExersizeCategoryId) values({0},{1})", ExersizeID, categories.Tables[0].Rows[index]["ID"]);
+                    cmd.CommandText = string.Format("insert into ExersizeCategoryLink (ExersizeId, ExersizeCategoryId) values({0},{1})", ExersizeID, exersizeCategoryId);
                     cmd.ExecuteNonQuery();
                 }
             }
