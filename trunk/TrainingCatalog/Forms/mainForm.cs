@@ -51,5 +51,10 @@ namespace TrainingCatalog
         {
             new Templates().Show();
         }
+
+        private void btnStatistics_Click(object sender, EventArgs e)
+        {
+            new Statistics().Show();
+        }
     }
 }
