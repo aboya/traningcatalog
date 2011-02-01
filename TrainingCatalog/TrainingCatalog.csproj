@@ -117,6 +117,12 @@
       <DependentUpon>Perfomance.cs</DependentUpon>
     </Compile>
     <Compile Include="BusinessLogic\Types\TemplateExersizesType.cs" />
+    <Compile Include="Forms\Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Statistics.Designer.cs">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\BaseForm.resx">
@@ -139,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Statistics.resx">
+      <DependentUpon>Statistics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TemplateAdd.resx">
       <DependentUpon>TemplateAdd.cs</DependentUpon>
