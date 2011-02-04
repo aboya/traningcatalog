@@ -33,11 +33,13 @@ namespace TrainingCatalog.BusinessLogic
             return Convert.ToInt32(o);
         }
 
-        internal static void AddExersize(SqlCeCommand cmd, int TrainingId, int ExersizeId, int weight, int count)
+        public static void AddExersize(SqlCeCommand cmd, int TrainingId, int ExersizeId, int weight, int count)
         {
             cmd.Parameters.Clear();
             cmd.CommandText = String.Format("insert into Link (TrainingId, ExersizeId, Weight,[Count]) values({0},{1},{2},{3})", TrainingId, ExersizeId, weight, count);
             cmd.ExecuteNonQuery();
         }
+        
+
     }
 }
