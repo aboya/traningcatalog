@@ -15,5 +15,10 @@ namespace TrainingCatalog.Forms
         {
             InitializeComponent();
         }
+
+        private void Statistics_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
