@@ -87,6 +87,12 @@
     <Compile Include="Forms\CustomDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\DayComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DayComment.Designer.cs">
+      <DependentUpon>DayComment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DayComment.resx">
+      <DependentUpon>DayComment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditTemplate.resx">
       <DependentUpon>EditTemplate.cs</DependentUpon>
