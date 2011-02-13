@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.Data.SqlServerCe;
+using System.Configuration;
+using TrainingCatalog.BusinessLogic;
+
+namespace TrainingCatalog.Forms
+{
+    public partial class DayComment : Form
+    {
+        SqlCeConnection connection;
+        public DayComment()
+        {
+            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            InitializeComponent();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                connection.Open();
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    TrainingBusiness.SaveComments(cmd, monthCalendar.SelectionStart, txtComments.Text);
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            try
+            {
+                connection.Open();
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    txtComments.Text = TrainingBusiness.GetComment(cmd, monthCalendar.SelectionStart);
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        
+
+        private void DayComment_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            connection.Dispose();
+            connection = null;
+        }
+    }
+}

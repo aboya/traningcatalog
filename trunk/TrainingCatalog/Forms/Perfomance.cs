@@ -133,7 +133,8 @@ namespace TrainingCatalog
 
                 LineItem myCurve2 = myPane.AddCurve("Вес Тела",
                      pointBodyWeight, Color.Blue, SymbolType.Circle);
-
+                myPane.YAxis.MajorGrid.IsVisible = true;
+                //myPane.YAxis.MinorGrid.IsVisible = true;
 
                 myPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
                 // Tell ZedGraph to refigure the
