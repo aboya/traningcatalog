@@ -59,5 +59,13 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Add("@day", SqlDbType.DateTime).Value = dateTime;
             return Convert.ToString(cmd.ExecuteScalar());
         }
+        public static DateTime GetStartTrainingDay(SqlCeCommand cmd)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select min(Day) from Training";
+            object o = cmd.ExecuteScalar();
+            if (o is DBNull) return DateTime.MinValue;
+            return Convert.ToDateTime(o);
+        }
     }
 }

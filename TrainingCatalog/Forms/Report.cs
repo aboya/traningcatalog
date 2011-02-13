@@ -5,6 +5,7 @@ using System.Data.SqlServerCe;
 using System.IO;
 using System.Configuration;
 using TrainingCatalog.Forms;
+using TrainingCatalog.BusinessLogic;
 
 
 namespace TrainingCatalog
@@ -21,12 +22,10 @@ namespace TrainingCatalog
                 {
                     try
                     {
-                        using (SqlCeCommand cmd = new SqlCeCommand())
+                        connection.Open();
+                        using (SqlCeCommand cmd = connection.CreateCommand())
                         {
-                            cmd.Connection = connection;
-                            cmd.Connection.Open();
-                            cmd.CommandText = "select min(Day) from Training";
-                            _minDateTime = Convert.ToDateTime(cmd.ExecuteScalar());
+                            _minDateTime = TrainingBusiness.GetStartTrainingDay(cmd);
                         }
                     }
                     catch (Exception e)

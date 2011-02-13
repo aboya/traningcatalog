@@ -20,13 +20,29 @@ namespace TrainingCatalog
         SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataSet Exersizes = new DataSet();
         DataSet ExersizeCategoryTable = new DataSet();
-        DateTime lastPressKeyTime;
 
         public Training()
         {
-            lastPressKeyTime = DateTime.MinValue;
+
             InitializeComponent();
             this.MinimumSize = new Size(588, 382);
+            try
+            {
+                connection.Open();
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    dateTime.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
         }
 
         private void AddExersize_Click(object sender, EventArgs e)
