@@ -57,6 +57,7 @@ namespace TrainingCatalog
                 // Set the Titles
 
                 myPane.Title.Text = "Perfomance";
+                myPane.Title.IsVisible = false;
                 myPane.XAxis.Title.Text = "Date";
                 myPane.YAxis.Title.Text = "Weight";
 
@@ -133,7 +134,7 @@ namespace TrainingCatalog
 
                 LineItem myCurve2 = myPane.AddCurve("Вес Тела",
                      pointBodyWeight, Color.Blue, SymbolType.Circle);
-                myPane.YAxis.MajorGrid.IsVisible = true;
+                //myPane.YAxis.MajorGrid.IsVisible = true;
                 //myPane.YAxis.MinorGrid.IsVisible = true;
 
                 myPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
