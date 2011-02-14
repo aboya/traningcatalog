@@ -67,5 +67,13 @@ namespace TrainingCatalog.BusinessLogic
             if (o is DBNull) return DateTime.MinValue;
             return Convert.ToDateTime(o);
         }
+        public static DateTime GetEndTrainingDay(SqlCeCommand cmd)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select max(Day) from Training";
+            object o = cmd.ExecuteScalar();
+            if (o is DBNull) return DateTime.Today;
+            return Convert.ToDateTime(o);
+        }
     }
 }
