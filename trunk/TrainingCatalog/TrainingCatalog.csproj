@@ -80,7 +80,11 @@
   <ItemGroup>
     <Compile Include="BusinessLogic\StatisticsBusiness.cs" />
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
+    <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
+    <Compile Include="Controls\HighLightCalendar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\HighLightCalendarPicker.cs">
       <SubType>Component</SubType>
     </Compile>

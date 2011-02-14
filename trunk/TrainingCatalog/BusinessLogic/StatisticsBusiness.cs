@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SqlServerCe;
+using TimeHighway.BusinessLogic.Common.Types;
 
 namespace TrainingCatalog.BusinessLogic
 {
     public class StatisticsBusiness
     {
         // прибавка в массе
-        public static List<double> MassAdded(SqlCeConnection connection, DateTime start, DateTime end)
+        public static List< pair<DateTime,double > > MassAdded(SqlCeConnection connection, DateTime start, DateTime end)
         {
-            List<double> res = new List<double>();
+            List<pair<DateTime, double> > res = new List<pair<DateTime, double>>();
             try
             {
                 using (SqlCeCommand cmd = connection.CreateCommand())
@@ -19,14 +20,13 @@ namespace TrainingCatalog.BusinessLogic
                     connection.Open();
                     cmd.CommandText = "select BodyWeight,Day from Training where BodyWeight is not null and BodyWeight > 0";
                     using (SqlCeDataReader reader = cmd.ExecuteReader())
-                    { 
+                    {
+                        while (reader.Read())
+                        {
+                            res.Add(new pair<DateTime, double>(Convert.ToDateTime(reader["Day"]), Convert.ToDouble(reader["BodyWeight"])));
+                        }
                     }
-
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
             }
             finally
             {
@@ -36,24 +36,22 @@ namespace TrainingCatalog.BusinessLogic
  
         }
       //  Количество работы за день
-        public static List<int> TotalWorkOfDay(SqlCeConnection connection, DateTime start, DateTime end)
+        public static List<pair<DateTime,int> > TotalWorkOfDay(SqlCeConnection connection, DateTime start, DateTime end)
         {
+            List<pair<DateTime, int>> res = new List<pair<DateTime, int>>();
             try
             {
+                 connection.Open();
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    connection.Open();
+                    cmd.CommandText = "select Day, sum(Weight * count) from Training join Link on Training.Id = Link.TrainingId group by Day";
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
             }
             finally
             {
                 connection.Close();
             }
-            return new List<int>();
+            return res;
         }
         //3) Средняя прибавка массы
 
