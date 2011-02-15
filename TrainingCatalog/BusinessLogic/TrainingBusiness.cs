@@ -75,5 +75,16 @@ namespace TrainingCatalog.BusinessLogic
             if (o is DBNull) return DateTime.Today;
             return Convert.ToDateTime(o);
         }
+        public static List<DateTime> GetTrainingDays(SqlCeCommand cmd, DateTime start, DateTime end)
+        {
+            List<DateTime> res = new List<DateTime>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Day from Training where Day Between @start and @end";
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                res.Add(Convert.ToDateTime(reader["Day"])); 
+            }
+            return res;
+        }
     }
 }

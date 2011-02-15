@@ -23,7 +23,6 @@ namespace TrainingCatalog
 
         public Training()
         {
-
             InitializeComponent();
             this.MinimumSize = new Size(588, 382);
             try
