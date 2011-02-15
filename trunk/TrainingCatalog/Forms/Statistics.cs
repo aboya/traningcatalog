@@ -15,16 +15,21 @@ namespace TrainingCatalog.Forms
         {
             InitializeComponent();
             lstParams.FullRowSelect = true;
+            mcEnd.WarningDates.Add(DateTime.Today.AddDays(1));
+            mcEnd.WarningDates.Add(DateTime.Today.AddDays(3));
+            mcEnd.WarningDates.Add(DateTime.Today.AddDays(-3));
         }
 
         private void Statistics_Load(object sender, EventArgs e)
         {
-            string [] arr = new string[4];
-            arr[0] = "1";
-            arr[1] = "2";
-            arr[2] = "3";
-            arr[3] = "4";
-            ListViewItem i = new ListViewItem(arr);
+            BodyWeightAdd();
+        }
+        private void BodyWeightAdd()
+        {
+            string[] arr = new string[2];
+            arr[0] = "Прибавка в массе";
+            arr[1] = "3";
+            ListViewItem i = new ListViewItem(arr, "BodyWeight");
             lstParams.Items.Add(i);
         }
 

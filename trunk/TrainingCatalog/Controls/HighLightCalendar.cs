@@ -34,20 +34,20 @@ namespace TrainingCatalog.Controls
                 OnPaint(pe);
             }
         } 
+        
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
             Graphics graphics = e.Graphics;
-
+           // graphics.Clear(Color.Red); 
+            base.OnPaint(e);
             int dayBoxWidth = 0;
             int dayBoxHeight = 0;
             int firstWeekPosition = 0;
             int lastWeekPosition = Height;
-
             if (WarningDates.Count > 0)
             {
                 SelectionRange calendarRange = GetDisplayRange(false);
-
+                
                 // Create a list of those dates that actually should be marked as warnings.
                 List<DateTime> visibleWarningDates = new List<DateTime>();
                 foreach (DateTime date in WarningDates)
@@ -58,8 +58,9 @@ namespace TrainingCatalog.Controls
                     }
                 }
 
-                if (visibleWarningDates.Count > 0)
+                if (visibleWarningDates.Count > 0 && calendarRange.End.Subtract(calendarRange.Start).TotalDays < 362)
                 {
+                     
                     while ((HitTest(25, firstWeekPosition).HitArea != HitArea.PrevMonthDate && HitTest(25, firstWeekPosition).HitArea != HitArea.Date) && firstWeekPosition < Height)
                     {
                         firstWeekPosition++;
@@ -75,7 +76,7 @@ namespace TrainingCatalog.Controls
                         dayBoxWidth = Width / (ShowWeekNumbers ? 8 : 7);
                         dayBoxHeight = (int)(((float)(lastWeekPosition - firstWeekPosition)) / 6.0f);
 
-                        using (Brush warningBrush = new SolidBrush(Color.FromArgb(255, Color.FromArgb(255, 240, 240))))
+                        using (Brush warningBrush = new SolidBrush(Color.FromArgb(127, Color.FromArgb(165, 191, 225))))
                         {
                             foreach (DateTime visDate in visibleWarningDates)
                             {
@@ -85,8 +86,7 @@ namespace TrainingCatalog.Controls
                                 TimeSpan span = visDate.Subtract(calendarRange.Start);
                                 row = span.Days / 7;
                                 col = span.Days % 7;
-
-                                Rectangle fillRect = new Rectangle((col + (ShowWeekNumbers ? 1 : 0)) * dayBoxWidth + 2, firstWeekPosition + row * dayBoxHeight + 1, dayBoxWidth - 2, dayBoxHeight - 2);
+                                Rectangle fillRect = new Rectangle((col + (ShowWeekNumbers ? 1 : 0)) * dayBoxWidth + 2, firstWeekPosition + row * dayBoxHeight + 1, dayBoxWidth - 2, dayBoxHeight);
                                 graphics.FillRectangle(warningBrush, fillRect);
 
                                 // Check if the date is in the bolded dates array
@@ -99,10 +99,10 @@ namespace TrainingCatalog.Controls
                                     }
                                 }
 
-                                using (Font textFont = new Font(Font, (makeDateBolded ? FontStyle.Bold : FontStyle.Regular)))
-                                {
-                                    TextRenderer.DrawText(graphics, visDate.Day.ToString(), textFont, fillRect, Color.FromArgb(255, 128, 0, 0), TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
-                                }
+                                //using (Font textFont = new Font(Font, (makeDateBolded ? FontStyle.Bold : FontStyle.Regular)))
+                                //{
+                                //    TextRenderer.DrawText(graphics, visDate.Day.ToString(), textFont, fillRect, Color.FromArgb(255, 128, 0, 0), TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                                //}
                             }
                         }
                     }
