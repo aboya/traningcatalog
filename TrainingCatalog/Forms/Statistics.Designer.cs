@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.mcStart = new System.Windows.Forms.MonthCalendar();
-            this.mcEnd = new TrainingCatalog.Controls.HighLightCalendar();
+            this.mcEnd = new System.Windows.Forms.MonthCalendar();
             this.lstParams = new System.Windows.Forms.ListView();
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Stats = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -41,6 +41,7 @@
             this.mcStart.Location = new System.Drawing.Point(18, 18);
             this.mcStart.Name = "mcStart";
             this.mcStart.TabIndex = 2;
+            this.mcStart.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mcStart_DateChanged);
             // 
             // mcEnd
             // 
@@ -102,7 +103,7 @@
         #endregion
 
         private System.Windows.Forms.MonthCalendar mcStart;
-        private TrainingCatalog.Controls.HighLightCalendar mcEnd;
+        private System.Windows.Forms.MonthCalendar mcEnd;
         private System.Windows.Forms.ListView lstParams;
         private ZedGraph.ZedGraphControl graph;
         private System.Windows.Forms.ColumnHeader name;
