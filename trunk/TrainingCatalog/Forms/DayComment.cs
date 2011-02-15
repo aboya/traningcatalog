@@ -19,6 +19,7 @@ namespace TrainingCatalog.Forms
         {
             connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             InitializeComponent();
+            AddCommentDays();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -46,9 +47,15 @@ namespace TrainingCatalog.Forms
             try
             {
                 connection.Open();
+                SelectionRange range = monthCalendar.GetDisplayRange(false);
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     txtComments.Text = TrainingBusiness.GetComment(cmd, monthCalendar.SelectionStart);
+                    foreach (DateTime day in TrainingBusiness.GetCommentDays(cmd, range.Start, range.End))
+                    {
+                        monthCalendar.AddBoldedDate(day);
+                    }
+                    monthCalendar.UpdateBoldedDates();
                 }
             }
             catch (Exception ee)
@@ -66,6 +73,30 @@ namespace TrainingCatalog.Forms
         {
             connection.Dispose();
             connection = null;
+        }
+        private void AddCommentDays()
+        {
+            try
+            {
+                connection.Open();
+                 SelectionRange range =   monthCalendar.GetDisplayRange(false);
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                     foreach(DateTime day in TrainingBusiness.GetCommentDays(cmd,range.Start, range.End))
+                     {
+                         monthCalendar.AddBoldedDate(day);
+                     }
+                }
+                monthCalendar.UpdateBoldedDates();
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
