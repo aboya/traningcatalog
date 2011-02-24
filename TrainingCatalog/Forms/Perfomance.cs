@@ -109,10 +109,11 @@ namespace TrainingCatalog
                     {
                         if (p.BodyWeight > 0)
                         {
-                            tag = string.Format("Вес:{0:0.##} ", p.BodyWeight);
+                            tag = string.Format("Вес:{0:0.##} | {1} ({2}) \t\n", p.BodyWeight,p.Day.ToString("dd.MM.yy"), p.Day.DayOfWeek.ToString());
                             if (lastBodyWeight != null)
                             {
-                                tag += string.Format("({0:0.##}кг {0:0.##}%)",(p.BodyWeight - lastBodyWeight.BodyWeight), 100 * (double)(p.BodyWeight - lastBodyWeight.BodyWeight) / lastBodyWeight.BodyWeight);
+                                tag += string.Format("({0:0.##}кг|{1:0.##}%)",(p.BodyWeight - lastBodyWeight.BodyWeight), 
+                                    100 * (double)(p.BodyWeight - lastBodyWeight.BodyWeight) / lastBodyWeight.BodyWeight);
                             }
                             pointBodyWeight.Add(p.Day.ToOADate(), p.BodyWeight, tag);
                         }
@@ -163,7 +164,7 @@ namespace TrainingCatalog
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    cmd.CommandText = "select BodyWeight,Day from Training where Day between @start and @end";
+                    cmd.CommandText = "select BodyWeight,Day from Training where Day between @start and @end and BodyWeight is not null and BodyWeight > 0";
                     cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = dtpFrom.Value.Date;
                     cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = dtpTo.Value.Date;
                     using (SqlCeDataReader reader = cmd.ExecuteReader())
