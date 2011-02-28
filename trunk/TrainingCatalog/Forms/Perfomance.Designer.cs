@@ -42,6 +42,7 @@
             this.rbMaxWeight = new System.Windows.Forms.RadioButton();
             this.lblFilters = new System.Windows.Forms.Label();
             this.chkTotalWork = new System.Windows.Forms.CheckBox();
+            this.chkApprox = new System.Windows.Forms.CheckBox();
             this.pnlFilters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,7 +106,7 @@
             this.chkWeighCount.AutoSize = true;
             this.chkWeighCount.Checked = true;
             this.chkWeighCount.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWeighCount.Location = new System.Drawing.Point(347, 54);
+            this.chkWeighCount.Location = new System.Drawing.Point(346, 36);
             this.chkWeighCount.Name = "chkWeighCount";
             this.chkWeighCount.Size = new System.Drawing.Size(110, 17);
             this.chkWeighCount.TabIndex = 10;
@@ -119,7 +120,7 @@
             this.chkBodyWeight.AutoSize = true;
             this.chkBodyWeight.Checked = true;
             this.chkBodyWeight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBodyWeight.Location = new System.Drawing.Point(347, 100);
+            this.chkBodyWeight.Location = new System.Drawing.Point(346, 82);
             this.chkBodyWeight.Name = "chkBodyWeight";
             this.chkBodyWeight.Size = new System.Drawing.Size(73, 17);
             this.chkBodyWeight.TabIndex = 11;
@@ -133,7 +134,7 @@
             this.chkWeight.AutoSize = true;
             this.chkWeight.Checked = true;
             this.chkWeight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWeight.Location = new System.Drawing.Point(347, 77);
+            this.chkWeight.Location = new System.Drawing.Point(346, 59);
             this.chkWeight.Name = "chkWeight";
             this.chkWeight.Size = new System.Drawing.Size(45, 17);
             this.chkWeight.TabIndex = 12;
@@ -200,7 +201,7 @@
             // 
             this.chkTotalWork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkTotalWork.AutoSize = true;
-            this.chkTotalWork.Location = new System.Drawing.Point(347, 123);
+            this.chkTotalWork.Location = new System.Drawing.Point(346, 127);
             this.chkTotalWork.Name = "chkTotalWork";
             this.chkTotalWork.Size = new System.Drawing.Size(99, 17);
             this.chkTotalWork.TabIndex = 14;
@@ -208,11 +209,24 @@
             this.chkTotalWork.UseVisualStyleBackColor = true;
             this.chkTotalWork.CheckedChanged += new System.EventHandler(this.chkTotalWork_CheckedChanged);
             // 
+            // chkApprox
+            // 
+            this.chkApprox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkApprox.AutoSize = true;
+            this.chkApprox.Location = new System.Drawing.Point(346, 104);
+            this.chkApprox.Name = "chkApprox";
+            this.chkApprox.Size = new System.Drawing.Size(58, 17);
+            this.chkApprox.TabIndex = 15;
+            this.chkApprox.Text = "approx";
+            this.chkApprox.UseVisualStyleBackColor = true;
+            this.chkApprox.CheckedChanged += new System.EventHandler(this.chkApprox_CheckedChanged);
+            // 
             // Perfomance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 279);
+            this.Controls.Add(this.chkApprox);
             this.Controls.Add(this.chkTotalWork);
             this.Controls.Add(this.pnlFilters);
             this.Controls.Add(this.chkWeight);
@@ -224,6 +238,7 @@
             this.Controls.Add(this.TrainingList);
             this.Controls.Add(this.mainGraphControl);
             this.Name = "Perfomance";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Perfomance";
             this.Load += new System.EventHandler(this.Perfomance_Load);
             this.Shown += new System.EventHandler(this.Perfomance_Shown);
@@ -251,5 +266,6 @@
         private System.Windows.Forms.Label lblFilters;
         private System.Windows.Forms.RadioButton rbNone;
         private System.Windows.Forms.CheckBox chkTotalWork;
+        private System.Windows.Forms.CheckBox chkApprox;
     }
 }
