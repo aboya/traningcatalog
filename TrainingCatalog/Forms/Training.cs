@@ -76,6 +76,9 @@ namespace TrainingCatalog
 
         private void Training_Load(object sender, EventArgs e)
         {
+            Form mainForm = Application.OpenForms["mainForm"];
+            this.Location = mainForm.Location;
+
             // порядок вызова этих функций важен
             CategoryFilterLoad();
             GridBind();

@@ -25,7 +25,19 @@ namespace TrainingCatalog
         {
             InitializeComponent();
         }
-        
+        private List<PerfomanceDataType> _bodyWeight;
+        private List<PerfomanceDataType> BodyWeight
+        {
+            get
+            {
+                if (_bodyWeight == null)
+                {
+                    _bodyWeight = GetBodyWeight();
+                }
+                return _bodyWeight;
+            }
+    
+        }
 
         private void Perfomance_Load(object sender, EventArgs e)
         {
@@ -34,7 +46,19 @@ namespace TrainingCatalog
  
             ExersizeLoad();
             CreateGraph(mainGraphControl);
+            Form mainForm = Application.OpenForms["mainForm"];
+            this.Location = mainForm.Location;
 
+            //if (chkBodyWeight.Checked)
+            //{
+            //    chkApprox.Enabled = true;
+            //}
+            //else
+            //{
+            //    chkApprox.Enabled = false;
+            //    chkApprox.Checked = false;
+            //}
+    
         }
         private void SetSize()
         {
@@ -53,6 +77,7 @@ namespace TrainingCatalog
             {
                 mainGraphControl.IsShowPointValues = true;
                 GraphPane myPane = zgc.GraphPane;
+                myPane.CurveList.Clear();
                 myPane.XAxis.Type = AxisType.Date;
                 // Set the Titles
 
@@ -99,10 +124,11 @@ namespace TrainingCatalog
                     previous = p;
                     lastTrainingId = p.TrainingID;
                 }
-
+                
+                
                 if (chkBodyWeight.Checked)
                 {
-                    List<PerfomanceDataType> BodyWeight = GetBodyWeight();
+     
                     PerfomanceDataType lastBodyWeight = null;
                     string tag = string.Empty;
                     foreach (PerfomanceDataType p in BodyWeight)
@@ -119,29 +145,42 @@ namespace TrainingCatalog
                         }
                         lastBodyWeight = p;
                     }
+                    LineItem myCurve2 = myPane.AddCurve("Вес Тела", pointBodyWeight, Color.Blue, SymbolType.Circle);
+
                 }
-                
+
+                if (chkApprox.Checked)
+                {
+                    LineItem myCurve3 = myPane.AddCurve("ApproxWeight", this.GetApproxWeight(BodyWeight), Color.Teal, SymbolType.Triangle);
+                    myCurve3.Line.IsSmooth = true;
+                    myCurve3.Line.IsAntiAlias = true;
+                    myCurve3.Line.SmoothTension = 0.6f;
+                }
                 // Generate a red curve with diamond
 
                 // symbols, and "Porsche" in the legend
-                
-                LineItem myCurve = myPane.AddCurve("Вес * Повторения",
-                      pointWeightCount, Color.Red, SymbolType.Circle);
+                if (chkWeighCount.Checked)
+                {
+                    LineItem myCurve = myPane.AddCurve("Вес * Повторения",
+                          pointWeightCount, Color.Red, SymbolType.Circle);
+                }
 
 
                 // Generate a blue curve with circle
 
                 // symbols, and "Piper" in the legend
 
-                LineItem myCurve2 = myPane.AddCurve("Вес Тела",
-                     pointBodyWeight, Color.Blue, SymbolType.Circle);
+
                 //myPane.YAxis.MajorGrid.IsVisible = true;
                 //myPane.YAxis.MinorGrid.IsVisible = true;
-
-                myPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
+                if (chkWeight.Checked)
+                {
+                    myPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
+                }
                 // Tell ZedGraph to refigure the
 
                 // axes since the data have changed
+                
                 
 
                 zgc.AxisChange();
@@ -155,7 +194,26 @@ namespace TrainingCatalog
             }
 
         }
+        private PointPairList GetApproxWeight(List<PerfomanceDataType> weights)
+        {
+            PointPairList res = new PointPairList();
+            if (weights.Count > 2)
+            {
+                double y;
+                double dt = weights[0].Day.ToOADate();
+                y = weights[0].BodyWeight;
+                res.Add(weights[0].Day.ToOADate(), weights[0].BodyWeight);
+                for(int i = 1; i < weights.Count; i++)
+                {
+                    res.Add((dt + weights[i].Day.ToOADate()) / 2, (weights[i].BodyWeight + y) / 2);
+                    y = (y + weights[i].BodyWeight) / 2;
+                    dt = weights[i].Day.ToOADate();
+                }
 
+            }
+            
+            return res;
+        }
         private List<PerfomanceDataType> GetBodyWeight()
         {
             List<PerfomanceDataType> res = new List<PerfomanceDataType>();
@@ -420,6 +478,7 @@ namespace TrainingCatalog
 
         private void chkBodyWeight_CheckedChanged(object sender, EventArgs e)
         {
+            CheckBox chk = (sender as CheckBox);
             CreateGraph(mainGraphControl);
         }
 
@@ -451,6 +510,11 @@ namespace TrainingCatalog
         }
 
         private void chkTotalWork_CheckedChanged(object sender, EventArgs e)
+        {
+            CreateGraph(mainGraphControl);
+        }
+
+        private void chkApprox_CheckedChanged(object sender, EventArgs e)
         {
             CreateGraph(mainGraphControl);
         }
