@@ -34,6 +34,7 @@
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Stats = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.graph = new ZedGraph.ZedGraphControl();
+            this.monCal1 = new TrainingCatalog.Controls.MonCal();
             this.SuspendLayout();
             // 
             // mcStart
@@ -83,11 +84,18 @@
             this.graph.Size = new System.Drawing.Size(344, 190);
             this.graph.TabIndex = 5;
             // 
+            // monCal1
+            // 
+            this.monCal1.Location = new System.Drawing.Point(374, 18);
+            this.monCal1.Name = "monCal1";
+            this.monCal1.TabIndex = 6;
+            // 
             // Statistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 394);
+            this.Controls.Add(this.monCal1);
             this.Controls.Add(this.graph);
             this.Controls.Add(this.lstParams);
             this.Controls.Add(this.mcEnd);
@@ -108,5 +116,6 @@
         private ZedGraph.ZedGraphControl graph;
         private System.Windows.Forms.ColumnHeader name;
         private System.Windows.Forms.ColumnHeader Stats;
+        private Controls.MonCal monCal1;
     }
 }
