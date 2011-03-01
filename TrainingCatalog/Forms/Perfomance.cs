@@ -12,6 +12,8 @@ using System.Configuration;
 using TrainingCatalog.BusinessLogic.Types;
 using TrainingCatalog.Forms;
 using TimeHighway.BusinessLogic.Common.Types;
+using System.Diagnostics;
+using TrainingCatalog.BusinessLogic;
 namespace TrainingCatalog
 {
     public partial class Perfomance : BaseForm
@@ -49,16 +51,23 @@ namespace TrainingCatalog
             CreateGraph(mainGraphControl);
             Form mainForm = Application.OpenForms["mainForm"];
             this.Location = mainForm.Location;
-
-            //if (chkBodyWeight.Checked)
-            //{
-            //    chkApprox.Enabled = true;
-            //}
-            //else
-            //{
-            //    chkApprox.Enabled = false;
-            //    chkApprox.Checked = false;
-            //}
+            try
+            {
+                connection.Open();
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    dtpFrom.MinDate = dtpTo.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
+                    dtpFrom.MaxDate = dtpTo.MaxDate = TrainingBusiness.GetEndTrainingDay(cmd);
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
     
         }
         private void SetSize()
@@ -526,6 +535,27 @@ namespace TrainingCatalog
         private void chkApprox_CheckedChanged(object sender, EventArgs e)
         {
             CreateGraph(mainGraphControl);
+        }
+
+        private void mainGraphControl_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+            CurveItem nearestCurve;
+            int iNearest;
+            if (mainGraphControl.GraphPane.FindNearestPoint(new PointF(e.X, e.Y), out nearestCurve, out iNearest))
+            {
+                PointF p = mainGraphControl.GraphPane.GeneralTransform(nearestCurve[iNearest].X, nearestCurve[iNearest].Y, CoordType.AxisXY2Scale);
+                if (Math.Abs(e.X - p.X) < 5 && Math.Abs(e.Y - p.Y) < 5)
+                {
+                    DateTime dt = DateTime.FromOADate(nearestCurve[iNearest].X);
+                    using (Training tr = new Training())
+                    {
+                        tr.TrainingDate = dt.Date;
+                        tr.ShowDialog(this);
+                    }
+                }
+            }
+          
         }
     }
 }

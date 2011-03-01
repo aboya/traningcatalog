@@ -62,6 +62,7 @@
             this.mainGraphControl.ScrollMinY2 = 0D;
             this.mainGraphControl.Size = new System.Drawing.Size(328, 208);
             this.mainGraphControl.TabIndex = 0;
+            this.mainGraphControl.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mainGraphControl_MouseDoubleClick);
             // 
             // TrainingList
             // 

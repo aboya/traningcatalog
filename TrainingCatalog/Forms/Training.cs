@@ -20,27 +20,11 @@ namespace TrainingCatalog
         SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataSet Exersizes = new DataSet();
         DataSet ExersizeCategoryTable = new DataSet();
-
+        public DateTime TrainingDate = DateTime.Now;
         public Training()
         {
             InitializeComponent();
-            this.MinimumSize = new Size(588, 382);
-            try
-            {
-                connection.Open();
-                using (SqlCeCommand cmd = connection.CreateCommand())
-                {
-                    dateTime.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
+
 
         }
 
@@ -78,7 +62,25 @@ namespace TrainingCatalog
         {
             Form mainForm = Application.OpenForms["mainForm"];
             this.Location = mainForm.Location;
-
+            this.MinimumSize = new Size(588, 382);
+            
+            try
+            {
+                connection.Open();
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    dateTime.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            dateTime.Value = TrainingDate;
             // порядок вызова этих функций важен
             CategoryFilterLoad();
             GridBind();
