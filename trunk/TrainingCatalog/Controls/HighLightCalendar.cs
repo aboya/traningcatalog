@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace TrainingCatalog.Controls
 {
+    /*
     public class HighLightCalendar : MonthCalendar
     {
         private List<DateTime> _warningDates = new List<DateTime>();
@@ -98,16 +99,127 @@ namespace TrainingCatalog.Controls
                                         makeDateBolded = true;
                                     }
                                 }
-
-                                //using (Font textFont = new Font(Font, (makeDateBolded ? FontStyle.Bold : FontStyle.Regular)))
-                                //{
-                                //    TextRenderer.DrawText(graphics, visDate.Day.ToString(), textFont, fillRect, Color.FromArgb(255, 128, 0, 0), TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
-                                //}
                             }
                         }
                     }
                 }
             }
         }
+}
+     * */
+    public class MonCal : MonthCalendar
+    {
+        protected static int WM_PAINT = 0x000F;
+        private Rectangle dayBox;
+        private int dayTop = 0;
+        private SelectionRange range;
+
+        private List<HighlightedDates> highlightedDates = new List<HighlightedDates>();
+
+        public MonCal()
+        {
+            this.ShowTodayCircle = false;
+           // this.highlightedDates = HighlightedDates;
+            this.highlightedDates.Add(new HighlightedDates(DateTime.Now.AddDays(-2)));
+            range = GetDisplayRange(false);
+            SetDayBoxSize();
+            SetPosition(this.highlightedDates);
+        }
+
+
+        // This method figures out the size of the entire date area portion of the control 
+        //   and then divides it up o create a Rectagle for painting to individual dates
+        private void SetDayBoxSize()
+        {
+            int bottom = this.Height;
+
+            while (HitTest(25, dayTop).HitArea != HitArea.Date &&
+                HitTest(25, dayTop).HitArea != HitArea.PrevMonthDate) dayTop++;
+
+            while (HitTest(25, bottom).HitArea != HitArea.Date &&
+                HitTest(25, bottom).HitArea != HitArea.NextMonthDate) bottom--;
+
+            dayBox = new Rectangle();
+            dayBox.Size = new Size(this.Width / 7, (bottom - dayTop) / 6);
+        }
+
+        // This method determines where in the 7 x 6 array of dates on the control our highlighted dates reside.
+        private void SetPosition(List<HighlightedDates> hlDates)
+        {
+            int row = 0, col = 0;
+
+            hlDates.ForEach(delegate(HighlightedDates date)
+            {
+                if (date.Date >= range.Start && date.Date <= range.End)
+                {
+                    TimeSpan span = date.Date.Subtract(range.Start);
+                    row = span.Days / 7;
+                    col = span.Days % 7;
+                    date.Position = new Point(row, col);
+                }
+            });
+        }
+
+        // This overrides the message pump and traps the WM_PAINT call
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_PAINT)
+            {
+                Graphics g = Graphics.FromHwnd(this.Handle);
+                PaintEventArgs pea =
+                    new PaintEventArgs(g, new Rectangle(0, 0, this.Width, this.Height));
+                OnPaint(pea);
+            }
+        }
+
+        // Here is where we use our information to selectively draw what we want
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            Graphics g = e.Graphics;
+            Rectangle backgroundRect;
+
+            highlightedDates.ForEach(delegate(HighlightedDates date)
+            {
+                backgroundRect = new Rectangle(
+                   date.Position.Y * dayBox.Width + 1,
+                   date.Position.X * dayBox.Height + dayTop,
+                   dayBox.Width, dayBox.Height);
+
+                if (date.BackgroundColor != Color.Empty)
+                {
+                    using (Brush brush = new SolidBrush(date.BackgroundColor))
+                    {
+                        g.FillRectangle(brush, backgroundRect);
+                    }
+                }
+                if (date.Bold || date.DateColor != Color.Empty)
+                {
+                    using (Font textFont =
+                        new Font(Font, (date.Bold ? FontStyle.Bold : FontStyle.Regular)))
+                    {
+                        TextRenderer.DrawText(g, date.Date.Day.ToString(), textFont,
+                            backgroundRect, date.DateColor,
+                            TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                    }
+                }
+
+                if (date.BoxColor != Color.Empty)
+                {
+                    using (Pen pen = new Pen(date.BoxColor))
+                    {
+                        Rectangle boxRect = new Rectangle(
+                            date.Position.Y * dayBox.Width + 1,
+                            date.Position.X * dayBox.Height + dayTop,
+                            dayBox.Width, dayBox.Height);
+                        g.DrawRectangle(pen, boxRect);
+                    }
+                }
+            });
+        }
     }
+
+
 }

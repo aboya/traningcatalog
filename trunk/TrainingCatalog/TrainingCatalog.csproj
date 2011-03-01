@@ -86,8 +86,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\HighLightCalendarPicker.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Controls\HighLightDates.cs" />
     <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +216,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Calendar.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="db.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
