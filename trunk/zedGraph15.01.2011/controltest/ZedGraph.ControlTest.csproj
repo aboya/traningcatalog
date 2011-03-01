@@ -56,7 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZedGraph.ControlTest\Form1.cs" />
+    <Compile Include="ZedGraph.ControlTest\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ZedGraph.ControlTest\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
