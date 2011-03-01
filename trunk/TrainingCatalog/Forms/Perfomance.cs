@@ -11,6 +11,7 @@ using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic.Types;
 using TrainingCatalog.Forms;
+using TimeHighway.BusinessLogic.Common.Types;
 namespace TrainingCatalog
 {
     public partial class Perfomance : BaseForm
@@ -151,7 +152,7 @@ namespace TrainingCatalog
 
                 if (chkApprox.Checked)
                 {
-                    LineItem myCurve3 = myPane.AddCurve("ApproxWeight", this.GetApproxWeight(BodyWeight), Color.Teal, SymbolType.Triangle);
+                    LineItem myCurve3 = myPane.AddCurve("ApproxWeight", this.GetApproxWeight(BodyWeight,3), Color.Teal, SymbolType.None);
                     myCurve3.Line.IsSmooth = true;
                     myCurve3.Line.IsAntiAlias = true;
                     myCurve3.Line.SmoothTension = 0.6f;
@@ -194,20 +195,28 @@ namespace TrainingCatalog
             }
 
         }
-        private PointPairList GetApproxWeight(List<PerfomanceDataType> weights)
+        private PointPairList GetApproxWeight(List<PerfomanceDataType> weights, int iters)
         {
             PointPairList res = new PointPairList();
+            List<pair<double, double>> points = new List<pair<double, double>>();
+
             if (weights.Count > 2)
             {
-                double y;
-                double dt = weights[0].Day.ToOADate();
-                y = weights[0].BodyWeight;
-                res.Add(weights[0].Day.ToOADate(), weights[0].BodyWeight);
-                for(int i = 1; i < weights.Count; i++)
+                foreach (PerfomanceDataType i in weights)
                 {
-                    res.Add((dt + weights[i].Day.ToOADate()) / 2, (weights[i].BodyWeight + y) / 2);
-                    y = (y + weights[i].BodyWeight) / 2;
-                    dt = weights[i].Day.ToOADate();
+                    points.Add(new pair<double, double>(i.Day.ToOADate(), i.BodyWeight));
+                }
+                for (int i = 0; i < iters; i++)
+                {
+                    for (int j = 1; j < weights.Count; j++)
+                    {
+                        points[j].First = (points[j].First + points[j - 1].First) / 2;
+                        points[j].Second = (points[j - 1].Second + points[j].Second) / 2;
+                    }
+                }
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    res.Add(points[i].First, points[i].Second);
                 }
 
             }
