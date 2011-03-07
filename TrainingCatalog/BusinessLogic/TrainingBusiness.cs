@@ -5,6 +5,8 @@ using System.Text;
 using System.Data.SqlServerCe;
 using System.Data;
 using System.Windows.Forms;
+using System.Configuration;
+using System.IO;
 
 namespace TrainingCatalog.BusinessLogic
 {
@@ -107,6 +109,32 @@ namespace TrainingCatalog.BusinessLogic
                 }
             }
             return res;
+        }
+        public static void UpdateBase()
+        {
+            string path = ConfigurationManager.AppSettings["db"];
+            string backupPath = path + ".backup";
+            try
+            {
+
+                File.Copy(path, path + ".backup");
+                using (SqlCeConnection connection = new SqlCeConnection(path))
+                {
+                    using (SqlCeCommand cmd = connection.CreateCommand())
+                    {
+                        connection.Open();
+                        
+                    }
+                }
+                File.Delete(backupPath);
+            }
+            catch (Exception e)
+            {
+                File.Delete(path);
+                File.Copy(backupPath, path);
+                throw e; 
+            }
+
         }
 
       

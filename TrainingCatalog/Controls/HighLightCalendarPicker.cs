@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace TrainingCatalog.Controls
+namespace System.Windows.Forms
 {
 
 
