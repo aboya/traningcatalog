@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TrainingCatalog.BusinessLogic;
 
 namespace TrainingCatalog
 {
@@ -13,6 +14,7 @@ namespace TrainingCatalog
         [STAThread]
         static void Main()
         {
+          //  TrainingBusiness.UpdateBase();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ApplicationExit += new EventHandler(OnApplicationExit);

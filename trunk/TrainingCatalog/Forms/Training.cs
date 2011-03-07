@@ -24,7 +24,7 @@ namespace TrainingCatalog
         public Training()
         {
             InitializeComponent();
-
+          
 
         }
 
