@@ -1,9 +1,0 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-Project("{1FCC92F3-F470-4421-9501-1C6E970181CC}") = "SQL Server Compact Edition Scripts1", "SQL Server Compact Edition Scripts1\SQL Server Compact Edition Scripts1.ssmsmobileproj", "{722153D2-2B37-48C8-8963-170399C6496D}"
-EndProject
-Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-EndGlobal
