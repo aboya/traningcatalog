@@ -1,0 +1,9 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+Project("{1FCC92F3-F470-4421-9501-1C6E970181CC}") = "SqlCe3.5", "SqlCe3.5\SqlCe3.5.ssmsmobileproj", "{773654B8-D49C-44B9-9C06-6245E2037700}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

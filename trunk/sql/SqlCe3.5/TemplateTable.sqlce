@@ -1,0 +1,6 @@
+CREATE TABLE Template
+(
+   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+   Name nvarchar(100) not null 
+)
+ 
