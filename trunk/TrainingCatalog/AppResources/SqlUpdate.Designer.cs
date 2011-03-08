@@ -86,5 +86,108 @@ namespace TrainingCatalog.AppResources {
                 return ResourceManager.GetString("v11", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE Training
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+        ///   Day datetime not null CONSTRAINT IX_Training_Day UNIQUE,
+        ///   Comment nvarchar(1000) NOT NULL default &apos;&apos;,
+        ///   BodyWeight float null
+        ///).
+        /// </summary>
+        internal static string v3 {
+            get {
+                return ResourceManager.GetString("v3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE Exersize
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_Exersize_Id PRIMARY KEY,
+        ///   ShortName nvarchar(100) not null default &apos;&apos;,
+        ///   Description nvarchar(2000) NOT NULL default &apos;&apos;,
+        ///   Img Image null
+        ///).
+        /// </summary>
+        internal static string v4 {
+            get {
+                return ResourceManager.GetString("v4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE Link
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+        ///   TrainingId int not null CONSTRAINT FK_Link_TrainingId references Training (Id),
+        ///   ExersizeId int NOT NULL Constraint FK_Link_ExersizeId references Exersize (Id),
+        ///   Weight int not null,
+        ///   [Count] int not null
+        ///
+        ///).
+        /// </summary>
+        internal static string v5 {
+            get {
+                return ResourceManager.GetString("v5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE ExersizeCategory
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_ExersizeCategoryLink_Id PRIMARY KEY,
+        ///   Name nvarchar(100) not null
+        ///).
+        /// </summary>
+        internal static string v6 {
+            get {
+                return ResourceManager.GetString("v6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE ExersizeCategoryLink
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_ExersizeCategoryLink_Id PRIMARY KEY,
+        ///   ExersizeId int not null CONSTRAINT FK_ExersizeCategoryLink_ExersizeId references Exersize (id),
+        ///   ExersizeCategoryId int not null constraint FK_ExersizeCategoryLink_ExersizeCategoryId references ExersizeCategory (id)
+        ///).
+        /// </summary>
+        internal static string v7 {
+            get {
+                return ResourceManager.GetString("v7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE TrainingTemplate
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+        ///   TemplateId int not null CONSTRAINT FK_TrainingTemplate_TemplateId references Training (Id),
+        ///   ExersizeId int NOT NULL Constraint FK_TrainingTemplate_ExersizeId references Exersize (Id),
+        ///   Weight int not null,
+        ///   [Count] int not null
+        ///).
+        /// </summary>
+        internal static string v8 {
+            get {
+                return ResourceManager.GetString("v8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE Template
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+        ///   Name nvarchar(100) not null 
+        ///).
+        /// </summary>
+        internal static string v9 {
+            get {
+                return ResourceManager.GetString("v9", resourceCulture);
+            }
+        }
     }
 }

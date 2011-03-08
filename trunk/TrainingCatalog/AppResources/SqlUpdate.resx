@@ -133,9 +133,79 @@
 	Midarm_h float constraint DF_Midarmd_l default(0),
 	BodyFat float constraint DF_BodyFat default(0)
 )</value>
+    <comment>0010</comment>
   </data>
   <data name="v11" xml:space="preserve">
     <value>CREATE UNIQUE NONCLUSTERED INDEX IDX_BodyMeasurement_TrainingId ON BodyMeasurement (TrainingId DESC)
 WITH (STATISTICS_NORECOMPUTE = OFF)</value>
+    <comment>0011</comment>
+  </data>
+  <data name="v3" xml:space="preserve">
+    <value>CREATE TABLE Training
+(
+   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+   Day datetime not null CONSTRAINT IX_Training_Day UNIQUE,
+   Comment nvarchar(1000) NOT NULL default '',
+   BodyWeight float null
+)</value>
+    <comment>0003</comment>
+  </data>
+  <data name="v4" xml:space="preserve">
+    <value>CREATE TABLE Exersize
+(
+   Id int NOT NULL identity(1,1) constraint PK_Exersize_Id PRIMARY KEY,
+   ShortName nvarchar(100) not null default '',
+   Description nvarchar(2000) NOT NULL default '',
+   Img Image null
+)</value>
+    <comment>0004</comment>
+  </data>
+  <data name="v5" xml:space="preserve">
+    <value>CREATE TABLE Link
+(
+   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+   TrainingId int not null CONSTRAINT FK_Link_TrainingId references Training (Id),
+   ExersizeId int NOT NULL Constraint FK_Link_ExersizeId references Exersize (Id),
+   Weight int not null,
+   [Count] int not null
+
+)</value>
+    <comment>0005</comment>
+  </data>
+  <data name="v6" xml:space="preserve">
+    <value>CREATE TABLE ExersizeCategory
+(
+   Id int NOT NULL identity(1,1) constraint PK_ExersizeCategoryLink_Id PRIMARY KEY,
+   Name nvarchar(100) not null
+)</value>
+    <comment>0006</comment>
+  </data>
+  <data name="v7" xml:space="preserve">
+    <value>CREATE TABLE ExersizeCategoryLink
+(
+   Id int NOT NULL identity(1,1) constraint PK_ExersizeCategoryLink_Id PRIMARY KEY,
+   ExersizeId int not null CONSTRAINT FK_ExersizeCategoryLink_ExersizeId references Exersize (id),
+   ExersizeCategoryId int not null constraint FK_ExersizeCategoryLink_ExersizeCategoryId references ExersizeCategory (id)
+)</value>
+    <comment>0007</comment>
+  </data>
+  <data name="v8" xml:space="preserve">
+    <value>CREATE TABLE TrainingTemplate
+(
+   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+   TemplateId int not null CONSTRAINT FK_TrainingTemplate_TemplateId references Training (Id),
+   ExersizeId int NOT NULL Constraint FK_TrainingTemplate_ExersizeId references Exersize (Id),
+   Weight int not null,
+   [Count] int not null
+)</value>
+    <comment>0008</comment>
+  </data>
+  <data name="v9" xml:space="preserve">
+    <value>CREATE TABLE Template
+(
+   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+   Name nvarchar(100) not null 
+)</value>
+    <comment>0009</comment>
   </data>
 </root>
