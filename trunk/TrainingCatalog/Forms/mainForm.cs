@@ -15,6 +15,8 @@ namespace TrainingCatalog
         public mainForm()
         {
             InitializeComponent();
+            this.BackgroundImage = TrainingCatalog.AppResources.AppResources.kachok;
+            this.BackgroundImageLayout = ImageLayout.Center;
         }
 
         private void button1_Click(object sender, EventArgs e)

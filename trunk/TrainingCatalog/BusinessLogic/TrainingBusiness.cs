@@ -135,11 +135,11 @@ namespace TrainingCatalog.BusinessLogic
                     using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         connection.Open();
-                        cmd.CommandText = @"create table version_info1 (
-	                                    version int )
-                                    ";
-                        cmd.ExecuteNonQuery();
-                        cmd.CommandText = @"drop table version_info1 ";
+//                        cmd.CommandText = @"create table version_info1 (
+//	                                    version int )
+//                                    ";
+//                        cmd.ExecuteNonQuery();
+//                        cmd.CommandText = @"drop table version_info1 ";
 
                     }
                 }

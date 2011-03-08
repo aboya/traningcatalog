@@ -264,6 +264,7 @@
     <Content Include="db.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\kachok.png" />
     <Content Include="SqlUpdate\SqlUpdate.sql" />
     <None Include="Resources\left-96x96.png" />
     <None Include="Resources\right-96x96.png" />
