@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlCeProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="SqlCe3.5">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:SQL Server Compact Edition">
+          <Created>2011-03-08T08:36:05.1327792+02:00</Created>
+          <Type>SQL Server Compact Edition </Type>
+          <Server>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</Server>
+          <UserName>SQL Server Compact Edition</UserName>
+          <Authentication>SQL Server Compact Edition </Authentication>
+          <InitialDB>Not Applicable</InitialDB>
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>100</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="5" Sorted="true">
+      <Items>
+        <FileNode Name="ExersizeCategory.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>ExersizeCategory.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="ExersizeCategoryLink.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>ExersizeCategoryLink.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="ExersizeTable.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>ExersizeTable.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="Link.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>Link.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="SQLServerCompactEditionQuery1.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>SQLServerCompactEditionQuery1.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="TemplateTable.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>TemplateTable.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="TrainingTable.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>TrainingTable.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="TrainingTemplate.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>TrainingTemplate.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="BodyMeasurement.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>BodyMeasurement.sqlce</FullPath>
+        </FileNode>
+        <FileNode Name="ver1.sqlce">
+          <AssociatedConnectionMoniker>6b04a4a7-9b37-4028-ac2d-f0a39e50fb57:C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf:False:SQL Server Compact Edition</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>C:\Users\Администратор\Documents\TraningCatalog\TrainingCatalog\bin\Debug\db.sdf</AssociatedConnSrvName>
+          <AssociatedConnUserName>SQL Server Compact Edition</AssociatedConnUserName>
+          <FullPath>ver1.sqlce</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlCeProject>

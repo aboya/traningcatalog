@@ -1,0 +1,11 @@
+
+CREATE TABLE Link
+(
+   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+   TrainingId int not null CONSTRAINT FK_Link_TrainingId references Training (Id),
+   ExersizeId int NOT NULL Constraint FK_Link_ExersizeId references Exersize (Id),
+   Weight int not null,
+   [Count] int not null
+
+)
+ 
