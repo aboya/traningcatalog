@@ -90,6 +90,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="AppResources\SqlUpdate.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SqlUpdate.resx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessLogic\StatisticsBusiness.cs" />
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
     <Compile Include="BusinessLogic\Types\dbBusiness.cs" />
@@ -174,6 +179,10 @@
     <EmbeddedResource Include="AppResources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppResources\SqlUpdate.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SqlUpdate.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
@@ -265,7 +274,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\kachok.png" />
-    <Content Include="SqlUpdate\SqlUpdate.sql" />
     <None Include="Resources\left-96x96.png" />
     <None Include="Resources\right-96x96.png" />
     <None Include="Resources\right-48x48.png" />

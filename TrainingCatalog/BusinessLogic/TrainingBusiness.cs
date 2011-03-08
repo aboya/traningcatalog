@@ -127,29 +127,35 @@ namespace TrainingCatalog.BusinessLogic
             string backupPath = path + ".backup";
             try
             {
-
-               
-                File.Copy(path, path + ".backup", true);
+                File.Copy(path, backupPath, true);
                 using (SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
                 {
                     using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         connection.Open();
-//                        cmd.CommandText = @"create table version_info1 (
-//	                                    version int )
-//                                    ";
-//                        cmd.ExecuteNonQuery();
-//                        cmd.CommandText = @"drop table version_info1 ";
-
+                        cmd.CommandText = "select version from version_info";
+                        int version = Convert.ToInt32(cmd.ExecuteScalar());
+                        string sql = TrainingCatalog.AppResources.SqlUpdate.ResourceManager.GetString("v" + version.ToString());
+                        while (!string.IsNullOrEmpty(sql))
+                        {
+                            cmd.CommandText = sql;
+                            cmd.ExecuteNonQuery();
+                            version++;
+                            cmd.CommandText = string.Format("update version_info set version = {0}", version);
+                            cmd.ExecuteNonQuery();
+                            sql = TrainingCatalog.AppResources.SqlUpdate.ResourceManager.GetString("v" + version.ToString());
+                        }
                     }
                 }
                 File.Delete(backupPath);
             }
             catch (Exception e)
             {
-                File.Delete(path);
-                File.Copy(backupPath, path);
-                throw e; 
+                throw e;
+            }
+            finally
+            {
+
             }
 
         }
