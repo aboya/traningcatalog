@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.AddExersize = new System.Windows.Forms.Button();
-            this.txtWeight = new System.Windows.Forms.TextBox();
-            this.txtCount = new System.Windows.Forms.TextBox();
+            this.txtWeight = new TrainingCatalog.Controls.BaseTextBox();
+            this.txtCount = new TrainingCatalog.Controls.BaseTextBox();
             this.dateTime = new System.Windows.Forms.DateTimePicker();
             this.TrainingList = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cbTraningCategory = new System.Windows.Forms.ComboBox();
-            this.txtBodyWeigh = new System.Windows.Forms.TextBox();
+            this.txtBodyWeight = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSaveWeight = new System.Windows.Forms.Button();
             this.btnAddFromTemplate = new System.Windows.Forms.Button();
@@ -55,20 +55,22 @@
             // 
             // txtWeight
             // 
+            this.txtWeight.ForeColor = System.Drawing.Color.Gray;
             this.txtWeight.Location = new System.Drawing.Point(146, 12);
             this.txtWeight.Name = "txtWeight";
+            this.txtWeight.NullableText = "Вес";
             this.txtWeight.Size = new System.Drawing.Size(51, 20);
             this.txtWeight.TabIndex = 2;
-            this.txtWeight.Text = "Вес";
             this.txtWeight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtWeight_KeyDown);
             // 
             // txtCount
             // 
+            this.txtCount.ForeColor = System.Drawing.Color.Gray;
             this.txtCount.Location = new System.Drawing.Point(204, 12);
             this.txtCount.Name = "txtCount";
+            this.txtCount.NullableText = "Количество";
             this.txtCount.Size = new System.Drawing.Size(48, 20);
             this.txtCount.TabIndex = 3;
-            this.txtCount.Text = "Количество";
             this.txtCount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCount_KeyDown);
             // 
             // dateTime
@@ -91,8 +93,6 @@
             this.TrainingList.Name = "TrainingList";
             this.TrainingList.Size = new System.Drawing.Size(269, 21);
             this.TrainingList.TabIndex = 5;
-            this.TrainingList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrainingList_KeyDown);
-            this.TrainingList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TrainingList_KeyPress);
             // 
             // dataGridView1
             // 
@@ -119,12 +119,12 @@
             this.cbTraningCategory.TabIndex = 6;
             this.cbTraningCategory.SelectedIndexChanged += new System.EventHandler(this.cbTraningCategory_SelectedIndexChanged);
             // 
-            // txtBodyWeigh
+            // txtBodyWeight
             // 
-            this.txtBodyWeigh.Location = new System.Drawing.Point(204, 35);
-            this.txtBodyWeigh.Name = "txtBodyWeigh";
-            this.txtBodyWeigh.Size = new System.Drawing.Size(48, 20);
-            this.txtBodyWeigh.TabIndex = 7;
+            this.txtBodyWeight.Location = new System.Drawing.Point(204, 35);
+            this.txtBodyWeight.Name = "txtBodyWeight";
+            this.txtBodyWeight.Size = new System.Drawing.Size(48, 20);
+            this.txtBodyWeight.TabIndex = 7;
             // 
             // label1
             // 
@@ -163,7 +163,7 @@
             this.Controls.Add(this.btnAddFromTemplate);
             this.Controls.Add(this.btnSaveWeight);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtBodyWeigh);
+            this.Controls.Add(this.txtBodyWeight);
             this.Controls.Add(this.cbTraningCategory);
             this.Controls.Add(this.TrainingList);
             this.Controls.Add(this.dateTime);
@@ -174,9 +174,6 @@
             this.Name = "Training";
             this.Text = "Training";
             this.Load += new System.EventHandler(this.Training_Load);
-            this.ResizeBegin += new System.EventHandler(this.Training_ResizeBegin);
-            this.ResizeEnd += new System.EventHandler(this.Training_ResizeEnd);
-            this.Resize += new System.EventHandler(this.Training_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -186,13 +183,13 @@
         #endregion
 
         private System.Windows.Forms.Button AddExersize;
-        private System.Windows.Forms.TextBox txtWeight;
-        private System.Windows.Forms.TextBox txtCount;
+        private TrainingCatalog.Controls.BaseTextBox txtWeight;
+        private TrainingCatalog.Controls.BaseTextBox txtCount;
         private System.Windows.Forms.DateTimePicker dateTime;
         private System.Windows.Forms.ComboBox TrainingList;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox cbTraningCategory;
-        private System.Windows.Forms.TextBox txtBodyWeigh;
+        private TrainingCatalog.Controls.FloatNumberTextBox txtBodyWeight;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSaveWeight;
         private System.Windows.Forms.Button btnAddFromTemplate;

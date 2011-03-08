@@ -50,6 +50,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>dumbbells.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -78,10 +85,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppResources\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessLogic\StatisticsBusiness.cs" />
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
+    <Compile Include="BusinessLogic\Types\dbBusiness.cs" />
+    <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
+    <Compile Include="Controls\BaseTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FloatNumberTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\HighLightCalendar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -91,6 +111,12 @@
     <Compile Include="Controls\HighLightDates.cs" />
     <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BodyMeasurements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BodyMeasurements.Designer.cs">
+      <DependentUpon>BodyMeasurements.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CustomDataGridView.cs">
       <SubType>Component</SubType>
@@ -140,8 +166,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AppResources\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BodyMeasurements.resx">
+      <DependentUpon>BodyMeasurements.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DayComment.resx">
       <DependentUpon>DayComment.cs</DependentUpon>
@@ -178,6 +216,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Training.resx">
       <DependentUpon>Training.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
@@ -222,6 +264,13 @@
     <Content Include="db.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="dumbbells.ico" />
+    <None Include="Resources\left-96x96.png" />
+    <None Include="Resources\right-96x96.png" />
+    <None Include="Resources\right-48x48.png" />
+    <None Include="Resources\left-48x48.png" />
+    <None Include="Resources\save-48x48.png" />
+    <None Include="Resources\save-72x72.png" />
     <Content Include="SqlCeBin\sqlceca35.dll" />
     <Content Include="SqlCeBin\sqlcecompact35.dll" />
     <Content Include="SqlCeBin\sqlceer35EN.dll" />

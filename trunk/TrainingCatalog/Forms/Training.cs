@@ -60,8 +60,7 @@ namespace TrainingCatalog
 
         private void Training_Load(object sender, EventArgs e)
         {
-            Form mainForm = Application.OpenForms["mainForm"];
-            this.Location = mainForm.Location;
+
             this.MinimumSize = new Size(588, 382);
             
             try
@@ -226,19 +225,8 @@ namespace TrainingCatalog
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
                 // get body weight
-                cmd.CommandText = @"select BodyWeight from Training 
-                                    where Day = @Day";
-                cmd.Parameters.Add("@Day", SqlDbType.DateTime).Value = date;
-                object bodyWeight = (object)cmd.ExecuteScalar();
-                cmd.Parameters.Clear();
-                if (bodyWeight == null)
-                {
-                    txtBodyWeigh.Text = "0";
-                }
-                else
-                {
-                    txtBodyWeigh.Text = Convert.ToString(bodyWeight);
-                }
+                txtBodyWeight.Text = TrainingBusiness.GetBodyWeight(cmd, date).ToString();
+
             }
             catch (Exception e)
             {
@@ -251,10 +239,6 @@ namespace TrainingCatalog
             }
         }
 
-        private void Training_Resize(object sender, EventArgs e)
-        {
-
-        }
 
         private void dateTime_ValueChanged(object sender, EventArgs e)
         {
@@ -285,15 +269,6 @@ namespace TrainingCatalog
             this.GridBind();
         }
 
-        private void TrainingList_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void TrainingList_KeyPress(object sender, KeyPressEventArgs e)
-        {
-           // int b;
-        }
 
         private void cbTraningCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -313,11 +288,8 @@ namespace TrainingCatalog
             try
             {
                 cmd.Connection.Open();
-                double bodyWeight = Convert.ToDouble(txtBodyWeigh.Text);
-                cmd.CommandText = "UPDATE Training set BodyWeight = @bodyWeight where Day = @day";
-                cmd.Parameters.Add("@day", SqlDbType.DateTime).Value = dateTime.Value.Date;
-                cmd.Parameters.Add("@bodyWeight", SqlDbType.Float).Value = bodyWeight;
-                int affectedRows = cmd.ExecuteNonQuery();
+                float bodyWeight = Convert.ToSingle(txtBodyWeight.Text);
+                int affectedRows = TrainingBusiness.SaveBodyWeight(cmd, dateTime.Value.Date, (float)bodyWeight);
                 if (affectedRows == 0)
                 {
                     MessageBox.Show("Необходимо добавить хотя бы 1 упражнение");
@@ -358,15 +330,6 @@ namespace TrainingCatalog
                 if(e.KeyValue < '0' || e.KeyValue > '9') e.SuppressKeyPress = true;
                 if (e.KeyValue >= 96 && e.KeyValue <= 105) e.SuppressKeyPress = false;
             }
-        }
-
-        private void Training_ResizeBegin(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Training_ResizeEnd(object sender, EventArgs e)
-        {
         }
 
         private void btnAddFromTemplate_Click(object sender, EventArgs e)

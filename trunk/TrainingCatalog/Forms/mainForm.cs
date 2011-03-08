@@ -61,5 +61,10 @@ namespace TrainingCatalog
         {
             new DayComment().Show();
         }
+
+        private void btnMeasurment_Click(object sender, EventArgs e)
+        {
+            new BodyMeasurements().Show();
+        }
     }
 }
