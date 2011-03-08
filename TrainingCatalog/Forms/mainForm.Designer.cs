@@ -36,6 +36,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.btnStatistics = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.btnMeasurment = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -118,11 +119,22 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // btnMeasurment
+            // 
+            this.btnMeasurment.Location = new System.Drawing.Point(14, 66);
+            this.btnMeasurment.Name = "btnMeasurment";
+            this.btnMeasurment.Size = new System.Drawing.Size(84, 41);
+            this.btnMeasurment.TabIndex = 8;
+            this.btnMeasurment.Text = "Измерения";
+            this.btnMeasurment.UseVisualStyleBackColor = true;
+            this.btnMeasurment.Click += new System.EventHandler(this.btnMeasurment_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 267);
+            this.Controls.Add(this.btnMeasurment);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.btnStatistics);
             this.Controls.Add(this.button5);
@@ -151,6 +163,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btnStatistics;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnMeasurment;
     }
 }
 
