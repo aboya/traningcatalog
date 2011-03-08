@@ -32,6 +32,11 @@ namespace TrainingCatalog
         {
             uint weight = 0, count = 0;
             int TrainingId = 0, ExersizeId = 0;
+            if (Exersizes.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("Добавтье хотя бы одно упражнение");
+                return;
+            }
             try
             {
                 connection.Open();
@@ -155,8 +160,8 @@ namespace TrainingCatalog
                     {
                         TrainingList.Items.Add(Exersizes.Tables[0].Rows[i]["ShortName"]);
                     }
-
-                    TrainingList.SelectedIndex = 0;
+                    if(TrainingList.Items.Count > 0)
+                        TrainingList.SelectedIndex = 0;
                     TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
                 }
 
@@ -252,11 +257,15 @@ namespace TrainingCatalog
             SqlCeCommand cmd = new SqlCeCommand();
             try
             {
-                int LinkId = (int)dataGridView1.Rows[e.RowIndex].Tag;
-                connection.Open();
-                cmd.Connection = connection;
-                cmd.CommandText = String.Format("delete from Link where Link.ID = {0}", LinkId);
-                cmd.ExecuteNonQuery();
+                object o = dataGridView1.Rows[e.RowIndex].Tag;
+                if (o != null)
+                {
+                    int LinkId = Convert.ToInt32(o);
+                    connection.Open();
+                    cmd.Connection = connection;
+                    cmd.CommandText = String.Format("delete from Link where Link.ID = {0}", LinkId);
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ee)
             {

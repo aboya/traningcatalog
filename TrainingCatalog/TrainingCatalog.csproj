@@ -183,6 +183,7 @@
     <EmbeddedResource Include="AppResources\SqlUpdate.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SqlUpdate.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
