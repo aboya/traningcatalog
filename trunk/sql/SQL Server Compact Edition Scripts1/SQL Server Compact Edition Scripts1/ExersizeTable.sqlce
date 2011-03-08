@@ -1,8 +1,0 @@
-CREATE TABLE Exersize
-(
-   Id int NOT NULL identity(1,1) constraint PK_Exersize_Id PRIMARY KEY,
-   ShortName nvarchar(100) not null default '',
-   Description nvarchar(2000) NOT NULL default '',
-   Img Image null
-)
- 
