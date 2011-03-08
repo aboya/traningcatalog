@@ -24,7 +24,7 @@ namespace TrainingCatalog
         public Training()
         {
             InitializeComponent();
-          
+            AddExersize.Image = TrainingCatalog.AppResources.AppResources.Plus_green_32x32;          
 
         }
 

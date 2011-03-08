@@ -45,11 +45,10 @@
             // AddExersize
             // 
             this.AddExersize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddExersize.Location = new System.Drawing.Point(533, 11);
+            this.AddExersize.Location = new System.Drawing.Point(533, 15);
             this.AddExersize.Name = "AddExersize";
-            this.AddExersize.Size = new System.Drawing.Size(25, 21);
+            this.AddExersize.Size = new System.Drawing.Size(32, 32);
             this.AddExersize.TabIndex = 0;
-            this.AddExersize.Text = "+";
             this.AddExersize.UseVisualStyleBackColor = true;
             this.AddExersize.Click += new System.EventHandler(this.AddExersize_Click);
             // 

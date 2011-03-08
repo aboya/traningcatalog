@@ -81,6 +81,13 @@ namespace TrainingCatalog.AppResources {
             }
         }
         
+        public static System.Drawing.Bitmap Plus_green_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("Plus_green_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap right_48x48 {
             get {
                 object obj = ResourceManager.GetObject("right_48x48", resourceCulture);
