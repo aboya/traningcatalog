@@ -264,6 +264,7 @@ namespace TrainingCatalog.Forms
             // mCalendar
             // 
             this.mCalendar.Location = new System.Drawing.Point(18, 18);
+            this.mCalendar.MaxSelectionCount = 1;
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 0;
             this.mCalendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mCalendar_DateChanged);

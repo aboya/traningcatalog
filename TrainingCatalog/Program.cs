@@ -14,7 +14,7 @@ namespace TrainingCatalog
         [STAThread]
         static void Main()
         {
-          //  TrainingBusiness.UpdateBase();
+            TrainingBusiness.UpdateBase();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ApplicationExit += new EventHandler(OnApplicationExit);
