@@ -123,6 +123,12 @@
     <Compile Include="Forms\BodyMeasurements.Designer.cs">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Categories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Categories.Designer.cs">
+      <DependentUpon>Categories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CustomDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -190,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BodyMeasurements.resx">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Categories.resx">
+      <DependentUpon>Categories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DayComment.resx">
       <DependentUpon>DayComment.cs</DependentUpon>

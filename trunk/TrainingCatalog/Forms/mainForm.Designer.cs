@@ -37,11 +37,16 @@
             this.btnStatistics = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.btnMeasurment = new System.Windows.Forms.Button();
+            this.btnCategory = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(195, 211);
+            this.button1.Location = new System.Drawing.Point(194, 213);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 41);
             this.button1.TabIndex = 0;
@@ -51,7 +56,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(195, 66);
+            this.button2.Location = new System.Drawing.Point(194, 68);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(85, 41);
             this.button2.TabIndex = 1;
@@ -61,7 +66,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(195, 113);
+            this.button3.Location = new System.Drawing.Point(194, 115);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(85, 41);
             this.button3.TabIndex = 2;
@@ -71,7 +76,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(195, 19);
+            this.button4.Location = new System.Drawing.Point(194, 21);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(85, 41);
             this.button4.TabIndex = 3;
@@ -81,7 +86,7 @@
             // 
             // btnReport
             // 
-            this.btnReport.Location = new System.Drawing.Point(13, 211);
+            this.btnReport.Location = new System.Drawing.Point(103, 213);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(85, 41);
             this.btnReport.TabIndex = 4;
@@ -91,7 +96,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(14, 164);
+            this.button5.Location = new System.Drawing.Point(104, 166);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(84, 41);
             this.button5.TabIndex = 5;
@@ -101,7 +106,7 @@
             // 
             // btnStatistics
             // 
-            this.btnStatistics.Location = new System.Drawing.Point(195, 164);
+            this.btnStatistics.Location = new System.Drawing.Point(194, 166);
             this.btnStatistics.Name = "btnStatistics";
             this.btnStatistics.Size = new System.Drawing.Size(85, 41);
             this.btnStatistics.TabIndex = 6;
@@ -111,7 +116,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(14, 113);
+            this.button6.Location = new System.Drawing.Point(104, 115);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(84, 41);
             this.button6.TabIndex = 7;
@@ -121,7 +126,7 @@
             // 
             // btnMeasurment
             // 
-            this.btnMeasurment.Location = new System.Drawing.Point(14, 66);
+            this.btnMeasurment.Location = new System.Drawing.Point(104, 68);
             this.btnMeasurment.Name = "btnMeasurment";
             this.btnMeasurment.Size = new System.Drawing.Size(84, 41);
             this.btnMeasurment.TabIndex = 8;
@@ -129,11 +134,62 @@
             this.btnMeasurment.UseVisualStyleBackColor = true;
             this.btnMeasurment.Click += new System.EventHandler(this.btnMeasurment_Click);
             // 
+            // btnCategory
+            // 
+            this.btnCategory.Location = new System.Drawing.Point(104, 21);
+            this.btnCategory.Name = "btnCategory";
+            this.btnCategory.Size = new System.Drawing.Size(84, 41);
+            this.btnCategory.TabIndex = 9;
+            this.btnCategory.Text = "Категории";
+            this.btnCategory.UseVisualStyleBackColor = true;
+            this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(13, 213);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(84, 41);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Добавить питание";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(13, 166);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(84, 41);
+            this.button8.TabIndex = 11;
+            this.button8.Text = "Редактор блюд";
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(13, 115);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(84, 41);
+            this.button9.TabIndex = 12;
+            this.button9.Text = "Добавить кардио";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(13, 68);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(84, 41);
+            this.button10.TabIndex = 13;
+            this.button10.Text = "Кардио упражнения";
+            this.button10.UseVisualStyleBackColor = true;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 267);
+            this.ClientSize = new System.Drawing.Size(289, 267);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.btnCategory);
             this.Controls.Add(this.btnMeasurment);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.btnStatistics);
@@ -164,6 +220,11 @@
         private System.Windows.Forms.Button btnStatistics;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btnMeasurment;
+        private System.Windows.Forms.Button btnCategory;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
     }
 }
 
