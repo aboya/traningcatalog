@@ -68,5 +68,10 @@ namespace TrainingCatalog
         {
             new BodyMeasurements().Show();
         }
+
+        private void btnCategory_Click(object sender, EventArgs e)
+        {
+            new Categories().Show();
+        }
     }
 }
