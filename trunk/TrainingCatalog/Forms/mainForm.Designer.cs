@@ -136,12 +136,13 @@
             // 
             // btnCategory
             // 
-            this.btnCategory.Location = new System.Drawing.Point(104, 21);
+            this.btnCategory.Location = new System.Drawing.Point(13, 21);
             this.btnCategory.Name = "btnCategory";
             this.btnCategory.Size = new System.Drawing.Size(84, 41);
             this.btnCategory.TabIndex = 9;
             this.btnCategory.Text = "Категории";
             this.btnCategory.UseVisualStyleBackColor = true;
+            this.btnCategory.Visible = false;
             this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
             // 
             // button7
@@ -152,6 +153,7 @@
             this.button7.TabIndex = 10;
             this.button7.Text = "Добавить питание";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
             // 
             // button8
             // 
@@ -161,6 +163,7 @@
             this.button8.TabIndex = 11;
             this.button8.Text = "Редактор блюд";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Visible = false;
             // 
             // button9
             // 
@@ -170,6 +173,7 @@
             this.button9.TabIndex = 12;
             this.button9.Text = "Добавить кардио";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Visible = false;
             // 
             // button10
             // 
@@ -179,6 +183,7 @@
             this.button10.TabIndex = 13;
             this.button10.Text = "Кардио упражнения";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Visible = false;
             // 
             // mainForm
             // 
