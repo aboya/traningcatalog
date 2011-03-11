@@ -208,26 +208,31 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             if (!isExist)
             {
-                
-                cmd.CommandText = @"insert into BodyMeasurement(TrainingId,Biceps_h, Biceps_l, BodyFat, Chest_h, Chest_l, Hip_h, Hip_l, Midarm_h, Midarm_l, Waistline_h, Waistline_l)
+                if (!m.IsEmpty)
+                {
+                    cmd.CommandText = @"insert into BodyMeasurement(TrainingId,Biceps_h, Biceps_l, BodyFat, Chest_h, Chest_l, Hip_h, Hip_l, Midarm_h, Midarm_l, Waistline_h, Waistline_l)
                                    values(@trId,@Biceps_h, @Biceps_l, @BodyFat, @Chest_h, @Chest_l, @Hip_h, @Hip_l, @Midarm_h, @Midarm_l, @Waistline_h, @Waistline_l)";
-                cmd.Parameters.Add("@Biceps_h", SqlDbType.Float).Value = m.Biceps_h;
-                cmd.Parameters.Add("@Biceps_l", SqlDbType.Float).Value = m.Biceps_l;
-                cmd.Parameters.Add("@BodyFat", SqlDbType.Float).Value = m.BodyFat;
-                cmd.Parameters.Add("@Chest_h", SqlDbType.Float).Value = m.Chest_h;
-                cmd.Parameters.Add("@Chest_l", SqlDbType.Float).Value = m.Chest_l;
-                cmd.Parameters.Add("@Hip_h", SqlDbType.Float).Value = m.Hip_h;
-                cmd.Parameters.Add("@Hip_l", SqlDbType.Float).Value = m.Hip_l;
-                cmd.Parameters.Add("@Midarm_h", SqlDbType.Float).Value = m.Midarm_h;
-                cmd.Parameters.Add("@Midarm_l", SqlDbType.Float).Value = m.Midarm_l;
-                cmd.Parameters.Add("@Waistline_h", SqlDbType.Float).Value = m.Waistline_h;
-                cmd.Parameters.Add("@Waistline_l", SqlDbType.Float).Value = m.Waistline_l;
-                cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("@Biceps_h", SqlDbType.Float).Value = m.Biceps_h;
+                    cmd.Parameters.Add("@Biceps_l", SqlDbType.Float).Value = m.Biceps_l;
+                    cmd.Parameters.Add("@BodyFat", SqlDbType.Float).Value = m.BodyFat;
+                    cmd.Parameters.Add("@Chest_h", SqlDbType.Float).Value = m.Chest_h;
+                    cmd.Parameters.Add("@Chest_l", SqlDbType.Float).Value = m.Chest_l;
+                    cmd.Parameters.Add("@Hip_h", SqlDbType.Float).Value = m.Hip_h;
+                    cmd.Parameters.Add("@Hip_l", SqlDbType.Float).Value = m.Hip_l;
+                    cmd.Parameters.Add("@Midarm_h", SqlDbType.Float).Value = m.Midarm_h;
+                    cmd.Parameters.Add("@Midarm_l", SqlDbType.Float).Value = m.Midarm_l;
+                    cmd.Parameters.Add("@Waistline_h", SqlDbType.Float).Value = m.Waistline_h;
+                    cmd.Parameters.Add("@Waistline_l", SqlDbType.Float).Value = m.Waistline_l;
+                    cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
+                    cmd.ExecuteNonQuery();
+                }
+                
             }
             else
             {
-                cmd.CommandText = @"update BodyMeasurement set
+                if (!m.IsEmpty)
+                {
+                    cmd.CommandText = @"update BodyMeasurement set
                                       Biceps_h = @Biceps_h,
                                       Biceps_l = @Biceps_l,
                                       BodyFat = @BodyFat,
@@ -241,19 +246,26 @@ namespace TrainingCatalog.BusinessLogic
                                       Waistline_l = @Waistline_l
                                       where TrainingId = @trId
                             ";
-                cmd.Parameters.Add("@Biceps_h", SqlDbType.Float).Value = m.Biceps_h;
-                cmd.Parameters.Add("@Biceps_l", SqlDbType.Float).Value = m.Biceps_l;
-                cmd.Parameters.Add("@BodyFat", SqlDbType.Float).Value = m.BodyFat;
-                cmd.Parameters.Add("@Chest_h", SqlDbType.Float).Value = m.Chest_h;
-                cmd.Parameters.Add("@Chest_l", SqlDbType.Float).Value = m.Chest_l;
-                cmd.Parameters.Add("@Hip_h", SqlDbType.Float).Value = m.Hip_h;
-                cmd.Parameters.Add("@Hip_l", SqlDbType.Float).Value = m.Hip_l;
-                cmd.Parameters.Add("@Midarm_h", SqlDbType.Float).Value = m.Midarm_h;
-                cmd.Parameters.Add("@Midarm_l", SqlDbType.Float).Value = m.Midarm_l;
-                cmd.Parameters.Add("@Waistline_h", SqlDbType.Float).Value = m.Waistline_h;
-                cmd.Parameters.Add("@Waistline_l", SqlDbType.Float).Value = m.Waistline_l;
-                cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("@Biceps_h", SqlDbType.Float).Value = m.Biceps_h;
+                    cmd.Parameters.Add("@Biceps_l", SqlDbType.Float).Value = m.Biceps_l;
+                    cmd.Parameters.Add("@BodyFat", SqlDbType.Float).Value = m.BodyFat;
+                    cmd.Parameters.Add("@Chest_h", SqlDbType.Float).Value = m.Chest_h;
+                    cmd.Parameters.Add("@Chest_l", SqlDbType.Float).Value = m.Chest_l;
+                    cmd.Parameters.Add("@Hip_h", SqlDbType.Float).Value = m.Hip_h;
+                    cmd.Parameters.Add("@Hip_l", SqlDbType.Float).Value = m.Hip_l;
+                    cmd.Parameters.Add("@Midarm_h", SqlDbType.Float).Value = m.Midarm_h;
+                    cmd.Parameters.Add("@Midarm_l", SqlDbType.Float).Value = m.Midarm_l;
+                    cmd.Parameters.Add("@Waistline_h", SqlDbType.Float).Value = m.Waistline_h;
+                    cmd.Parameters.Add("@Waistline_l", SqlDbType.Float).Value = m.Waistline_l;
+                    cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    cmd.CommandText = "delete from BodyMeasurement where TrainingId = @trId";
+                    cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
+                    cmd.ExecuteNonQuery();
+                }
             }
             SaveBodyWeight(cmd, m.date, m.BodyWeight);
             cmd.Parameters.Clear();
