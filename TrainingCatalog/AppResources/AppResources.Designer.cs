@@ -67,6 +67,13 @@ namespace TrainingCatalog.AppResources {
             }
         }
         
+        public static System.Drawing.Bitmap dumbbells_big {
+            get {
+                object obj = ResourceManager.GetObject("dumbbells_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap kachok {
             get {
                 object obj = ResourceManager.GetObject("kachok", resourceCulture);

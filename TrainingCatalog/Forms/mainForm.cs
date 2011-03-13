@@ -73,5 +73,27 @@ namespace TrainingCatalog
         {
             new Categories().Show();
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.F))
+            {
+                
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.A))
+            {
+                using (about ab = new about())
+                {
+                    ab.ShowDialog(this);
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            new CardioTraining().Show();
+        }
     }
 }

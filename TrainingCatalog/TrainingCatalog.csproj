@@ -114,6 +114,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\HighLightDates.cs" />
+    <Compile Include="Forms\about.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\about.Designer.cs">
+      <DependentUpon>about.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,12 @@
     </Compile>
     <Compile Include="Forms\BodyMeasurements.Designer.cs">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CardioTraining.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CardioTraining.Designer.cs">
+      <DependentUpon>CardioTraining.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Categories.cs">
       <SubType>Form</SubType>
@@ -191,11 +203,17 @@
       <LastGenOutput>SqlUpdate.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\about.resx">
+      <DependentUpon>about.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BodyMeasurements.resx">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CardioTraining.resx">
+      <DependentUpon>CardioTraining.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Categories.resx">
       <DependentUpon>Categories.cs</DependentUpon>
@@ -292,6 +310,7 @@
     <None Include="Resources\save-72x72.png" />
     <Content Include="dumbbells.ico" />
     <None Include="Resources\Plus_green_32x32.png" />
+    <None Include="Resources\dumbbells.png" />
     <Content Include="SqlCeBin\sqlceca35.dll" />
     <Content Include="SqlCeBin\sqlcecompact35.dll" />
     <Content Include="SqlCeBin\sqlceer35EN.dll" />
