@@ -25,7 +25,7 @@ namespace TrainingCatalog.Forms
 
         private void lblAuthor_Click(object sender, EventArgs e)
         {
-           // Environment.CommandLine(
+            System.Diagnostics.Process.Start("mailto:Sergey Aboimov <aboimov@gmail.com>?subject=Training Catalog");
         }
 
         private void lblAuthor_MouseMove(object sender, MouseEventArgs e)
