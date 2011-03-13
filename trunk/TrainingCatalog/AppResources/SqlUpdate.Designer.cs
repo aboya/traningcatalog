@@ -61,6 +61,15 @@ namespace TrainingCatalog.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create table BodyMeasurement (
         ///	Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
         ///    TrainingId int not null CONSTRAINT FK_BodyMeasurement_TrainingId references Training (Id),
@@ -84,6 +93,57 @@ namespace TrainingCatalog.AppResources {
         internal static string v11 {
             get {
                 return ResourceManager.GetString("v11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE CardioType
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_CardioType_Id PRIMARY KEY,
+        ///   Name nvarchar not null,
+        ///   Velocity bit not null,
+        ///   Time bit not null,
+        ///   Distance bit not null,
+        ///   Intensivity bit not null CONSTRAINT DF_CardioType_Intensivity default (1)
+        ///).
+        /// </summary>
+        internal static string v12 {
+            get {
+                return ResourceManager.GetString("v12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE CardioSession
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_CardioSession_Id PRIMARY KEY,
+        ///   TrainingId int not null CONSTRAINT FK_CardioSession_TrainingId references Training (Id),
+        ///   CardioTypeId int not null constraint FK_CardioSession_CardioTypeId references CardioType (Id),
+        ///   StartTime int,
+        ///   EndTime int
+        ///).
+        /// </summary>
+        internal static string v13 {
+            get {
+                return ResourceManager.GetString("v13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE CardioInterval
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_CardioSession_Id PRIMARY KEY,
+        ///   CardioSessionId int not null CONSTRAINT FK_CardioInterval_CardioSessionId references CardioSession (Id),
+        ///   Velocity float ,
+        ///   Time float,
+        ///   Distance float,
+        ///   Intensivity float,
+        ///   Resistance float
+        ///).
+        /// </summary>
+        internal static string v14 {
+            get {
+                return ResourceManager.GetString("v14", resourceCulture);
             }
         }
         
