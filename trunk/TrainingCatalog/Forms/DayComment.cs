@@ -12,7 +12,7 @@ using TrainingCatalog.BusinessLogic;
 
 namespace TrainingCatalog.Forms
 {
-    public partial class DayComment : Form
+    public partial class DayComment : BaseForm
     {
         SqlCeConnection connection;
         public DayComment()

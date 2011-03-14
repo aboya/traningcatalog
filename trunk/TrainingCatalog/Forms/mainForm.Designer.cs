@@ -106,12 +106,13 @@
             // 
             // btnStatistics
             // 
-            this.btnStatistics.Location = new System.Drawing.Point(194, 166);
+            this.btnStatistics.Location = new System.Drawing.Point(104, 21);
             this.btnStatistics.Name = "btnStatistics";
             this.btnStatistics.Size = new System.Drawing.Size(85, 41);
             this.btnStatistics.TabIndex = 6;
             this.btnStatistics.Text = "Статистика";
             this.btnStatistics.UseVisualStyleBackColor = true;
+            this.btnStatistics.Visible = false;
             this.btnStatistics.Click += new System.EventHandler(this.btnStatistics_Click);
             // 
             // button6
@@ -126,7 +127,7 @@
             // 
             // btnMeasurment
             // 
-            this.btnMeasurment.Location = new System.Drawing.Point(104, 68);
+            this.btnMeasurment.Location = new System.Drawing.Point(195, 166);
             this.btnMeasurment.Name = "btnMeasurment";
             this.btnMeasurment.Size = new System.Drawing.Size(84, 41);
             this.btnMeasurment.TabIndex = 8;
@@ -173,6 +174,7 @@
             this.button9.TabIndex = 12;
             this.button9.Text = "Добавить кардио";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Visible = false;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
