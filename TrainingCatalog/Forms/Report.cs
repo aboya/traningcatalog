@@ -109,10 +109,11 @@ namespace TrainingCatalog
                     {
                         string path = saveFileDialog.FileName;
                         GenerateReport(path, start, end);
+                        MessageBox.Show("Отчет Создан");
                     }
                 }
 
-                MessageBox.Show("Отчет Создан");
+                
                 pbProgress.Value = 0;
             }
             catch (Exception ee)

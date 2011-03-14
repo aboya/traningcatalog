@@ -208,7 +208,6 @@ namespace TrainingCatalog
         {
             if (row == null) return;
             int categoryId = Convert.ToInt32((row.Cells[0] as DataGridViewComboBoxCell).Value);
-            Debug.WriteLine(string.Format("categoryId = {0}", categoryId));
             List<ExersizeSource> exersizes =  FillExersizes(categoryId);
             DataGridViewComboBoxCell exers = (row.Cells[1] as DataGridViewComboBoxCell);
             exers.DataSource = exersizes;
