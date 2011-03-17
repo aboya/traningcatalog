@@ -22,7 +22,7 @@ namespace TrainingCatalog.AppResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class SqlUpdate {
+    public class SqlUpdate {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace TrainingCatalog.AppResources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TrainingCatalog.AppResources.SqlUpdate", typeof(SqlUpdate).Assembly);
@@ -51,21 +51,12 @@ namespace TrainingCatalog.AppResources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         
@@ -80,7 +71,7 @@ namespace TrainingCatalog.AppResources {
         ///	Chest_h float constraint DF_Chest_h default(0),
         ///	Chest_l float constraint DF_Chest_l defaul [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string v10 {
+        public static string v10 {
             get {
                 return ResourceManager.GetString("v10", resourceCulture);
             }
@@ -90,7 +81,7 @@ namespace TrainingCatalog.AppResources {
         ///   Looks up a localized string similar to CREATE UNIQUE NONCLUSTERED INDEX IDX_BodyMeasurement_TrainingId ON BodyMeasurement (TrainingId DESC)
         ///WITH (STATISTICS_NORECOMPUTE = OFF).
         /// </summary>
-        internal static string v11 {
+        public static string v11 {
             get {
                 return ResourceManager.GetString("v11", resourceCulture);
             }
@@ -107,7 +98,7 @@ namespace TrainingCatalog.AppResources {
         ///   Intensivity bit not null CONSTRAINT DF_CardioType_Intensivity default (1)
         ///).
         /// </summary>
-        internal static string v12 {
+        public static string v12 {
             get {
                 return ResourceManager.GetString("v12", resourceCulture);
             }
@@ -123,7 +114,7 @@ namespace TrainingCatalog.AppResources {
         ///   EndTime int
         ///).
         /// </summary>
-        internal static string v13 {
+        public static string v13 {
             get {
                 return ResourceManager.GetString("v13", resourceCulture);
             }
@@ -141,9 +132,19 @@ namespace TrainingCatalog.AppResources {
         ///   Resistance float
         ///).
         /// </summary>
-        internal static string v14 {
+        public static string v14 {
             get {
                 return ResourceManager.GetString("v14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to alter table version_info
+        /// 	alter column version float.
+        /// </summary>
+        public static string v15 {
+            get {
+                return ResourceManager.GetString("v15", resourceCulture);
             }
         }
         
@@ -156,7 +157,7 @@ namespace TrainingCatalog.AppResources {
         ///   BodyWeight float null
         ///).
         /// </summary>
-        internal static string v3 {
+        public static string v3 {
             get {
                 return ResourceManager.GetString("v3", resourceCulture);
             }
@@ -171,7 +172,7 @@ namespace TrainingCatalog.AppResources {
         ///   Img Image null
         ///).
         /// </summary>
-        internal static string v4 {
+        public static string v4 {
             get {
                 return ResourceManager.GetString("v4", resourceCulture);
             }
@@ -188,7 +189,7 @@ namespace TrainingCatalog.AppResources {
         ///
         ///).
         /// </summary>
-        internal static string v5 {
+        public static string v5 {
             get {
                 return ResourceManager.GetString("v5", resourceCulture);
             }
@@ -201,9 +202,126 @@ namespace TrainingCatalog.AppResources {
         ///   Name nvarchar(100) not null
         ///).
         /// </summary>
-        internal static string v6 {
+        public static string v6 {
             get {
                 return ResourceManager.GetString("v6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Верхняя часть спины&apos;).
+        /// </summary>
+        public static string v6_01 {
+            get {
+                return ResourceManager.GetString("v6_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Средняя часть спины&apos;).
+        /// </summary>
+        public static string v6_02 {
+            get {
+                return ResourceManager.GetString("v6_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Нижняя часть спины&apos;).
+        /// </summary>
+        public static string v6_03 {
+            get {
+                return ResourceManager.GetString("v6_03", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Спина&apos;).
+        /// </summary>
+        public static string v6_04 {
+            get {
+                return ResourceManager.GetString("v6_04", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Плечи&apos;).
+        /// </summary>
+        public static string v6_05 {
+            get {
+                return ResourceManager.GetString("v6_05", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Ноги&apos;).
+        /// </summary>
+        public static string v6_06 {
+            get {
+                return ResourceManager.GetString("v6_06", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Пресс&apos;).
+        /// </summary>
+        public static string v6_07 {
+            get {
+                return ResourceManager.GetString("v6_07", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Икры&apos;).
+        /// </summary>
+        public static string v6_08 {
+            get {
+                return ResourceManager.GetString("v6_08", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Грудь&apos;).
+        /// </summary>
+        public static string v6_09 {
+            get {
+                return ResourceManager.GetString("v6_09", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Бицепц&apos;).
+        /// </summary>
+        public static string v6_10 {
+            get {
+                return ResourceManager.GetString("v6_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Трицепц&apos;).
+        /// </summary>
+        public static string v6_11 {
+            get {
+                return ResourceManager.GetString("v6_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Предплечья&apos;).
+        /// </summary>
+        public static string v6_12 {
+            get {
+                return ResourceManager.GetString("v6_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert into exersizecategory (Name) values(&apos;Руки&apos;).
+        /// </summary>
+        public static string v6_13 {
+            get {
+                return ResourceManager.GetString("v6_13", resourceCulture);
             }
         }
         
@@ -215,7 +333,7 @@ namespace TrainingCatalog.AppResources {
         ///   ExersizeCategoryId int not null constraint FK_ExersizeCategoryLink_ExersizeCategoryId references ExersizeCategory (id)
         ///).
         /// </summary>
-        internal static string v7 {
+        public static string v7 {
             get {
                 return ResourceManager.GetString("v7", resourceCulture);
             }
@@ -231,7 +349,7 @@ namespace TrainingCatalog.AppResources {
         ///   [Count] int not null
         ///).
         /// </summary>
-        internal static string v8 {
+        public static string v8 {
             get {
                 return ResourceManager.GetString("v8", resourceCulture);
             }
@@ -244,7 +362,7 @@ namespace TrainingCatalog.AppResources {
         ///   Name nvarchar(100) not null 
         ///).
         /// </summary>
-        internal static string v9 {
+        public static string v9 {
             get {
                 return ResourceManager.GetString("v9", resourceCulture);
             }

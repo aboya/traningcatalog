@@ -212,7 +212,7 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="AppResources\SqlUpdate.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SqlUpdate.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="String1" xml:space="preserve">
-    <value />
-    <comment>0015</comment>
-  </data>
   <data name="v10" xml:space="preserve">
     <value>Create table BodyMeasurement (
 	Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
@@ -180,6 +176,11 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
 )</value>
     <comment>0014</comment>
   </data>
+  <data name="v15" xml:space="preserve">
+    <value>alter table version_info
+ 	alter column version float</value>
+    <comment>0015</comment>
+  </data>
   <data name="v3" xml:space="preserve">
     <value>CREATE TABLE Training
 (
@@ -219,6 +220,58 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
    Name nvarchar(100) not null
 )</value>
     <comment>0006</comment>
+  </data>
+  <data name="v6_01" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Верхняя часть спины')</value>
+    <comment>000601</comment>
+  </data>
+  <data name="v6_02" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Средняя часть спины')</value>
+    <comment>000602</comment>
+  </data>
+  <data name="v6_03" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Нижняя часть спины')</value>
+    <comment>000603</comment>
+  </data>
+  <data name="v6_04" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Спина')</value>
+    <comment>000604</comment>
+  </data>
+  <data name="v6_05" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Плечи')</value>
+    <comment>000605</comment>
+  </data>
+  <data name="v6_06" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Ноги')</value>
+    <comment>000606</comment>
+  </data>
+  <data name="v6_07" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Пресс')</value>
+    <comment>000607</comment>
+  </data>
+  <data name="v6_08" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Икры')</value>
+    <comment>000608</comment>
+  </data>
+  <data name="v6_09" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Грудь')</value>
+    <comment>000609</comment>
+  </data>
+  <data name="v6_10" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Бицепц')</value>
+    <comment>000610</comment>
+  </data>
+  <data name="v6_11" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Трицепц')</value>
+    <comment>000611</comment>
+  </data>
+  <data name="v6_12" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Предплечья')</value>
+    <comment>000612</comment>
+  </data>
+  <data name="v6_13" xml:space="preserve">
+    <value>insert into exersizecategory (Name) values('Руки')</value>
+    <comment>000613</comment>
   </data>
   <data name="v7" xml:space="preserve">
     <value>CREATE TABLE ExersizeCategoryLink

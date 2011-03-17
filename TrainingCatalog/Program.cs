@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using TrainingCatalog.BusinessLogic;
 using System.Threading;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog
 {
@@ -16,6 +17,7 @@ namespace TrainingCatalog
         [STAThread]
         static void Main()
         {
+             
             using (Mutex mutex = new Mutex(false,  @"Global\" + appGuid))
             {
                 if (!mutex.WaitOne(0, false))
@@ -24,7 +26,7 @@ namespace TrainingCatalog
                     return;
                 }
 
-                TrainingBusiness.UpdateBase();
+                dbBusiness.UpdateBase();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.ApplicationExit += new EventHandler(OnApplicationExit);
