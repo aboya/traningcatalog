@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAddFromTemplate = new System.Windows.Forms.Button();
-            this.btnSaveWeight = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnAddFromTemplate = new TrainingCatalog.Controls.BaseButton();
+            this.btnSaveWeight = new TrainingCatalog.Controls.BaseButton();
+            this.label1 = new TrainingCatalog.Controls.BaseLabel();
             this.txtBodyWeight = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.cbTraningCategory = new TrainingCatalog.Controls.BaseComboBox();
             this.TrainingList = new TrainingCatalog.Controls.BaseComboBox();
@@ -38,7 +38,7 @@
             this.txtCount = new TrainingCatalog.Controls.NullableTextBox();
             this.txtWeight = new TrainingCatalog.Controls.NullableTextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.AddExersize = new System.Windows.Forms.Button();
+            this.AddExersize = new TrainingCatalog.Controls.BaseButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,7 +186,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button AddExersize;
+        private TrainingCatalog.Controls.BaseButton AddExersize;
         private TrainingCatalog.Controls.NullableTextBox txtWeight;
         private TrainingCatalog.Controls.NullableTextBox txtCount;
         private System.Windows.Forms.DateTimePicker dateTime;
@@ -194,8 +194,8 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private TrainingCatalog.Controls.BaseComboBox cbTraningCategory;
         private TrainingCatalog.Controls.FloatNumberTextBox txtBodyWeight;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnSaveWeight;
-        private System.Windows.Forms.Button btnAddFromTemplate;
+        private TrainingCatalog.Controls.BaseLabel label1;
+        private TrainingCatalog.Controls.BaseButton btnSaveWeight;
+        private TrainingCatalog.Controls.BaseButton btnAddFromTemplate;
     }
 }

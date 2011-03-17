@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.btnReport = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.btnStatistics = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.btnMeasurment = new System.Windows.Forms.Button();
-            this.btnCategory = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.button1 = new TrainingCatalog.Controls.BaseButton();
+            this.button2 = new TrainingCatalog.Controls.BaseButton();
+            this.button3 = new TrainingCatalog.Controls.BaseButton();
+            this.button4 = new TrainingCatalog.Controls.BaseButton();
+            this.btnReport = new TrainingCatalog.Controls.BaseButton();
+            this.button5 = new TrainingCatalog.Controls.BaseButton();
+            this.btnStatistics = new TrainingCatalog.Controls.BaseButton();
+            this.button6 = new TrainingCatalog.Controls.BaseButton();
+            this.btnMeasurment = new TrainingCatalog.Controls.BaseButton();
+            this.btnCategory = new TrainingCatalog.Controls.BaseButton();
+            this.button7 = new TrainingCatalog.Controls.BaseButton();
+            this.button8 = new TrainingCatalog.Controls.BaseButton();
+            this.button9 = new TrainingCatalog.Controls.BaseButton();
+            this.button10 = new TrainingCatalog.Controls.BaseButton();
             this.SuspendLayout();
             // 
             // button1
@@ -216,20 +216,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button btnReport;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button btnStatistics;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button btnMeasurment;
-        private System.Windows.Forms.Button btnCategory;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private TrainingCatalog.Controls.BaseButton button1;
+        private TrainingCatalog.Controls.BaseButton button2;
+        private TrainingCatalog.Controls.BaseButton button3;
+        private TrainingCatalog.Controls.BaseButton button4;
+        private TrainingCatalog.Controls.BaseButton btnReport;
+        private TrainingCatalog.Controls.BaseButton button5;
+        private TrainingCatalog.Controls.BaseButton btnStatistics;
+        private TrainingCatalog.Controls.BaseButton button6;
+        private TrainingCatalog.Controls.BaseButton btnMeasurment;
+        private TrainingCatalog.Controls.BaseButton btnCategory;
+        private TrainingCatalog.Controls.BaseButton button7;
+        private TrainingCatalog.Controls.BaseButton button8;
+        private TrainingCatalog.Controls.BaseButton button9;
+        private TrainingCatalog.Controls.BaseButton button10;
     }
 }
 

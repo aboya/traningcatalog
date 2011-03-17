@@ -32,7 +32,7 @@
             this.TrainingList = new TrainingCatalog.Controls.BaseComboBox();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
-            this.bntClear = new System.Windows.Forms.Button();
+            this.bntClear = new TrainingCatalog.Controls.BaseButton();
             this.chkWeighCount = new System.Windows.Forms.CheckBox();
             this.chkBodyWeight = new System.Windows.Forms.CheckBox();
             this.chkWeight = new System.Windows.Forms.CheckBox();
@@ -40,7 +40,7 @@
             this.rbNone = new System.Windows.Forms.RadioButton();
             this.rbWork = new System.Windows.Forms.RadioButton();
             this.rbMaxWeight = new System.Windows.Forms.RadioButton();
-            this.lblFilters = new System.Windows.Forms.Label();
+            this.lblFilters = new TrainingCatalog.Controls.BaseLabel();
             this.chkTotalWork = new System.Windows.Forms.CheckBox();
             this.chkApprox = new System.Windows.Forms.CheckBox();
             this.pnlFilters.SuspendLayout();
@@ -257,14 +257,14 @@
         private TrainingCatalog.Controls.BaseComboBox TrainingList;
         private System.Windows.Forms.DateTimePicker dtpFrom;
         private System.Windows.Forms.DateTimePicker dtpTo;
-        private System.Windows.Forms.Button bntClear;
+        private TrainingCatalog.Controls.BaseButton bntClear;
         private System.Windows.Forms.CheckBox chkWeighCount;
         private System.Windows.Forms.CheckBox chkBodyWeight;
         private System.Windows.Forms.CheckBox chkWeight;
         private System.Windows.Forms.Panel pnlFilters;
         private System.Windows.Forms.RadioButton rbWork;
         private System.Windows.Forms.RadioButton rbMaxWeight;
-        private System.Windows.Forms.Label lblFilters;
+        private TrainingCatalog.Controls.BaseLabel lblFilters;
         private System.Windows.Forms.RadioButton rbNone;
         private System.Windows.Forms.CheckBox chkTotalWork;
         private System.Windows.Forms.CheckBox chkApprox;

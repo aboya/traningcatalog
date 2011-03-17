@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnCancel = new TrainingCatalog.Controls.BaseButton();
             this.txtTemplateName = new TrainingCatalog.Controls.BaseTextBox();
-            this.lblName = new System.Windows.Forms.Label();
-            this.btnAddExersize = new System.Windows.Forms.Button();
+            this.lblName = new TrainingCatalog.Controls.BaseLabel();
+            this.btnAddExersize = new TrainingCatalog.Controls.BaseButton();
             this.templateViewerControl = new TrainingCatalog.TemplateViewerControl();
-            this.btnOk = new System.Windows.Forms.Button();
+            this.btnOk = new TrainingCatalog.Controls.BaseButton();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -120,11 +120,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnCancel;
+        private TrainingCatalog.Controls.BaseButton btnCancel;
         private TrainingCatalog.Controls.BaseTextBox txtTemplateName;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Button btnAddExersize;
+        private TrainingCatalog.Controls.BaseLabel lblName;
+        private TrainingCatalog.Controls.BaseButton btnAddExersize;
         private TemplateViewerControl templateViewerControl;
-        private System.Windows.Forms.Button btnOk;
+        private TrainingCatalog.Controls.BaseButton btnOk;
     }
 }

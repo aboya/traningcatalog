@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.button1 = new TrainingCatalog.Controls.BaseButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.TemplateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.command = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -95,7 +95,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private TrainingCatalog.Controls.BaseButton button1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn TemplateName;
         private System.Windows.Forms.DataGridViewButtonColumn command;

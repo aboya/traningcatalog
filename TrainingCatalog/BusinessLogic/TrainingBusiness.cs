@@ -121,12 +121,31 @@ namespace TrainingCatalog.BusinessLogic
         }
         public static void UpdateBase()
         {
+            string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
             string path = Application.StartupPath + "\\" + ConfigurationManager.AppSettings["databasePath"];
+            if (!File.Exists(path))
+            {
+                using (SqlCeEngine en = new SqlCeEngine(connectionString))
+                {
+                    en.CreateDatabase();
+                    using (SqlCeConnection connection = new SqlCeConnection(connectionString))
+                    {
+                        connection.Open();
+                        using (SqlCeCommand cmd = connection.CreateCommand())
+                        {
+                            cmd.CommandText = "create table version_info ( version int )";
+                            cmd.ExecuteNonQuery();
+                            cmd.CommandText = "insert into version_info (version) values(0)";
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
             string backupPath = path + ".backup";
             try
             {
                 File.Copy(path, backupPath, true);
-                using (SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
+                using (SqlCeConnection connection = new SqlCeConnection(connectionString))
                 {
                     using (SqlCeCommand cmd = connection.CreateCommand())
                     {

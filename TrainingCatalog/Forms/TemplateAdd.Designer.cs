@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnTemplateAdd = new System.Windows.Forms.Button();
+            this.btnTemplateAdd = new TrainingCatalog.Controls.BaseButton();
             this.ddlTemplates = new TrainingCatalog.Controls.BaseComboBox();
-            this.btnSaveTemplateAndAdd = new System.Windows.Forms.Button();
-            this.btnSaveTemplate = new System.Windows.Forms.Button();
-            this.lblTemplateName = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnSaveTemplateAndAdd = new TrainingCatalog.Controls.BaseButton();
+            this.btnSaveTemplate = new TrainingCatalog.Controls.BaseButton();
+            this.lblTemplateName = new TrainingCatalog.Controls.BaseLabel();
+            this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.ucTemplate = new TrainingCatalog.TemplateViewerControl();
             this.SuspendLayout();
             // 
@@ -136,12 +136,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Label lblTemplateName;
-        private System.Windows.Forms.Button btnSaveTemplate;
-        private System.Windows.Forms.Button btnSaveTemplateAndAdd;
+        private TrainingCatalog.Controls.BaseButton btnAdd;
+        private TrainingCatalog.Controls.BaseLabel lblTemplateName;
+        private TrainingCatalog.Controls.BaseButton btnSaveTemplate;
+        private TrainingCatalog.Controls.BaseButton btnSaveTemplateAndAdd;
         private TrainingCatalog.Controls.BaseComboBox ddlTemplates;
         private TemplateViewerControl ucTemplate;
-        private System.Windows.Forms.Button btnTemplateAdd;
+        private TrainingCatalog.Controls.BaseButton btnTemplateAdd;
     }
 }

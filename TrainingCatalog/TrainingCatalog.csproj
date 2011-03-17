@@ -102,7 +102,13 @@
     <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
+    <Compile Include="Controls\BaseButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\BaseComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\BaseTextBox.cs">
@@ -305,9 +311,7 @@
     <Content Include="Calendar.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="db.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="db.sdf" />
     <None Include="Resources\kachok.png" />
     <None Include="Resources\left-96x96.png" />
     <None Include="Resources\right-96x96.png" />
@@ -351,7 +355,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="BusinessLogic\Renderers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

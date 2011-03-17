@@ -10,6 +10,7 @@ namespace TrainingCatalog.Controls
         public BaseComboBox()
         {
             this.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            
         }
     }
 }

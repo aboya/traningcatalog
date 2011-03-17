@@ -29,17 +29,17 @@ namespace TrainingCatalog.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblInfo = new System.Windows.Forms.Label();
-            this.lblBodyWeight = new System.Windows.Forms.Label();
-            this.lblBodyFat = new System.Windows.Forms.Label();
-            this.lblWaistLine_l = new System.Windows.Forms.Label();
-            this.lblWaistLine_h = new System.Windows.Forms.Label();
-            this.lblMidarm_l = new System.Windows.Forms.Label();
-            this.lblMidarm_h = new System.Windows.Forms.Label();
-            this.lblHip_l = new System.Windows.Forms.Label();
-            this.lblHip_h = new System.Windows.Forms.Label();
-            this.lblCest_l = new System.Windows.Forms.Label();
-            this.lblChest_h = new System.Windows.Forms.Label();
+            this.lblInfo = new TrainingCatalog.Controls.BaseLabel();
+            this.lblBodyWeight = new TrainingCatalog.Controls.BaseLabel();
+            this.lblBodyFat = new TrainingCatalog.Controls.BaseLabel();
+            this.lblWaistLine_l = new TrainingCatalog.Controls.BaseLabel();
+            this.lblWaistLine_h = new TrainingCatalog.Controls.BaseLabel();
+            this.lblMidarm_l = new TrainingCatalog.Controls.BaseLabel();
+            this.lblMidarm_h = new TrainingCatalog.Controls.BaseLabel();
+            this.lblHip_l = new TrainingCatalog.Controls.BaseLabel();
+            this.lblHip_h = new TrainingCatalog.Controls.BaseLabel();
+            this.lblCest_l = new TrainingCatalog.Controls.BaseLabel();
+            this.lblChest_h = new TrainingCatalog.Controls.BaseLabel();
             this.txtBodyFat = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.txtWaistline_h = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.txtMidarm_l = new TrainingCatalog.Controls.FloatNumberTextBox();
@@ -52,12 +52,12 @@ namespace TrainingCatalog.Forms
             this.txtChest_h = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.txtBiceps_l = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.txtBiceps_h = new TrainingCatalog.Controls.FloatNumberTextBox();
-            this.lblBiceps_l = new System.Windows.Forms.Label();
-            this.lblBiceps_h = new System.Windows.Forms.Label();
+            this.lblBiceps_l = new TrainingCatalog.Controls.BaseLabel();
+            this.lblBiceps_h = new TrainingCatalog.Controls.BaseLabel();
             this.mCalendar = new System.Windows.Forms.MonthCalendar();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnPrev = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
+            this.btnSave = new TrainingCatalog.Controls.BaseButton();
+            this.btnPrev = new TrainingCatalog.Controls.BaseButton();
+            this.btnNext = new TrainingCatalog.Controls.BaseButton();
             this.SuspendLayout();
             // 
             // lblInfo
@@ -354,10 +354,10 @@ namespace TrainingCatalog.Forms
 
         #endregion
 
-        private System.Windows.Forms.Button btnSave;
+        private TrainingCatalog.Controls.BaseButton btnSave;
         private System.Windows.Forms.MonthCalendar mCalendar;
-        private System.Windows.Forms.Label lblBiceps_h;
-        private System.Windows.Forms.Label lblBiceps_l;
+        private TrainingCatalog.Controls.BaseLabel lblBiceps_h;
+        private TrainingCatalog.Controls.BaseLabel lblBiceps_l;
         private FloatNumberTextBox txtBiceps_h;
         private FloatNumberTextBox txtBiceps_l;
         private FloatNumberTextBox txtChest_h;
@@ -370,18 +370,18 @@ namespace TrainingCatalog.Forms
         private FloatNumberTextBox txtMidarm_l;
         private FloatNumberTextBox txtWaistline_h;
         private FloatNumberTextBox txtBodyFat;
-        private System.Windows.Forms.Label lblChest_h;
-        private System.Windows.Forms.Label lblCest_l;
-        private System.Windows.Forms.Label lblHip_h;
-        private System.Windows.Forms.Label lblHip_l;
-        private System.Windows.Forms.Label lblMidarm_h;
-        private System.Windows.Forms.Label lblMidarm_l;
-        private System.Windows.Forms.Label lblWaistLine_h;
-        private System.Windows.Forms.Label lblWaistLine_l;
-        private System.Windows.Forms.Label lblBodyFat;
-        private System.Windows.Forms.Label lblBodyWeight;
-        private System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.Button btnPrev;
-        private System.Windows.Forms.Button btnNext;
+        private TrainingCatalog.Controls.BaseLabel lblChest_h;
+        private TrainingCatalog.Controls.BaseLabel lblCest_l;
+        private TrainingCatalog.Controls.BaseLabel lblHip_h;
+        private TrainingCatalog.Controls.BaseLabel lblHip_l;
+        private TrainingCatalog.Controls.BaseLabel lblMidarm_h;
+        private TrainingCatalog.Controls.BaseLabel lblMidarm_l;
+        private TrainingCatalog.Controls.BaseLabel lblWaistLine_h;
+        private TrainingCatalog.Controls.BaseLabel lblWaistLine_l;
+        private TrainingCatalog.Controls.BaseLabel lblBodyFat;
+        private TrainingCatalog.Controls.BaseLabel lblBodyWeight;
+        private TrainingCatalog.Controls.BaseLabel lblInfo;
+        private TrainingCatalog.Controls.BaseButton btnPrev;
+        private TrainingCatalog.Controls.BaseButton btnNext;
     }
 }

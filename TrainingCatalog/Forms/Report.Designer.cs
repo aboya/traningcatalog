@@ -30,10 +30,10 @@
         {
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
-            this.lblFrom = new System.Windows.Forms.Label();
-            this.lblTo = new System.Windows.Forms.Label();
-            this.lblReport = new System.Windows.Forms.Label();
-            this.btnCreateReport = new System.Windows.Forms.Button();
+            this.lblFrom = new TrainingCatalog.Controls.BaseLabel();
+            this.lblTo = new TrainingCatalog.Controls.BaseLabel();
+            this.lblReport = new TrainingCatalog.Controls.BaseLabel();
+            this.btnCreateReport = new TrainingCatalog.Controls.BaseButton();
             this.pbProgress = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
@@ -123,10 +123,10 @@
 
         private System.Windows.Forms.DateTimePicker dtpStart;
         private System.Windows.Forms.DateTimePicker dtpEnd;
-        private System.Windows.Forms.Label lblFrom;
-        private System.Windows.Forms.Label lblTo;
-        private System.Windows.Forms.Label lblReport;
-        private System.Windows.Forms.Button btnCreateReport;
+        private TrainingCatalog.Controls.BaseLabel lblFrom;
+        private TrainingCatalog.Controls.BaseLabel lblTo;
+        private TrainingCatalog.Controls.BaseLabel lblReport;
+        private TrainingCatalog.Controls.BaseButton btnCreateReport;
         private System.Windows.Forms.ProgressBar pbProgress;
 
     }
