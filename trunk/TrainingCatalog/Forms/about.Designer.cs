@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.pbApp = new System.Windows.Forms.PictureBox();
-            this.lblInfo = new System.Windows.Forms.Label();
-            this.lblAuthor = new System.Windows.Forms.Label();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblFio = new System.Windows.Forms.Label();
+            this.lblInfo = new TrainingCatalog.Controls.BaseLabel();
+            this.lblAuthor = new TrainingCatalog.Controls.BaseLabel();
+            this.lblEmail = new TrainingCatalog.Controls.BaseLabel();
+            this.label1 = new TrainingCatalog.Controls.BaseLabel();
+            this.lblFio = new TrainingCatalog.Controls.BaseLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pbApp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,10 +121,10 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pbApp;
-        private System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.Label lblAuthor;
-        private System.Windows.Forms.Label lblEmail;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblFio;
+        private TrainingCatalog.Controls.BaseLabel lblInfo;
+        private TrainingCatalog.Controls.BaseLabel lblAuthor;
+        private TrainingCatalog.Controls.BaseLabel lblEmail;
+        private TrainingCatalog.Controls.BaseLabel label1;
+        private TrainingCatalog.Controls.BaseLabel lblFio;
     }
 }

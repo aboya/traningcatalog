@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblName = new System.Windows.Forms.Label();
+            this.label1 = new TrainingCatalog.Controls.BaseLabel();
+            this.lblName = new TrainingCatalog.Controls.BaseLabel();
             this.chkLstExersizeCategories = new System.Windows.Forms.CheckedListBox();
-            this.btnAddExersize = new System.Windows.Forms.Button();
+            this.btnAddExersize = new TrainingCatalog.Controls.BaseButton();
             this.textBox2 = new TrainingCatalog.Controls.BaseTextBox();
             this.textBox1 = new TrainingCatalog.Controls.BaseTextBox();
             this.SuspendLayout();
@@ -118,9 +118,9 @@
 
         private TrainingCatalog.Controls.BaseTextBox textBox1;
         private TrainingCatalog.Controls.BaseTextBox textBox2;
-        private System.Windows.Forms.Button btnAddExersize;
+        private TrainingCatalog.Controls.BaseButton btnAddExersize;
         private System.Windows.Forms.CheckedListBox chkLstExersizeCategories;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Label label1;
+        private TrainingCatalog.Controls.BaseLabel lblName;
+        private TrainingCatalog.Controls.BaseLabel label1;
     }
 }
