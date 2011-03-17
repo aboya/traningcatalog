@@ -32,8 +32,8 @@
             this.lblName = new System.Windows.Forms.Label();
             this.chkLstExersizeCategories = new System.Windows.Forms.CheckedListBox();
             this.btnAddExersize = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new TrainingCatalog.Controls.BaseTextBox();
+            this.textBox1 = new TrainingCatalog.Controls.BaseTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -116,8 +116,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private TrainingCatalog.Controls.BaseTextBox textBox1;
+        private TrainingCatalog.Controls.BaseTextBox textBox2;
         private System.Windows.Forms.Button btnAddExersize;
         private System.Windows.Forms.CheckedListBox chkLstExersizeCategories;
         private System.Windows.Forms.Label lblName;

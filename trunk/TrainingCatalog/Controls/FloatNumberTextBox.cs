@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace TrainingCatalog.Controls
 {
-    public class FloatNumberTextBox : System.Windows.Forms.TextBox
+    public class FloatNumberTextBox : BaseTextBox
     {
         public FloatNumberTextBox()
         {

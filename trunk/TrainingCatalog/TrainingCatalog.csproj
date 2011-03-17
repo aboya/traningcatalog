@@ -105,6 +105,9 @@
     <Compile Include="Controls\BaseTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\NullableTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\FloatNumberTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
