@@ -119,63 +119,7 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
-        public static void UpdateBase()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
-            string path = Application.StartupPath + "\\" + ConfigurationManager.AppSettings["databasePath"];
-            if (!File.Exists(path))
-            {
-                using (SqlCeEngine en = new SqlCeEngine(connectionString))
-                {
-                    en.CreateDatabase();
-                    using (SqlCeConnection connection = new SqlCeConnection(connectionString))
-                    {
-                        connection.Open();
-                        using (SqlCeCommand cmd = connection.CreateCommand())
-                        {
-                            cmd.CommandText = "create table version_info ( version int )";
-                            cmd.ExecuteNonQuery();
-                            cmd.CommandText = "insert into version_info (version) values(0)";
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-            string backupPath = path + ".backup";
-            try
-            {
-                File.Copy(path, backupPath, true);
-                using (SqlCeConnection connection = new SqlCeConnection(connectionString))
-                {
-                    using (SqlCeCommand cmd = connection.CreateCommand())
-                    {
-                        connection.Open();
-                        cmd.CommandText = "select version from version_info";
-                        int version = Convert.ToInt32(cmd.ExecuteScalar());
-                        string sql = TrainingCatalog.AppResources.SqlUpdate.ResourceManager.GetString("v" + version.ToString());
-                        while (!string.IsNullOrEmpty(sql))
-                        {
-                            cmd.CommandText = sql;
-                            cmd.ExecuteNonQuery();
-                            version++;
-                            cmd.CommandText = string.Format("update version_info set version = {0}", version);
-                            cmd.ExecuteNonQuery();
-                            sql = TrainingCatalog.AppResources.SqlUpdate.ResourceManager.GetString("v" + version.ToString());
-                        }
-                    }
-                }
-                File.Delete(backupPath);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-
-            }
-
-        }
+        
         public static MeasurementType GetMeasurement(SqlCeCommand cmd, DateTime date)
         {
             MeasurementType res = new MeasurementType();
