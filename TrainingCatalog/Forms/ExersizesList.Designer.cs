@@ -34,7 +34,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.txtDescription = new TrainingCatalog.Controls.BaseTextBox();
             this.txtExersizeName = new TrainingCatalog.Controls.BaseTextBox();
-            this.TrainingList = new System.Windows.Forms.ComboBox();
+            this.TrainingList = new TrainingCatalog.Controls.BaseComboBox();
             this.SuspendLayout();
             // 
             // lblDescription
@@ -138,7 +138,7 @@
         private TrainingCatalog.Controls.BaseTextBox txtDescription;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.CheckedListBox chkLstExersizeCategories;
-        private System.Windows.Forms.ComboBox TrainingList;
+        private TrainingCatalog.Controls.BaseComboBox TrainingList;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblDescription;
     }

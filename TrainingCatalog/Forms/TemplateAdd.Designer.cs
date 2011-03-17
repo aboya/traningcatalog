@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.btnTemplateAdd = new System.Windows.Forms.Button();
-            this.ddlTemplates = new System.Windows.Forms.ComboBox();
+            this.ddlTemplates = new TrainingCatalog.Controls.BaseComboBox();
             this.btnSaveTemplateAndAdd = new System.Windows.Forms.Button();
             this.btnSaveTemplate = new System.Windows.Forms.Button();
             this.lblTemplateName = new System.Windows.Forms.Label();
@@ -140,7 +140,7 @@
         private System.Windows.Forms.Label lblTemplateName;
         private System.Windows.Forms.Button btnSaveTemplate;
         private System.Windows.Forms.Button btnSaveTemplateAndAdd;
-        private System.Windows.Forms.ComboBox ddlTemplates;
+        private TrainingCatalog.Controls.BaseComboBox ddlTemplates;
         private TemplateViewerControl ucTemplate;
         private System.Windows.Forms.Button btnTemplateAdd;
     }
