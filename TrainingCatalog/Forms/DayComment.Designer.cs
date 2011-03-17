@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
-            this.txtComments = new System.Windows.Forms.TextBox();
+            this.txtComments = new TrainingCatalog.Controls.BaseTextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
@@ -103,7 +103,7 @@
         #endregion
 
         private System.Windows.Forms.MonthCalendar monthCalendar;
-        private System.Windows.Forms.TextBox txtComments;
+        private TrainingCatalog.Controls.BaseTextBox txtComments;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnPrev;
         private System.Windows.Forms.Button btnNext;

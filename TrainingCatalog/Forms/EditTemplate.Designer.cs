@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.btnCancel = new System.Windows.Forms.Button();
-            this.txtTemplateName = new System.Windows.Forms.TextBox();
+            this.txtTemplateName = new TrainingCatalog.Controls.BaseTextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.btnAddExersize = new System.Windows.Forms.Button();
             this.templateViewerControl = new TrainingCatalog.TemplateViewerControl();
@@ -121,7 +121,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.TextBox txtTemplateName;
+        private TrainingCatalog.Controls.BaseTextBox txtTemplateName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnAddExersize;
         private TemplateViewerControl templateViewerControl;

@@ -28,45 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.lblTemplateName = new System.Windows.Forms.Label();
-            this.btnSaveTemplate = new System.Windows.Forms.Button();
-            this.btnSaveTemplateAndAdd = new System.Windows.Forms.Button();
-            this.ddlTemplates = new System.Windows.Forms.ComboBox();
             this.btnTemplateAdd = new System.Windows.Forms.Button();
+            this.ddlTemplates = new System.Windows.Forms.ComboBox();
+            this.btnSaveTemplateAndAdd = new System.Windows.Forms.Button();
+            this.btnSaveTemplate = new System.Windows.Forms.Button();
+            this.lblTemplateName = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.ucTemplate = new TrainingCatalog.TemplateViewerControl();
             this.SuspendLayout();
             // 
-            // btnAdd
+            // btnTemplateAdd
             // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Location = new System.Drawing.Point(565, 431);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 1;
-            this.btnAdd.Text = "Добавить";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnTemplateAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTemplateAdd.Location = new System.Drawing.Point(605, 5);
+            this.btnTemplateAdd.Name = "btnTemplateAdd";
+            this.btnTemplateAdd.Size = new System.Drawing.Size(34, 21);
+            this.btnTemplateAdd.TabIndex = 7;
+            this.btnTemplateAdd.Text = "+";
+            this.btnTemplateAdd.UseVisualStyleBackColor = true;
+            this.btnTemplateAdd.Click += new System.EventHandler(this.btnTemplateAdd_Click);
             // 
-            // lblTemplateName
+            // ddlTemplates
             // 
-            this.lblTemplateName.AutoSize = true;
-            this.lblTemplateName.Location = new System.Drawing.Point(13, 9);
-            this.lblTemplateName.Name = "lblTemplateName";
-            this.lblTemplateName.Size = new System.Drawing.Size(76, 13);
-            this.lblTemplateName.TabIndex = 2;
-            this.lblTemplateName.Text = "Имя шаблона";
-            // 
-            // btnSaveTemplate
-            // 
-            this.btnSaveTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSaveTemplate.Location = new System.Drawing.Point(16, 431);
-            this.btnSaveTemplate.Name = "btnSaveTemplate";
-            this.btnSaveTemplate.Size = new System.Drawing.Size(107, 23);
-            this.btnSaveTemplate.TabIndex = 3;
-            this.btnSaveTemplate.Text = "Сохранить шаблон";
-            this.btnSaveTemplate.UseVisualStyleBackColor = true;
-            this.btnSaveTemplate.Click += new System.EventHandler(this.btnSaveTemplate_Click);
+            this.ddlTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ddlTemplates.BackColor = System.Drawing.SystemColors.Window;
+            this.ddlTemplates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ddlTemplates.FormattingEnabled = true;
+            this.ddlTemplates.Location = new System.Drawing.Point(95, 5);
+            this.ddlTemplates.Name = "ddlTemplates";
+            this.ddlTemplates.Size = new System.Drawing.Size(504, 21);
+            this.ddlTemplates.TabIndex = 5;
+            this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
             // 
             // btnSaveTemplateAndAdd
             // 
@@ -79,28 +73,36 @@
             this.btnSaveTemplateAndAdd.UseVisualStyleBackColor = true;
             this.btnSaveTemplateAndAdd.Click += new System.EventHandler(this.btnSaveTemplateAndAdd_Click);
             // 
-            // ddlTemplates
+            // btnSaveTemplate
             // 
-            this.ddlTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.ddlTemplates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlTemplates.FormattingEnabled = true;
-            this.ddlTemplates.Location = new System.Drawing.Point(95, 5);
-            this.ddlTemplates.Name = "ddlTemplates";
-            this.ddlTemplates.Size = new System.Drawing.Size(504, 21);
-            this.ddlTemplates.TabIndex = 5;
-            this.ddlTemplates.SelectedIndexChanged += new System.EventHandler(this.ddlTemplates_SelectedIndexChanged);
+            this.btnSaveTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSaveTemplate.Location = new System.Drawing.Point(16, 431);
+            this.btnSaveTemplate.Name = "btnSaveTemplate";
+            this.btnSaveTemplate.Size = new System.Drawing.Size(107, 23);
+            this.btnSaveTemplate.TabIndex = 3;
+            this.btnSaveTemplate.Text = "Сохранить шаблон";
+            this.btnSaveTemplate.UseVisualStyleBackColor = true;
+            this.btnSaveTemplate.Click += new System.EventHandler(this.btnSaveTemplate_Click);
             // 
-            // btnTemplateAdd
+            // lblTemplateName
             // 
-            this.btnTemplateAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTemplateAdd.Location = new System.Drawing.Point(605, 5);
-            this.btnTemplateAdd.Name = "btnTemplateAdd";
-            this.btnTemplateAdd.Size = new System.Drawing.Size(34, 21);
-            this.btnTemplateAdd.TabIndex = 7;
-            this.btnTemplateAdd.Text = "+";
-            this.btnTemplateAdd.UseVisualStyleBackColor = true;
-            this.btnTemplateAdd.Click += new System.EventHandler(this.btnTemplateAdd_Click);
+            this.lblTemplateName.AutoSize = true;
+            this.lblTemplateName.Location = new System.Drawing.Point(13, 9);
+            this.lblTemplateName.Name = "lblTemplateName";
+            this.lblTemplateName.Size = new System.Drawing.Size(76, 13);
+            this.lblTemplateName.TabIndex = 2;
+            this.lblTemplateName.Text = "Имя шаблона";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Location = new System.Drawing.Point(565, 431);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 1;
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // ucTemplate
             // 

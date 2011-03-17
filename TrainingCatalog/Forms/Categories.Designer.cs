@@ -30,7 +30,7 @@
         {
             this.lstCategory = new System.Windows.Forms.ListBox();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtName = new TrainingCatalog.Controls.BaseTextBox();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -114,7 +114,7 @@
 
         private System.Windows.Forms.ListBox lstCategory;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.TextBox txtName;
+        private TrainingCatalog.Controls.BaseTextBox txtName;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
     }
