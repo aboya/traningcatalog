@@ -137,13 +137,12 @@
             // 
             // btnCategory
             // 
-            this.btnCategory.Location = new System.Drawing.Point(13, 21);
+            this.btnCategory.Location = new System.Drawing.Point(103, 68);
             this.btnCategory.Name = "btnCategory";
             this.btnCategory.Size = new System.Drawing.Size(84, 41);
             this.btnCategory.TabIndex = 9;
             this.btnCategory.Text = "Категории";
             this.btnCategory.UseVisualStyleBackColor = true;
-            this.btnCategory.Visible = false;
             this.btnCategory.Click += new System.EventHandler(this.btnCategory_Click);
             // 
             // button7
@@ -174,7 +173,6 @@
             this.button9.TabIndex = 12;
             this.button9.Text = "Добавить кардио";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Visible = false;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10

@@ -41,6 +41,7 @@
             // 
             this.txtExersizeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtExersizeName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtExersizeName.Location = new System.Drawing.Point(12, 57);
             this.txtExersizeName.Multiline = true;
             this.txtExersizeName.Name = "txtExersizeName";
@@ -52,6 +53,7 @@
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescription.Location = new System.Drawing.Point(12, 132);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";

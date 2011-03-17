@@ -42,6 +42,7 @@
             // 
             // txtComments
             // 
+            this.txtComments.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtComments.Location = new System.Drawing.Point(194, 18);
             this.txtComments.MaxLength = 999;
             this.txtComments.Multiline = true;

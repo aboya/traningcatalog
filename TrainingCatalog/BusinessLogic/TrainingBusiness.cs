@@ -307,7 +307,91 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return rowsAffected;
         }
+        public static List<CategoryType> GetCategories(SqlCeCommand cmd)
+        {
+            List<CategoryType> res = new List<CategoryType>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Id,Name from ExersizeCategory";
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res.Add(new CategoryType()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        Name = Convert.ToString(reader["Name"])
+                    });
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+            
+        }
+        public static void AddCategory(SqlCeCommand cmd, string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                cmd.Parameters.Clear();
+                cmd.CommandText = "insert into ExersizeCategory (Name) values(@name)";
+                cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = name;
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
+            }
+        }
+        /// <summary>
+        /// returns true if category is used otherwise false
+        /// </summary>
+        /// <returns></returns>
+        public static bool CheckCategory(SqlCeCommand cmd, int CategoryId)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select count(*) from ExersizeCategoryLink where ExersizeCategoryId = @categoryId";
+            cmd.Parameters.Add("@categoryId", SqlDbType.Int).Value = CategoryId;
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            cmd.Parameters.Clear();
+            return count > 0;
+        }
+        public static void DeleteCategory(SqlCeCommand cmd, int CategoryId)
+        {
+            cmd.Parameters.Clear();
 
+            using (SqlCeTransaction transaction = cmd.Connection.BeginTransaction())
+            {
+                try
+                {
+                    cmd.CommandText = "delete from ExersizeCategoryLink where ExersizeCategoryId = @categoryId";
+                    cmd.Parameters.Add("@categoryId", SqlDbType.Int).Value = CategoryId;
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "delete from ExersizeCategory where Id = @categoryId";
+                    cmd.ExecuteNonQuery();
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    throw e;
+                }
+                finally
+                {
+                    cmd.Parameters.Clear();
+                }
+            }
+       
+        }
+
+        public static void UpdateCategory(SqlCeCommand cmd, CategoryType category)
+        {
+            if (!string.IsNullOrEmpty(category.Name))
+            {
+                cmd.Parameters.Clear();
+                cmd.CommandText = "update ExersizeCategory set Name = @name where Id =@Id";
+                cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = category.Name;
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = category.Id;
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
+            }
+        }
       
     }
 }

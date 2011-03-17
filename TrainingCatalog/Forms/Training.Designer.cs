@@ -54,6 +54,7 @@
             // 
             // txtWeight
             // 
+            this.txtWeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtWeight.ForeColor = System.Drawing.Color.Gray;
             this.txtWeight.Location = new System.Drawing.Point(146, 12);
             this.txtWeight.Name = "txtWeight";
@@ -64,6 +65,7 @@
             // 
             // txtCount
             // 
+            this.txtCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCount.ForeColor = System.Drawing.Color.Gray;
             this.txtCount.Location = new System.Drawing.Point(204, 12);
             this.txtCount.Name = "txtCount";
@@ -120,6 +122,7 @@
             // 
             // txtBodyWeight
             // 
+            this.txtBodyWeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBodyWeight.Location = new System.Drawing.Point(204, 35);
             this.txtBodyWeight.Name = "txtBodyWeight";
             this.txtBodyWeight.Size = new System.Drawing.Size(48, 20);
