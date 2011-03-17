@@ -161,6 +161,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtBodyFat
             // 
+            this.txtBodyFat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBodyFat.Location = new System.Drawing.Point(469, 122);
             this.txtBodyFat.Name = "txtBodyFat";
             this.txtBodyFat.Size = new System.Drawing.Size(100, 20);
@@ -168,6 +169,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtWaistline_h
             // 
+            this.txtWaistline_h.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtWaistline_h.Location = new System.Drawing.Point(469, 70);
             this.txtWaistline_h.Name = "txtWaistline_h";
             this.txtWaistline_h.Size = new System.Drawing.Size(100, 20);
@@ -175,6 +177,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtMidarm_l
             // 
+            this.txtMidarm_l.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMidarm_l.Location = new System.Drawing.Point(469, 44);
             this.txtMidarm_l.Name = "txtMidarm_l";
             this.txtMidarm_l.Size = new System.Drawing.Size(100, 20);
@@ -182,6 +185,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtWaistline_l
             // 
+            this.txtWaistline_l.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtWaistline_l.Location = new System.Drawing.Point(469, 96);
             this.txtWaistline_l.Name = "txtWaistline_l";
             this.txtWaistline_l.Size = new System.Drawing.Size(100, 20);
@@ -189,6 +193,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtMidarm_h
             // 
+            this.txtMidarm_h.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMidarm_h.Location = new System.Drawing.Point(469, 18);
             this.txtMidarm_h.Name = "txtMidarm_h";
             this.txtMidarm_h.Size = new System.Drawing.Size(100, 20);
@@ -196,6 +201,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtBodyWeight
             // 
+            this.txtBodyWeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBodyWeight.Location = new System.Drawing.Point(469, 148);
             this.txtBodyWeight.Name = "txtBodyWeight";
             this.txtBodyWeight.Size = new System.Drawing.Size(100, 20);
@@ -203,6 +209,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtHip_l
             // 
+            this.txtHip_l.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHip_l.Location = new System.Drawing.Point(267, 148);
             this.txtHip_l.Name = "txtHip_l";
             this.txtHip_l.Size = new System.Drawing.Size(100, 20);
@@ -210,6 +217,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtHip_h
             // 
+            this.txtHip_h.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHip_h.Location = new System.Drawing.Point(267, 122);
             this.txtHip_h.Name = "txtHip_h";
             this.txtHip_h.Size = new System.Drawing.Size(100, 20);
@@ -217,6 +225,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtChest_l
             // 
+            this.txtChest_l.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChest_l.Location = new System.Drawing.Point(267, 96);
             this.txtChest_l.Name = "txtChest_l";
             this.txtChest_l.Size = new System.Drawing.Size(100, 20);
@@ -224,6 +233,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtChest_h
             // 
+            this.txtChest_h.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChest_h.Location = new System.Drawing.Point(267, 70);
             this.txtChest_h.Name = "txtChest_h";
             this.txtChest_h.Size = new System.Drawing.Size(100, 20);
@@ -231,6 +241,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtBiceps_l
             // 
+            this.txtBiceps_l.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBiceps_l.Location = new System.Drawing.Point(267, 44);
             this.txtBiceps_l.Name = "txtBiceps_l";
             this.txtBiceps_l.Size = new System.Drawing.Size(100, 20);
@@ -238,6 +249,7 @@ namespace TrainingCatalog.Forms
             // 
             // txtBiceps_h
             // 
+            this.txtBiceps_h.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBiceps_h.Location = new System.Drawing.Point(267, 18);
             this.txtBiceps_h.Name = "txtBiceps_h";
             this.txtBiceps_h.Size = new System.Drawing.Size(100, 20);

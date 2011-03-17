@@ -51,6 +51,7 @@
             // 
             this.txtTemplateName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTemplateName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTemplateName.Location = new System.Drawing.Point(78, 7);
             this.txtTemplateName.Name = "txtTemplateName";
             this.txtTemplateName.Size = new System.Drawing.Size(530, 20);
@@ -77,13 +78,13 @@
             this.btnAddExersize.UseVisualStyleBackColor = true;
             this.btnAddExersize.Click += new System.EventHandler(this.btnAddExersize_Click);
             // 
-            // templateViewerControl1
+            // templateViewerControl
             // 
             this.templateViewerControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.templateViewerControl.Location = new System.Drawing.Point(15, 33);
-            this.templateViewerControl.Name = "templateViewerControl1";
+            this.templateViewerControl.Name = "templateViewerControl";
             this.templateViewerControl.Size = new System.Drawing.Size(626, 398);
             this.templateViewerControl.TabIndex = 7;
             // 
