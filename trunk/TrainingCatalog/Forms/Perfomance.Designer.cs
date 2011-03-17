@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.mainGraphControl = new ZedGraph.ZedGraphControl();
-            this.TrainingList = new System.Windows.Forms.ComboBox();
+            this.TrainingList = new TrainingCatalog.Controls.BaseComboBox();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.bntClear = new System.Windows.Forms.Button();
@@ -254,7 +254,7 @@
         #endregion
 
         private ZedGraph.ZedGraphControl mainGraphControl;
-        private System.Windows.Forms.ComboBox TrainingList;
+        private TrainingCatalog.Controls.BaseComboBox TrainingList;
         private System.Windows.Forms.DateTimePicker dtpFrom;
         private System.Windows.Forms.DateTimePicker dtpTo;
         private System.Windows.Forms.Button bntClear;

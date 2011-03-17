@@ -32,8 +32,8 @@
             this.btnSaveWeight = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtBodyWeight = new TrainingCatalog.Controls.FloatNumberTextBox();
-            this.cbTraningCategory = new System.Windows.Forms.ComboBox();
-            this.TrainingList = new System.Windows.Forms.ComboBox();
+            this.cbTraningCategory = new TrainingCatalog.Controls.BaseComboBox();
+            this.TrainingList = new TrainingCatalog.Controls.BaseComboBox();
             this.dateTime = new System.Windows.Forms.DateTimePicker();
             this.txtCount = new TrainingCatalog.Controls.NullableTextBox();
             this.txtWeight = new TrainingCatalog.Controls.NullableTextBox();
@@ -190,9 +190,9 @@
         private TrainingCatalog.Controls.NullableTextBox txtWeight;
         private TrainingCatalog.Controls.NullableTextBox txtCount;
         private System.Windows.Forms.DateTimePicker dateTime;
-        private System.Windows.Forms.ComboBox TrainingList;
+        private TrainingCatalog.Controls.BaseComboBox TrainingList;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ComboBox cbTraningCategory;
+        private TrainingCatalog.Controls.BaseComboBox cbTraningCategory;
         private TrainingCatalog.Controls.FloatNumberTextBox txtBodyWeight;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSaveWeight;

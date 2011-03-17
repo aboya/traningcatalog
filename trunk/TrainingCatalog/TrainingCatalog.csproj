@@ -102,6 +102,9 @@
     <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
+    <Compile Include="Controls\BaseComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\BaseTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -145,7 +148,7 @@
     <Compile Include="Forms\Categories.Designer.cs">
       <DependentUpon>Categories.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\CustomDataGridView.cs">
+    <Compile Include="Controls\CustomDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\DayComment.cs">
