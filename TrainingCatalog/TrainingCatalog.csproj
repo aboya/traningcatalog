@@ -249,7 +249,7 @@
     <EmbeddedResource Include="Forms\Templates.resx">
       <DependentUpon>Templates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TemplateViewerControl.resx">
+    <EmbeddedResource Include="Controls\TemplateViewerControl.resx">
       <DependentUpon>TemplateViewerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Training.resx">
@@ -282,10 +282,10 @@
     <Compile Include="Forms\Templates.Designer.cs">
       <DependentUpon>Templates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TemplateViewerControl.cs">
+    <Compile Include="Controls\TemplateViewerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\TemplateViewerControl.Designer.cs">
+    <Compile Include="Controls\TemplateViewerControl.Designer.cs">
       <DependentUpon>TemplateViewerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Training.cs">
