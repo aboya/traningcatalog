@@ -104,13 +104,11 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
-        public static List<DateTime> GetCommentDays(SqlCeCommand cmd, DateTime start, DateTime end)
+        public static List<DateTime> GetCommentDays(SqlCeCommand cmd)
         {
             List<DateTime> res = new List<DateTime>();
             cmd.Parameters.Clear();
-            cmd.CommandText = "select Day from Training where Day Between @start and @end and Len(Comment) > 0";
-            cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
-            cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end;
+            cmd.CommandText = "select Day from Training where Len(Comment) > 0";
             using (SqlCeDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())

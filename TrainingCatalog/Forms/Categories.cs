@@ -29,6 +29,10 @@ namespace TrainingCatalog.Forms
                 connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 cmd = connection.CreateCommand();
                 LoadCatagories();
+                if (lstCategory.Items.Count > 0)
+                {
+                    lstCategory.SelectedIndex = 0;
+                }
             }
             catch (Exception ee)
             {
@@ -44,10 +48,7 @@ namespace TrainingCatalog.Forms
                 lstCategory.DataSource = TrainingBusiness.GetCategories(cmd);
                 lstCategory.ValueMember = "Id";
                 lstCategory.DisplayMember = "Name";
-                if (lstCategory.Items.Count > 0)
-                {
-                    lstCategory.SelectedIndex = 0;
-                }
+
             }
             catch (Exception e)
             {
@@ -62,9 +63,11 @@ namespace TrainingCatalog.Forms
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            int index = lstCategory.SelectedIndex;
             try
             {
                 string name = txtName.Text.Trim();
+
                 if (name.Length > 0)
                 {
 
@@ -88,6 +91,7 @@ namespace TrainingCatalog.Forms
                     connection.Close();
             }
             LoadCatagories();
+            lstCategory.SelectedIndex = index;
 
         }
 
@@ -116,6 +120,8 @@ namespace TrainingCatalog.Forms
                     connection.Close();
             }
             LoadCatagories();
+
+            lstCategory.SelectedIndex = lstCategory.Items.Count - 1;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -149,6 +155,10 @@ namespace TrainingCatalog.Forms
                     connection.Close();
             }
             LoadCatagories();
+            if (lstCategory.Items.Count > 0)
+            {
+                lstCategory.SelectedIndex = lstCategory.Items.Count - 1;
+            }
         }
 
         private void lstCategory_SelectedIndexChanged(object sender, EventArgs e)

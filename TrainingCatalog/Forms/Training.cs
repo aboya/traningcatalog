@@ -65,7 +65,6 @@ namespace TrainingCatalog
 
         private void Training_Load(object sender, EventArgs e)
         {
-
             this.MinimumSize = new Size(588, 382);
             
             try
