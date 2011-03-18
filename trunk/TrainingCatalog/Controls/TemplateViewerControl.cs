@@ -46,12 +46,14 @@ namespace TrainingCatalog
                 int exersizeId = Convert.ToInt32((dr.Cells["Exersize"] as DataGridViewComboBoxCell).Value);
                 int weight = Convert.ToInt32((dr.Cells["Weight"] as DataGridViewTextBoxCell).Value);
                 int count = Convert.ToInt32((dr.Cells["Count"] as DataGridViewTextBoxCell).Value);
+                int categoryId = Convert.ToInt32((dr.Cells["Category"] as DataGridViewComboBoxCell).Value);
                 int id = 0;
                 if (dr.Tag is int) id = Convert.ToInt32(dr.Tag);
                 res.Add(new TemplateExersizesType() {  ExersizeID = exersizeId, 
                                                         Count = count, 
                                                         Weight = weight, 
-                                                        ID = id
+                                                        ID = id,
+                                                       ExersizeCategoryID = categoryId > 0 ? (int?)categoryId : null
                                                     });
             }
             return res;
@@ -66,8 +68,9 @@ namespace TrainingCatalog
                 gv_templates.Rows[i].Cells["Exersize"].Value = e.ExersizeID;
                 gv_templates.Rows[i].Cells["Weight"].Value = e.Weight;
                 gv_templates.Rows[i].Cells["Count"].Value = e.Count;
+               // DataGridViewComboBoxCell cellCategory = gv_templates.Rows[i].Cells[0] as DataGridViewComboBoxCell;
+               // if (e.ExersizeCategoryID.HasValue) cellCategory.Value = e.ExersizeCategoryID.Value;
                 gv_templates.Rows[i].Tag = e.ID;
-                
                 i++;
             }
         }
@@ -200,18 +203,28 @@ namespace TrainingCatalog
             if (e.ColumnIndex == 0 )
             {
                 DataGridView gv = (sender as DataGridView);
-                if(e.RowIndex >= 0)
+                if(e.RowIndex >= 0 && e.RowIndex < gv.Rows.Count)
                     OnCnageCategory(gv.Rows[e.RowIndex]);
             }
         }
         private void OnCnageCategory(DataGridViewRow row)
         {
-            if (row == null) return;
-            int categoryId = Convert.ToInt32((row.Cells[0] as DataGridViewComboBoxCell).Value);
-            List<ExersizeSource> exersizes =  FillExersizes(categoryId);
-            DataGridViewComboBoxCell exers = (row.Cells[1] as DataGridViewComboBoxCell);
-            exers.DataSource = exersizes;
-            exers.Value = exersizes[0].ExersizeID;
+            try
+            {
+                if (row == null) return;
+                int categoryId = Convert.ToInt32((row.Cells[0] as DataGridViewComboBoxCell).Value);
+                List<ExersizeSource> exersizes = FillExersizes(categoryId);
+                if (exersizes.Count > 0)
+                {
+                    DataGridViewComboBoxCell exers = (row.Cells[1] as DataGridViewComboBoxCell);
+                    exers.DataSource = exersizes;
+                    exers.Value = exersizes[0].ExersizeID;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
         private void SetDefaultValuesForNewRow(DataGridViewRow row)
         {
@@ -312,23 +325,6 @@ namespace TrainingCatalog
                 //this.RemoveTrainingTemplateById(id);
             }
         }
-        //private void RemoveTrainingTemplateById(int id)
-        //{
-        //    try
-        //    {
-        //        connection.Open();
-        //        using (SqlCeCommand cmd = connection.CreateCommand())
-        //        {
-        //            cmd.CommandText = string.Format("delete from TrainingTemplate where ID={0}", id);
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //    }
-        //    connection.Close();
-        //}
         private void gv_templates_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             TextBox txt = e.Control as TextBox;

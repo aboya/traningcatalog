@@ -353,6 +353,121 @@ namespace TrainingCatalog.BusinessLogic
                 cmd.Parameters.Clear();
             }
         }
+
+
+        public static void SaveTemplate(SqlCeConnection connection, List<TemplateExersizesType> list, int _TemplateID, string name)
+        {
+            if (list == null || list.Count == 0) return;
+            SqlCeTransaction transaction = null;
+
+            try
+            {
+                connection.Open();
+                transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+                try
+                {
+                    using (SqlCeCommand cmd = connection.CreateCommand())
+                    {
+                        cmd.Transaction = transaction;
+                        if (name != null && name.Trim().Length > 0)
+                        {
+                            cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}", name.Trim(), _TemplateID);
+                            cmd.ExecuteNonQuery();
+                        }
+                        foreach (TemplateExersizesType exersize in list)
+                        {
+                            if (exersize.ID == 0)
+                            {
+                                cmd.CommandText = "insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count],ExersizeCategoryId) values(@TemplateID, @ExersizeID, @Weight, @cnt) ";
+                                cmd.Parameters.Add("@TemplateID", SqlDbType.Int).Value = _TemplateID;
+                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ID;
+                                cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = exersize.Weight;
+                                cmd.Parameters.Add("@cnt", SqlDbType.Int).Value = exersize.Count;
+                                cmd.Parameters.Add("@ExersizeCategoryId", SqlDbType.Int).Value = exersize.ExersizeCategoryID;
+                            }
+                            else
+                            {
+                                cmd.CommandText = "update TrainingTemplate set ExersizeID=@ExersizeID, Weight=@Weight, [Count]=@cnt,ExersizeCategoryId=@ExersizeCategoryId   where ID=@ID";
+                                                         
+                                cmd.Parameters.Add("@ID", SqlDbType.Int).Value = exersize.ID;
+                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ID;
+                                cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = exersize.Weight;
+                                cmd.Parameters.Add("@cnt", SqlDbType.Int).Value = exersize.Count;
+                                cmd.Parameters.Add("@ExersizeCategoryId", SqlDbType.Int).Value = exersize.ExersizeCategoryID.HasValue ? (object)exersize.ExersizeCategoryID.Value : DBNull.Value;
+
+
+                            }
+                            cmd.ExecuteNonQuery();
+                            cmd.Parameters.Clear();
+                            if (exersize.ID == 0)
+                            {
+                                cmd.CommandText = "select @@Identity";
+                                exersize.ID = Convert.ToInt32(cmd.ExecuteScalar());
+                            }
+                        }
+                        // deleting exersizes witch user delete
+                        if (_TemplateID > 0)
+                        {
+                            string existsid = string.Join(",", (from ex in list select ex.ID.ToString()).ToArray());
+                            cmd.CommandText = string.Format("delete from TrainingTemplate where TemplateID={0} and ID not in({1})", _TemplateID, existsid);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show(e.Message);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public static List<TemplateExersizesType> GetTemplate(SqlCeConnection connection, int templateId)
+        {
+            List<TemplateExersizesType> res = new List<TemplateExersizesType>();
+            try
+            {
+                connection.Open();
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = string.Format("select * from TrainingTemplate where TemplateID={0}", templateId);
+                    using (SqlCeDataReader dr = cmd.ExecuteReader())
+                    {
+                        for (int i = 0; dr.Read(); i++)
+                        {
+
+                            res.Add(new TemplateExersizesType()
+                            {
+                                ID = Convert.ToInt32(dr["ID"]),
+                                Count = Convert.ToInt32(dr["Count"]),
+                                Weight = Convert.ToInt32(dr["Weight"]),
+                                ExersizeID = Convert.ToInt32(dr["ExersizeID"]),
+                                ExersizeCategoryID = dr["ExersizeID"] is DBNull ? new Nullable<int>() : Convert.ToInt32(dr["ExersizeID"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return res;
+        }
       
     }
 }

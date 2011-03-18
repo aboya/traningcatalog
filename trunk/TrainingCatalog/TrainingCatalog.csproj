@@ -311,7 +311,9 @@
     <Content Include="Calendar.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="db.sdf" />
+    <Content Include="db.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\kachok.png" />
     <None Include="Resources\left-96x96.png" />
     <None Include="Resources\right-96x96.png" />

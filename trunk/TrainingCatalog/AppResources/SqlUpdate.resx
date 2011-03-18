@@ -140,7 +140,7 @@
 WITH (STATISTICS_NORECOMPUTE = OFF)</value>
     <comment>0011</comment>
   </data>
-  <data name="v12" xml:space="preserve">
+  <data name="v12_1" xml:space="preserve">
     <value>CREATE TABLE CardioType
 (
    Id int NOT NULL identity(1,1) constraint PK_CardioType_Id PRIMARY KEY,
@@ -180,6 +180,11 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
     <value>alter table version_info
  	alter column version float</value>
     <comment>0015</comment>
+  </data>
+  <data name="v16" xml:space="preserve">
+    <value>alter table trainingtemplate
+	add ExersizeCategoryId int CONSTRAINT FK_TrainingTemplate_ExersizeCategoryId references ExersizeCategory</value>
+    <comment>0016</comment>
   </data>
   <data name="v3" xml:space="preserve">
     <value>CREATE TABLE Training

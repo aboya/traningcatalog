@@ -40,7 +40,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                             {
                                 cmd.CommandText = "create table version_info ( version float )";
                                 cmd.ExecuteNonQuery();
-                                cmd.CommandText = "insert into version_info (version) values(3)";
+                                cmd.CommandText = "insert into version_info (version) values(0)";
                                 cmd.ExecuteNonQuery();
                             }
                         }
