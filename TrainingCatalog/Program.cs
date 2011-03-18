@@ -17,20 +17,28 @@ namespace TrainingCatalog
         [STAThread]
         static void Main()
         {
-             
-            using (Mutex mutex = new Mutex(false,  @"Global\" + appGuid))
+
+            using (Mutex mutex = new Mutex(false, @"Global\" + appGuid))
             {
                 if (!mutex.WaitOne(0, false))
                 {
                     MessageBox.Show("Training Catalog already running");
                     return;
                 }
-
-                dbBusiness.UpdateBase();
+                try
+                {
+                    dbBusiness.UpdateBase();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Datebase Update Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.ApplicationExit += new EventHandler(OnApplicationExit);
                 Application.Run(new mainForm());
+
             }
         }
         private static void OnApplicationExit(object sender, EventArgs e)

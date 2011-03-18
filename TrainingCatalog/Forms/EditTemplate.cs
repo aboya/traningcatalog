@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.Forms;
+using TrainingCatalog.BusinessLogic;
 
 
 namespace TrainingCatalog
@@ -65,7 +66,7 @@ namespace TrainingCatalog
                 connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 if (_TemplateID > 0)
                 {
-                    List<TemplateExersizesType>  templateExersizes = LoadTemplateExersizesById(_TemplateID);
+                    List<TemplateExersizesType>  templateExersizes = TrainingBusiness.GetTemplate(connection,_TemplateID);
                     templateViewerControl.LoadTemplateExersizes(templateExersizes);
                     txtTemplateName.Text = GetTemplateName(_TemplateID);
                 }
@@ -104,41 +105,7 @@ namespace TrainingCatalog
             return res;
         }
  
-        public List<TemplateExersizesType> LoadTemplateExersizesById(int templateId)
-        {
-            List<TemplateExersizesType> res = new List<TemplateExersizesType>();
-            try
-            {
-                connection.Open();
-                using (SqlCeCommand cmd = connection.CreateCommand())
-                {
-                    cmd.CommandText = string.Format("select * from TrainingTemplate where TemplateID={0}", templateId);
-                    using (SqlCeDataReader dr = cmd.ExecuteReader())
-                    {
-                        for (int i = 0; dr.Read(); i++)
-                        {
 
-                            res.Add(new TemplateExersizesType()
-                            {
-                                ID = Convert.ToInt32(dr["ID"]),
-                                Count = Convert.ToInt32(dr["Count"]),
-                                Weight = Convert.ToInt32(dr["Weight"]),
-                                ExersizeID = Convert.ToInt32(dr["ExersizeID"]),
-                            });
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-            return res;
-        }
         private void AddNewTemplate()
         {
             List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
@@ -191,72 +158,7 @@ namespace TrainingCatalog
         }
         private void SaveTemplate()
         {
-            List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
-            if (list == null || list.Count == 0) return;
-            SqlCeTransaction transaction = null;
-            try
-            {
-                connection.Open();
-                transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
-                try
-                {
-                    using (SqlCeCommand cmd = connection.CreateCommand())
-                    {
-                        cmd.Transaction = transaction;
-                        cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}", txtTemplateName.Text.Trim(), _TemplateID);
-                        cmd.ExecuteNonQuery();
-                        foreach (TemplateExersizesType exersize in list)
-                        {
-                            if (exersize.ID == 0)
-                            {
-                                cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count]) values({0}, {1}, {2}, {3}) ",
-                                                           _TemplateID,
-                                                           exersize.ExersizeID,
-                                                           exersize.Weight,
-                                                           exersize.Count
-                                                         );
-                            }
-                            else
-                            {
-                                cmd.CommandText = string.Format("update TrainingTemplate set ExersizeID={1}, Weight={2}, [Count]={3} where ID={0}",
-                                                           exersize.ID,
-                                                           exersize.ExersizeID,
-                                                           exersize.Weight,
-                                                           exersize.Count
-                                                         );
-                            }
-                            cmd.ExecuteNonQuery();
-                            if (exersize.ID == 0)
-                            {
-                                cmd.CommandText = "select @@Identity";
-                                exersize.ID = Convert.ToInt32(cmd.ExecuteScalar());
-                            }
-                        }
-                        // deleting exersizes witch user delete
-                        if (_TemplateID > 0)
-                        {
-                            string existsid = string.Join(",", (from ex in list select ex.ID.ToString()).ToArray());
-                            cmd.CommandText = string.Format("delete from TrainingTemplate where TemplateID={0} and ID not in({1})", _TemplateID, existsid);
-                            cmd.ExecuteNonQuery();
-                        }
-
-                    }
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show(e.Message);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
+            TrainingBusiness.SaveTemplate(connection, templateViewerControl.GetTemplateExersizes(), _TemplateID, txtTemplateName.Text);
         }
         private void btnCancel_Click(object sender, EventArgs e)
         {

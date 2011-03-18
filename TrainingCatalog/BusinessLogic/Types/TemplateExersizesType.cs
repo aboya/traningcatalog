@@ -9,6 +9,7 @@ namespace TrainingCatalog
     {
         public int ID;
         public int ExersizeID;
+        public int? ExersizeCategoryID;
         public int Weight;
         public int Count;
     }

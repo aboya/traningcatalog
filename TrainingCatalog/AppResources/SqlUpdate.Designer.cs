@@ -98,9 +98,9 @@ namespace TrainingCatalog.AppResources {
         ///   Intensivity bit not null CONSTRAINT DF_CardioType_Intensivity default (1)
         ///).
         /// </summary>
-        public static string v12 {
+        public static string v12_1 {
             get {
-                return ResourceManager.GetString("v12", resourceCulture);
+                return ResourceManager.GetString("v12_1", resourceCulture);
             }
         }
         
@@ -145,6 +145,16 @@ namespace TrainingCatalog.AppResources {
         public static string v15 {
             get {
                 return ResourceManager.GetString("v15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to alter table trainingtemplate
+        ///	add ExersizeCategoryId int CONSTRAINT FK_TrainingTemplate_ExersizeCategoryId references ExersizeCategory.
+        /// </summary>
+        public static string v16 {
+            get {
+                return ResourceManager.GetString("v16", resourceCulture);
             }
         }
         
