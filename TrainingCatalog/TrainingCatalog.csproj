@@ -60,6 +60,26 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.SpellChecker.v10.2.Core, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.2.Core, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v10.2.Extensions, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraSpellChecker.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -124,9 +144,7 @@
     <Compile Include="Controls\HighLightCalendar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\HighLightCalendarPicker.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controls\HighLightCalendarPicker.cs" />
     <Compile Include="Controls\HighLightDates.cs" />
     <Compile Include="Forms\about.cs">
       <SubType>Form</SubType>
@@ -142,6 +160,9 @@
     </Compile>
     <Compile Include="Forms\BodyMeasurements.Designer.cs">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CardioSession.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CardioTraining.cs">
       <SubType>Form</SubType>
@@ -226,6 +247,9 @@
     <EmbeddedResource Include="Forms\BodyMeasurements.resx">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CardioSession.resx">
+      <DependentUpon>CardioSession.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CardioTraining.resx">
       <DependentUpon>CardioTraining.cs</DependentUpon>
     </EmbeddedResource>
@@ -268,6 +292,7 @@
     <EmbeddedResource Include="Forms\Training.resx">
       <DependentUpon>Training.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
