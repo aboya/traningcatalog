@@ -13,7 +13,7 @@ namespace TrainingCatalog.Forms
         public BaseForm()
         {
             this.Icon = AppResources.AppResources.dumbbells;
-
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BaseForm_FormClosing);
             this.Load += new System.EventHandler(this.BaseForm_Load);
         }
         private void BaseForm_Load(object sender, EventArgs e)
@@ -21,6 +21,30 @@ namespace TrainingCatalog.Forms
             Form mainForm = Application.OpenForms["mainForm"];
             if (mainForm != null)
                 this.Location = mainForm.Location;
+            
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BaseForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Name = "BaseForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BaseForm_FormClosing);
+            this.ResumeLayout(false);
+
+        }
+
+        private void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.Name != "mainForm")
+            {
+                Form mainForm = Application.OpenForms["mainForm"];
+                if (mainForm != null)
+                    mainForm.Focus();
+            }
         }
 
         

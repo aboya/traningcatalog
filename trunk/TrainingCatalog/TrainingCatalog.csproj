@@ -41,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -98,7 +99,7 @@
     <Compile Include="BusinessLogic\StatisticsBusiness.cs" />
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
     <Compile Include="BusinessLogic\Types\CategoryType.cs" />
-    <Compile Include="BusinessLogic\Types\dbBusiness.cs" />
+    <Compile Include="BusinessLogic\dbBusiness.cs" />
     <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />

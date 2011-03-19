@@ -147,7 +147,7 @@ namespace TrainingCatalog
 
         private void btnTemplateAdd_Click(object sender, EventArgs e)
         {
-            ucTemplate.AddNewRow();
+            ucTemplate.AddRowByUser();
         }
     }
 }

@@ -150,11 +150,21 @@ namespace TrainingCatalog.AppResources {
         
         /// <summary>
         ///   Looks up a localized string similar to alter table trainingtemplate
-        ///	add ExersizeCategoryId int CONSTRAINT FK_TrainingTemplate_ExersizeCategoryId references ExersizeCategory.
+        ///	add ExersizeCategoryId int CONSTRAINT FK_TrainingTemplate_ExersizeCategoryId references ExersizeCategory (Id).
         /// </summary>
         public static string v16 {
             get {
                 return ResourceManager.GetString("v16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE UNIQUE NONCLUSTERED INDEX IDX_ExersizeCategoryLink_ExersizeId_ExersizeCategoryId ON ExersizeCategoryLink (ExersizeId asc, ExersizeCategoryId asc)
+        ///WITH (STATISTICS_NORECOMPUTE = OFF).
+        /// </summary>
+        public static string v17 {
+            get {
+                return ResourceManager.GetString("v17", resourceCulture);
             }
         }
         
