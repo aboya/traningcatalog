@@ -49,12 +49,14 @@ namespace TrainingCatalog
                 int categoryId = Convert.ToInt32((dr.Cells["Category"] as DataGridViewComboBoxCell).Value);
                 int id = 0;
                 if (dr.Tag is int) id = Convert.ToInt32(dr.Tag);
-                res.Add(new TemplateExersizesType() {  ExersizeID = exersizeId, 
-                                                        Count = count, 
-                                                        Weight = weight, 
-                                                        ID = id,
-                                                       ExersizeCategoryID = categoryId > 0 ? (int?)categoryId : null
-                                                    });
+                res.Add(new TemplateExersizesType()
+                {
+                    ExersizeID = exersizeId,
+                    Count = count,
+                    Weight = weight,
+                    ID = id,
+                    ExersizeCategoryID = categoryId > 0 ? (int?)categoryId : null
+                });
             }
             return res;
         }
@@ -65,15 +67,24 @@ namespace TrainingCatalog
             foreach (TemplateExersizesType e in input)
             {
                 this.AddNewRow();   
-                gv_templates.Rows[i].Cells["Exersize"].Value = e.ExersizeID;
                 gv_templates.Rows[i].Cells["Weight"].Value = e.Weight;
                 gv_templates.Rows[i].Cells["Count"].Value = e.Count;
-               // DataGridViewComboBoxCell cellCategory = gv_templates.Rows[i].Cells[0] as DataGridViewComboBoxCell;
-               // if (e.ExersizeCategoryID.HasValue) cellCategory.Value = e.ExersizeCategoryID.Value;
+                //this order is important
+                DataGridViewComboBoxCell cellCategory = gv_templates.Rows[i].Cells[0] as DataGridViewComboBoxCell;
+                if (e.ExersizeCategoryID.HasValue)
+                {
+                    cellCategory.Value = e.ExersizeCategoryID.Value;
+                }
+                else
+                {
+                    cellCategory.Value = -1;
+                }
                 gv_templates.Rows[i].Tag = e.ID;
+                gv_templates.Rows[i].Cells["Exersize"].Value = e.ExersizeID;
                 i++;
             }
         }
+
 
         public void AddNewRow()
         {
@@ -238,17 +249,7 @@ namespace TrainingCatalog
                 row.Tag = 0;
                 cellCategory.Value = -1;
 
-                if (gv_templates.Rows.Count > 0)
-                {
-                    if (gv_templates.SelectedRows.Count > 0)
-                    {
-                        DataGridViewRow selectedRow = gv_templates.SelectedRows[0];
-                        gv_templates.Rows[gv_templates.Rows.Count - 1].Cells[0].Value =
-                                (selectedRow.Cells[0] as DataGridViewComboBoxCell).Value;
-                        gv_templates.Rows[gv_templates.Rows.Count - 1].Cells[1].Value =
-                                (selectedRow.Cells[1] as DataGridViewComboBoxCell).Value;
-                    }
-                }
+       
             }
             catch (Exception e)
             {
@@ -286,7 +287,8 @@ namespace TrainingCatalog
                     col1.DataSource = ExersizeCategoryTable.Tables[0];
 
 
-                    DataGridViewComboBoxColumn col2 = gv_templates.Columns[1] as DataGridViewComboBoxColumn;
+                    DataGridViewComboBoxColumn col2 = gv_templates.Columns[1] as 
+                        DataGridViewComboBoxColumn;
                     col2.ValueMember = "ExersizeID";
                     col2.DisplayMember = "ShortName";
                     col2.Width = 290;
@@ -389,6 +391,21 @@ namespace TrainingCatalog
             if (e.KeyChar == (char)Keys.Tab)
             {
                  
+            }
+        }
+        public void AddRowByUser()
+        {
+            this.AddNewRow();
+            if (gv_templates.Rows.Count > 0)
+            {
+                if (gv_templates.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow selectedRow = gv_templates.SelectedRows[0];
+                    gv_templates.Rows[gv_templates.Rows.Count - 1].Cells[0].Value =
+                            (selectedRow.Cells[0] as DataGridViewComboBoxCell).Value;
+                    gv_templates.Rows[gv_templates.Rows.Count - 1].Cells[1].Value =
+                            (selectedRow.Cells[1] as DataGridViewComboBoxCell).Value;
+                }
             }
         }
 

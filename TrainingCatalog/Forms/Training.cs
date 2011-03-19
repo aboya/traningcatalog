@@ -345,5 +345,6 @@ namespace TrainingCatalog
             new TemplateAdd(dateTime.Value).ShowDialog(this);
             GridBind();
         }
+
     }
 }

@@ -31,7 +31,7 @@ namespace TrainingCatalog
 
         private void btnAddExersize_Click(object sender, EventArgs e)
         {
-            templateViewerControl.AddNewRow();
+            templateViewerControl.AddRowByUser();
             
         }
 
@@ -48,14 +48,8 @@ namespace TrainingCatalog
                 MessageBox.Show("Имя не может содержать ковычки");
                 return;
             }
-            if (_TemplateID > 0)
-            {
-                SaveTemplate();
-            }
-            else
-            {
-                AddNewTemplate();
-            }
+            SaveTemplate();
+
             this.Close();
         }
 
@@ -105,57 +99,6 @@ namespace TrainingCatalog
             return res;
         }
  
-
-        private void AddNewTemplate()
-        {
-            List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
-            if (list == null || list.Count == 0) return;
-            SqlCeTransaction transaction = null;
-            try
-            {
-                connection.Open();
-                transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
-                try
-                {
-                    using (SqlCeCommand cmd = connection.CreateCommand())
-                    {
-                        cmd.Transaction = transaction;
-
-                        cmd.CommandText = "insert into Template (Name) values(@name)";
-                        cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = txtTemplateName.Text.Replace("'", "").Trim();
-                        cmd.ExecuteNonQuery();
-
-                        cmd.CommandText = "SELECT @@Identity";
-                        int templateLastId = Convert.ToInt32(cmd.ExecuteScalar());
-                        foreach (TemplateExersizesType exersize in list)
-                        {
-                            cmd.CommandText = string.Format("insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count]) values({0}, {1}, {2}, {3}) ",
-                                                       templateLastId,
-                                                       exersize.ExersizeID,
-                                                       exersize.Weight,
-                                                       exersize.Count
-                                                     );
-                            cmd.ExecuteNonQuery();
-                        }
-
-                    }
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show(e.Message);
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
         private void SaveTemplate()
         {
             TrainingBusiness.SaveTemplate(connection, templateViewerControl.GetTemplateExersizes(), _TemplateID, txtTemplateName.Text);

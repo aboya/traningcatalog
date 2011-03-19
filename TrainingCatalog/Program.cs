@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using TrainingCatalog.BusinessLogic;
 using System.Threading;
 using TrainingCatalog.BusinessLogic.Types;
+using System.Configuration;
 
 namespace TrainingCatalog
 {
@@ -17,7 +18,7 @@ namespace TrainingCatalog
         [STAThread]
         static void Main()
         {
-
+            appGuid = appGuid.Replace("\\", "_");
             using (Mutex mutex = new Mutex(false, @"Global\" + appGuid))
             {
                 if (!mutex.WaitOne(0, false))
@@ -50,7 +51,7 @@ namespace TrainingCatalog
             }
             catch { }
         }
-        private static string appGuid = "adasdTrainingCatalogd693faa6e7b9";
+        private static string appGuid = Application.StartupPath + "\\" + ConfigurationManager.AppSettings["databasePath"];
 
     }
 }

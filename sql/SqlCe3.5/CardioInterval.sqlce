@@ -1,0 +1,10 @@
+CREATE TABLE CardioInterval
+(
+   Id int NOT NULL identity(1,1) constraint PK_CardioSession_Id PRIMARY KEY,
+   CardioSessionId int not null CONSTRAINT FK_CardioInterval_CardioSessionId references CardioSession (Id),
+   Velocity float ,
+   Time float,
+   Distance float,
+   Intensivity float,
+   Resistance float,
+)

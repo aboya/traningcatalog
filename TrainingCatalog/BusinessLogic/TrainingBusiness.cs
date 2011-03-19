@@ -341,6 +341,7 @@ namespace TrainingCatalog.BusinessLogic
        
         }
 
+
         public static void UpdateCategory(SqlCeCommand cmd, CategoryType category)
         {
             if (!string.IsNullOrEmpty(category.Name))
@@ -371,16 +372,31 @@ namespace TrainingCatalog.BusinessLogic
                         cmd.Transaction = transaction;
                         if (name != null && name.Trim().Length > 0)
                         {
-                            cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}", name.Trim(), _TemplateID);
-                            cmd.ExecuteNonQuery();
+                            //if exists
+                            if (_TemplateID > 0)
+                            {
+                                cmd.CommandText = string.Format("update Template set Name='{0}' where ID={1}", name.Replace("'", "").Trim(), _TemplateID);
+                                cmd.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                cmd.CommandText = "insert into Template (Name) values(@name)";
+                                cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = name.Replace("'", "").Trim();
+                                cmd.ExecuteNonQuery();
+
+                                cmd.CommandText = "select @@Identity";
+                                _TemplateID = Convert.ToInt32(cmd.ExecuteScalar());
+                            }
+                            
                         }
                         foreach (TemplateExersizesType exersize in list)
                         {
+                            cmd.Parameters.Clear();
                             if (exersize.ID == 0)
                             {
-                                cmd.CommandText = "insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count],ExersizeCategoryId) values(@TemplateID, @ExersizeID, @Weight, @cnt) ";
+                                cmd.CommandText = "insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count],ExersizeCategoryId) values(@TemplateID, @ExersizeID, @Weight, @cnt, @ExersizeCategoryId) ";
                                 cmd.Parameters.Add("@TemplateID", SqlDbType.Int).Value = _TemplateID;
-                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ID;
+                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ExersizeID;
                                 cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = exersize.Weight;
                                 cmd.Parameters.Add("@cnt", SqlDbType.Int).Value = exersize.Count;
                                 cmd.Parameters.Add("@ExersizeCategoryId", SqlDbType.Int).Value = exersize.ExersizeCategoryID;
@@ -390,7 +406,7 @@ namespace TrainingCatalog.BusinessLogic
                                 cmd.CommandText = "update TrainingTemplate set ExersizeID=@ExersizeID, Weight=@Weight, [Count]=@cnt,ExersizeCategoryId=@ExersizeCategoryId   where ID=@ID";
                                                          
                                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = exersize.ID;
-                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ID;
+                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ExersizeID;
                                 cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = exersize.Weight;
                                 cmd.Parameters.Add("@cnt", SqlDbType.Int).Value = exersize.Count;
                                 cmd.Parameters.Add("@ExersizeCategoryId", SqlDbType.Int).Value = exersize.ExersizeCategoryID.HasValue ? (object)exersize.ExersizeCategoryID.Value : DBNull.Value;
@@ -440,19 +456,39 @@ namespace TrainingCatalog.BusinessLogic
                 connection.Open();
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    cmd.CommandText = string.Format("select * from TrainingTemplate where TemplateID={0}", templateId);
+
+                    cmd.CommandText = string.Format(@"select tt.Id,tt.TemplateId,
+                                                        tt.ExersizeId,tt.ExersizeCategoryId,
+                                                        tt.Weight,tt.[Count],
+                                                        ec.ExersizeCategoryId as exCategoryId
+                                                        from trainingtemplate tt
+                                                      
+                                                    left join exersizecategorylink ec 
+                                                    on
+                                                    tt.exersizecategoryid = ec.exersizecategoryid
+                                                    and tt.exersizeid = ec.exersizeid where TemplateID={0}", templateId);
                     using (SqlCeDataReader dr = cmd.ExecuteReader())
                     {
                         for (int i = 0; dr.Read(); i++)
                         {
-
+                            // check if category in template not exist or refference to another exersize(if user reassing category of exersize)
+                            int? exersizeCategoryId;
+                            if (dr["ExersizeCategoryId"] is DBNull) exersizeCategoryId = null;
+                            else
+                            {
+                                exersizeCategoryId = Convert.ToInt32(dr["ExersizeCategoryId"]);
+                                if (dr["exCategoryId"] is DBNull || Convert.ToInt32(dr["exCategoryId"]) != exersizeCategoryId)
+                                {
+                                    exersizeCategoryId = null;
+                                }
+                            }
                             res.Add(new TemplateExersizesType()
                             {
                                 ID = Convert.ToInt32(dr["ID"]),
                                 Count = Convert.ToInt32(dr["Count"]),
                                 Weight = Convert.ToInt32(dr["Weight"]),
                                 ExersizeID = Convert.ToInt32(dr["ExersizeID"]),
-                                ExersizeCategoryID = dr["ExersizeID"] is DBNull ? new Nullable<int>() : Convert.ToInt32(dr["ExersizeID"])
+                                ExersizeCategoryID = exersizeCategoryId
                             });
                         }
                     }

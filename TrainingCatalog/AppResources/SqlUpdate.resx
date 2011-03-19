@@ -183,8 +183,13 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
   </data>
   <data name="v16" xml:space="preserve">
     <value>alter table trainingtemplate
-	add ExersizeCategoryId int CONSTRAINT FK_TrainingTemplate_ExersizeCategoryId references ExersizeCategory</value>
+	add ExersizeCategoryId int CONSTRAINT FK_TrainingTemplate_ExersizeCategoryId references ExersizeCategory (Id)</value>
     <comment>0016</comment>
+  </data>
+  <data name="v17" xml:space="preserve">
+    <value>CREATE UNIQUE NONCLUSTERED INDEX IDX_ExersizeCategoryLink_ExersizeId_ExersizeCategoryId ON ExersizeCategoryLink (ExersizeId asc, ExersizeCategoryId asc)
+WITH (STATISTICS_NORECOMPUTE = OFF)</value>
+    <comment>0017</comment>
   </data>
   <data name="v3" xml:space="preserve">
     <value>CREATE TABLE Training
