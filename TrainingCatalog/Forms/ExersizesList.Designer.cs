@@ -61,15 +61,15 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLstExersizeCategories.CheckOnClick = true;
             this.chkLstExersizeCategories.FormattingEnabled = true;
-            this.chkLstExersizeCategories.Location = new System.Drawing.Point(257, 57);
+            this.chkLstExersizeCategories.Location = new System.Drawing.Point(272, 57);
             this.chkLstExersizeCategories.Name = "chkLstExersizeCategories";
-            this.chkLstExersizeCategories.Size = new System.Drawing.Size(120, 244);
+            this.chkLstExersizeCategories.Size = new System.Drawing.Size(168, 244);
             this.chkLstExersizeCategories.TabIndex = 12;
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(302, 307);
+            this.btnSave.Location = new System.Drawing.Point(365, 307);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 39);
             this.btnSave.TabIndex = 11;
@@ -86,7 +86,7 @@
             this.txtDescription.Location = new System.Drawing.Point(12, 132);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(239, 169);
+            this.txtDescription.Size = new System.Drawing.Size(254, 169);
             this.txtDescription.TabIndex = 10;
             // 
             // txtExersizeName
@@ -97,7 +97,7 @@
             this.txtExersizeName.Location = new System.Drawing.Point(12, 57);
             this.txtExersizeName.Multiline = true;
             this.txtExersizeName.Name = "txtExersizeName";
-            this.txtExersizeName.Size = new System.Drawing.Size(239, 52);
+            this.txtExersizeName.Size = new System.Drawing.Size(254, 52);
             this.txtExersizeName.TabIndex = 9;
             // 
             // TrainingList
@@ -108,7 +108,7 @@
             this.TrainingList.FormattingEnabled = true;
             this.TrainingList.Location = new System.Drawing.Point(12, 12);
             this.TrainingList.Name = "TrainingList";
-            this.TrainingList.Size = new System.Drawing.Size(365, 21);
+            this.TrainingList.Size = new System.Drawing.Size(428, 21);
             this.TrainingList.TabIndex = 7;
             this.TrainingList.SelectedIndexChanged += new System.EventHandler(this.TrainingList_SelectedIndexChanged);
             // 
@@ -116,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 358);
+            this.ClientSize = new System.Drawing.Size(452, 358);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.chkLstExersizeCategories);
