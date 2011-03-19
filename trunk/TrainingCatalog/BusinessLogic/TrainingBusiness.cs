@@ -324,6 +324,9 @@ namespace TrainingCatalog.BusinessLogic
                     cmd.Parameters.Add("@categoryId", SqlDbType.Int).Value = CategoryId;
                     cmd.ExecuteNonQuery();
 
+                    cmd.CommandText = "update TrainingTemplate set ExersizeCategoryId = null where ExersizeCategoryId = @categoryId";
+                    cmd.ExecuteNonQuery();
+
                     cmd.CommandText = "delete from ExersizeCategory where Id = @categoryId";
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
