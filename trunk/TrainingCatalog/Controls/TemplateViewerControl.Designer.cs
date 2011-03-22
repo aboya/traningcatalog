@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gv_templates = new TrainingCatalog.CustomDataGridView();
+            this.gv_templates = new TrainingCatalog.Controls.CustomDataGridView();
             this.Category = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Exersize = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -123,7 +123,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.DataGridViewComboBoxColumn Exersize;
         private System.Windows.Forms.DataGridViewComboBoxColumn Category;
-        private CustomDataGridView gv_templates;
+        private TrainingCatalog.Controls.CustomDataGridView gv_templates;
 
 
 
