@@ -59,6 +59,13 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v10.2, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -138,16 +145,25 @@
     <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
-    <Compile Include="Controls\BaseButton.cs">
+    <Compile Include="Controls\BaseControls\BaseButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\BaseComboBox.cs">
+    <Compile Include="Controls\BaseControls\BaseComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\BaseLabel.cs">
+    <Compile Include="Controls\BaseControls\BaseGroupBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\BaseTextBox.cs">
+    <Compile Include="Controls\BaseControls\BaseLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseControls\BaseMaskedTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseControls\BaseRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\BaseControls\BaseTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\NullableTextBox.cs">
