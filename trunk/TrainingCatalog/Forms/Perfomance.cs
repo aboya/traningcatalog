@@ -92,7 +92,7 @@ namespace TrainingCatalog
                 // Set the Titles
 
                 myPane.Title.Text = "Perfomance";
-                myPane.Title.IsVisible = false;
+                //myPane.Title.IsVisible = false;
                 myPane.XAxis.Title.Text = "Date";
                 myPane.YAxis.Title.Text = "Weight";
 
