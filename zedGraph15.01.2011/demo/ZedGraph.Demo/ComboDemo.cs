@@ -56,7 +56,7 @@ namespace ZedGraph.Demo
 			// Fill the symbols with white
 			curve.Symbol.Fill = new Fill( Color.White );
 			curve.Symbol.Size = 10;
-			
+            
 			// Second curve is "moe"
 			double[] x3 = { 150, 250, 400, 520, 780, 940 };
 			double[] y3 = { 5.2, 49.0, 33.8, 88.57, 99.9, 36.8 };
