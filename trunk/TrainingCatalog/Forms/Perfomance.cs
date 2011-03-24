@@ -24,6 +24,8 @@ namespace TrainingCatalog
         protected DateTime MinDateTime;
         protected DateTime MaxDateTime;
         private bool IsShown = false;
+
+        protected DateTime startTimeOld, endTimeOld;
         public Perfomance()
         {
             InitializeComponent();
@@ -85,6 +87,7 @@ namespace TrainingCatalog
             if (IsShown == false) return;
             try
             {
+                Debug.WriteLine("GraphRecreated");
                 mainGraphControl.IsShowPointValues = true;
                 GraphPane myPane = zgc.GraphPane;
                 myPane.CurveList.Clear();
@@ -468,23 +471,12 @@ namespace TrainingCatalog
             TrainingList.SelectedIndex = 0;
             dtpFrom.Value = MinDateTime;
             dtpTo.Value = MaxDateTime;
+            startTimeOld = MinDateTime;
+            endTimeOld = MaxDateTime;
         }
 
         private void TrainingList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CreateGraph(mainGraphControl);
-        }
-
-        private void dtpFrom_ValueChanged(object sender, EventArgs e)
-        {
-            if (dtpFrom.Value < MinDateTime) dtpFrom.Value = MinDateTime;
-            CreateGraph(mainGraphControl);
-
-        }
-
-        private void dtpTo_ValueChanged(object sender, EventArgs e)
-        {
-            if (dtpTo.Value > MaxDateTime) dtpTo.Value = MaxDateTime;
             CreateGraph(mainGraphControl);
         }
 
@@ -556,6 +548,20 @@ namespace TrainingCatalog
                 }
             }
           
+        }
+
+        private void dtpTo_CloseUp(object sender, EventArgs e)
+        {
+            if (dtpTo.Value > MaxDateTime) dtpTo.Value = MaxDateTime;
+            _bodyWeight = null;
+            CreateGraph(mainGraphControl);
+        }
+
+        private void dtpFrom_CloseUp(object sender, EventArgs e)
+        {
+            if (dtpFrom.Value < MinDateTime) dtpFrom.Value = MinDateTime;
+            _bodyWeight = null;
+            CreateGraph(mainGraphControl);
         }
     }
 }

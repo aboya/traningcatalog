@@ -68,6 +68,7 @@
             // 
             this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrainingList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.TrainingList.FormattingEnabled = true;
             this.TrainingList.Location = new System.Drawing.Point(12, 250);
             this.TrainingList.Name = "TrainingList";
@@ -81,7 +82,7 @@
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(138, 20);
             this.dtpFrom.TabIndex = 7;
-            this.dtpFrom.ValueChanged += new System.EventHandler(this.dtpFrom_ValueChanged);
+            this.dtpFrom.CloseUp += new System.EventHandler(this.dtpFrom_CloseUp);
             // 
             // dtpTo
             // 
@@ -89,7 +90,7 @@
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(142, 20);
             this.dtpTo.TabIndex = 8;
-            this.dtpTo.ValueChanged += new System.EventHandler(this.dtpTo_ValueChanged);
+            this.dtpTo.CloseUp += new System.EventHandler(this.dtpTo_CloseUp);
             // 
             // bntClear
             // 
