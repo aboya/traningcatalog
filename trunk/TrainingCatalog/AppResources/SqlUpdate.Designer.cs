@@ -169,6 +169,19 @@ namespace TrainingCatalog.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE Settings
+        ///(
+        ///   [Key] nvarchar(20) NOT NULL constraint PK_Settings_Key PRIMARY KEY,
+        ///   Value nvarchar(100) not null
+        ///).
+        /// </summary>
+        public static string v18 {
+            get {
+                return ResourceManager.GetString("v18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE Training
         ///(
         ///   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,

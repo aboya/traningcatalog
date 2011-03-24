@@ -399,23 +399,16 @@ namespace TrainingCatalog.BusinessLogic
                             {
                                 cmd.CommandText = "insert into TrainingTemplate (TemplateID, ExersizeID, Weight, [Count],ExersizeCategoryId) values(@TemplateID, @ExersizeID, @Weight, @cnt, @ExersizeCategoryId) ";
                                 cmd.Parameters.Add("@TemplateID", SqlDbType.Int).Value = _TemplateID;
-                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ExersizeID;
-                                cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = exersize.Weight;
-                                cmd.Parameters.Add("@cnt", SqlDbType.Int).Value = exersize.Count;
-                                cmd.Parameters.Add("@ExersizeCategoryId", SqlDbType.Int).Value = exersize.ExersizeCategoryID;
                             }
                             else
                             {
                                 cmd.CommandText = "update TrainingTemplate set ExersizeID=@ExersizeID, Weight=@Weight, [Count]=@cnt,ExersizeCategoryId=@ExersizeCategoryId   where ID=@ID";
-                                                         
                                 cmd.Parameters.Add("@ID", SqlDbType.Int).Value = exersize.ID;
-                                cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ExersizeID;
-                                cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = exersize.Weight;
-                                cmd.Parameters.Add("@cnt", SqlDbType.Int).Value = exersize.Count;
-                                cmd.Parameters.Add("@ExersizeCategoryId", SqlDbType.Int).Value = exersize.ExersizeCategoryID.HasValue ? (object)exersize.ExersizeCategoryID.Value : DBNull.Value;
-
-
                             }
+                            cmd.Parameters.Add("@ExersizeID", SqlDbType.Int).Value = exersize.ExersizeID;
+                            cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = exersize.Weight;
+                            cmd.Parameters.Add("@cnt", SqlDbType.Int).Value = exersize.Count;
+                            cmd.Parameters.Add("@ExersizeCategoryId", SqlDbType.Int).Value = exersize.ExersizeCategoryID.HasValue ? (object)exersize.ExersizeCategoryID.Value : DBNull.Value;
                             cmd.ExecuteNonQuery();
                             cmd.Parameters.Clear();
                             if (exersize.ID == 0)

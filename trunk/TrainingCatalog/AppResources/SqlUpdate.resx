@@ -191,6 +191,14 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
 WITH (STATISTICS_NORECOMPUTE = OFF)</value>
     <comment>0017</comment>
   </data>
+  <data name="v18" xml:space="preserve">
+    <value>CREATE TABLE Settings
+(
+   [Key] nvarchar(20) NOT NULL constraint PK_Settings_Key PRIMARY KEY,
+   Value nvarchar(100) not null
+)</value>
+    <comment>0018</comment>
+  </data>
   <data name="v3" xml:space="preserve">
     <value>CREATE TABLE Training
 (

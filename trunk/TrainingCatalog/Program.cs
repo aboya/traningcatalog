@@ -32,7 +32,7 @@ namespace TrainingCatalog
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, "Datebase Update Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(e.Message, "Datebase Update Error \t\n You may restore base from backup created by application", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
                 Application.EnableVisualStyles();

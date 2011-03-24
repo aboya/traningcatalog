@@ -122,7 +122,7 @@ namespace TrainingCatalog.Forms
             // lblStart
             // 
             this.lblStart.AutoSize = true;
-            this.lblStart.Location = new System.Drawing.Point(39, 8);
+            this.lblStart.Location = new System.Drawing.Point(33, 10);
             this.lblStart.Name = "lblStart";
             this.lblStart.Size = new System.Drawing.Size(78, 13);
             this.lblStart.TabIndex = 5;
@@ -131,7 +131,7 @@ namespace TrainingCatalog.Forms
             // lblEnd
             // 
             this.lblEnd.AutoSize = true;
-            this.lblEnd.Location = new System.Drawing.Point(12, 35);
+            this.lblEnd.Location = new System.Drawing.Point(6, 35);
             this.lblEnd.Name = "lblEnd";
             this.lblEnd.Size = new System.Drawing.Size(105, 13);
             this.lblEnd.TabIndex = 6;
