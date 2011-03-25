@@ -98,28 +98,30 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                SqlCeTransaction transaction = connection.BeginTransaction();
-                try
+                using (SqlCeTransaction transaction = connection.BeginTransaction())
                 {
-                    using (SqlCeCommand cmd = connection.CreateCommand())
+                    try
                     {
-                        cmd.Transaction = transaction;
-                        string strDate = _date.ToString("dd/MM/yyyy");
-                        List<TemplateExersizesType> list =  ucTemplate.GetTemplateExersizes();
-                        int trainingDayId = TrainingBusiness.GetTrainingDayId(_date, cmd);
-
-                        foreach (TemplateExersizesType exersize in list)
+                        using (SqlCeCommand cmd = connection.CreateCommand())
                         {
-                            TrainingBusiness.AddExersize(cmd, trainingDayId, exersize.ExersizeID, exersize.Weight, exersize.Count);
-                        }
+                            cmd.Transaction = transaction;
+                            string strDate = _date.ToString("dd/MM/yyyy");
+                            List<TemplateExersizesType> list = ucTemplate.GetTemplateExersizes();
+                            int trainingDayId = TrainingBusiness.GetTrainingDayId(_date, cmd);
 
+                            foreach (TemplateExersizesType exersize in list)
+                            {
+                                TrainingBusiness.AddExersize(cmd, trainingDayId, exersize.ExersizeID, exersize.Weight, exersize.Count);
+                            }
+
+                        }
+                        transaction.Commit();
                     }
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show(ex.Message);
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
             catch (Exception ex)

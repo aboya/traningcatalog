@@ -39,14 +39,15 @@
             this.txtWeight = new TrainingCatalog.Controls.NullableTextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.AddExersize = new TrainingCatalog.Controls.BaseButton();
+            this.btnOtherDay = new TrainingCatalog.Controls.BaseButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddFromTemplate
             // 
-            this.btnAddFromTemplate.Location = new System.Drawing.Point(369, 35);
+            this.btnAddFromTemplate.Location = new System.Drawing.Point(356, 35);
             this.btnAddFromTemplate.Name = "btnAddFromTemplate";
-            this.btnAddFromTemplate.Size = new System.Drawing.Size(158, 21);
+            this.btnAddFromTemplate.Size = new System.Drawing.Size(129, 21);
             this.btnAddFromTemplate.TabIndex = 10;
             this.btnAddFromTemplate.Text = "Добавить из шаблона";
             this.btnAddFromTemplate.UseVisualStyleBackColor = true;
@@ -56,7 +57,7 @@
             // 
             this.btnSaveWeight.Location = new System.Drawing.Point(258, 35);
             this.btnSaveWeight.Name = "btnSaveWeight";
-            this.btnSaveWeight.Size = new System.Drawing.Size(105, 21);
+            this.btnSaveWeight.Size = new System.Drawing.Size(92, 21);
             this.btnSaveWeight.TabIndex = 9;
             this.btnSaveWeight.Text = "Сохранить вес";
             this.btnSaveWeight.UseVisualStyleBackColor = true;
@@ -159,11 +160,22 @@
             this.AddExersize.UseVisualStyleBackColor = true;
             this.AddExersize.Click += new System.EventHandler(this.AddExersize_Click);
             // 
+            // btnOtherDay
+            // 
+            this.btnOtherDay.Location = new System.Drawing.Point(491, 35);
+            this.btnOtherDay.Name = "btnOtherDay";
+            this.btnOtherDay.Size = new System.Drawing.Size(42, 21);
+            this.btnOtherDay.TabIndex = 11;
+            this.btnOtherDay.Text = "День";
+            this.btnOtherDay.UseVisualStyleBackColor = true;
+            this.btnOtherDay.Click += new System.EventHandler(this.btnOtherDay_Click);
+            // 
             // Training
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(568, 342);
+            this.Controls.Add(this.btnOtherDay);
             this.Controls.Add(this.btnAddFromTemplate);
             this.Controls.Add(this.btnSaveWeight);
             this.Controls.Add(this.label1);
@@ -197,5 +209,6 @@
         private TrainingCatalog.Controls.BaseLabel label1;
         private TrainingCatalog.Controls.BaseButton btnSaveWeight;
         private TrainingCatalog.Controls.BaseButton btnAddFromTemplate;
+        private TrainingCatalog.Controls.BaseButton btnOtherDay;
     }
 }

@@ -245,7 +245,7 @@ namespace TrainingCatalog
                 DataGridViewComboBoxCell cellExersize = row.Cells[1] as DataGridViewComboBoxCell;
                 DataGridViewTextBoxCell txtWeight = row.Cells[2] as DataGridViewTextBoxCell;
                 DataGridViewTextBoxCell txtCount = row.Cells[3] as DataGridViewTextBoxCell;
-                row.Cells[4].Value = "Remove";
+                row.Cells[4].Value = "-";
                 row.Tag = 0;
                 cellCategory.Value = -1;
 
@@ -296,6 +296,7 @@ namespace TrainingCatalog
                     gv_templates.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
                     gv_templates.Columns[3].SortMode = DataGridViewColumnSortMode.NotSortable;
                     gv_templates.Columns[4].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gv_templates.Columns[4].Width = 20;
                 }
                 catch (Exception ee)
                 {

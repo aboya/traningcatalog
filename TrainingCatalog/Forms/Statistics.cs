@@ -50,10 +50,10 @@ namespace TrainingCatalog.Forms
                 connection.Open();
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    foreach (DateTime day in TrainingBusiness.GetTrainingDays(cmd, range.Start, range.End))
-                    {
-                        mc.AddBoldedDate(day);
-                    }
+                    //foreach (DateTime day in TrainingBusiness.GetTrainingDays(cmd, range.Start, range.End))
+                    //{
+                    //    mc.AddBoldedDate(day);
+                    //}
                 }
                 mc.UpdateBoldedDates();
             }

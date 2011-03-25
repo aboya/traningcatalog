@@ -346,5 +346,14 @@ namespace TrainingCatalog
             GridBind();
         }
 
+        private void btnOtherDay_Click(object sender, EventArgs e)
+        {
+            using (AddFromOtherDay od = new AddFromOtherDay(dateTime.Value.Date))
+            {
+                od.ShowDialog(this);
+                GridBind();
+            }
+        }
+
     }
 }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mcStart = new System.Windows.Forms.MonthCalendar();
-            this.mcEnd = new System.Windows.Forms.MonthCalendar();
+            this.mcStart = new TrainingCatalog.Controls.BaseMonthCalendar();
+            this.mcEnd = new TrainingCatalog.Controls.BaseMonthCalendar();
             this.lstParams = new System.Windows.Forms.ListView();
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Stats = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -110,8 +110,8 @@
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar mcStart;
-        private System.Windows.Forms.MonthCalendar mcEnd;
+        private TrainingCatalog.Controls.BaseMonthCalendar mcStart;
+        private TrainingCatalog.Controls.BaseMonthCalendar mcEnd;
         private System.Windows.Forms.ListView lstParams;
         private ZedGraph.ZedGraphControl graph;
         private System.Windows.Forms.ColumnHeader name;

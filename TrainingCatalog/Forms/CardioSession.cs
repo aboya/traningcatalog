@@ -24,12 +24,12 @@ namespace TrainingCatalog.Forms
         private Controls.BaseLabel lblDuration;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button btnAdd;
+        private TrainingCatalog.Controls.BaseButton btnAdd;
         private Controls.BaseGroupBox baseGroupBox1;
-        private System.Windows.Forms.Button btnOk;
+        private TrainingCatalog.Controls.BaseButton btnOk;
         private void InitializeComponent()
         {
-            this.btnOk = new System.Windows.Forms.Button();
+            this.btnOk = new TrainingCatalog.Controls.BaseButton();
             this.maskedTextBox1 = new TrainingCatalog.Controls.BaseMaskedTextBox();
             this.baseMaskedTextBox1 = new TrainingCatalog.Controls.BaseMaskedTextBox();
             this.gbType = new TrainingCatalog.Controls.BaseGroupBox();
@@ -41,7 +41,7 @@ namespace TrainingCatalog.Forms
             this.lblDuration = new TrainingCatalog.Controls.BaseLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
             this.gbType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();

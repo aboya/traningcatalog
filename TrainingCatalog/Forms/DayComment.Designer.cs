@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.monthCalendar = new System.Windows.Forms.MonthCalendar();
+            this.monthCalendar = new TrainingCatalog.Controls.BaseMonthCalendar();
             this.txtComments = new TrainingCatalog.Controls.BaseTextBox();
             this.btnSave = new TrainingCatalog.Controls.BaseButton();
             this.btnPrev = new TrainingCatalog.Controls.BaseButton();
@@ -102,7 +102,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar monthCalendar;
+        private TrainingCatalog.Controls.BaseMonthCalendar monthCalendar;
         private TrainingCatalog.Controls.BaseTextBox txtComments;
         private TrainingCatalog.Controls.BaseButton btnSave;
         private TrainingCatalog.Controls.BaseButton btnPrev;

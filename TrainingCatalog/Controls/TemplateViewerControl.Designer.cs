@@ -99,7 +99,7 @@
             // Remove
             // 
             this.Remove.FillWeight = 50F;
-            this.Remove.HeaderText = "Remove";
+            this.Remove.HeaderText = "#";
             this.Remove.Name = "Remove";
             this.Remove.Width = 50;
             // 
