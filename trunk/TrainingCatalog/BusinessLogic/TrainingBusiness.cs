@@ -91,7 +91,11 @@ namespace TrainingCatalog.BusinessLogic
         {
             List<DateTime> res = new List<DateTime>();
             cmd.Parameters.Clear();
-            cmd.CommandText = "select Day from Training where Day Between @start and @end";
+            cmd.CommandText = @"SELECT Training.Day
+                                    FROM  Training INNER JOIN
+                                    Link ON Training.Id = Link.TrainingId
+                                    where Day Between @start and @end
+                                    GROUP BY Training.Day  ";
             cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
             cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end;
             using (SqlCeDataReader reader = cmd.ExecuteReader())
@@ -498,6 +502,35 @@ namespace TrainingCatalog.BusinessLogic
             {
                 connection.Close();
             }
+            return res;
+        }
+
+        public static List<TemplateExersizesType> GetExersizes(SqlCeCommand cmd, DateTime date)
+        {
+            cmd.Parameters.Clear();
+            List<TemplateExersizesType> res = new List<TemplateExersizesType>();
+            cmd.CommandText = @"select Link.ID as ID, Exersize.ID as ExersizeID, ShortName,Weight, [Count] from  Link 
+                                    inner join Training on Training.ID = Link.TrainingID  
+                                    inner  join Exersize on Exersize.ID = Link.ExersizeID
+                                    where Day = @day order by Link.ID";
+            cmd.Parameters.Add("@Day", SqlDbType.DateTime).Value = date;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (!(reader["ID"] is DBNull))
+                    {
+                        res.Add(new TemplateExersizesType()
+                        {
+                            ID = Convert.ToInt32(reader["ID"]),
+                            ExersizeID = Convert.ToInt32(reader["ExersizeID"]),
+                            Count = Convert.ToInt32(reader["Count"]),
+                            Weight = Convert.ToInt32(reader["Weight"])
+                        });
+                    }
+                }
+            }
+            cmd.Parameters.Clear();
             return res;
         }
       

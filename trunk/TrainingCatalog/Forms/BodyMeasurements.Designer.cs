@@ -54,7 +54,7 @@ namespace TrainingCatalog.Forms
             this.txtBiceps_h = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.lblBiceps_l = new TrainingCatalog.Controls.BaseLabel();
             this.lblBiceps_h = new TrainingCatalog.Controls.BaseLabel();
-            this.mCalendar = new System.Windows.Forms.MonthCalendar();
+            this.mCalendar = new TrainingCatalog.Controls.BaseMonthCalendar();
             this.btnSave = new TrainingCatalog.Controls.BaseButton();
             this.btnPrev = new TrainingCatalog.Controls.BaseButton();
             this.btnNext = new TrainingCatalog.Controls.BaseButton();
@@ -355,7 +355,7 @@ namespace TrainingCatalog.Forms
         #endregion
 
         private TrainingCatalog.Controls.BaseButton btnSave;
-        private System.Windows.Forms.MonthCalendar mCalendar;
+        private TrainingCatalog.Controls.BaseMonthCalendar mCalendar;
         private TrainingCatalog.Controls.BaseLabel lblBiceps_h;
         private TrainingCatalog.Controls.BaseLabel lblBiceps_l;
         private FloatNumberTextBox txtBiceps_h;
