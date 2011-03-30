@@ -137,6 +137,26 @@ namespace TrainingCatalog.Forms
             lastDate = monthCalendar.SelectionStart;
             btnNext.Image = TrainingCatalog.AppResources.AppResources.right_48x48;
             btnPrev.Image = TrainingCatalog.AppResources.AppResources.left_48x48;
+            try
+            {
+
+                connection.Open();
+                SelectionRange range = monthCalendar.GetDisplayRange(false);
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    txtComments.Text = TrainingBusiness.GetComment(cmd, monthCalendar.SelectionStart);
+                    lastDate = monthCalendar.SelectionStart;
+                    saved = true;
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
