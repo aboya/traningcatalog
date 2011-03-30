@@ -109,7 +109,6 @@ namespace TrainingCatalog.AppResources {
         ///(
         ///   Id int NOT NULL identity(1,1) constraint PK_CardioSession_Id PRIMARY KEY,
         ///   TrainingId int not null CONSTRAINT FK_CardioSession_TrainingId references Training (Id),
-        ///   CardioTypeId int not null constraint FK_CardioSession_CardioTypeId references CardioType (Id),
         ///   StartTime int,
         ///   EndTime int
         ///).
@@ -124,7 +123,7 @@ namespace TrainingCatalog.AppResources {
         ///   Looks up a localized string similar to CREATE TABLE CardioInterval
         ///(
         ///   Id int NOT NULL identity(1,1) constraint PK_CardioSession_Id PRIMARY KEY,
-        ///   CardioSessionId int not null CONSTRAINT FK_CardioInterval_CardioSessionId references CardioSession (Id),
+        ///   CardioSessionId int not null CONSTRAINT FK_CardioInterval_CardioSessionId references CardioSession (Id),   CardioTypeId int not null constraint FK_CardioSession_CardioTypeId references CardioType (Id),
         ///   Velocity float ,
         ///   Time float,
         ///   Distance float,
