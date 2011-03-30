@@ -125,6 +125,11 @@ namespace TrainingCatalog.Forms
                 connection.Close();
             }
             lstExersizes.DataSource = exersizes;
+            if (exersizes != null && exersizes.Count > 0)
+            {
+
+                lstExersizes.SelectedIndex = exersizes.Count - 1;
+            }
         }
 
         private void EditCardio_Load(object sender, EventArgs e)
@@ -135,7 +140,7 @@ namespace TrainingCatalog.Forms
             {
                 connection.Open();
                 exersizes = TrainingBusiness.GetCardioExersizes(cmd); 
-                lstExersizes.DataSource = exersizes;
+                
                 lstExersizes.ValueMember = "Id";
                 lstExersizes.DisplayMember = "Name";
                 Dictionary<int, string> types = TrainingBusiness.GetCardioTypes();
@@ -153,6 +158,7 @@ namespace TrainingCatalog.Forms
             {
                 connection.Close();
             }
+            lstExersizes.DataSource = exersizes;
             
         }
 
