@@ -91,11 +91,11 @@ namespace TrainingCatalog.AppResources {
         ///   Looks up a localized string similar to CREATE TABLE CardioType
         ///(
         ///   Id int NOT NULL identity(1,1) constraint PK_CardioType_Id PRIMARY KEY,
-        ///   Name nvarchar not null,
+        ///   Name nvarchar(100) not null,
         ///   Velocity bit not null,
         ///   Time bit not null,
-        ///   Distance bit not null,
-        ///   Intensivity bit not null CONSTRAINT DF_CardioType_Intensivity default (1)
+        ///   Distance bit not null, 
+        ///   Intensivity bit not null CONSTRAINT DF_CardioType_Intensivity default (1),    Resistance bit not null
         ///).
         /// </summary>
         public static string v12_1 {

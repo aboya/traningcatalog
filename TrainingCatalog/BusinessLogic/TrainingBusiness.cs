@@ -533,6 +533,101 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
-      
+
+
+        public static List<CardioExersizeType> GetCardioExersizes(SqlCeCommand cmd)
+        {
+            List<CardioExersizeType> res = new List<CardioExersizeType>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Id, Name from CardioType";
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res.Add(new CardioExersizeType()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        Name = Convert.ToString(reader["Name"])
+                    });
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+        }
+        /// <summary>
+        /// saves exersize. if id = 0 add new exersize else update exists
+        /// </summary>
+        /// <returns></returns>
+        public static void SaveCardioExersize(SqlCeCommand cmd, CardioExersizeType exersize, Dictionary<int, bool> cardioTypes)
+        {
+            // Velocity 
+            //Time 
+            //Distance  
+            //Intensivity 
+            //Resistance  
+            cmd.Parameters.Clear();
+            if (exersize.Id == 0)
+            {
+                cmd.CommandText = "insert into CardioType (Name,Intensivity,Resistance,Velocity,[Time],Distance) " +
+                                   "values(@name,@Intensivity, @Resistance, @Velocity, @Time, @Distance) ";
+            }
+            else
+            {
+                cmd.CommandText = "update CardioType set Name = @name,Intensivity = @Intensivity,Resistance = @Resistance,Velocity = @Velocity,Time = @Time,Distance = @Distance " +
+                                        "where ID = @id;";
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = exersize.Id;
+            }
+            cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = exersize.Name;
+            cmd.Parameters.Add("@Intensivity", SqlDbType.Bit).Value =cardioTypes[1];
+            cmd.Parameters.Add("@Resistance", SqlDbType.Bit).Value =cardioTypes[2];
+            cmd.Parameters.Add("@Velocity", SqlDbType.Bit).Value = cardioTypes[3];
+            cmd.Parameters.Add("@Time", SqlDbType.Bit).Value = cardioTypes[4];
+            cmd.Parameters.Add("@Distance", SqlDbType.Bit).Value = cardioTypes[5];
+            cmd.ExecuteNonQuery();
+            cmd.Parameters.Clear();
+
+
+        }
+        public static Dictionary<int, string> GetCardioTypes()
+        {
+            Dictionary<int, string> res = new Dictionary<int, string>();
+            res[1] = "Интенсивность";
+            res[2] = "Нагрузка";
+            res[3] = "Скорость";
+            res[4] = "Время";
+            res[5] = "Расстояние";
+            return res;
+        }
+
+        public static void DeleteCardioExersize(SqlCeCommand cmd, int Id)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = "delete from CardioType where Id = @Id";
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Id;
+            cmd.ExecuteNonQuery();
+            cmd.Parameters.Clear();
+
+        }
+
+        public static Dictionary<int, bool> GetCardioTypesForExersize(SqlCeCommand cmd, int exersizeId)
+        {
+            Dictionary<int, bool> res = new Dictionary<int, bool>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Intensivity,Resistance,Velocity,Time,Distance from CardioType where Id = @Id";
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = exersizeId;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    res[1] = Convert.ToBoolean(reader["Intensivity"]);
+                    res[2] = Convert.ToBoolean(reader["Resistance"]);
+                    res[3] = Convert.ToBoolean(reader["Velocity"]);
+                    res[4] = Convert.ToBoolean(reader["Time"]);
+                    res[5] = Convert.ToBoolean(reader["Distance"]);
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+        }
     }
 }
