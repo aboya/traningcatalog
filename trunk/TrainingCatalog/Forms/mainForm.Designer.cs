@@ -41,7 +41,7 @@
             this.button7 = new TrainingCatalog.Controls.BaseButton();
             this.button8 = new TrainingCatalog.Controls.BaseButton();
             this.button9 = new TrainingCatalog.Controls.BaseButton();
-            this.button10 = new TrainingCatalog.Controls.BaseButton();
+            this.btnCardioExersizes = new TrainingCatalog.Controls.BaseButton();
             this.SuspendLayout();
             // 
             // button1
@@ -175,22 +175,22 @@
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
-            // button10
+            // btnCardioExersizes
             // 
-            this.button10.Location = new System.Drawing.Point(13, 68);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(84, 41);
-            this.button10.TabIndex = 13;
-            this.button10.Text = "Кардио упражнения";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Visible = false;
+            this.btnCardioExersizes.Location = new System.Drawing.Point(13, 68);
+            this.btnCardioExersizes.Name = "btnCardioExersizes";
+            this.btnCardioExersizes.Size = new System.Drawing.Size(84, 41);
+            this.btnCardioExersizes.TabIndex = 13;
+            this.btnCardioExersizes.Text = "Кардио упражнения";
+            this.btnCardioExersizes.UseVisualStyleBackColor = true;
+            this.btnCardioExersizes.Click += new System.EventHandler(this.btnCardioExersizes_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(289, 267);
-            this.Controls.Add(this.button10);
+            this.Controls.Add(this.btnCardioExersizes);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -229,7 +229,7 @@
         private TrainingCatalog.Controls.BaseButton button7;
         private TrainingCatalog.Controls.BaseButton button8;
         private TrainingCatalog.Controls.BaseButton button9;
-        private TrainingCatalog.Controls.BaseButton button10;
+        private TrainingCatalog.Controls.BaseButton btnCardioExersizes;
     }
 }
 

@@ -95,5 +95,12 @@ namespace TrainingCatalog
         {
             new CardioTraining().Show();
         }
+
+        private void btnCardioExersizes_Click(object sender, EventArgs e)
+        {
+            new EditCardio().Show();
+        }
+
+
     }
 }

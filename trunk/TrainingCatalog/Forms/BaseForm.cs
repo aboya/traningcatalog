@@ -8,13 +8,24 @@ namespace TrainingCatalog.Forms
 {
     public class BaseForm : System.Windows.Forms.Form
     {
-        
+        public bool IsShown
+        {
+            get;
+            set;
+        }
 
         public BaseForm()
         {
+            IsShown = false;
             this.Icon = AppResources.AppResources.dumbbells;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BaseForm_FormClosing);
             this.Load += new System.EventHandler(this.BaseForm_Load);
+            this.Shown += new System.EventHandler(this.Form_Shown);
+            
+        }
+        private void Form_Shown(object sender, EventArgs e)
+        {
+            IsShown = true;
         }
         private void BaseForm_Load(object sender, EventArgs e)
         {
