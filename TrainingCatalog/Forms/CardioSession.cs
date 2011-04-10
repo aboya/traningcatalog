@@ -135,6 +135,7 @@ namespace TrainingCatalog.Forms
             this.lstExersizes.Name = "lstExersizes";
             this.lstExersizes.Size = new System.Drawing.Size(138, 186);
             this.lstExersizes.TabIndex = 9;
+            this.lstExersizes.SelectedIndexChanged += new System.EventHandler(this.lstExersizes_SelectedIndexChanged);
             // 
             // btnAdd
             // 
@@ -144,6 +145,7 @@ namespace TrainingCatalog.Forms
             this.btnAdd.Size = new System.Drawing.Size(50, 50);
             this.btnAdd.TabIndex = 11;
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // baseGroupBox1
             // 
@@ -285,6 +287,16 @@ namespace TrainingCatalog.Forms
                 connection.Close();
             }
             lstExersizes.DataSource = exersizes;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstExersizes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

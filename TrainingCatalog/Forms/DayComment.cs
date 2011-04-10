@@ -59,7 +59,7 @@ namespace TrainingCatalog.Forms
             AddCommentDays();
         }
 
-        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
             if (fromCode) return;
             if (!saved && txtComments.Text.Trim().Length > 0)
