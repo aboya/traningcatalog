@@ -166,6 +166,7 @@ namespace TrainingCatalog.Forms
             this.txtBodyFat.Name = "txtBodyFat";
             this.txtBodyFat.Size = new System.Drawing.Size(100, 20);
             this.txtBodyFat.TabIndex = 11;
+            this.txtBodyFat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtWaistline_h
             // 
@@ -174,6 +175,7 @@ namespace TrainingCatalog.Forms
             this.txtWaistline_h.Name = "txtWaistline_h";
             this.txtWaistline_h.Size = new System.Drawing.Size(100, 20);
             this.txtWaistline_h.TabIndex = 9;
+            this.txtWaistline_h.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtMidarm_l
             // 
@@ -182,6 +184,7 @@ namespace TrainingCatalog.Forms
             this.txtMidarm_l.Name = "txtMidarm_l";
             this.txtMidarm_l.Size = new System.Drawing.Size(100, 20);
             this.txtMidarm_l.TabIndex = 8;
+            this.txtMidarm_l.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtWaistline_l
             // 
@@ -190,6 +193,7 @@ namespace TrainingCatalog.Forms
             this.txtWaistline_l.Name = "txtWaistline_l";
             this.txtWaistline_l.Size = new System.Drawing.Size(100, 20);
             this.txtWaistline_l.TabIndex = 10;
+            this.txtWaistline_l.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtMidarm_h
             // 
@@ -198,6 +202,7 @@ namespace TrainingCatalog.Forms
             this.txtMidarm_h.Name = "txtMidarm_h";
             this.txtMidarm_h.Size = new System.Drawing.Size(100, 20);
             this.txtMidarm_h.TabIndex = 7;
+            this.txtMidarm_h.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtBodyWeight
             // 
@@ -206,6 +211,7 @@ namespace TrainingCatalog.Forms
             this.txtBodyWeight.Name = "txtBodyWeight";
             this.txtBodyWeight.Size = new System.Drawing.Size(100, 20);
             this.txtBodyWeight.TabIndex = 12;
+            this.txtBodyWeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtHip_l
             // 
@@ -214,6 +220,7 @@ namespace TrainingCatalog.Forms
             this.txtHip_l.Name = "txtHip_l";
             this.txtHip_l.Size = new System.Drawing.Size(100, 20);
             this.txtHip_l.TabIndex = 6;
+            this.txtHip_l.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtHip_h
             // 
@@ -222,6 +229,7 @@ namespace TrainingCatalog.Forms
             this.txtHip_h.Name = "txtHip_h";
             this.txtHip_h.Size = new System.Drawing.Size(100, 20);
             this.txtHip_h.TabIndex = 5;
+            this.txtHip_h.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtChest_l
             // 
@@ -230,6 +238,7 @@ namespace TrainingCatalog.Forms
             this.txtChest_l.Name = "txtChest_l";
             this.txtChest_l.Size = new System.Drawing.Size(100, 20);
             this.txtChest_l.TabIndex = 4;
+            this.txtChest_l.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtChest_h
             // 
@@ -238,6 +247,7 @@ namespace TrainingCatalog.Forms
             this.txtChest_h.Name = "txtChest_h";
             this.txtChest_h.Size = new System.Drawing.Size(100, 20);
             this.txtChest_h.TabIndex = 3;
+            this.txtChest_h.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtBiceps_l
             // 
@@ -246,6 +256,7 @@ namespace TrainingCatalog.Forms
             this.txtBiceps_l.Name = "txtBiceps_l";
             this.txtBiceps_l.Size = new System.Drawing.Size(100, 20);
             this.txtBiceps_l.TabIndex = 2;
+            this.txtBiceps_l.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txtBiceps_h
             // 
@@ -254,6 +265,7 @@ namespace TrainingCatalog.Forms
             this.txtBiceps_h.Name = "txtBiceps_h";
             this.txtBiceps_h.Size = new System.Drawing.Size(100, 20);
             this.txtBiceps_h.TabIndex = 1;
+            this.txtBiceps_h.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // lblBiceps_l
             // 
@@ -263,6 +275,7 @@ namespace TrainingCatalog.Forms
             this.lblBiceps_l.Size = new System.Drawing.Size(52, 13);
             this.lblBiceps_l.TabIndex = 3;
             this.lblBiceps_l.Text = "Бицепц_l";
+            this.lblBiceps_l.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // lblBiceps_h
             // 
@@ -344,6 +357,7 @@ namespace TrainingCatalog.Forms
             this.Controls.Add(this.mCalendar);
             this.Controls.Add(this.btnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.IsShown = true;
             this.Name = "BodyMeasurements";
             this.Text = "BodyMeasurements";
             this.Load += new System.EventHandler(this.BodyMeasurements_Load);

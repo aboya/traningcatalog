@@ -16,6 +16,9 @@ namespace TrainingCatalog.Forms
     public partial class BodyMeasurements : BaseForm
     {
         SqlCeConnection connection;
+        bool IsSaved = true;
+        bool fromCode = false;
+        DateTime lastDate;
         public BodyMeasurements()
         {
             InitializeComponent();
@@ -45,6 +48,7 @@ namespace TrainingCatalog.Forms
                     m.date = mCalendar.SelectionStart.Date;
                     TrainingBusiness.SaveMeasurement(cmd, m);
                     BindBoldedDates(cmd);
+                    IsSaved = true;
                 }
             }
             catch (Exception ee)
@@ -63,6 +67,7 @@ namespace TrainingCatalog.Forms
             btnPrev.Image = AppResources.AppResources.left_48x48;
             btnNext.Image = AppResources.AppResources.right_48x48;
             btnSave.Image = AppResources.AppResources.save_48x48;
+            lastDate = mCalendar.SelectionStart;
             
         }
         private void BindBoldedDates(SqlCeCommand cmd)
@@ -111,6 +116,20 @@ namespace TrainingCatalog.Forms
 
         private void mCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
+            if (fromCode) return;
+            if (!IsSaved)
+            {
+                var res = MessageBox.Show(this, "Вы не сохранили данные. \n\t Желаете продолжить ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (res == System.Windows.Forms.DialogResult.No)
+                {
+                    fromCode = true;
+                    mCalendar.SelectionStart = lastDate;
+                    fromCode = false;
+                    return;
+                }
+            }
+            IsSaved = true;
+            lastDate = mCalendar.SelectionStart;
             BindData(mCalendar.SelectionStart.Date,false);
         }
 
@@ -121,7 +140,7 @@ namespace TrainingCatalog.Forms
                            select d).Min();
             if (dt < DateTime.MaxValue && dt > DateTime.MinValue)
             {
-                mCalendar.SelectionEnd = dt;
+              
                 mCalendar.SelectionStart = dt;
             }
         }
@@ -133,9 +152,16 @@ namespace TrainingCatalog.Forms
                            select d).Max();
             if (dt > DateTime.MinValue && dt < DateTime.MaxValue)
             {
-                mCalendar.SelectionEnd = dt;
+                
                 mCalendar.SelectionStart = dt;
             }
         }
+
+        private void txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            IsSaved = false;
+        }
+
+ 
     }
 }
