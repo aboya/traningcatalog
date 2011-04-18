@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic;
 using TrainingCatalog.Forms;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog
 {
@@ -18,8 +19,6 @@ namespace TrainingCatalog
     {
         SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
         SqlCeDataAdapter table = new SqlCeDataAdapter();
-        DataSet Exersizes = new DataSet();
-        DataSet ExersizeCategoryTable = new DataSet();
         public DateTime TrainingDate = DateTime.Now;
         public Training()
         {
@@ -32,9 +31,19 @@ namespace TrainingCatalog
         {
             uint weight = 0, count = 0;
             int TrainingId = 0, ExersizeId = 0;
-            if (Exersizes.Tables[0].Rows.Count == 0)
+            if (TrainingList.Items.Count == 0)
             {
                 MessageBox.Show("Добавтье хотя бы одно упражнение");
+                return;
+            }
+            if (!uint.TryParse(txtWeight.Text, out weight))
+            {
+                MessageBox.Show("Не задан вес");
+                return;
+            }
+            if (!uint.TryParse(txtCount.Text, out count))
+            {
+                MessageBox.Show("Не заданны повторения");
                 return;
             }
             try
@@ -42,12 +51,8 @@ namespace TrainingCatalog
                 connection.Open();
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    weight = Convert.ToUInt32(txtWeight.Text);
-                    count = Convert.ToUInt32(txtCount.Text);
-
                     TrainingId = TrainingBusiness.GetTrainingDayId(dateTime.Value, cmd);
-                    
-                    ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
+                    ExersizeId = Convert.ToInt32(TrainingList.SelectedValue);
                     TrainingBusiness.AddExersize(cmd, TrainingId, ExersizeId, (int)weight, (int)count);
                 }
 
@@ -85,28 +90,29 @@ namespace TrainingCatalog
             }
             dateTime.Value = TrainingDate;
             // порядок вызова этих функций важен
+            TrainingList.ValueMember = "ExersizeID";
+            TrainingList.DisplayMember = "ShortName";
+            cbTraningCategory.ValueMember = "Id";
+            cbTraningCategory.DisplayMember = "Name";
             CategoryFilterLoad();
             GridBind();
         }
         protected void CategoryFilterLoad()
         {
-
+            List<CategoryType> categories = new List<CategoryType>();
+            categories.Add(new CategoryType()
+            {
+                Id = -1,
+                Name = "Все"
+            });
             try
             {
                 connection.Open();
-                cbTraningCategory.Items.Add("Все");
-
                 using (SqlCeCommand cmd = new SqlCeCommand())
                 {
                     cmd.Connection = connection;
                     cmd.Parameters.Clear();
-                    cmd.CommandText = "select * from ExersizeCategory order by Name";
-                    table.SelectCommand = cmd;
-                    table.Fill(ExersizeCategoryTable);
-                    foreach (DataRow row in ExersizeCategoryTable.Tables[0].Rows)
-                    {
-                        cbTraningCategory.Items.Add(row["Name"]);
-                    }
+                    categories.AddRange(TrainingBusiness.GetCategories(cmd));
                 }
 
             }
@@ -119,47 +125,22 @@ namespace TrainingCatalog
                 connection.Close();
             }
             // этой строчкой мы фактически вызываем ExersizeLoad()
+            cbTraningCategory.DataSource = categories;
+            // и этой строчкой тоже)
             cbTraningCategory.SelectedIndex = 0;
         }
         private void ExersizeLoad()
         {
-
-            // это надо что бы рекурсии небыло
-
             try
             {
                 connection.Open();
                 using (SqlCeCommand cmd = new SqlCeCommand())
                 {
                     cmd.Connection = connection;
-                    // теперь загружаем список учитывая наш фильтр ExersizeCategoryTable
-
-
-                    // если в фильтре указали что бы показывать все упражнения
-                    if (cbTraningCategory.SelectedIndex == 0)
-                    {
-                        cmd.CommandText = "select Id as ExersizeId, ShortName from Exersize order by ShortName";
-                    }
-                    else
-                    {
-                        int exersizeCategoryId = (int)ExersizeCategoryTable.Tables[0].Rows[cbTraningCategory.SelectedIndex - 1]["ID"];
-                        cmd.CommandText = @"select Exersize.ID as ExersizeID, Exersize.ShortName from Exersize 
-                                            inner join ExersizeCategoryLink on
-                                            ExersizeCategoryLink.ExersizeID = Exersize.ID
-                                            where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
-                                            order by ShortName";
-                        cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = exersizeCategoryId;
-                    }
-
-                    table.SelectCommand = cmd;
-                    Exersizes.Clear();
-                    TrainingList.Items.Clear();
-                    table.Fill(Exersizes);
-                    for (int i = 0; i < Exersizes.Tables[0].Rows.Count; i++)
-                    {
-                        TrainingList.Items.Add(Exersizes.Tables[0].Rows[i]["ShortName"]);
-                    }
-                    if(TrainingList.Items.Count > 0)
+                    int exersizeCategoryId = Convert.ToInt32(cbTraningCategory.SelectedValue);
+                    List<ExersizeSource> exersizes = TrainingBusiness.GetExersizes(cmd, exersizeCategoryId);
+                    TrainingList.DataSource = exersizes;
+                    if (exersizes.Count > 0)
                         TrainingList.SelectedIndex = 0;
                     TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
                 }

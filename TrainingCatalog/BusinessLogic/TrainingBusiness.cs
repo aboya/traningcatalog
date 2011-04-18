@@ -276,7 +276,7 @@ namespace TrainingCatalog.BusinessLogic
         {
             List<CategoryType> res = new List<CategoryType>();
             cmd.Parameters.Clear();
-            cmd.CommandText = "select Id,Name from ExersizeCategory";
+            cmd.CommandText = "select Id,Name from ExersizeCategory order by Name";
             using (SqlCeDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -292,6 +292,43 @@ namespace TrainingCatalog.BusinessLogic
             return res;
             
         }
+        public static List<ExersizeSource> GetExersizes(SqlCeCommand cmd)
+        {
+            return GetExersizes(cmd, -1);
+        }
+        public static List<ExersizeSource> GetExersizes(SqlCeCommand cmd, int categoryId)
+        {
+            if (categoryId <= 0)
+            {
+                cmd.CommandText = "select * from Exersize order by ShortName";
+            }
+            else
+            {
+
+                cmd.CommandText = @"select Exersize.ID, Exersize.ShortName from Exersize 
+                                        inner join ExersizeCategoryLink on
+                                        ExersizeCategoryLink.ExersizeID = Exersize.ID
+                                        where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
+                                        order by ShortName";
+                cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = categoryId;
+
+            }
+            List<ExersizeSource> Exersizes = new List<ExersizeSource>();
+            using (SqlCeDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    Exersizes.Add(new ExersizeSource()
+                    {
+                        ExersizeID = Convert.ToInt32(dr["ID"]),
+                        ShortName = Convert.ToString(dr["ShortName"])
+
+                    });
+                }
+            }
+            return Exersizes;
+        }
+        
         public static void AddCategory(SqlCeCommand cmd, string name)
         {
             if (!string.IsNullOrEmpty(name))
