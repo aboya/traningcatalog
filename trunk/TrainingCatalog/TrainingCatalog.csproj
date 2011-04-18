@@ -144,6 +144,7 @@
     <Compile Include="BusinessLogic\Types\CardioParamsType.cs" />
     <Compile Include="BusinessLogic\Types\CategoryType.cs" />
     <Compile Include="BusinessLogic\dbBusiness.cs" />
+    <Compile Include="BusinessLogic\Types\ExersizeSource.cs" />
     <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />

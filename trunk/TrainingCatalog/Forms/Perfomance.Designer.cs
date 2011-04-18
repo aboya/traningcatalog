@@ -43,6 +43,7 @@
             this.lblFilters = new TrainingCatalog.Controls.BaseLabel();
             this.chkTotalWork = new System.Windows.Forms.CheckBox();
             this.chkApprox = new System.Windows.Forms.CheckBox();
+            this.cbExersizeCategory = new TrainingCatalog.Controls.BaseComboBox();
             this.pnlFilters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,11 +69,12 @@
             // 
             this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrainingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TrainingList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.TrainingList.FormattingEnabled = true;
-            this.TrainingList.Location = new System.Drawing.Point(12, 250);
+            this.TrainingList.Location = new System.Drawing.Point(139, 250);
             this.TrainingList.Name = "TrainingList";
-            this.TrainingList.Size = new System.Drawing.Size(328, 21);
+            this.TrainingList.Size = new System.Drawing.Size(201, 21);
             this.TrainingList.TabIndex = 6;
             this.TrainingList.SelectedIndexChanged += new System.EventHandler(this.TrainingList_SelectedIndexChanged);
             // 
@@ -223,11 +225,24 @@
             this.chkApprox.UseVisualStyleBackColor = true;
             this.chkApprox.CheckedChanged += new System.EventHandler(this.chkApprox_CheckedChanged);
             // 
+            // cbExersizeCategory
+            // 
+            this.cbExersizeCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbExersizeCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbExersizeCategory.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbExersizeCategory.FormattingEnabled = true;
+            this.cbExersizeCategory.Location = new System.Drawing.Point(12, 250);
+            this.cbExersizeCategory.Name = "cbExersizeCategory";
+            this.cbExersizeCategory.Size = new System.Drawing.Size(121, 21);
+            this.cbExersizeCategory.TabIndex = 16;
+            this.cbExersizeCategory.SelectedIndexChanged += new System.EventHandler(this.cbExersizeCategory_SelectedIndexChanged);
+            // 
             // Perfomance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(455, 279);
+            this.Controls.Add(this.cbExersizeCategory);
             this.Controls.Add(this.chkApprox);
             this.Controls.Add(this.chkTotalWork);
             this.Controls.Add(this.pnlFilters);
@@ -239,6 +254,7 @@
             this.Controls.Add(this.dtpFrom);
             this.Controls.Add(this.TrainingList);
             this.Controls.Add(this.mainGraphControl);
+            this.IsShown = true;
             this.Name = "Perfomance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Perfomance";
@@ -269,5 +285,6 @@
         private System.Windows.Forms.RadioButton rbNone;
         private System.Windows.Forms.CheckBox chkTotalWork;
         private System.Windows.Forms.CheckBox chkApprox;
+        private Controls.BaseComboBox cbExersizeCategory;
     }
 }

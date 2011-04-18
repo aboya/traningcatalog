@@ -9,18 +9,15 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using System.Diagnostics;
+using TrainingCatalog.BusinessLogic.Types;
+using TrainingCatalog.BusinessLogic;
 
 
 namespace TrainingCatalog
 {
     public partial class TemplateViewerControl : UserControl
     {
-        public class ExersizeSource
-        {
-            public int ExersizeID {get; set;}
-            public string ShortName { get; set; }
-            public ExersizeSource() { }
-        }
+
         DataSet ExersizeCategoryTable = new DataSet();
         //List<ExersizeSource> Exersizes = new List<ExersizeSource>();
         SqlCeConnection connection;
@@ -124,35 +121,7 @@ namespace TrainingCatalog
                 {
                     cmd.Connection = connection;
                     connection.Open();
-
-                    if (categoryId <= 0)
-                    {
-                        cmd.CommandText = "select * from Exersize order by ShortName";
-                    }
-                    else
-                    {
-
-                        cmd.CommandText = @"select Exersize.ID, Exersize.ShortName from Exersize 
-                                        inner join ExersizeCategoryLink on
-                                        ExersizeCategoryLink.ExersizeID = Exersize.ID
-                                        where  ExersizeCategoryLink.ExersizeCategoryID = @exersizeCategoryId   
-                                        order by ShortName";
-                        cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = categoryId;
-
-                    }
-                    using (SqlCeDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            Exersizes.Add(new ExersizeSource()
-                            {
-                                ExersizeID = Convert.ToInt32(dr["ID"]),
-                                ShortName = Convert.ToString(dr["ShortName"])
-
-                            });
-                        }
-                    }
-
+                    Exersizes = TrainingBusiness.GetExersizes(cmd, categoryId);
                 }
             }
             catch (Exception e)

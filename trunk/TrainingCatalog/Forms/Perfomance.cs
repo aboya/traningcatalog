@@ -19,8 +19,6 @@ namespace TrainingCatalog
     public partial class Perfomance : BaseForm
     {
         SqlCeConnection connection;
-        SqlCeDataAdapter table = new SqlCeDataAdapter();
-        DataSet Exersizes = new DataSet();
         protected DateTime MinDateTime;
         protected DateTime MaxDateTime;
         private bool IsShown = false;
@@ -48,9 +46,15 @@ namespace TrainingCatalog
         {
             connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             this.MinimumSize = new Size(475, 319);
- 
-            ExersizeLoad();
-            CreateGraph(mainGraphControl);
+            TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbExersizeCategory.ValueMember = "Id";
+            cbExersizeCategory.DisplayMember = "Name";
+
+            TrainingList.ValueMember = "ExersizeID";
+            TrainingList.DisplayMember = "ShortName";
+            
+     
+           
             Form mainForm = Application.OpenForms["mainForm"];
             this.Location = mainForm.Location;
             try
@@ -58,8 +62,8 @@ namespace TrainingCatalog
                 connection.Open();
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    dtpFrom.MinDate = dtpTo.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
-                    dtpFrom.MaxDate = dtpTo.MaxDate = TrainingBusiness.GetEndTrainingDay(cmd);
+                    MinDateTime = dtpFrom.Value = dtpTo.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
+                    MaxDateTime = dtpTo.Value = dtpTo.MaxDate = TrainingBusiness.GetEndTrainingDay(cmd);
                 }
             }
             catch (Exception ee)
@@ -70,6 +74,11 @@ namespace TrainingCatalog
             {
                 connection.Close();
             }
+            
+            ExersizeCategoryLoad();
+            ExersizeLoad();
+            this.IsShown = true;
+            CreateGraph(mainGraphControl);
     
         }
         private void SetSize()
@@ -378,13 +387,39 @@ namespace TrainingCatalog
             }
             return res;
         }
+        private void ExersizeCategoryLoad()
+        {
+            List<CategoryType> categories = new List<CategoryType>();
+            categories.Add(new CategoryType()
+            {
+                Id = -1,
+                Name = "Все"
+            });
+            try
+            {
 
+                connection.Open();
+                using (SqlCeCommand cmd = connection.CreateCommand())
+                {
+                    categories.AddRange(TrainingBusiness.GetCategories(cmd));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            cbExersizeCategory.DataSource = categories;
+        }
         private List<PerfomanceDataType> GetPerfomance()
         {
             List<PerfomanceDataType> res = new List<PerfomanceDataType>();
             try
             {
-                int ExersizeId = (int)Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"];
+                int ExersizeId = Convert.ToInt32(TrainingList.SelectedValue); 
                 connection.Open();
                 using (SqlCeCommand cmd = new SqlCeCommand())
                 {
@@ -435,29 +470,17 @@ namespace TrainingCatalog
         }
         public void ExersizeLoad()
         {
+            List<ExersizeSource> exersizes = new List<ExersizeSource>();
             try
             {
                 connection.Open();
-                using (SqlCeCommand cmd = new SqlCeCommand("select Id as ExersizeId, ShortName from Exersize order by ShortName", connection))
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     // fill exersizes
-                    cmd.Connection = connection;
-                    table.SelectCommand = cmd;
+                    exersizes = TrainingBusiness.GetExersizes(cmd, Convert.ToInt32(cbExersizeCategory.SelectedValue));
 
-                    table.Fill(Exersizes);
-                    for (int i = 0; i < Exersizes.Tables[0].Rows.Count; i++)
-                    {
-                        TrainingList.Items.Add(Exersizes.Tables[0].Rows[i]["ShortName"]);
-                    }
-
-
-                    TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
-
-                    // get min and max datevalue for datetime 
-                    cmd.CommandText = "select max(Day) from Training";
-                    MaxDateTime = Convert.ToDateTime(cmd.ExecuteScalar());
-                    cmd.CommandText = "select min(Day) from Training";
-                    MinDateTime = Convert.ToDateTime(cmd.ExecuteScalar());
+                   
+                    
                 }
             }
             catch (Exception ee)
@@ -468,6 +491,7 @@ namespace TrainingCatalog
             {
                 connection.Close();
             }
+            TrainingList.DataSource = exersizes;
             TrainingList.SelectedIndex = 0;
             dtpFrom.Value = MinDateTime;
             dtpTo.Value = MaxDateTime;
@@ -514,8 +538,8 @@ namespace TrainingCatalog
 
         private void Perfomance_Shown(object sender, EventArgs e)
         {
-            this.IsShown = true;
-            CreateGraph(mainGraphControl);
+            
+            //CreateGraph(mainGraphControl);
             
         }
 
@@ -562,6 +586,11 @@ namespace TrainingCatalog
             if (dtpFrom.Value < MinDateTime) dtpFrom.Value = MinDateTime;
             _bodyWeight = null;
             CreateGraph(mainGraphControl);
+        }
+
+        private void cbExersizeCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ExersizeLoad();
         }
     }
 }
