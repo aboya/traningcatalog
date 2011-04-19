@@ -16,5 +16,11 @@ namespace TrainingCatalog.Forms
             InitializeComponent();
         }
 
+        private void baseButton1_Click(object sender, EventArgs e)
+        {
+            new CardioSession().Show();
+            //new CardioSession().ShowDialog(this);
+        }
+
     }
 }
