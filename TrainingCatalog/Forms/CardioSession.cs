@@ -31,6 +31,12 @@ namespace TrainingCatalog.Forms
         private System.Windows.Forms.ListBox lstExersizes;
         private TrainingCatalog.Controls.BaseButton btnAdd;
         private Controls.BaseGroupBox baseGroupBox1;
+        private DataGridViewTextBoxColumn col_Name;
+        private DataGridViewTextBoxColumn Intensivity;
+        private DataGridViewTextBoxColumn Resistance;
+        private DataGridViewTextBoxColumn Velocity;
+        private DataGridViewTextBoxColumn Time;
+        private DataGridViewTextBoxColumn Distance;
         private TrainingCatalog.Controls.BaseButton btnOk;
         private void InitializeComponent()
         {
@@ -45,6 +51,12 @@ namespace TrainingCatalog.Forms
             this.lstExersizes = new System.Windows.Forms.ListBox();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
+            this.col_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Intensivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Resistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Velocity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Distance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.baseGroupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -120,6 +132,13 @@ namespace TrainingCatalog.Forms
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_Name,
+            this.Intensivity,
+            this.Resistance,
+            this.Velocity,
+            this.Time,
+            this.Distance});
             this.dataGridView1.Location = new System.Drawing.Point(178, 5);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(387, 358);
@@ -157,6 +176,36 @@ namespace TrainingCatalog.Forms
             this.baseGroupBox1.TabStop = false;
             this.baseGroupBox1.Text = "Вид Кардио";
             // 
+            // Name
+            // 
+            this.col_Name.HeaderText = "Имя";
+            this.col_Name.Name = "Name";
+            // 
+            // Intensivity
+            // 
+            this.Intensivity.HeaderText = "Интенсивность";
+            this.Intensivity.Name = "Intensivity";
+            // 
+            // Resistance
+            // 
+            this.Resistance.HeaderText = "Нагрзка";
+            this.Resistance.Name = "Resistance";
+            // 
+            // Velocity
+            // 
+            this.Velocity.HeaderText = "Скорость";
+            this.Velocity.Name = "Velocity";
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Время";
+            this.Time.Name = "Time";
+            // 
+            // Distance
+            // 
+            this.Distance.HeaderText = "Расстояние";
+            this.Distance.Name = "Distance";
+            // 
             // CardioSession
             // 
             this.ClientSize = new System.Drawing.Size(577, 375);
@@ -172,7 +221,7 @@ namespace TrainingCatalog.Forms
             this.Controls.Add(this.btnOk);
             this.IsShown = true;
             this.MinimumSize = new System.Drawing.Size(593, 413);
-            this.Name = "CardioSession";
+            this.Name= "CardioSession";
             this.Load += new System.EventHandler(this.CardioSession_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.baseGroupBox1.ResumeLayout(false);
