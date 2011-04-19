@@ -28,44 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.zedGraphControl1 = new ZedGraph.ZedGraphControl();
+            this.mCalendar = new System.Windows.Forms.MonthCalendar();
+            this.lstSession = new System.Windows.Forms.ListBox();
+            this.zedGraphControl = new ZedGraph.ZedGraphControl();
             this.baseButton1 = new TrainingCatalog.Controls.BaseButton();
             this.baseButton2 = new TrainingCatalog.Controls.BaseButton();
+            this.txtName = new TrainingCatalog.Controls.BaseTextBox();
+            this.chkGraph = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // monthCalendar1
+            // mCalendar
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(18, 18);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 0;
+            this.mCalendar.Location = new System.Drawing.Point(18, 18);
+            this.mCalendar.Name = "mCalendar";
+            this.mCalendar.TabIndex = 0;
             // 
-            // listBox1
+            // lstSession
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(194, 18);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(164, 160);
-            this.listBox1.TabIndex = 1;
+            this.lstSession.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstSession.FormattingEnabled = true;
+            this.lstSession.Location = new System.Drawing.Point(194, 18);
+            this.lstSession.Name = "lstSession";
+            this.lstSession.Size = new System.Drawing.Size(221, 108);
+            this.lstSession.TabIndex = 1;
             // 
-            // zedGraphControl1
+            // zedGraphControl
             // 
-            this.zedGraphControl1.Location = new System.Drawing.Point(18, 192);
-            this.zedGraphControl1.Name = "zedGraphControl1";
-            this.zedGraphControl1.ScrollGrace = 0D;
-            this.zedGraphControl1.ScrollMaxX = 0D;
-            this.zedGraphControl1.ScrollMaxY = 0D;
-            this.zedGraphControl1.ScrollMaxY2 = 0D;
-            this.zedGraphControl1.ScrollMinX = 0D;
-            this.zedGraphControl1.ScrollMinY = 0D;
-            this.zedGraphControl1.ScrollMinY2 = 0D;
-            this.zedGraphControl1.Size = new System.Drawing.Size(340, 162);
-            this.zedGraphControl1.TabIndex = 2;
+            this.zedGraphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.zedGraphControl.Location = new System.Drawing.Point(18, 192);
+            this.zedGraphControl.Name = "zedGraphControl";
+            this.zedGraphControl.ScrollGrace = 0D;
+            this.zedGraphControl.ScrollMaxX = 0D;
+            this.zedGraphControl.ScrollMaxY = 0D;
+            this.zedGraphControl.ScrollMaxY2 = 0D;
+            this.zedGraphControl.ScrollMinX = 0D;
+            this.zedGraphControl.ScrollMinY = 0D;
+            this.zedGraphControl.ScrollMinY2 = 0D;
+            this.zedGraphControl.Size = new System.Drawing.Size(398, 184);
+            this.zedGraphControl.TabIndex = 2;
             // 
             // baseButton1
             // 
-            this.baseButton1.Location = new System.Drawing.Point(364, 155);
+            this.baseButton1.Location = new System.Drawing.Point(260, 157);
             this.baseButton1.Name = "baseButton1";
             this.baseButton1.Size = new System.Drawing.Size(75, 23);
             this.baseButton1.TabIndex = 3;
@@ -75,37 +82,63 @@
             // 
             // baseButton2
             // 
-            this.baseButton2.Location = new System.Drawing.Point(364, 18);
+            this.baseButton2.Location = new System.Drawing.Point(194, 157);
             this.baseButton2.Name = "baseButton2";
-            this.baseButton2.Size = new System.Drawing.Size(75, 23);
+            this.baseButton2.Size = new System.Drawing.Size(60, 23);
             this.baseButton2.TabIndex = 4;
-            this.baseButton2.Text = "baseButton2";
+            this.baseButton2.Text = "Удалить";
             this.baseButton2.UseVisualStyleBackColor = true;
+            // 
+            // txtName
+            // 
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Location = new System.Drawing.Point(194, 131);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(221, 20);
+            this.txtName.TabIndex = 5;
+            // 
+            // chkGraph
+            // 
+            this.chkGraph.AutoSize = true;
+            this.chkGraph.Location = new System.Drawing.Point(341, 161);
+            this.chkGraph.Name = "chkGraph";
+            this.chkGraph.Size = new System.Drawing.Size(64, 17);
+            this.chkGraph.TabIndex = 6;
+            this.chkGraph.Text = "График";
+            this.chkGraph.UseVisualStyleBackColor = true;
+            this.chkGraph.CheckedChanged += new System.EventHandler(this.chkGraph_CheckedChanged);
             // 
             // CardioTraining
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 366);
+            this.ClientSize = new System.Drawing.Size(427, 388);
+            this.Controls.Add(this.chkGraph);
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.baseButton2);
             this.Controls.Add(this.baseButton1);
-            this.Controls.Add(this.zedGraphControl1);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.zedGraphControl);
+            this.Controls.Add(this.lstSession);
+            this.Controls.Add(this.mCalendar);
             this.IsShown = true;
             this.Name = "CardioTraining";
             this.Text = "Cardio";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
-        private System.Windows.Forms.ListBox listBox1;
-        private ZedGraph.ZedGraphControl zedGraphControl1;
+        private System.Windows.Forms.MonthCalendar mCalendar;
+        private System.Windows.Forms.ListBox lstSession;
+        private ZedGraph.ZedGraphControl zedGraphControl;
         private Controls.BaseButton baseButton1;
         private Controls.BaseButton baseButton2;
+        private Controls.BaseTextBox txtName;
+        private System.Windows.Forms.CheckBox chkGraph;
 
      
     }

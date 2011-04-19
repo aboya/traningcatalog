@@ -58,7 +58,7 @@ namespace TrainingCatalog.Forms
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOk.Location = new System.Drawing.Point(15, 313);
+            this.btnOk.Location = new System.Drawing.Point(15, 340);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(50, 50);
             this.btnOk.TabIndex = 0;
@@ -135,7 +135,7 @@ namespace TrainingCatalog.Forms
             this.Distance});
             this.gvMain.Location = new System.Drawing.Point(178, 5);
             this.gvMain.Name = "gvMain";
-            this.gvMain.Size = new System.Drawing.Size(387, 358);
+            this.gvMain.Size = new System.Drawing.Size(645, 385);
             this.gvMain.TabIndex = 8;
             // 
             // lstExersizes
@@ -153,7 +153,7 @@ namespace TrainingCatalog.Forms
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(115, 313);
+            this.btnAdd.Location = new System.Drawing.Point(115, 340);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(50, 50);
             this.btnAdd.TabIndex = 11;
@@ -182,7 +182,7 @@ namespace TrainingCatalog.Forms
             // 
             // Resistance
             // 
-            this.Resistance.HeaderText = "Нагрзка";
+            this.Resistance.HeaderText = "Нагрузка";
             this.Resistance.Name = "Resistance";
             // 
             // Velocity
@@ -202,7 +202,7 @@ namespace TrainingCatalog.Forms
             // 
             // CardioSession
             // 
-            this.ClientSize = new System.Drawing.Size(577, 375);
+            this.ClientSize = new System.Drawing.Size(835, 402);
             this.Controls.Add(this.baseGroupBox1);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.gvMain);
