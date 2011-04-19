@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DevExpress.XtraScheduler;
-using DevExpress.XtraScheduler.UI;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using System.Windows.Forms;
@@ -15,23 +13,19 @@ namespace TrainingCatalog.Forms
 {
     public class CardioSession : BaseForm
     {
-        MyAppointmentFormController controller;
-        SchedulerControl control;
-        Appointment apt;
         SqlCeConnection connection;
         SqlCeCommand cmd;
-        bool openRecurrenceForm = false;
         private TrainingCatalog.Controls.BaseMaskedTextBox maskedTextBox1;
         private Controls.BaseMaskedTextBox baseMaskedTextBox1;
         private Controls.BaseMaskedTextBox baseMaskedTextBox2;
         private Controls.BaseLabel lblStart;
         private Controls.BaseLabel lblEnd;
         private Controls.BaseLabel lblDuration;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gvMain;
         private System.Windows.Forms.ListBox lstExersizes;
         private TrainingCatalog.Controls.BaseButton btnAdd;
         private Controls.BaseGroupBox baseGroupBox1;
-        private DataGridViewTextBoxColumn col_Name;
+        private DataGridViewTextBoxColumn ExersizeName;
         private DataGridViewTextBoxColumn Intensivity;
         private DataGridViewTextBoxColumn Resistance;
         private DataGridViewTextBoxColumn Velocity;
@@ -47,17 +41,17 @@ namespace TrainingCatalog.Forms
             this.lblStart = new TrainingCatalog.Controls.BaseLabel();
             this.lblEnd = new TrainingCatalog.Controls.BaseLabel();
             this.lblDuration = new TrainingCatalog.Controls.BaseLabel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gvMain = new System.Windows.Forms.DataGridView();
             this.lstExersizes = new System.Windows.Forms.ListBox();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
-            this.col_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ExersizeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Intensivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Velocity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Distance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
             this.baseGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -126,23 +120,23 @@ namespace TrainingCatalog.Forms
             this.lblDuration.TabIndex = 7;
             this.lblDuration.Text = "Продолжительность";
             // 
-            // dataGridView1
+            // gvMain
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.gvMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_Name,
+            this.gvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvMain.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ExersizeName,
             this.Intensivity,
             this.Resistance,
             this.Velocity,
             this.Time,
             this.Distance});
-            this.dataGridView1.Location = new System.Drawing.Point(178, 5);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(387, 358);
-            this.dataGridView1.TabIndex = 8;
+            this.gvMain.Location = new System.Drawing.Point(178, 5);
+            this.gvMain.Name = "gvMain";
+            this.gvMain.Size = new System.Drawing.Size(387, 358);
+            this.gvMain.TabIndex = 8;
             // 
             // lstExersizes
             // 
@@ -176,10 +170,10 @@ namespace TrainingCatalog.Forms
             this.baseGroupBox1.TabStop = false;
             this.baseGroupBox1.Text = "Вид Кардио";
             // 
-            // Name
+            // ExersizeName
             // 
-            this.col_Name.HeaderText = "Имя";
-            this.col_Name.Name = "Name";
+            this.ExersizeName.HeaderText = "Имя";
+            this.ExersizeName.Name = "ExersizeName";
             // 
             // Intensivity
             // 
@@ -211,7 +205,7 @@ namespace TrainingCatalog.Forms
             this.ClientSize = new System.Drawing.Size(577, 375);
             this.Controls.Add(this.baseGroupBox1);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.gvMain);
             this.Controls.Add(this.lblDuration);
             this.Controls.Add(this.lblEnd);
             this.Controls.Add(this.lblStart);
@@ -221,98 +215,19 @@ namespace TrainingCatalog.Forms
             this.Controls.Add(this.btnOk);
             this.IsShown = true;
             this.MinimumSize = new System.Drawing.Size(593, 413);
-            this.Name= "CardioSession";
+            this.Name = "CardioSession";
             this.Load += new System.EventHandler(this.CardioSession_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
             this.baseGroupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        public CardioSession(SchedulerControl control, Appointment apt, bool openRecurrenceForm)
+        public CardioSession()
         {
-            this.openRecurrenceForm = openRecurrenceForm;
-            this.controller = new MyAppointmentFormController(control, apt);
-            this.apt = apt;
-            this.control = control;
-            InitializeComponent();
-            this.controller.CustomName = "asdasd";
-            controller.ApplyChanges();
             this.btnAdd.Image = TrainingCatalog.AppResources.AppResources.Plus_green_32x32;
             this.btnOk.Image = TrainingCatalog.AppResources.AppResources.save_48x48;
-
-
-        }
-
-        public class MyAppointmentFormController : AppointmentFormController
-        {
-
-            public string CustomName
-            {
-                get
-                {
-                    return (string)EditedAppointmentCopy.CustomFields["CustomName"];
-                }
-                set
-                {
-                    EditedAppointmentCopy.CustomFields["CustomName"] = value;
-                }
-            }
-            public string CustomStatus
-            {
-                get
-                {
-                    return (string)EditedAppointmentCopy.CustomFields["CustomStatus"];
-                }
-                set
-                {
-                    EditedAppointmentCopy.CustomFields["CustomStatus"] = value;
-                }
-            }
-
-            string SourceCustomName
-            {
-                get
-                {
-                    return (string)SourceAppointment.CustomFields["CustomName"];
-                }
-                set
-                {
-                    SourceAppointment.CustomFields["CustomName"] = value;
-                }
-            }
-
-            string SourceCustomStatus
-            {
-                get
-                {
-                    return (string)SourceAppointment.CustomFields["CustomStatus"];
-                }
-                set
-                {
-                    SourceAppointment.CustomFields["CustomStatus"] = value;
-                }
-            }
-
-            public MyAppointmentFormController(SchedulerControl control, Appointment apt) :
-                base(control, apt)
-            {
-            }
-
-            public override bool IsAppointmentChanged()
-            {
-                if (base.IsAppointmentChanged())
-                    return true;
-                return SourceCustomName != CustomName ||
-                    SourceCustomStatus != CustomStatus;
-            }
-
-            protected override void ApplyCustomFieldsValues()
-            {
-                SourceCustomName = CustomName;
-                SourceCustomStatus = CustomStatus;
-            }
         }
 
         private void CardioSession_Load(object sender, EventArgs e)
@@ -336,6 +251,8 @@ namespace TrainingCatalog.Forms
                 connection.Close();
             }
             lstExersizes.DataSource = exersizes;
+            gvMain.Rows.Add();
+            gvMain.Rows.Add();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
