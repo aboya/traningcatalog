@@ -591,15 +591,20 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
-        public static int CreateCardioSession(SqlCeCommand cmd, DateTime date)
+        public static CardioSessionType CreateCardioSession(SqlCeCommand cmd, DateTime date)
         {
-            
+            CardioSessionType res = new CardioSessionType();
             int trainingId = GetTrainingDayId(cmd, date);
-            cmd.CommandText = "select Id from CardioSession where TrainingId = @trId";
+            cmd.CommandText = "insert into CardioSession (TrainingId) values(@trId)";
             cmd.Parameters.Add("@trId", SqlDbType.Int).Value = trainingId;
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = "select @@Identity";
             int sessionId = Convert.ToInt32(cmd.ExecuteScalar());
             cmd.Parameters.Clear();
-            return sessionId;
+            res.Id = sessionId;
+            res.TrainingId = trainingId;
+            res.Date = date;
+            return res;
         }
         public static void SaveCardioSession(SqlCeCommand cmd, CardioSessionType session)
         {
@@ -616,14 +621,29 @@ namespace TrainingCatalog.BusinessLogic
         public static void DeleteCardioSession(SqlCeCommand cmd, int SessionId)
         {
             cmd.Parameters.Clear();
-            cmd.CommandText = "update CardioSession" +
-                                "set StartTime = @StartTime, EndTime = @EndTime" +
-                                  "where Id = @sid";
-            //cmd.Parameters.Add("@sid", SqlDbType.Int).Value = session.Id;
-            //cmd.Parameters.Add("@StartTime", SqlDbType.Int).Value = session.StartTime;
-            //cmd.Parameters.Add("@EndTime", SqlDbType.Int).Value = session.EndTime;
-            cmd.ExecuteNonQuery();
-            cmd.Parameters.Clear();
+            using (SqlCeTransaction transaction = cmd.Connection.BeginTransaction())
+            {
+                try
+                {
+                    cmd.CommandText = "delete from CardioInterval " +
+                                      "where CardioSessionId = @sid";
+                    cmd.Parameters.Add("@sid", SqlDbType.Int).Value = SessionId;
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "delete CardioSession " +
+                                        "where Id = @sid";
+                    cmd.ExecuteNonQuery();
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    throw e;
+                }
+                finally
+                {
+                    cmd.Parameters.Clear();
+                }
+            }
         }
         public static List<CardioSessionType> GetCardioSessions(SqlCeCommand cmd, DateTime dt)
         {
@@ -645,9 +665,10 @@ namespace TrainingCatalog.BusinessLogic
                     res.Add(new CardioSessionType()
                     {
                         Id = Convert.ToInt32(reader["Id"]),
-                        StartTime = Convert.ToInt32(reader["StartTime"]),
-                        EndTime = Convert.ToInt32(reader["EndTime"]),
-                        TrainingId = Convert.ToInt32(reader["TrainingId"])
+                        StartTime = reader["StartTime"] is DBNull ? 0 : Convert.ToInt32(reader["StartTime"]),
+                        EndTime = reader["EndTime"] is DBNull ? 0 : Convert.ToInt32(reader["EndTime"]),
+                        TrainingId = Convert.ToInt32(reader["TrainingId"]),
+                        Date = dt.Date
                     });
                 }
             }
@@ -692,10 +713,13 @@ namespace TrainingCatalog.BusinessLogic
         public static List<CardioIntervalType> GetCardioIntervals(SqlCeCommand cmd, int sessionId)
         {
             cmd.Parameters.Clear();
-            cmd.CommandText = "select CardioInterval.Id,CardioInterval.Distance,CardioInterval.HeartRate,CardioInterval.Intensivity " +
-                               "CardioInterval.Resistance, CardioInterval.Time, CardioInterval.Velocity, CardioInterval.CardioTypeId, CardioType.Name" +
-                              "from CardioInterval inner join CardioType on CardioInterval.CardioTypeId = CardioType.Id" + 
-                              "where CardioSessionId = @sid";
+            cmd.CommandText = @"SELECT CardioInterval.Id, CardioInterval.CardioSessionId, CardioInterval.CardioTypeId,
+                                        CardioInterval.Velocity, CardioInterval.Time, CardioInterval.Distance, 
+                                        CardioInterval.Intensivity, CardioInterval.Resistance, CardioInterval.HeartRate, 
+                                        CardioType.Name
+                          FROM CardioInterval INNER JOIN
+                            CardioType ON CardioInterval.CardioTypeId = CardioType.Id  
+                          WHERE CardioSessionId = @sid";
             cmd.Parameters.Add("@sid", SqlDbType.Int).Value = sessionId;
             List<CardioIntervalType> res = new List<CardioIntervalType>();
             using (SqlCeDataReader reader = cmd.ExecuteReader())
@@ -775,7 +799,7 @@ namespace TrainingCatalog.BusinessLogic
             res[3] = "Скорость";
             res[4] = "Время";
             res[5] = "Расстояние";
-            res[6] = "Пуьс";
+            res[6] = "Пульс";
             return res;
         }
 
@@ -793,7 +817,7 @@ namespace TrainingCatalog.BusinessLogic
         {
             Dictionary<int, bool> res = new Dictionary<int, bool>();
             cmd.Parameters.Clear();
-            cmd.CommandText = "select Intensivity,Resistance,Velocity,Time,Distance from CardioType where Id = @Id";
+            cmd.CommandText = "select Intensivity,Resistance,Velocity,Time,Distance,HeartRate from CardioType where Id = @Id";
             cmd.Parameters.Add("@Id", SqlDbType.Int).Value = exersizeId;
             using (SqlCeDataReader reader = cmd.ExecuteReader())
             {
@@ -804,6 +828,7 @@ namespace TrainingCatalog.BusinessLogic
                     res[3] = Convert.ToBoolean(reader["Velocity"]);
                     res[4] = Convert.ToBoolean(reader["Time"]);
                     res[5] = Convert.ToBoolean(reader["Distance"]);
+                    res[6] = Convert.ToBoolean(reader["HeartRate"]);
                 }
             }
             cmd.Parameters.Clear();
