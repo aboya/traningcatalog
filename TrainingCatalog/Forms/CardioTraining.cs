@@ -17,10 +17,9 @@ namespace TrainingCatalog.Forms
             chkGraph_CheckedChanged(null, null);
         }
 
-        private void baseButton1_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            new CardioSession().Show();
-            //new CardioSession().ShowDialog(this);
+            new CardioSession().ShowDialog(this);
         }
 
         private void chkGraph_CheckedChanged(object sender, EventArgs e)

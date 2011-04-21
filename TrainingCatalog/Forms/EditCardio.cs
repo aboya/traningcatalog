@@ -17,6 +17,7 @@ namespace TrainingCatalog.Forms
     {
         SqlCeConnection connection;
         SqlCeCommand cmd;
+        const int CardioTypesCount = 6;
         public EditCardio()
         {
             InitializeComponent();
@@ -46,7 +47,7 @@ namespace TrainingCatalog.Forms
                 exersize.Name = txtName.Text;
                 exersize.Id = Convert.ToInt32(lstExersizes.SelectedValue);
                 Dictionary<int, bool> cardioTypes = new Dictionary<int, bool>();
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= CardioTypesCount; i++)
                 {
                     cardioTypes[i] = lstProperties.GetItemChecked(i - 1);
                 }
@@ -80,7 +81,7 @@ namespace TrainingCatalog.Forms
                 CardioExersizeType exersize = new CardioExersizeType();
                 exersize.Name = txtName.Text;
                 Dictionary<int, bool> cardioTypes = new Dictionary<int, bool>();
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= CardioTypesCount; i++)
                 {
                     cardioTypes[i] = lstProperties.GetItemChecked(i - 1);
                 }
@@ -145,7 +146,7 @@ namespace TrainingCatalog.Forms
                 lstExersizes.DisplayMember = "Name";
                 Dictionary<int, string> types = TrainingBusiness.GetCardioTypes();
                 lstProperties.Items.Clear();
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= CardioTypesCount; i++)
                 {
                     lstProperties.Items.Add(types[i], false);
                 }
@@ -171,7 +172,7 @@ namespace TrainingCatalog.Forms
                 int exersizeId = Convert.ToInt32(lstExersizes.SelectedValue);
                 Dictionary<int, bool> types = TrainingBusiness.GetCardioTypesForExersize(cmd, exersizeId);
 
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= CardioTypesCount; i++)
                 {
                     lstProperties.SetItemChecked(i - 1, types[i]);
                 }
