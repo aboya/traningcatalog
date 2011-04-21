@@ -19,7 +19,7 @@ namespace TrainingCatalog.Forms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            new CardioSession().ShowDialog(this);
+            new CardioSession(0).ShowDialog(this);
         }
 
         private void chkGraph_CheckedChanged(object sender, EventArgs e)

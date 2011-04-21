@@ -33,7 +33,6 @@
             this.zedGraphControl = new ZedGraph.ZedGraphControl();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.btnDelete = new TrainingCatalog.Controls.BaseButton();
-            this.txtName = new TrainingCatalog.Controls.BaseTextBox();
             this.chkGraph = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -50,7 +49,7 @@
             this.lstSession.FormattingEnabled = true;
             this.lstSession.Location = new System.Drawing.Point(194, 18);
             this.lstSession.Name = "lstSession";
-            this.lstSession.Size = new System.Drawing.Size(221, 108);
+            this.lstSession.Size = new System.Drawing.Size(221, 134);
             this.lstSession.TabIndex = 1;
             // 
             // zedGraphControl
@@ -89,16 +88,6 @@
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
-            // txtName
-            // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Location = new System.Drawing.Point(194, 131);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(221, 20);
-            this.txtName.TabIndex = 5;
-            // 
             // chkGraph
             // 
             this.chkGraph.AutoSize = true;
@@ -116,7 +105,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 388);
             this.Controls.Add(this.chkGraph);
-            this.Controls.Add(this.txtName);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.zedGraphControl);
@@ -137,7 +125,6 @@
         private ZedGraph.ZedGraphControl zedGraphControl;
         private Controls.BaseButton btnAdd;
         private Controls.BaseButton btnDelete;
-        private Controls.BaseTextBox txtName;
         private System.Windows.Forms.CheckBox chkGraph;
 
      

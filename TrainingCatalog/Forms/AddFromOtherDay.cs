@@ -89,7 +89,7 @@ namespace TrainingCatalog.Forms
                         cmd.Transaction = transaction;
                         string strDate = trainingDate.ToString("dd/MM/yyyy");
                         List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
-                        int trainingDayId = TrainingBusiness.GetTrainingDayId(trainingDate, cmd);
+                        int trainingDayId = TrainingBusiness.GetTrainingDayId(cmd,trainingDate);
 
                         foreach (TemplateExersizesType exersize in list)
                         {

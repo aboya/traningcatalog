@@ -13,7 +13,7 @@ namespace TrainingCatalog.BusinessLogic
 {
     public class TrainingBusiness
     {
-        public static int GetTrainingDayId(DateTime date, SqlCeCommand cmd)
+        public static int GetTrainingDayId(SqlCeCommand cmd, DateTime date)
         {
             cmd.Parameters.Clear();
             cmd.CommandText = "select ID from Training where Day = @date";
@@ -50,7 +50,7 @@ namespace TrainingCatalog.BusinessLogic
         public static void SaveComments(SqlCeCommand cmd, DateTime dateTime, string p)
         {
             cmd.Parameters.Clear();
-            int dayId = GetTrainingDayId(dateTime, cmd);
+            int dayId = GetTrainingDayId(cmd, dateTime);
             cmd.Parameters.Clear();
             cmd.CommandText = "update Training set Comment = @comment where Id = @id";
             cmd.Parameters.Add("@comment", SqlDbType.NVarChar).Value = p;
@@ -166,7 +166,7 @@ namespace TrainingCatalog.BusinessLogic
         public static void SaveMeasurement(SqlCeCommand cmd, MeasurementType m)
         {
             cmd.Parameters.Clear();
-            m.TrainingId = GetTrainingDayId(m.date, cmd);
+            m.TrainingId = GetTrainingDayId(cmd, m.date);
             cmd.CommandText = "select count(Id) from BodyMeasurement where TrainingId = @trId";
             cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
             bool isExist = Convert.ToBoolean(cmd.ExecuteScalar());
@@ -585,6 +585,69 @@ namespace TrainingCatalog.BusinessLogic
                     {
                         Id = Convert.ToInt32(reader["Id"]),
                         Name = Convert.ToString(reader["Name"])
+                    });
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+        }
+        public static int CreateCardioSession(SqlCeCommand cmd, DateTime date)
+        {
+            
+            int trainingId = GetTrainingDayId(cmd, date);
+            cmd.CommandText = "select Id from CardioSession where TrainingId = @trId";
+            cmd.Parameters.Add("@trId", SqlDbType.Int).Value = trainingId;
+            int sessionId = Convert.ToInt32(cmd.ExecuteScalar());
+            cmd.Parameters.Clear();
+            return sessionId;
+        }
+        public static void SaveCardioSession(SqlCeCommand cmd, CardioSessionType session)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = "update CardioSession" +
+                                "set StartTime = @StartTime, EndTime = @EndTime" +
+                                  "where Id = @sid";
+            cmd.Parameters.Add("@sid", SqlDbType.Int).Value = session.Id;
+            cmd.Parameters.Add("@StartTime", SqlDbType.Int).Value = session.StartTime;
+            cmd.Parameters.Add("@EndTime", SqlDbType.Int).Value = session.EndTime;
+            cmd.ExecuteNonQuery();
+            cmd.Parameters.Clear();
+        }
+        public static void DeleteCardioSession(SqlCeCommand cmd, int SessionId)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = "update CardioSession" +
+                                "set StartTime = @StartTime, EndTime = @EndTime" +
+                                  "where Id = @sid";
+            //cmd.Parameters.Add("@sid", SqlDbType.Int).Value = session.Id;
+            //cmd.Parameters.Add("@StartTime", SqlDbType.Int).Value = session.StartTime;
+            //cmd.Parameters.Add("@EndTime", SqlDbType.Int).Value = session.EndTime;
+            cmd.ExecuteNonQuery();
+            cmd.Parameters.Clear();
+        }
+        public static List<CardioSessionType> GetCardioSessions(SqlCeCommand cmd, DateTime dt)
+        {
+            List<CardioSessionType> res = new List<CardioSessionType>();
+            
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Id from Training where Day = @day";
+            cmd.Parameters.Add("@day", SqlDbType.DateTime).Value = dt.Date;
+            object o = cmd.ExecuteScalar();
+            if (o is DBNull || o == null) return res;
+            int TrainingId = Convert.ToInt32(o);
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Id,StartTime,EndTime,TrainingId from CardioSession where TrainingId = @trId";
+            cmd.Parameters.Add("@trId", SqlDbType.Int).Value = TrainingId;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res.Add(new CardioSessionType()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        StartTime = Convert.ToInt32(reader["StartTime"]),
+                        EndTime = Convert.ToInt32(reader["EndTime"]),
+                        TrainingId = Convert.ToInt32(reader["TrainingId"])
                     });
                 }
             }

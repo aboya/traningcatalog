@@ -19,6 +19,7 @@ namespace TrainingCatalog.Forms
         SqlCeCommand cmd;
         BindingSource bs;
         BindingList<CardioIntervalType> intervals;
+        int sessionId;
         private void CardioSession_Load(object sender, EventArgs e)
         {
             this.btnAdd.Image = TrainingCatalog.AppResources.AppResources.Plus_green_32x32;
@@ -53,9 +54,9 @@ namespace TrainingCatalog.Forms
             }
             
         }
-        public CardioSession()
+        public CardioSession(int sid)
         {
-           
+            sessionId = sid;
             intervals = new BindingList<CardioIntervalType>();
             bs = new BindingSource();
             bs.DataSource = intervals;

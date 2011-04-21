@@ -51,7 +51,7 @@ namespace TrainingCatalog
                 connection.Open();
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    TrainingId = TrainingBusiness.GetTrainingDayId(dateTime.Value, cmd);
+                    TrainingId = TrainingBusiness.GetTrainingDayId(cmd, dateTime.Value);
                     ExersizeId = Convert.ToInt32(TrainingList.SelectedValue);
                     TrainingBusiness.AddExersize(cmd, TrainingId, ExersizeId, (int)weight, (int)count);
                 }
