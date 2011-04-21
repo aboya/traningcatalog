@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mCalendar = new System.Windows.Forms.MonthCalendar();
+            this.mCalendar = new TrainingCatalog.Controls.BaseMonthCalendar();
             this.lstSession = new System.Windows.Forms.ListBox();
             this.zedGraphControl = new ZedGraph.ZedGraphControl();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
@@ -41,6 +41,7 @@
             this.mCalendar.Location = new System.Drawing.Point(18, 18);
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 0;
+            this.mCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mCalendar_DateSelected);
             // 
             // lstSession
             // 
@@ -51,6 +52,7 @@
             this.lstSession.Name = "lstSession";
             this.lstSession.Size = new System.Drawing.Size(221, 134);
             this.lstSession.TabIndex = 1;
+            this.lstSession.DoubleClick += new System.EventHandler(this.lstSession_DoubleClick);
             // 
             // zedGraphControl
             // 
@@ -87,6 +89,7 @@
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // chkGraph
             // 
@@ -113,6 +116,7 @@
             this.IsShown = true;
             this.Name = "CardioTraining";
             this.Text = "Cardio";
+            this.Load += new System.EventHandler(this.CardioTraining_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,7 +124,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar mCalendar;
+        private TrainingCatalog.Controls.BaseMonthCalendar mCalendar;
         private System.Windows.Forms.ListBox lstSession;
         private ZedGraph.ZedGraphControl zedGraphControl;
         private Controls.BaseButton btnAdd;
