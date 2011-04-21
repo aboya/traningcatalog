@@ -31,8 +31,8 @@
             this.mCalendar = new System.Windows.Forms.MonthCalendar();
             this.lstSession = new System.Windows.Forms.ListBox();
             this.zedGraphControl = new ZedGraph.ZedGraphControl();
-            this.baseButton1 = new TrainingCatalog.Controls.BaseButton();
-            this.baseButton2 = new TrainingCatalog.Controls.BaseButton();
+            this.btnAdd = new TrainingCatalog.Controls.BaseButton();
+            this.btnDelete = new TrainingCatalog.Controls.BaseButton();
             this.txtName = new TrainingCatalog.Controls.BaseTextBox();
             this.chkGraph = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
@@ -70,24 +70,24 @@
             this.zedGraphControl.Size = new System.Drawing.Size(398, 184);
             this.zedGraphControl.TabIndex = 2;
             // 
-            // baseButton1
+            // btnAdd
             // 
-            this.baseButton1.Location = new System.Drawing.Point(260, 157);
-            this.baseButton1.Name = "baseButton1";
-            this.baseButton1.Size = new System.Drawing.Size(75, 23);
-            this.baseButton1.TabIndex = 3;
-            this.baseButton1.Text = "Добавить";
-            this.baseButton1.UseVisualStyleBackColor = true;
-            this.baseButton1.Click += new System.EventHandler(this.baseButton1_Click);
+            this.btnAdd.Location = new System.Drawing.Point(260, 157);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 3;
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // baseButton2
+            // btnDelete
             // 
-            this.baseButton2.Location = new System.Drawing.Point(194, 157);
-            this.baseButton2.Name = "baseButton2";
-            this.baseButton2.Size = new System.Drawing.Size(60, 23);
-            this.baseButton2.TabIndex = 4;
-            this.baseButton2.Text = "Удалить";
-            this.baseButton2.UseVisualStyleBackColor = true;
+            this.btnDelete.Location = new System.Drawing.Point(194, 157);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(60, 23);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "Удалить";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // txtName
             // 
@@ -117,8 +117,8 @@
             this.ClientSize = new System.Drawing.Size(427, 388);
             this.Controls.Add(this.chkGraph);
             this.Controls.Add(this.txtName);
-            this.Controls.Add(this.baseButton2);
-            this.Controls.Add(this.baseButton1);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.zedGraphControl);
             this.Controls.Add(this.lstSession);
             this.Controls.Add(this.mCalendar);
@@ -135,8 +135,8 @@
         private System.Windows.Forms.MonthCalendar mCalendar;
         private System.Windows.Forms.ListBox lstSession;
         private ZedGraph.ZedGraphControl zedGraphControl;
-        private Controls.BaseButton baseButton1;
-        private Controls.BaseButton baseButton2;
+        private Controls.BaseButton btnAdd;
+        private Controls.BaseButton btnDelete;
         private Controls.BaseTextBox txtName;
         private System.Windows.Forms.CheckBox chkGraph;
 

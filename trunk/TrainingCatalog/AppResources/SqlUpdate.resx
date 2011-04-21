@@ -148,7 +148,9 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
    Velocity bit not null,
    Time bit not null,
    Distance bit not null, 
-   Intensivity bit not null CONSTRAINT DF_CardioType_Intensivity default (1),    Resistance bit not null
+   Intensivity bit not null CONSTRAINT DF_CardioType_Intensivity default (1),    
+   Resistance bit not null,
+   HeartRate bit not null
 )</value>
     <comment>0012</comment>
   </data>
@@ -171,7 +173,8 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
    Time float,
    Distance float,
    Intensivity float,
-   Resistance float
+   Resistance float,
+   HeartRate float
 )</value>
     <comment>0014</comment>
   </data>
@@ -197,6 +200,17 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
    Value nvarchar(100) not null
 )</value>
     <comment>0018</comment>
+  </data>
+  <data name="v19" xml:space="preserve">
+    <value>alter table TrainingTemplate
+	DROP CONSTRAINT FK_TrainingTemplate_TemplateId</value>
+    <comment>0019</comment>
+  </data>
+  <data name="v20" xml:space="preserve">
+    <value>ALTER TABLE TrainingTemplate
+    ADD CONSTRAINT FK_TrainingTemplate_TemplateId FOREIGN KEY (TemplateId) REFERENCES
+    Template(Id)</value>
+    <comment>0020</comment>
   </data>
   <data name="v3" xml:space="preserve">
     <value>CREATE TABLE Training

@@ -605,12 +605,12 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             if (exersize.Id == 0)
             {
-                cmd.CommandText = "insert into CardioType (Name,Intensivity,Resistance,Velocity,[Time],Distance) " +
-                                   "values(@name,@Intensivity, @Resistance, @Velocity, @Time, @Distance) ";
+                cmd.CommandText = "insert into CardioType (Name,Intensivity,Resistance,Velocity,[Time],Distance,HeartRate) " +
+                                   "values(@name,@Intensivity, @Resistance, @Velocity, @Time, @Distance,@HeartRate) ";
             }
             else
             {
-                cmd.CommandText = "update CardioType set Name = @name,Intensivity = @Intensivity,Resistance = @Resistance,Velocity = @Velocity,Time = @Time,Distance = @Distance " +
+                cmd.CommandText = "update CardioType set Name = @name,Intensivity = @Intensivity,Resistance = @Resistance,Velocity = @Velocity,Time = @Time,Distance = @Distance, HeartRate=@HeartRate " +
                                         "where ID = @id;";
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = exersize.Id;
             }
@@ -620,10 +620,89 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Add("@Velocity", SqlDbType.Bit).Value = cardioTypes[3];
             cmd.Parameters.Add("@Time", SqlDbType.Bit).Value = cardioTypes[4];
             cmd.Parameters.Add("@Distance", SqlDbType.Bit).Value = cardioTypes[5];
+            cmd.Parameters.Add("@HeartRate", SqlDbType.Bit).Value = cardioTypes[6];
             cmd.ExecuteNonQuery();
             cmd.Parameters.Clear();
 
 
+        }
+        public static List<CardioIntervalType> GetCardioIntervals(SqlCeCommand cmd, int sessionId)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select CardioInterval.Id,CardioInterval.Distance,CardioInterval.HeartRate,CardioInterval.Intensivity " +
+                               "CardioInterval.Resistance, CardioInterval.Time, CardioInterval.Velocity, CardioInterval.CardioTypeId, CardioType.Name" +
+                              "from CardioInterval inner join CardioType on CardioInterval.CardioTypeId = CardioType.Id" + 
+                              "where CardioSessionId = @sid";
+            cmd.Parameters.Add("@sid", SqlDbType.Int).Value = sessionId;
+            List<CardioIntervalType> res = new List<CardioIntervalType>();
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res.Add(new CardioIntervalType()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        CardioTypeId = Convert.ToInt32(reader["CardioTypeId"]),
+                        Distance = Convert.ToDouble(reader["Distance"]),
+                        HeartRate = Convert.ToDouble(reader["HeartRate"]),
+                        Intensivity = Convert.ToDouble(reader["Intensivity"]),
+                        Name = Convert.ToString("Name"),
+                        Resistance = Convert.ToDouble(reader["Resistance"]),
+                        Time = Convert.ToDouble(reader["Time"]),
+                        Velocity = Convert.ToDouble(reader["Velocity"])
+                    });
+                }
+            }
+           
+            cmd.Parameters.Clear();
+            return res;
+        }
+        public static void SaveCardioIntervals(SqlCeCommand cmd, List<CardioIntervalType> intervals, int CardioSessionId)
+        {
+            
+            using (SqlCeTransaction transaction = cmd.Connection.BeginTransaction())
+            {
+                try
+                {
+
+                    foreach (CardioIntervalType i in intervals)
+                    {
+                        cmd.Parameters.Clear();
+                        if (i.Id == 0)
+                        {
+                            cmd.CommandText = "insert into CardioInterval (CardioTypeId,CardioSessionId, Distance, HeartRate,Intensivity,Resistance,Time,Velocity)" +
+                                                "values(@CardioTypeId, @CardioSessionId, @Distance, @HeartRate,@Intensivity,@Resistance,@Time,@Velocity)";
+                            cmd.Parameters.Add("@CardioSessionId", SqlDbType.Int).Value = CardioSessionId;
+                        }
+                        else
+                        {
+                            cmd.CommandText = "update CardioInterval set CardioTypeId=@CardioTypeId, Distance = @Distance, HeartRate = @HeartRate,Intensivity = @Intensivity,Resistance = @Resistance,Time = @Time,Velocity = @Velocity" +
+                                               "where Id = @Id";
+                        }
+                        cmd.Parameters.Add("@CardioTypeId", SqlDbType.Int).Value = i.CardioTypeId == 0 ? DBNull.Value : (object)i.CardioTypeId;
+                        cmd.Parameters.Add("@Distance", SqlDbType.Float).Value = i.Distance == 0 ? DBNull.Value : (object)i.Distance;
+                        cmd.Parameters.Add("@HeartRate", SqlDbType.Float).Value = i.HeartRate == 0 ? DBNull.Value : (object)i.HeartRate;
+                        cmd.Parameters.Add("@Intensivity", SqlDbType.Float).Value = i.Intensivity == 0 ? DBNull.Value : (object)i.Intensivity;
+                        cmd.Parameters.Add("@Resistance", SqlDbType.Float).Value = i.Resistance == 0 ? DBNull.Value : (object)i.Resistance;
+                        cmd.Parameters.Add("@Time", SqlDbType.Float).Value = i.Time == 0 ? DBNull.Value : (object)i.Time;
+                        cmd.Parameters.Add("@Velocity", SqlDbType.Float).Value = i.Velocity == 0 ? DBNull.Value : (object)i.Velocity;
+                        cmd.ExecuteNonQuery();
+                    }
+                    
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    throw e;
+                }
+                finally
+                {
+                    cmd.Parameters.Clear();
+
+                }
+
+            }
         }
         public static Dictionary<int, string> GetCardioTypes()
         {
@@ -633,6 +712,7 @@ namespace TrainingCatalog.BusinessLogic
             res[3] = "Скорость";
             res[4] = "Время";
             res[5] = "Расстояние";
+            res[6] = "Пуьс";
             return res;
         }
 
