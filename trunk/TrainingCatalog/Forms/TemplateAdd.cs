@@ -107,7 +107,7 @@ namespace TrainingCatalog
                             cmd.Transaction = transaction;
                             string strDate = _date.ToString("dd/MM/yyyy");
                             List<TemplateExersizesType> list = ucTemplate.GetTemplateExersizes();
-                            int trainingDayId = TrainingBusiness.GetTrainingDayId(_date, cmd);
+                            int trainingDayId = TrainingBusiness.GetTrainingDayId(cmd,_date);
 
                             foreach (TemplateExersizesType exersize in list)
                             {
