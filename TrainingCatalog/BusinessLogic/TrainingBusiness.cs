@@ -719,7 +719,8 @@ namespace TrainingCatalog.BusinessLogic
                                         CardioType.Name
                           FROM CardioInterval INNER JOIN
                             CardioType ON CardioInterval.CardioTypeId = CardioType.Id  
-                          WHERE CardioSessionId = @sid";
+                          WHERE CardioSessionId = @sid 
+                          order by CardioInterval.Id ";
             cmd.Parameters.Add("@sid", SqlDbType.Int).Value = sessionId;
             List<CardioIntervalType> res = new List<CardioIntervalType>();
             using (SqlCeDataReader reader = cmd.ExecuteReader())
@@ -733,7 +734,7 @@ namespace TrainingCatalog.BusinessLogic
                         Distance = Convert.ToDouble(reader["Distance"]),
                         HeartRate = Convert.ToDouble(reader["HeartRate"]),
                         Intensivity = Convert.ToDouble(reader["Intensivity"]),
-                        Name = Convert.ToString("Name"),
+                        Name = Convert.ToString(reader["Name"]),
                         Resistance = Convert.ToDouble(reader["Resistance"]),
                         Time = Convert.ToDouble(reader["Time"]),
                         Velocity = Convert.ToDouble(reader["Velocity"])
@@ -744,7 +745,7 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
-        public static void SaveCardioIntervals(SqlCeCommand cmd, List<CardioIntervalType> intervals, int CardioSessionId)
+        public static List<CardioIntervalType> SaveCardioIntervals(SqlCeCommand cmd, List<CardioIntervalType> intervals, int CardioSessionId)
         {
             
             using (SqlCeTransaction transaction = cmd.Connection.BeginTransaction())
@@ -763,8 +764,9 @@ namespace TrainingCatalog.BusinessLogic
                         }
                         else
                         {
-                            cmd.CommandText = "update CardioInterval set CardioTypeId=@CardioTypeId, Distance = @Distance, HeartRate = @HeartRate,Intensivity = @Intensivity,Resistance = @Resistance,Time = @Time,Velocity = @Velocity" +
+                            cmd.CommandText = "update CardioInterval set CardioTypeId=@CardioTypeId, Distance = @Distance, HeartRate = @HeartRate,Intensivity = @Intensivity,Resistance = @Resistance,Time = @Time,Velocity = @Velocity " +
                                                "where Id = @Id";
+                            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = i.Id;
                         }
                         cmd.Parameters.Add("@CardioTypeId", SqlDbType.Int).Value = i.CardioTypeId == 0 ? DBNull.Value : (object)i.CardioTypeId;
                         cmd.Parameters.Add("@Distance", SqlDbType.Float).Value = i.Distance == 0 ? DBNull.Value : (object)i.Distance;
@@ -774,8 +776,22 @@ namespace TrainingCatalog.BusinessLogic
                         cmd.Parameters.Add("@Time", SqlDbType.Float).Value = i.Time == 0 ? DBNull.Value : (object)i.Time;
                         cmd.Parameters.Add("@Velocity", SqlDbType.Float).Value = i.Velocity == 0 ? DBNull.Value : (object)i.Velocity;
                         cmd.ExecuteNonQuery();
+                        if(i.Id == 0) 
+                        {
+                            cmd.Parameters.Clear();
+                            cmd.CommandText = "select @@Identity";
+                            i.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
                     }
-                    
+                    // deleting intervals that not exists
+                    cmd.Parameters.Clear();
+                    string idList = string.Join(",", (from ci in intervals select ci.Id.ToString()).ToArray());
+                    cmd.CommandText = "delete from CardioInterval " + 
+                                       " where CardioSessionId = @CardioSessionId " +
+                                        (idList.Length  > 0 ? " and Id not in (" + idList + ") " : string.Empty);
+                    cmd.Parameters.Add("@CardioSessionId", SqlDbType.Int).Value = CardioSessionId;
+
+                    cmd.ExecuteNonQuery();
                     transaction.Commit();
                 }
                 catch (Exception e)
@@ -786,8 +802,10 @@ namespace TrainingCatalog.BusinessLogic
                 finally
                 {
                     cmd.Parameters.Clear();
-
+                    
                 }
+                return intervals;
+
 
             }
         }
