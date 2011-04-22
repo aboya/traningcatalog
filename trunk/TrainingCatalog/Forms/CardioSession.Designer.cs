@@ -7,9 +7,9 @@ namespace TrainingCatalog.Forms
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private TrainingCatalog.Controls.BaseMaskedTextBox maskedTextBox1;
-        private Controls.BaseMaskedTextBox baseMaskedTextBox1;
-        private Controls.BaseMaskedTextBox baseMaskedTextBox2;
+        private TrainingCatalog.Controls.BaseMaskedTextBox txtBeginTime;
+        private Controls.BaseMaskedTextBox txtEndTime;
+        private Controls.BaseMaskedTextBox txtDuration;
         private Controls.BaseLabel lblStart;
         private Controls.BaseLabel lblEnd;
         private Controls.BaseLabel lblDuration;
@@ -41,16 +41,13 @@ namespace TrainingCatalog.Forms
         private void InitializeComponent()
         {
             this.btnOk = new TrainingCatalog.Controls.BaseButton();
-            this.maskedTextBox1 = new TrainingCatalog.Controls.BaseMaskedTextBox();
-            this.baseMaskedTextBox1 = new TrainingCatalog.Controls.BaseMaskedTextBox();
-            this.baseMaskedTextBox2 = new TrainingCatalog.Controls.BaseMaskedTextBox();
+            this.txtBeginTime = new TrainingCatalog.Controls.BaseMaskedTextBox();
+            this.txtEndTime = new TrainingCatalog.Controls.BaseMaskedTextBox();
+            this.txtDuration = new TrainingCatalog.Controls.BaseMaskedTextBox();
             this.lblStart = new TrainingCatalog.Controls.BaseLabel();
             this.lblEnd = new TrainingCatalog.Controls.BaseLabel();
             this.lblDuration = new TrainingCatalog.Controls.BaseLabel();
             this.gvMain = new System.Windows.Forms.DataGridView();
-            this.lstExersizes = new System.Windows.Forms.ListBox();
-            this.btnAdd = new TrainingCatalog.Controls.BaseButton();
-            this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
             this.ExersizeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Intensivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +55,9 @@ namespace TrainingCatalog.Forms
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Distance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pulse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lstExersizes = new System.Windows.Forms.ListBox();
+            this.btnAdd = new TrainingCatalog.Controls.BaseButton();
+            this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
             this.baseGroupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -65,40 +65,42 @@ namespace TrainingCatalog.Forms
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOk.Location = new System.Drawing.Point(15, 340);
+            this.btnOk.Location = new System.Drawing.Point(15, 313);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(50, 50);
             this.btnOk.TabIndex = 0;
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // maskedTextBox1
+            // txtBeginTime
             // 
-            this.maskedTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.maskedTextBox1.Location = new System.Drawing.Point(123, 8);
-            this.maskedTextBox1.Mask = "00:00";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(49, 20);
-            this.maskedTextBox1.TabIndex = 1;
-            this.maskedTextBox1.ValidatingType = typeof(System.DateTime);
+            this.txtBeginTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBeginTime.Location = new System.Drawing.Point(123, 8);
+            this.txtBeginTime.Mask = "00:00";
+            this.txtBeginTime.Name = "txtBeginTime";
+            this.txtBeginTime.Size = new System.Drawing.Size(49, 20);
+            this.txtBeginTime.TabIndex = 1;
+            this.txtBeginTime.ValidatingType = typeof(System.DateTime);
             // 
-            // baseMaskedTextBox1
+            // txtEndTime
             // 
-            this.baseMaskedTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseMaskedTextBox1.Location = new System.Drawing.Point(123, 33);
-            this.baseMaskedTextBox1.Mask = "00:00";
-            this.baseMaskedTextBox1.Name = "baseMaskedTextBox1";
-            this.baseMaskedTextBox1.Size = new System.Drawing.Size(49, 20);
-            this.baseMaskedTextBox1.TabIndex = 2;
-            this.baseMaskedTextBox1.ValidatingType = typeof(System.DateTime);
+            this.txtEndTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEndTime.Location = new System.Drawing.Point(123, 33);
+            this.txtEndTime.Mask = "00:00";
+            this.txtEndTime.Name = "txtEndTime";
+            this.txtEndTime.Size = new System.Drawing.Size(49, 20);
+            this.txtEndTime.TabIndex = 2;
+            this.txtEndTime.ValidatingType = typeof(System.DateTime);
             // 
-            // baseMaskedTextBox2
+            // txtDuration
             // 
-            this.baseMaskedTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseMaskedTextBox2.Location = new System.Drawing.Point(123, 60);
-            this.baseMaskedTextBox2.Mask = "0000";
-            this.baseMaskedTextBox2.Name = "baseMaskedTextBox2";
-            this.baseMaskedTextBox2.Size = new System.Drawing.Size(49, 20);
-            this.baseMaskedTextBox2.TabIndex = 4;
+            this.txtDuration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDuration.Location = new System.Drawing.Point(123, 60);
+            this.txtDuration.Mask = "00:00";
+            this.txtDuration.Name = "txtDuration";
+            this.txtDuration.Size = new System.Drawing.Size(49, 20);
+            this.txtDuration.TabIndex = 4;
+            this.txtDuration.ValidatingType = typeof(System.DateTime);
             // 
             // lblStart
             // 
@@ -143,42 +145,10 @@ namespace TrainingCatalog.Forms
             this.Pulse});
             this.gvMain.Location = new System.Drawing.Point(178, 5);
             this.gvMain.Name = "gvMain";
-            this.gvMain.Size = new System.Drawing.Size(563, 385);
+            this.gvMain.Size = new System.Drawing.Size(563, 358);
             this.gvMain.TabIndex = 8;
             this.gvMain.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellEndEdit);
             this.gvMain.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.gvMain_RowsAdded);
-            // 
-            // lstExersizes
-            // 
-            this.lstExersizes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstExersizes.FormattingEnabled = true;
-            this.lstExersizes.Location = new System.Drawing.Point(6, 19);
-            this.lstExersizes.Name = "lstExersizes";
-            this.lstExersizes.Size = new System.Drawing.Size(138, 186);
-            this.lstExersizes.TabIndex = 9;
-            this.lstExersizes.SelectedIndexChanged += new System.EventHandler(this.lstExersizes_SelectedIndexChanged);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(115, 340);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(50, 50);
-            this.btnAdd.TabIndex = 11;
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // baseGroupBox1
-            // 
-            this.baseGroupBox1.Controls.Add(this.lstExersizes);
-            this.baseGroupBox1.Location = new System.Drawing.Point(15, 86);
-            this.baseGroupBox1.Name = "baseGroupBox1";
-            this.baseGroupBox1.Size = new System.Drawing.Size(150, 221);
-            this.baseGroupBox1.TabIndex = 12;
-            this.baseGroupBox1.TabStop = false;
-            this.baseGroupBox1.Text = "Вид Кардио";
             // 
             // ExersizeName
             // 
@@ -236,18 +206,50 @@ namespace TrainingCatalog.Forms
             this.Pulse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Pulse.Width = 50;
             // 
+            // lstExersizes
+            // 
+            this.lstExersizes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstExersizes.FormattingEnabled = true;
+            this.lstExersizes.Location = new System.Drawing.Point(6, 19);
+            this.lstExersizes.Name = "lstExersizes";
+            this.lstExersizes.Size = new System.Drawing.Size(138, 186);
+            this.lstExersizes.TabIndex = 9;
+            this.lstExersizes.SelectedIndexChanged += new System.EventHandler(this.lstExersizes_SelectedIndexChanged);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAdd.Location = new System.Drawing.Point(115, 313);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(50, 50);
+            this.btnAdd.TabIndex = 11;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // baseGroupBox1
+            // 
+            this.baseGroupBox1.Controls.Add(this.lstExersizes);
+            this.baseGroupBox1.Location = new System.Drawing.Point(15, 86);
+            this.baseGroupBox1.Name = "baseGroupBox1";
+            this.baseGroupBox1.Size = new System.Drawing.Size(150, 215);
+            this.baseGroupBox1.TabIndex = 12;
+            this.baseGroupBox1.TabStop = false;
+            this.baseGroupBox1.Text = "Вид Кардио";
+            // 
             // CardioSession
             // 
-            this.ClientSize = new System.Drawing.Size(753, 402);
+            this.ClientSize = new System.Drawing.Size(753, 375);
             this.Controls.Add(this.baseGroupBox1);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.gvMain);
             this.Controls.Add(this.lblDuration);
             this.Controls.Add(this.lblEnd);
             this.Controls.Add(this.lblStart);
-            this.Controls.Add(this.baseMaskedTextBox2);
-            this.Controls.Add(this.baseMaskedTextBox1);
-            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.txtDuration);
+            this.Controls.Add(this.txtEndTime);
+            this.Controls.Add(this.txtBeginTime);
             this.Controls.Add(this.btnOk);
             this.IsShown = true;
             this.MinimumSize = new System.Drawing.Size(593, 413);
