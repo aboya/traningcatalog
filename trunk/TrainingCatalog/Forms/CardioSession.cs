@@ -84,12 +84,12 @@ namespace TrainingCatalog.Forms
             if (distance > 0 && velocity == 0 && Time > 0)
             {
                 velocity = distance / Time;
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = velocity;
+                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = Utils.RoundDouble2(velocity);
             }
             else if (distance > 0 && velocity > 0 && Time == 0)
             {
                 Time = distance / velocity;
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value = Time;
+                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value = Utils.RoundDouble2(Time);
             }
             RecalcDurationMain();
         }
@@ -101,7 +101,7 @@ namespace TrainingCatalog.Forms
             if (distance == 0 && velocity > 0 && Time > 0)
             {
                 distance = velocity * Time;
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = distance;
+                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = Utils.RoundDouble2(distance);
             }
             else if (distance > 0 && velocity > 0 && Time == 0)
             {
@@ -118,12 +118,12 @@ namespace TrainingCatalog.Forms
             if (distance > 0 && velocity == 0 && Time > 0)
             {
                 velocity = distance / Time;
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = velocity;
+                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = Utils.RoundDouble2(velocity);
             }
             else if (distance == 0 && velocity > 0 && Time > 0)
             {
                 distance = velocity * Time;
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = distance;
+                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = Utils.RoundDouble2(distance);
             }
             RecalcDurationMain();
         }

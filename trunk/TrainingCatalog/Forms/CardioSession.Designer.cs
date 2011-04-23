@@ -58,8 +58,18 @@ namespace TrainingCatalog.Forms
             this.lstExersizes = new System.Windows.Forms.ListBox();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
+            this.baseComboBox1 = new TrainingCatalog.Controls.BaseComboBox();
+            this.baseComboBox2 = new TrainingCatalog.Controls.BaseComboBox();
+            this.baseComboBox3 = new TrainingCatalog.Controls.BaseComboBox();
+            this.baseComboBox4 = new TrainingCatalog.Controls.BaseComboBox();
+            this.lblVelocity = new System.Windows.Forms.Label();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.lblDistance = new System.Windows.Forms.Label();
+            this.lblSlash = new System.Windows.Forms.Label();
+            this.gpSettings = new TrainingCatalog.Controls.BaseGroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).BeginInit();
             this.baseGroupBox1.SuspendLayout();
+            this.gpSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOk
@@ -131,6 +141,7 @@ namespace TrainingCatalog.Forms
             // 
             // gvMain
             // 
+            this.gvMain.AllowUserToResizeRows = false;
             this.gvMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -145,7 +156,7 @@ namespace TrainingCatalog.Forms
             this.Pulse});
             this.gvMain.Location = new System.Drawing.Point(178, 5);
             this.gvMain.Name = "gvMain";
-            this.gvMain.Size = new System.Drawing.Size(563, 358);
+            this.gvMain.Size = new System.Drawing.Size(563, 291);
             this.gvMain.TabIndex = 8;
             this.gvMain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellClick);
             this.gvMain.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellContentClick);
@@ -245,9 +256,101 @@ namespace TrainingCatalog.Forms
             this.baseGroupBox1.TabStop = false;
             this.baseGroupBox1.Text = "Вид Кардио";
             // 
+            // baseComboBox1
+            // 
+            this.baseComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.baseComboBox1.FormattingEnabled = true;
+            this.baseComboBox1.Location = new System.Drawing.Point(71, 23);
+            this.baseComboBox1.Name = "baseComboBox1";
+            this.baseComboBox1.Size = new System.Drawing.Size(52, 21);
+            this.baseComboBox1.TabIndex = 13;
+            // 
+            // baseComboBox2
+            // 
+            this.baseComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.baseComboBox2.FormattingEnabled = true;
+            this.baseComboBox2.Location = new System.Drawing.Point(147, 23);
+            this.baseComboBox2.Name = "baseComboBox2";
+            this.baseComboBox2.Size = new System.Drawing.Size(52, 21);
+            this.baseComboBox2.TabIndex = 14;
+            // 
+            // baseComboBox3
+            // 
+            this.baseComboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.baseComboBox3.FormattingEnabled = true;
+            this.baseComboBox3.Location = new System.Drawing.Point(254, 23);
+            this.baseComboBox3.Name = "baseComboBox3";
+            this.baseComboBox3.Size = new System.Drawing.Size(49, 21);
+            this.baseComboBox3.TabIndex = 15;
+            // 
+            // baseComboBox4
+            // 
+            this.baseComboBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.baseComboBox4.FormattingEnabled = true;
+            this.baseComboBox4.Location = new System.Drawing.Point(385, 23);
+            this.baseComboBox4.Name = "baseComboBox4";
+            this.baseComboBox4.Size = new System.Drawing.Size(47, 21);
+            this.baseComboBox4.TabIndex = 16;
+            // 
+            // lblVelocity
+            // 
+            this.lblVelocity.AutoSize = true;
+            this.lblVelocity.Location = new System.Drawing.Point(7, 27);
+            this.lblVelocity.Name = "lblVelocity";
+            this.lblVelocity.Size = new System.Drawing.Size(58, 13);
+            this.lblVelocity.TabIndex = 17;
+            this.lblVelocity.Text = "Скорость:";
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Location = new System.Drawing.Point(205, 27);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(43, 13);
+            this.lblTime.TabIndex = 18;
+            this.lblTime.Text = "Время:";
+            // 
+            // lblDistance
+            // 
+            this.lblDistance.AutoSize = true;
+            this.lblDistance.Location = new System.Drawing.Point(309, 27);
+            this.lblDistance.Name = "lblDistance";
+            this.lblDistance.Size = new System.Drawing.Size(70, 13);
+            this.lblDistance.TabIndex = 19;
+            this.lblDistance.Text = "Расстояние:";
+            // 
+            // lblSlash
+            // 
+            this.lblSlash.AutoSize = true;
+            this.lblSlash.Location = new System.Drawing.Point(129, 27);
+            this.lblSlash.Name = "lblSlash";
+            this.lblSlash.Size = new System.Drawing.Size(12, 13);
+            this.lblSlash.TabIndex = 20;
+            this.lblSlash.Text = "/";
+            // 
+            // gpSettings
+            // 
+            this.gpSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpSettings.Controls.Add(this.lblVelocity);
+            this.gpSettings.Controls.Add(this.lblSlash);
+            this.gpSettings.Controls.Add(this.baseComboBox1);
+            this.gpSettings.Controls.Add(this.lblDistance);
+            this.gpSettings.Controls.Add(this.baseComboBox2);
+            this.gpSettings.Controls.Add(this.lblTime);
+            this.gpSettings.Controls.Add(this.baseComboBox3);
+            this.gpSettings.Controls.Add(this.baseComboBox4);
+            this.gpSettings.Location = new System.Drawing.Point(178, 302);
+            this.gpSettings.Name = "gpSettings";
+            this.gpSettings.Size = new System.Drawing.Size(563, 61);
+            this.gpSettings.TabIndex = 13;
+            this.gpSettings.TabStop = false;
+            this.gpSettings.Text = "Настройки меры";
+            // 
             // CardioSession
             // 
             this.ClientSize = new System.Drawing.Size(753, 375);
+            this.Controls.Add(this.gpSettings);
             this.Controls.Add(this.baseGroupBox1);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.gvMain);
@@ -259,11 +362,14 @@ namespace TrainingCatalog.Forms
             this.Controls.Add(this.txtBeginTime);
             this.Controls.Add(this.btnOk);
             this.IsShown = true;
-            this.MinimumSize = new System.Drawing.Size(593, 413);
+            this.MinimumSize = new System.Drawing.Size(648, 413);
             this.Name = "CardioSession";
+            this.Text = "CardioIntervals";
             this.Load += new System.EventHandler(this.CardioSession_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gvMain)).EndInit();
             this.baseGroupBox1.ResumeLayout(false);
+            this.gpSettings.ResumeLayout(false);
+            this.gpSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,6 +384,15 @@ namespace TrainingCatalog.Forms
         private DataGridViewTextBoxColumn Time;
         private DataGridViewTextBoxColumn Distance;
         private DataGridViewTextBoxColumn Pulse;
+        private Controls.BaseComboBox baseComboBox1;
+        private Controls.BaseComboBox baseComboBox2;
+        private Controls.BaseComboBox baseComboBox3;
+        private Controls.BaseComboBox baseComboBox4;
+        private Label lblVelocity;
+        private Label lblTime;
+        private Label lblDistance;
+        private Label lblSlash;
+        private Controls.BaseGroupBox gpSettings;
 
 
 
