@@ -16,7 +16,7 @@ namespace TrainingCatalog.BusinessLogic.Types
         {
             get
             {
-                return Date.ToString("yyyy.MM.dd");
+                return string.Format("{0} {1}:{2}", Date.ToString("yyyy.MM.dd"), StartTime / 60, StartTime % 60);
             }
         }
     }
