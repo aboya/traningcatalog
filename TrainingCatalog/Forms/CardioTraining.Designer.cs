@@ -39,6 +39,7 @@
             // mCalendar
             // 
             this.mCalendar.Location = new System.Drawing.Point(18, 18);
+            this.mCalendar.MaxSelectionCount = 1;
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 0;
             this.mCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mCalendar_DateSelected);
@@ -52,6 +53,7 @@
             this.lstSession.Name = "lstSession";
             this.lstSession.Size = new System.Drawing.Size(221, 134);
             this.lstSession.TabIndex = 1;
+            this.lstSession.SelectedIndexChanged += new System.EventHandler(this.lstSession_SelectedIndexChanged);
             this.lstSession.DoubleClick += new System.EventHandler(this.lstSession_DoubleClick);
             // 
             // zedGraphControl

@@ -108,6 +108,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBaseSchema.xsd</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLogic\Enums\CardioGridEnum.cs" />
     <Compile Include="BusinessLogic\StatisticsBusiness.cs" />
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
     <Compile Include="BusinessLogic\Types\CardioExersizeType.cs" />
@@ -142,6 +143,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\BaseControls\BaseMonthCalendar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CardioDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\NullableTextBox.cs">

@@ -41,7 +41,7 @@ namespace ZedGraph.Demo
 			myPane.YAxis.Title.Text = "Time";
 			
 			// Enter some arbitrary data
-			double[] x = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 };
+			double[] x = { 0, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
 			double[] y = { 20, 10, 50, 25, 35, 75, 90, 40, 33, 50 };
 
 			// Add a smoothed curve

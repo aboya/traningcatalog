@@ -609,12 +609,12 @@ namespace TrainingCatalog.BusinessLogic
         public static void SaveCardioSession(SqlCeCommand cmd, CardioSessionType session)
         {
             cmd.Parameters.Clear();
-            cmd.CommandText = "update CardioSession" +
-                                "set StartTime = @StartTime, EndTime = @EndTime" +
-                                  "where Id = @sid";
+            cmd.CommandText = "update CardioSession " +
+                                " set StartTime = @StartTime, EndTime = @EndTime " +
+                                  " where Id = @sid";
             cmd.Parameters.Add("@sid", SqlDbType.Int).Value = session.Id;
-            cmd.Parameters.Add("@StartTime", SqlDbType.Int).Value = session.StartTime;
-            cmd.Parameters.Add("@EndTime", SqlDbType.Int).Value = session.EndTime;
+            cmd.Parameters.Add("@StartTime", SqlDbType.Int).Value = session.StartTime == 0 ? DBNull.Value : (object)session.StartTime;
+            cmd.Parameters.Add("@EndTime", SqlDbType.Int).Value = session.EndTime == 0 ? DBNull.Value : (object)session.EndTime;
             cmd.ExecuteNonQuery();
             cmd.Parameters.Clear();
         }
@@ -644,6 +644,25 @@ namespace TrainingCatalog.BusinessLogic
                     cmd.Parameters.Clear();
                 }
             }
+        }
+        public static CardioSessionType GetCardioSession(SqlCeCommand cmd, int SessionId)
+        {
+            CardioSessionType res = new CardioSessionType();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select Id, TrainingId, StartTime, EndTime from CardioSession where Id = @Id";
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = SessionId;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    res.Id = SessionId;
+                    res.StartTime = reader["StartTime"] is DBNull ? 0: Convert.ToInt32(reader["StartTime"]);
+                    res.EndTime = reader["EndTime"] is DBNull ? 0: Convert.ToInt32(reader["EndTime"]);
+                    res.TrainingId = Convert.ToInt32(reader["TrainingId"]);
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
         }
         public static List<CardioSessionType> GetCardioSessions(SqlCeCommand cmd, DateTime dt)
         {
@@ -731,13 +750,13 @@ namespace TrainingCatalog.BusinessLogic
                     {
                         Id = Convert.ToInt32(reader["Id"]),
                         CardioTypeId = Convert.ToInt32(reader["CardioTypeId"]),
-                        Distance = Convert.ToDouble(reader["Distance"]),
-                        HeartRate = Convert.ToDouble(reader["HeartRate"]),
-                        Intensivity = Convert.ToDouble(reader["Intensivity"]),
-                        Name = Convert.ToString(reader["Name"]),
-                        Resistance = Convert.ToDouble(reader["Resistance"]),
-                        Time = Convert.ToDouble(reader["Time"]),
-                        Velocity = Convert.ToDouble(reader["Velocity"])
+                        Distance = reader["Distance"] is DBNull ? 0 : Convert.ToDouble(reader["Distance"]),
+                        HeartRate = reader["HeartRate"] is DBNull ? 0 : Convert.ToDouble(reader["HeartRate"]),
+                        Intensivity = reader["Intensivity"] is DBNull ? 0 : Convert.ToDouble(reader["Intensivity"]),
+                        Name = reader["Name"]  is DBNull ? string.Empty : Convert.ToString(reader["Name"]),
+                        Resistance = reader["Resistance"] is DBNull ? 0 : Convert.ToDouble(reader["Resistance"]),
+                        Time = reader["Time"] is DBNull ? 0 : Convert.ToDouble(reader["Time"]),
+                        Velocity = reader["Velocity"] is DBNull ?  0 : Convert.ToDouble(reader["Velocity"])
                     });
                 }
             }

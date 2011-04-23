@@ -13,7 +13,7 @@ namespace TrainingCatalog.Forms
         private Controls.BaseLabel lblStart;
         private Controls.BaseLabel lblEnd;
         private Controls.BaseLabel lblDuration;
-        private System.Windows.Forms.DataGridView gvMain;
+        private TrainingCatalog.Controls.CardioDataGridView gvMain;
         private System.Windows.Forms.ListBox lstExersizes;
         private TrainingCatalog.Controls.BaseButton btnAdd;
         private Controls.BaseGroupBox baseGroupBox1;
@@ -47,7 +47,7 @@ namespace TrainingCatalog.Forms
             this.lblStart = new TrainingCatalog.Controls.BaseLabel();
             this.lblEnd = new TrainingCatalog.Controls.BaseLabel();
             this.lblDuration = new TrainingCatalog.Controls.BaseLabel();
-            this.gvMain = new System.Windows.Forms.DataGridView();
+            this.gvMain = new TrainingCatalog.Controls.CardioDataGridView();
             this.ExersizeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Intensivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Resistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -147,8 +147,15 @@ namespace TrainingCatalog.Forms
             this.gvMain.Name = "gvMain";
             this.gvMain.Size = new System.Drawing.Size(563, 358);
             this.gvMain.TabIndex = 8;
+            this.gvMain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellClick);
+            this.gvMain.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellContentClick);
             this.gvMain.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellEndEdit);
+            this.gvMain.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellEnter);
+            this.gvMain.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.gvMain_CellValidating);
+            this.gvMain.CellValuePushed += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.gvMain_CellValuePushed);
+            this.gvMain.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gvMain_EditingControlShowing);
             this.gvMain.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.gvMain_RowsAdded);
+            this.gvMain.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.gvMain_KeyPress);
             // 
             // ExersizeName
             // 
