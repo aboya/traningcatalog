@@ -58,10 +58,10 @@ namespace TrainingCatalog.Forms
             this.lstExersizes = new System.Windows.Forms.ListBox();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
-            this.baseComboBox1 = new TrainingCatalog.Controls.BaseComboBox();
-            this.baseComboBox2 = new TrainingCatalog.Controls.BaseComboBox();
-            this.baseComboBox3 = new TrainingCatalog.Controls.BaseComboBox();
-            this.baseComboBox4 = new TrainingCatalog.Controls.BaseComboBox();
+            this.cbSpeedDistance = new TrainingCatalog.Controls.BaseComboBox();
+            this.cbSpeedTime = new TrainingCatalog.Controls.BaseComboBox();
+            this.cbTime = new TrainingCatalog.Controls.BaseComboBox();
+            this.cbDistance = new TrainingCatalog.Controls.BaseComboBox();
             this.lblVelocity = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblDistance = new System.Windows.Forms.Label();
@@ -256,41 +256,53 @@ namespace TrainingCatalog.Forms
             this.baseGroupBox1.TabStop = false;
             this.baseGroupBox1.Text = "Вид Кардио";
             // 
-            // baseComboBox1
+            // cbSpeedDistance
             // 
-            this.baseComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.baseComboBox1.FormattingEnabled = true;
-            this.baseComboBox1.Location = new System.Drawing.Point(71, 23);
-            this.baseComboBox1.Name = "baseComboBox1";
-            this.baseComboBox1.Size = new System.Drawing.Size(52, 21);
-            this.baseComboBox1.TabIndex = 13;
+            this.cbSpeedDistance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSpeedDistance.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbSpeedDistance.FormattingEnabled = true;
+            this.cbSpeedDistance.Location = new System.Drawing.Point(71, 23);
+            this.cbSpeedDistance.Name = "cbSpeedDistance";
+            this.cbSpeedDistance.Size = new System.Drawing.Size(52, 21);
+            this.cbSpeedDistance.TabIndex = 13;
+            this.cbSpeedDistance.SelectedIndexChanged += new System.EventHandler(this.cbSpeedDistance_SelectedIndexChanged);
+            this.cbSpeedDistance.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedDistance_SelectionChangeCommitted);
             // 
-            // baseComboBox2
+            // cbSpeedTime
             // 
-            this.baseComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.baseComboBox2.FormattingEnabled = true;
-            this.baseComboBox2.Location = new System.Drawing.Point(147, 23);
-            this.baseComboBox2.Name = "baseComboBox2";
-            this.baseComboBox2.Size = new System.Drawing.Size(52, 21);
-            this.baseComboBox2.TabIndex = 14;
+            this.cbSpeedTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSpeedTime.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbSpeedTime.FormattingEnabled = true;
+            this.cbSpeedTime.Location = new System.Drawing.Point(147, 23);
+            this.cbSpeedTime.Name = "cbSpeedTime";
+            this.cbSpeedTime.Size = new System.Drawing.Size(52, 21);
+            this.cbSpeedTime.TabIndex = 14;
+            this.cbSpeedTime.SelectedIndexChanged += new System.EventHandler(this.cbSpeedTime_SelectedIndexChanged);
+            this.cbSpeedTime.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedTime_SelectionChangeCommitted);
             // 
-            // baseComboBox3
+            // cbTime
             // 
-            this.baseComboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.baseComboBox3.FormattingEnabled = true;
-            this.baseComboBox3.Location = new System.Drawing.Point(254, 23);
-            this.baseComboBox3.Name = "baseComboBox3";
-            this.baseComboBox3.Size = new System.Drawing.Size(49, 21);
-            this.baseComboBox3.TabIndex = 15;
+            this.cbTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTime.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbTime.FormattingEnabled = true;
+            this.cbTime.Location = new System.Drawing.Point(254, 23);
+            this.cbTime.Name = "cbTime";
+            this.cbTime.Size = new System.Drawing.Size(49, 21);
+            this.cbTime.TabIndex = 15;
+            this.cbTime.SelectedIndexChanged += new System.EventHandler(this.cbTime_SelectedIndexChanged);
+            this.cbTime.SelectionChangeCommitted += new System.EventHandler(this.cbTime_SelectionChangeCommitted);
             // 
-            // baseComboBox4
+            // cbDistance
             // 
-            this.baseComboBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.baseComboBox4.FormattingEnabled = true;
-            this.baseComboBox4.Location = new System.Drawing.Point(385, 23);
-            this.baseComboBox4.Name = "baseComboBox4";
-            this.baseComboBox4.Size = new System.Drawing.Size(47, 21);
-            this.baseComboBox4.TabIndex = 16;
+            this.cbDistance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDistance.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbDistance.FormattingEnabled = true;
+            this.cbDistance.Location = new System.Drawing.Point(385, 23);
+            this.cbDistance.Name = "cbDistance";
+            this.cbDistance.Size = new System.Drawing.Size(47, 21);
+            this.cbDistance.TabIndex = 16;
+            this.cbDistance.SelectedIndexChanged += new System.EventHandler(this.cbDistance_SelectedIndexChanged);
+            this.cbDistance.SelectionChangeCommitted += new System.EventHandler(this.cbDistance_SelectionChangeCommitted);
             // 
             // lblVelocity
             // 
@@ -334,12 +346,12 @@ namespace TrainingCatalog.Forms
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gpSettings.Controls.Add(this.lblVelocity);
             this.gpSettings.Controls.Add(this.lblSlash);
-            this.gpSettings.Controls.Add(this.baseComboBox1);
+            this.gpSettings.Controls.Add(this.cbSpeedDistance);
             this.gpSettings.Controls.Add(this.lblDistance);
-            this.gpSettings.Controls.Add(this.baseComboBox2);
+            this.gpSettings.Controls.Add(this.cbSpeedTime);
             this.gpSettings.Controls.Add(this.lblTime);
-            this.gpSettings.Controls.Add(this.baseComboBox3);
-            this.gpSettings.Controls.Add(this.baseComboBox4);
+            this.gpSettings.Controls.Add(this.cbTime);
+            this.gpSettings.Controls.Add(this.cbDistance);
             this.gpSettings.Location = new System.Drawing.Point(178, 302);
             this.gpSettings.Name = "gpSettings";
             this.gpSettings.Size = new System.Drawing.Size(563, 61);
@@ -384,10 +396,10 @@ namespace TrainingCatalog.Forms
         private DataGridViewTextBoxColumn Time;
         private DataGridViewTextBoxColumn Distance;
         private DataGridViewTextBoxColumn Pulse;
-        private Controls.BaseComboBox baseComboBox1;
-        private Controls.BaseComboBox baseComboBox2;
-        private Controls.BaseComboBox baseComboBox3;
-        private Controls.BaseComboBox baseComboBox4;
+        private Controls.BaseComboBox cbSpeedDistance;
+        private Controls.BaseComboBox cbSpeedTime;
+        private Controls.BaseComboBox cbTime;
+        private Controls.BaseComboBox cbDistance;
         private Label lblVelocity;
         private Label lblTime;
         private Label lblDistance;
