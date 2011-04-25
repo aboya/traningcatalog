@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using TrainingCatalog.BusinessLogic.Enums;
+using System.ComponentModel;
 
 namespace TrainingCatalog.Controls
 {
@@ -14,14 +15,49 @@ namespace TrainingCatalog.Controls
         public event CustomCellValueChanged OnDurationChanged;
         public event CustomCellValueChanged OnVelocityChanged;
         public event CustomCellValueChanged OnDistanceChanged;
-        DataGridViewCell lastEditedCell;
+        DataGridViewCell _lastEditedCell;
+        DataGridViewCell lastEditedCell
+        {
+            get
+            {
+                return _lastEditedCell;
+            }
+            set
+            {
+                _lastEditedCell = value;
+            }
+        }
         private bool []ColumnChanged = new bool [7];
 
         public CardioDataGridView()
         {
             this.CellClick += new DataGridViewCellEventHandler(CellEvent);
             this.CellEnter += new DataGridViewCellEventHandler(CellEvent);
+            this.DataSourceChanged += new EventHandler(CardioDataGridView_DataSourceChanged);
+            this.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.CardioDataGridView_DataBindingComplete);
+            this.DataBindings.CollectionChanged += new CollectionChangeEventHandler(DataBindings_CollectionChanged);
+            this.DataBindings.CollectionChanging += new CollectionChangeEventHandler(DataBindings_CollectionChanging);
             lastEditedCell = this.CurrentCell;
+        }
+        private void DataBindings_CollectionChanged(object sender, CollectionChangeEventArgs e)
+        {
+
+        }
+        private void DataBindings_CollectionChanging(object sender, CollectionChangeEventArgs e)
+        {
+ 
+        }
+        private void CardioDataGridView_DataSourceChanged(object sender, EventArgs args)
+        {
+            int a;
+            a = 0;
+        }
+
+
+        private void CardioDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            int a;
+            a = 0;
         }
         // эта хрень вызывается когда просто в момент выделения юзвер давит на кнопку
         protected override bool ProcessDataGridViewKey(KeyEventArgs e)
@@ -116,6 +152,7 @@ namespace TrainingCatalog.Controls
         }
         private void RaiseChangedEvents()
         {
+            if (lastEditedCell == null || lastEditedCell.RowIndex < 0) return;
             if (ColumnChanged[CardioGridEnum.Time] && OnDurationChanged != null)
             {
                 OnDurationChanged(lastEditedCell);
@@ -133,5 +170,11 @@ namespace TrainingCatalog.Controls
             }
 
         }
+
+ 
+
+
+
+         
     }
 }

@@ -87,7 +87,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-
     <Reference Include="ZedGraph, Version=5.1.5.28726, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>zedGraph\ZedGraph.dll</HintPath>
@@ -278,6 +277,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SqlUpdate.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CardioDataGridView.resx">
+      <DependentUpon>CardioDataGridView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\about.resx">
       <DependentUpon>about.cs</DependentUpon>

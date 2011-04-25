@@ -764,7 +764,7 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
-        public static List<CardioIntervalType> SaveCardioIntervals(SqlCeCommand cmd, List<CardioIntervalType> intervals, int CardioSessionId)
+        public static IList<CardioIntervalType> SaveCardioIntervals(SqlCeCommand cmd, IList<CardioIntervalType> intervals, int CardioSessionId)
         {
             
             using (SqlCeTransaction transaction = cmd.Connection.BeginTransaction())
