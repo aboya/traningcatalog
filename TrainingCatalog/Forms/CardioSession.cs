@@ -109,12 +109,12 @@ namespace TrainingCatalog.Forms
             double Time = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value);
             if (distance > 0 && velocity == 0 && Time > 0)
             {
-                velocity = distance / Time;
+                velocity = CalcVelocity(distance, Time);
                 gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = Utils.RoundDouble2(velocity);
             }
             else if (distance > 0 && velocity > 0 && Time == 0)
             {
-                Time = distance / velocity;
+                Time = CalcTime(velocity, distance);
                 gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value = Utils.RoundDouble2(Time);
             }
             RecalcDurationMain();
@@ -126,12 +126,12 @@ namespace TrainingCatalog.Forms
             double Time = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value);
             if (distance == 0 && velocity > 0 && Time > 0)
             {
-                distance = velocity * Time;
+                distance = CalcDistance(velocity, Time);
                 gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = Utils.RoundDouble2(distance);
             }
             else if (distance > 0 && velocity > 0 && Time == 0)
             {
-                Time = distance / velocity;
+                Time = CalcTime(velocity, distance);
                 gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value = Time;
             }
             RecalcDurationMain();
@@ -143,12 +143,12 @@ namespace TrainingCatalog.Forms
             double Time = Convert.ToDouble(lastEditedCell.Value);
             if (distance > 0 && velocity == 0 && Time > 0)
             {
-                velocity = distance / Time;
+                velocity = CalcVelocity(distance, Time);
                 gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = Utils.RoundDouble2(velocity);
             }
             else if (distance == 0 && velocity > 0 && Time > 0)
             {
-                distance = velocity * Time;
+                distance = CalcDistance(velocity, Time);
                 gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = Utils.RoundDouble2(distance);
             }
             RecalcDurationMain();
@@ -476,6 +476,25 @@ namespace TrainingCatalog.Forms
             return input;
  
         }
+        public double CalcVelocity(double s, double t)
+        {
+            double sk = GetDistanceKoefficient((DistanceUnit)cbDistance.SelectedValue, (DistanceUnit)cbSpeedDistance.SelectedValue);
+            double tk = GetTimeKoefficient((TimeUnit)cbTime.SelectedValue, (TimeUnit)cbSpeedTime.SelectedValue);
+            return (s * sk) / (t * tk);
+        }
+        public double CalcTime(double v, double s)
+        {
+            double sk = GetDistanceKoefficient((DistanceUnit)cbDistance.SelectedValue, (DistanceUnit)cbSpeedDistance.SelectedValue);
+            double tk = GetTimeKoefficient((TimeUnit)cbSpeedTime.SelectedValue, (TimeUnit)cbTime.SelectedValue);
+            return s * sk * tk / v;
+        }
+        public double CalcDistance(double v, double t)
+        {
+            double sk = GetDistanceKoefficient((DistanceUnit)cbSpeedDistance.SelectedValue, (DistanceUnit)cbDistance.SelectedValue);
+            double tk = GetTimeKoefficient((TimeUnit)cbSpeedTime.SelectedValue, (TimeUnit)cbTime.SelectedValue);
+            return v * t * sk / tk;
+
+        }
 
         //----------==========================================================================================================
         private void cbSpeedDistance_SelectedIndexChanged(object sender, EventArgs e)
@@ -531,37 +550,37 @@ namespace TrainingCatalog.Forms
             bs.ResetBindings(false);
         }
          
-        public static double GetTimeKoefficient(TimeUnit Last, TimeUnit Current)
+        public static double GetTimeKoefficient(TimeUnit From, TimeUnit To)
         {
             double t = 1;
-            if (Last == TimeUnit.Hour)
+            if (From == TimeUnit.Hour)
             {
                 t = 3600;
             }
-            else if (Last == TimeUnit.Minute)
+            else if (From == TimeUnit.Minute)
             {
                 t = 60;
             }
 
-            if (Current == TimeUnit.Minute)
+            if (To == TimeUnit.Minute)
             {
                 t /= 60.0;
             }
-            else if (Current == TimeUnit.Hour)
+            else if (To == TimeUnit.Hour)
             {
                 t /= 3600.0;
             }
             return t;
         }
-        public static double GetDistanceKoefficient(DistanceUnit Last, DistanceUnit Current)
+        public static double GetDistanceKoefficient(DistanceUnit From, DistanceUnit To)
         {
             double s = 1.0;
-            if (Last == DistanceUnit.Kilometrs)
+            if (From == DistanceUnit.Kilometrs)
             {
                 s = 1000.0;
             }
 
-            if (Current == DistanceUnit.Kilometrs)
+            if (To == DistanceUnit.Kilometrs)
             {
                 s /= 1000.0;
             }
