@@ -19,13 +19,7 @@ namespace TrainingCatalog.Forms
     {
         SqlCeConnection connection;
         SqlCeCommand cmd;
-        BindingSource bs;
-        BindingList<CardioIntervalType> intervals;
-
-        DistanceUnit LastSpeedDistance;
-        TimeUnit LastSpeedTime ;
-        DistanceUnit LastDistance;
-        TimeUnit LastTime;
+     
         //int sessionId;
         CardioSessionType session;
         private void CardioSession_Load(object sender, EventArgs e)
@@ -36,36 +30,21 @@ namespace TrainingCatalog.Forms
                 return;
             }
 
-            cbDistance.ValueMember = "Type";
-            cbDistance.DisplayMember = "Name";
-
-            cbSpeedTime.ValueMember = "Type";
-            cbSpeedTime.DisplayMember = "Name";
-
-            cbSpeedDistance.ValueMember = "Type";
-            cbSpeedDistance.DisplayMember = "Name";
-
-            cbTime.ValueMember = "Type";
-            cbTime.DisplayMember = "Name";
-
-            cbDistance.DataSource = DistanceDataSource.Create();
-            cbTime.DataSource = TimeDataSource.Create();
-            cbSpeedDistance.DataSource = DistanceDataSource.Create();
-            cbSpeedTime.DataSource = TimeDataSource.Create();
 
             this.btnAdd.Image = TrainingCatalog.AppResources.AppResources.Plus_green_32x32;
             this.btnOk.Image = TrainingCatalog.AppResources.AppResources.save_48x48;
             connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             cmd = connection.CreateCommand();
             List<CardioExersizeType> exersizes = null;
+            List<CardioIntervalType> intervals = null;
             try
             {
                 connection.Open();
                 exersizes = TrainingBusiness.GetCardioExersizes(cmd);
                 lstExersizes.ValueMember = "Id";
                 lstExersizes.DisplayMember = "Name";
-                intervals = new BindingList<CardioIntervalType>(ConvertToUnits(TrainingBusiness.GetCardioIntervals(cmd, session.Id)));
                 session = TrainingBusiness.GetCardioSession(cmd, session.Id);
+                intervals = TrainingBusiness.GetCardioIntervals(cmd, session.Id);
             }
             catch (Exception ee)
             {
@@ -91,68 +70,19 @@ namespace TrainingCatalog.Forms
                 txtEndTime.Text = string.Format("{0:00}{1:00}", session.EndTime / 60, session.EndTime % 60);
             if (session.StartTime > 0 && session.EndTime > 0)
                 txtDuration.Text = string.Format("{0:00}{1:00}", (session.EndTime + session.StartTime) / 60, (session.EndTime + session.StartTime) % 60);
-            gvMain.OnDurationChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(DurationChanged);
-            gvMain.OnDistanceChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(DistanceChanged);
-            gvMain.OnVelocityChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(VelocityChanged);
-            bs = new BindingSource();
-            bs.DataSource = intervals;
-            gvMain.DataSource = bs;
+           // gvMain.OnDurationChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(DurationChanged);
+           // gvMain.OnDistanceChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(DistanceChanged);
+         // /  gvMain.OnVelocityChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(VelocityChanged);
+         //   bs = new BindingSource();
+          //  bs.DataSource = intervals;
+           // gvMain.DataSource = bs;
+            if (intervals != null) cardioExersizesControl.LoadCardioExersizes(intervals);
+             
 
 
 
         }
-        private void DistanceChanged(DataGridViewCell lastEditedCell)
-        {
 
-            double distance = Convert.ToInt32(lastEditedCell.Value);
-            double velocity = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value);
-            double Time = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value);
-            if (distance > 0 && velocity == 0 && Time > 0)
-            {
-                velocity = CalcVelocity(distance, Time);
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = Utils.RoundDouble2(velocity);
-            }
-            else if (distance > 0 && velocity > 0 && Time == 0)
-            {
-                Time = CalcTime(velocity, distance);
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value = Utils.RoundDouble2(Time);
-            }
-            RecalcDurationMain();
-        }
-        private void VelocityChanged(DataGridViewCell lastEditedCell)
-        {
-            double distance = Convert.ToInt32(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value);
-            double velocity = Convert.ToDouble(lastEditedCell.Value);
-            double Time = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value);
-            if (distance == 0 && velocity > 0 && Time > 0)
-            {
-                distance = CalcDistance(velocity, Time);
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = Utils.RoundDouble2(distance);
-            }
-            else if (distance > 0 && velocity > 0 && Time == 0)
-            {
-                Time = CalcTime(velocity, distance);
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value = Time;
-            }
-            RecalcDurationMain();
-        }
-        private void DurationChanged(DataGridViewCell lastEditedCell)
-        {
-            double distance = Convert.ToInt32(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value);
-            double velocity = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value);
-            double Time = Convert.ToDouble(lastEditedCell.Value);
-            if (distance > 0 && velocity == 0 && Time > 0)
-            {
-                velocity = CalcVelocity(distance, Time);
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value = Utils.RoundDouble2(velocity);
-            }
-            else if (distance == 0 && velocity > 0 && Time > 0)
-            {
-                distance = CalcDistance(velocity, Time);
-                gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value = Utils.RoundDouble2(distance);
-            }
-            RecalcDurationMain();
-        }
         public CardioSession(int sid)
         {
             session = new CardioSessionType();
@@ -164,48 +94,23 @@ namespace TrainingCatalog.Forms
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            intervals.AddNew();
         }
 
         private void lstExersizes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void gvMain_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            int a;
-            a = 0;
-        }
-
-        private void gvMain_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            
             if (lstExersizes.SelectedItem != null)
             {
-                if (intervals.Count > 0)
+                CardioExersizeType i = (CardioExersizeType)lstExersizes.SelectedItem;
+                cardioExersizesControl.DefaultCardioType = new CardioIntervalType()
                 {
-                    CardioIntervalType i = intervals.Last();
-                    if (i.Name == null || i.Name.Trim().Length == 0)
-                    {
-                        i.Name = (lstExersizes.SelectedItem as CardioExersizeType).Name;
-                        i.CardioTypeId = Convert.ToInt32(lstExersizes.SelectedValue);
-                    }
-                    if (intervals.Count > 2)
-                    {
-                        var i2 = intervals[intervals.Count - 3];
-                        i.HeartRate = i2.HeartRate;
-                        i.Distance = i2.Distance;
-                        i.Intensivity = i2.Intensivity;
-                        i.Resistance = i2.Resistance;
-                        i.Time = i2.Time;
-                        i.Velocity = i2.Velocity;
-                    }
-                    RecalcDurationMain();
-                }
+                    CardioTypeId = i.Id,
+                    Name = i.Name
+                };
             }
         }
 
+      
+      
         private void btnOk_Click(object sender, EventArgs e)
         {
             DateTime start;
@@ -241,8 +146,7 @@ namespace TrainingCatalog.Forms
                 connection.Open();
                 using (cmd = connection.CreateCommand())
                 {
-                    intervals = new BindingList<CardioIntervalType>(TrainingBusiness.SaveCardioIntervals(cmd, ConvertFromUnits(intervals.ToList()), session.Id));
-                    bs.DataSource = intervals;
+                    cardioExersizesControl.LoadCardioExersizes(TrainingBusiness.SaveCardioIntervals(cmd, cardioExersizesControl.GetCardioExersizes(), session.Id));
                     session.StartTime = IsStartEmpty ? 0 : start.Hour * 60 + start.Minute;
                     session.EndTime = IsEndEmpty ? 0 : end.Hour * 60 + end.Minute;
                     TrainingBusiness.SaveCardioSession(cmd, session);
@@ -259,333 +163,8 @@ namespace TrainingCatalog.Forms
             }
 
         }
-        private void RecalcDurationMain()
-        {
-            int duration = Convert.ToInt32((from d in intervals
-                                            select d.Time).Sum());
 
-            txtDuration.Text = string.Format("{0:00}{1:00}", duration / 60, duration % 60);
 
-            if (session.StartTime > 0)
-            {
-                session.EndTime = session.StartTime + duration;
-                txtEndTime.Text = string.Format("{0:00}{1:00}", session.EndTime / 60, session.EndTime % 60);
-            }
-        }
-
-        private void gvMain_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
-        {
-            //int a;
-            //a = 0;
-        }
-
-        private void gvMain_KeyPress(object sender, KeyPressEventArgs e)
-        {
-           // if (e.KeyChar >= 96 && e.KeyChar <= 105) e.Handled = true;
-        }
-
-        private void gvMain_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-
-            //double tmp;
-            //e.Cancel = !double.TryParse((string)e.FormattedValue, out tmp);
-
-        }
-
-        private void gvMain_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            //var ctl = e.Control as DataGridViewTextBoxEditingControl;
-            //if (ctl == null)
-            //{
-            //    return;
-            //}
-            //ctl.KeyDown -= gvMain_ctl_KeyDown;
-            //ctl.KeyDown += new KeyEventHandler(gvMain_ctl_KeyDown); 
-        }
-        private void gvMain_ctl_KeyDown(object sender, KeyEventArgs e) 
-        {
- 
-        }
-
-        private void gvMain_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void gvMain_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            gvMain.BeginEdit(true);
-        }
-
-        private void gvMain_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            gvMain.BeginEdit(true);
-        }
-
-        public enum TimeUnit {
-            Second,
-            Minute,
-            Hour
-        }
-        public enum DistanceUnit
-        {
-            Meters,
-            Kilometrs
-        }
-        public class DistanceDataSource
-        {
-            public DistanceUnit Type { get; set; }
-            public string Name { get; set; }
-            public static List<DistanceDataSource> Create()
-            {
-                List<DistanceDataSource> res = new List<DistanceDataSource>();
-                res.Add(new DistanceDataSource()
-                {
-                    Type = DistanceUnit.Meters,
-                    Name = "M"
-                });
-                res.Add(new DistanceDataSource()
-                {
-                    Type = DistanceUnit.Kilometrs,
-                    Name="Km"
-                });
-                return res;
-            }
-
-        }
-        public class TimeDataSource
-        {
-            public TimeUnit Type { get; set; }
-            public string Name { get; set; }
-            public static List<TimeDataSource> Create()
-            {
-                List<TimeDataSource> res = new List<TimeDataSource>();
-                res.Add(new TimeDataSource()
-                {
-                    Type = TimeUnit.Second,
-                    Name = "Sec"
-                });
-                res.Add(new TimeDataSource()
-                {
-                    Type = TimeUnit.Minute,
-                    Name = "Min"
-                });
-                res.Add(new TimeDataSource()
-                {
-                    Type = TimeUnit.Hour,
-                    Name = "Hour"
-                });
-                return res;
-            }
-        }
-        /// <summary>
-        /// Convert from Input in (sec,metrs) to units selected
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public IList<CardioIntervalType> ConvertToUnits(List<CardioIntervalType> input)
-        {
-            DistanceUnit speedDistance = (DistanceUnit)cbSpeedDistance.SelectedValue;
-            TimeUnit speedTime = (TimeUnit)cbSpeedTime.SelectedValue;
-            DistanceUnit distance = (DistanceUnit)cbDistance.SelectedValue;
-            TimeUnit time = (TimeUnit)cbTime.SelectedValue;
-            double s = 1, v = 1, t = 1;
-            // ConvertSpeed
-            if (speedTime == TimeUnit.Minute)
-            {
-                v = 60;
-            }
-            else if (speedTime == TimeUnit.Hour)
-            {
-                v = 3600;
-            }
-            if (speedDistance == DistanceUnit.Kilometrs)
-            {
-                v /= 1000.0;
-            }
-            // Convert Time
-            if (time == TimeUnit.Minute)
-            {
-                t /= 60.0;
-            }
-            else if (time == TimeUnit.Hour)
-            {
-                t /= 3600.0;
-            }
-
-            // Convert Distance 
-            if (distance == DistanceUnit.Kilometrs)
-            {
-                s /= 1000.0;
-            }
-            return DoConvert(input, s, v, t);
-        }
-        /// <summary>
-        /// Convert input from units into (sec, metrs)
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public IList<CardioIntervalType> ConvertFromUnits(List<CardioIntervalType> input)
-        {
-            DistanceUnit speedDistance = (DistanceUnit)cbSpeedDistance.SelectedValue;
-            TimeUnit speedTime = (TimeUnit)cbSpeedTime.SelectedValue;
-            DistanceUnit distance = (DistanceUnit)cbDistance.SelectedValue;
-            TimeUnit time = (TimeUnit)cbTime.SelectedValue;
-            double s = 1, v = 1, t = 1;
-            // ConvertSpeed
-            if (speedDistance == DistanceUnit.Kilometrs)
-            {
-                v = 1000.0;
-            }
-            if (speedTime == TimeUnit.Minute)
-            {
-                v /= 60;
-            }
-            else if (speedTime == TimeUnit.Hour)
-            {
-                v /= 3600;
-            }
-
-            // Convert Time
-            if (time == TimeUnit.Minute)
-            {
-                t = 60.0;
-            }
-            else if (time == TimeUnit.Hour)
-            {
-                t = 3600.0;
-            }
-
-            // Convert Distance 
-            if (distance == DistanceUnit.Kilometrs)
-            {
-                s = 1000.0;
-            }
-            return DoConvert(input, s, v, t);
-
-        }
-
-        private static IList<CardioIntervalType> DoConvert(IList<CardioIntervalType> input, double s, double v, double t)
-        {
-            foreach (CardioIntervalType i in input)
-            {
-                i.Distance = Utils.RoundDouble2(i.Distance * s);
-                i.Time = Utils.RoundDouble2(i.Time  * t);
-                i.Velocity = Utils.RoundDouble2(i.Velocity * v);
-            }
-            return input;
- 
-        }
-        public double CalcVelocity(double s, double t)
-        {
-            double sk = GetDistanceKoefficient((DistanceUnit)cbDistance.SelectedValue, (DistanceUnit)cbSpeedDistance.SelectedValue);
-            double tk = GetTimeKoefficient((TimeUnit)cbTime.SelectedValue, (TimeUnit)cbSpeedTime.SelectedValue);
-            return (s * sk) / (t * tk);
-        }
-        public double CalcTime(double v, double s)
-        {
-            double sk = GetDistanceKoefficient((DistanceUnit)cbDistance.SelectedValue, (DistanceUnit)cbSpeedDistance.SelectedValue);
-            double tk = GetTimeKoefficient((TimeUnit)cbSpeedTime.SelectedValue, (TimeUnit)cbTime.SelectedValue);
-            return s * sk * tk / v;
-        }
-        public double CalcDistance(double v, double t)
-        {
-            double sk = GetDistanceKoefficient((DistanceUnit)cbSpeedDistance.SelectedValue, (DistanceUnit)cbDistance.SelectedValue);
-            double tk = GetTimeKoefficient((TimeUnit)cbSpeedTime.SelectedValue, (TimeUnit)cbTime.SelectedValue);
-            return v * t * sk / tk;
-
-        }
-
-        //----------==========================================================================================================
-        private void cbSpeedDistance_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LastSpeedDistance = (DistanceUnit)cbSpeedDistance.SelectedValue;
-           
-        }
-
-        private void cbTime_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LastTime = (TimeUnit)cbTime.SelectedValue;
-        }
-
-        private void cbDistance_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LastDistance = (DistanceUnit)cbDistance.SelectedValue;
-        }
-        private void cbSpeedTime_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LastSpeedTime = (TimeUnit)cbSpeedTime.SelectedValue;
-        }
-
-        //----------------------------------------------------------------------------------------------------------------------
-        private void cbDistance_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            DistanceUnit current = (DistanceUnit)cbDistance.SelectedValue;
-            double s = GetDistanceKoefficient(LastDistance, current);
-            DoConvert(intervals, s, 1, 1);
-            bs.ResetBindings(false);
-        }
-
-        private void cbTime_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            TimeUnit current = (TimeUnit)cbTime.SelectedValue;
-            double t = GetTimeKoefficient(LastTime, current);
-            DoConvert(intervals, 1, 1, t);
-            bs.ResetBindings(false);
-        }
-        private void cbSpeedDistance_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            
-            DistanceUnit current = (DistanceUnit)cbSpeedDistance.SelectedValue;
-            double v = GetDistanceKoefficient(LastSpeedDistance, current);
-            DoConvert(intervals, 1, v, 1);
-            bs.ResetBindings(false);
-        }
-
-        private void cbSpeedTime_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            TimeUnit current = (TimeUnit)cbSpeedTime.SelectedValue;
-            double v = 1.0 / GetTimeKoefficient(LastSpeedTime, current);
-            DoConvert(intervals, 1, v, 1);
-            bs.ResetBindings(false);
-        }
-         
-        public static double GetTimeKoefficient(TimeUnit From, TimeUnit To)
-        {
-            double t = 1;
-            if (From == TimeUnit.Hour)
-            {
-                t = 3600;
-            }
-            else if (From == TimeUnit.Minute)
-            {
-                t = 60;
-            }
-
-            if (To == TimeUnit.Minute)
-            {
-                t /= 60.0;
-            }
-            else if (To == TimeUnit.Hour)
-            {
-                t /= 3600.0;
-            }
-            return t;
-        }
-        public static double GetDistanceKoefficient(DistanceUnit From, DistanceUnit To)
-        {
-            double s = 1.0;
-            if (From == DistanceUnit.Kilometrs)
-            {
-                s = 1000.0;
-            }
-
-            if (To == DistanceUnit.Kilometrs)
-            {
-                s /= 1000.0;
-            }
-            return s;
-        }
 
         //==========================================================================================================================
 

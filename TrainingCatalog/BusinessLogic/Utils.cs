@@ -9,7 +9,12 @@ namespace TrainingCatalog.BusinessLogic
     {
         public static double RoundDouble2(double a)
         {
-            return Convert.ToDouble(a.ToString("0.00"));
+            return a;
+            //return Convert.ToDouble(a.ToString("0.00"));
+        }
+        public static bool IsZero(double a)
+        {
+            return Math.Abs(a) < 0.0001; 
         }
     }
 }

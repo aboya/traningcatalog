@@ -21,7 +21,7 @@ namespace TrainingCatalog
         SqlCeConnection connection;
         protected DateTime MinDateTime;
         protected DateTime MaxDateTime;
-        private bool IsShown = false;
+        private bool _IsShown = false;
 
         protected DateTime startTimeOld, endTimeOld;
         public Perfomance()
@@ -77,7 +77,7 @@ namespace TrainingCatalog
             
             ExersizeCategoryLoad();
             ExersizeLoad();
-            this.IsShown = true;
+            this._IsShown = true;
             CreateGraph(mainGraphControl);
     
         }
@@ -93,7 +93,7 @@ namespace TrainingCatalog
         private void CreateGraph(ZedGraphControl zgc)
         {
             // get a reference to the GraphPane
-            if (IsShown == false) return;
+            if (_IsShown == false) return;
             try
             {
                 Debug.WriteLine("GraphRecreated");

@@ -254,7 +254,7 @@
             this.Controls.Add(this.dtpFrom);
             this.Controls.Add(this.TrainingList);
             this.Controls.Add(this.mainGraphControl);
-            this.IsShown = true;
+            this._IsShown = true;
             this.Name = "Perfomance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Perfomance";

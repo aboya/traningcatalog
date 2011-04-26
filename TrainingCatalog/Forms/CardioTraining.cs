@@ -225,7 +225,7 @@ namespace TrainingCatalog.Forms
             BoxObj box1 = new BoxObj(1, 10, 1, 1);
             pane.GraphObjList.Add(box1);
 
-            BarItem asd;
+
             
             // pane.AddCurve("Weight", mainIntervals, Color.Brown, SymbolType.None);
             pane.AddCurve("", Resistance, Color.Blue, SymbolType.Circle);
