@@ -33,31 +33,7 @@ namespace TrainingCatalog.Controls
         {
             this.CellClick += new DataGridViewCellEventHandler(CellEvent);
             this.CellEnter += new DataGridViewCellEventHandler(CellEvent);
-            this.DataSourceChanged += new EventHandler(CardioDataGridView_DataSourceChanged);
-            this.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.CardioDataGridView_DataBindingComplete);
-            this.DataBindings.CollectionChanged += new CollectionChangeEventHandler(DataBindings_CollectionChanged);
-            this.DataBindings.CollectionChanging += new CollectionChangeEventHandler(DataBindings_CollectionChanging);
             lastEditedCell = this.CurrentCell;
-        }
-        private void DataBindings_CollectionChanged(object sender, CollectionChangeEventArgs e)
-        {
-
-        }
-        private void DataBindings_CollectionChanging(object sender, CollectionChangeEventArgs e)
-        {
- 
-        }
-        private void CardioDataGridView_DataSourceChanged(object sender, EventArgs args)
-        {
-            int a;
-            a = 0;
-        }
-
-
-        private void CardioDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            int a;
-            a = 0;
         }
         // эта хрень вызывается когда просто в момент выделения юзвер давит на кнопку
         protected override bool ProcessDataGridViewKey(KeyEventArgs e)
@@ -170,11 +146,5 @@ namespace TrainingCatalog.Controls
             }
 
         }
-
- 
-
-
-
-         
     }
 }

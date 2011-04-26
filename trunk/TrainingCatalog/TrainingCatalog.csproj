@@ -149,6 +149,12 @@
     <Compile Include="Controls\CardioDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\CardioExersizesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CardioExersizesControl.Designer.cs">
+      <DependentUpon>CardioExersizesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NullableTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -280,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CardioDataGridView.resx">
       <DependentUpon>CardioDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CardioExersizesControl.resx">
+      <DependentUpon>CardioExersizesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\about.resx">
       <DependentUpon>about.cs</DependentUpon>
