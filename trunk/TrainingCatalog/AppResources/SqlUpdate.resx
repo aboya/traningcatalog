@@ -212,6 +212,21 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
     Template(Id)</value>
     <comment>0020</comment>
   </data>
+  <data name="v21" xml:space="preserve">
+    <value>CREATE TABLE CardioTemplate
+(
+   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+   TemplateId int not null CONSTRAINT FK_CardioTemplate_TemplateId references Template (Id),
+   CardioTypeId int not null constraint FK_CardioTemplate_CardioTypeId references CardioType(Id),
+   Velocity float,
+   Time float,
+   Distance float,
+   Intensivity float,
+   Resistance float,
+   HeartRate float
+)</value>
+    <comment>0021</comment>
+  </data>
   <data name="v3" xml:space="preserve">
     <value>CREATE TABLE Training
 (
