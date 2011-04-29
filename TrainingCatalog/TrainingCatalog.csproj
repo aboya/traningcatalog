@@ -193,6 +193,12 @@
     <Compile Include="Forms\CardioSession.Designer.cs">
       <DependentUpon>CardioSession.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CardioTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CardioTemplate.Designer.cs">
+      <DependentUpon>CardioTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CardioTraining.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -304,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CardioSession.resx">
       <DependentUpon>CardioSession.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CardioTemplate.resx">
+      <DependentUpon>CardioTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CardioTraining.resx">
       <DependentUpon>CardioTraining.cs</DependentUpon>

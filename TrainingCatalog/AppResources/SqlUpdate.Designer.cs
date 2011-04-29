@@ -205,6 +205,26 @@ namespace TrainingCatalog.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE CardioTemplate
+        ///(
+        ///   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
+        ///   TemplateId int not null CONSTRAINT FK_CardioTemplate_TemplateId references Template (Id),
+        ///   CardioTypeId int not null constraint FK_CardioTemplate_CardioTypeId references CardioType(Id),
+        ///   Velocity float,
+        ///   Time float,
+        ///   Distance float,
+        ///   Intensivity float,
+        ///   Resistance float,
+        ///   HeartRate float
+        ///).
+        /// </summary>
+        public static string v21 {
+            get {
+                return ResourceManager.GetString("v21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE Training
         ///(
         ///   Id int NOT NULL identity(1,1) constraint PK_Training_Id PRIMARY KEY,
