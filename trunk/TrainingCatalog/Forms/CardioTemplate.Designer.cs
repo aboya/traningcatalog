@@ -28,78 +28,73 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.cardioExersizesControl1 = new TrainingCatalog.Controls.CardioExersizesControl();
-            this.Добавить = new System.Windows.Forms.Button();
+            this.lstExersizes = new System.Windows.Forms.ListBox();
+            this.cardioExersizeControl = new TrainingCatalog.Controls.CardioExersizesControl();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.btnOk = new TrainingCatalog.Controls.BaseButton();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lstExersizes
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 186);
-            this.listBox1.TabIndex = 0;
+            this.lstExersizes.FormattingEnabled = true;
+            this.lstExersizes.ItemHeight = 16;
+            this.lstExersizes.Location = new System.Drawing.Point(13, 15);
+            this.lstExersizes.Margin = new System.Windows.Forms.Padding(4);
+            this.lstExersizes.Name = "lstExersizes";
+            this.lstExersizes.Size = new System.Drawing.Size(159, 228);
+            this.lstExersizes.TabIndex = 0;
+            this.lstExersizes.SelectedIndexChanged += new System.EventHandler(this.lstExersizes_SelectedIndexChanged);
             // 
-            // cardioExersizesControl1
+            // cardioExersizeControl
             // 
-            this.cardioExersizesControl1.DefaultCardioType = null;
-            this.cardioExersizesControl1.Location = new System.Drawing.Point(146, 12);
-            this.cardioExersizesControl1.Name = "cardioExersizesControl1";
-            this.cardioExersizesControl1.Size = new System.Drawing.Size(575, 348);
-            this.cardioExersizesControl1.TabIndex = 1;
-            // 
-            // Добавить
-            // 
-            this.Добавить.Location = new System.Drawing.Point(12, 204);
-            this.Добавить.Name = "Добавить";
-            this.Добавить.Size = new System.Drawing.Size(59, 23);
-            this.Добавить.TabIndex = 2;
-            this.Добавить.Text = "btnAddNew";
-            this.Добавить.UseVisualStyleBackColor = true;
-            this.Добавить.Click += new System.EventHandler(this.Добавить_Click);
+            this.cardioExersizeControl.DefaultCardioType = null;
+            this.cardioExersizeControl.Location = new System.Drawing.Point(195, 15);
+            this.cardioExersizeControl.Margin = new System.Windows.Forms.Padding(5);
+            this.cardioExersizeControl.Name = "cardioExersizeControl";
+            this.cardioExersizeControl.Size = new System.Drawing.Size(767, 428);
+            this.cardioExersizeControl.TabIndex = 1;
             // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAdd.Location = new System.Drawing.Point(82, 296);
+            this.btnAdd.Location = new System.Drawing.Point(109, 364);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(50, 50);
+            this.btnAdd.Size = new System.Drawing.Size(67, 62);
             this.btnAdd.TabIndex = 13;
             this.btnAdd.UseVisualStyleBackColor = true;
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOk.Location = new System.Drawing.Point(12, 296);
+            this.btnOk.Location = new System.Drawing.Point(16, 364);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(50, 50);
+            this.btnOk.Size = new System.Drawing.Size(67, 62);
             this.btnOk.TabIndex = 12;
             this.btnOk.UseVisualStyleBackColor = true;
             // 
             // CardioTemplate
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(733, 371);
+            this.ClientSize = new System.Drawing.Size(977, 457);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.Добавить);
-            this.Controls.Add(this.cardioExersizesControl1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.cardioExersizeControl);
+            this.Controls.Add(this.lstExersizes);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CardioTemplate";
             this.Text = "CardioTemplate";
+            this.Load += new System.EventHandler(this.CardioTemplate_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
-        private Controls.CardioExersizesControl cardioExersizesControl1;
-        private System.Windows.Forms.Button Добавить;
+        private System.Windows.Forms.ListBox lstExersizes;
+        private Controls.CardioExersizesControl cardioExersizeControl;
         private Controls.BaseButton btnAdd;
         private Controls.BaseButton btnOk;
     }

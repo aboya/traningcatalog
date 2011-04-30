@@ -40,7 +40,7 @@ namespace TrainingCatalog.Controls
             }
             set
             {
-                if (value == null || value.CardioTypeId <= 0) throw new Exception("DefaultCardioType incorrect");
+               // if (value == null || value.CardioTypeId <= 0) throw new Exception("DefaultCardioType incorrect");
                 _defaultCardioType = value;
             }
         }

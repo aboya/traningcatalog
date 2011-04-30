@@ -168,7 +168,8 @@ namespace TrainingCatalog.Forms
             GraphPane pane = zedGraphControl.GraphPane;
 
             pane.CurveList.Clear();
-
+            Bar a;
+            
             List<CardioIntervalType> intervals = GetCardioIntervals();
             if (intervals.Count == 0) return;
             //pane.XAxis.Type = AxisType.Linear;
@@ -208,7 +209,7 @@ namespace TrainingCatalog.Forms
             pane.XAxis.Scale.Max = TotalTime;
             pane.YAxis.Scale.Min = 0;
             pane.YAxis.Scale.Max = MaxV;
-
+           
             double MaxResistance = (from i in intervals
                                     where i.Resistance > 0
                                     select i.Resistance).Max();

@@ -38,7 +38,8 @@
             // 
             // mCalendar
             // 
-            this.mCalendar.Location = new System.Drawing.Point(18, 18);
+            this.mCalendar.Location = new System.Drawing.Point(24, 22);
+            this.mCalendar.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.mCalendar.MaxSelectionCount = 1;
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 0;
@@ -49,9 +50,11 @@
             this.lstSession.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lstSession.FormattingEnabled = true;
-            this.lstSession.Location = new System.Drawing.Point(194, 18);
+            this.lstSession.ItemHeight = 16;
+            this.lstSession.Location = new System.Drawing.Point(259, 22);
+            this.lstSession.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstSession.Name = "lstSession";
-            this.lstSession.Size = new System.Drawing.Size(221, 134);
+            this.lstSession.Size = new System.Drawing.Size(293, 164);
             this.lstSession.TabIndex = 1;
             this.lstSession.SelectedIndexChanged += new System.EventHandler(this.lstSession_SelectedIndexChanged);
             this.lstSession.DoubleClick += new System.EventHandler(this.lstSession_DoubleClick);
@@ -61,7 +64,8 @@
             this.zedGraphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.zedGraphControl.Location = new System.Drawing.Point(18, 192);
+            this.zedGraphControl.Location = new System.Drawing.Point(24, 236);
+            this.zedGraphControl.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.zedGraphControl.Name = "zedGraphControl";
             this.zedGraphControl.ScrollGrace = 0D;
             this.zedGraphControl.ScrollMaxX = 0D;
@@ -70,14 +74,15 @@
             this.zedGraphControl.ScrollMinX = 0D;
             this.zedGraphControl.ScrollMinY = 0D;
             this.zedGraphControl.ScrollMinY2 = 0D;
-            this.zedGraphControl.Size = new System.Drawing.Size(398, 184);
+            this.zedGraphControl.Size = new System.Drawing.Size(531, 226);
             this.zedGraphControl.TabIndex = 2;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(260, 157);
+            this.btnAdd.Location = new System.Drawing.Point(347, 193);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(100, 28);
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "Добавить";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -85,9 +90,10 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(194, 157);
+            this.btnDelete.Location = new System.Drawing.Point(259, 193);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(60, 23);
+            this.btnDelete.Size = new System.Drawing.Size(80, 28);
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -96,9 +102,10 @@
             // chkGraph
             // 
             this.chkGraph.AutoSize = true;
-            this.chkGraph.Location = new System.Drawing.Point(341, 161);
+            this.chkGraph.Location = new System.Drawing.Point(455, 198);
+            this.chkGraph.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkGraph.Name = "chkGraph";
-            this.chkGraph.Size = new System.Drawing.Size(64, 17);
+            this.chkGraph.Size = new System.Drawing.Size(80, 21);
             this.chkGraph.TabIndex = 6;
             this.chkGraph.Text = "График";
             this.chkGraph.UseVisualStyleBackColor = true;
@@ -106,9 +113,9 @@
             // 
             // CardioTraining
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 388);
+            this.ClientSize = new System.Drawing.Size(569, 478);
             this.Controls.Add(this.chkGraph);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
@@ -116,6 +123,7 @@
             this.Controls.Add(this.lstSession);
             this.Controls.Add(this.mCalendar);
             this.IsShown = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "CardioTraining";
             this.Text = "Cardio";
             this.Load += new System.EventHandler(this.CardioTraining_Load);

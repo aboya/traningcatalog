@@ -1,0 +1,16 @@
+﻿try
+{
+    connection.Open();
+    using (cmd = connection.CreateCommand())
+    {
+ 
+    }
+}
+catch (Exception e)
+{
+    MessageBox.Show(e.Message);
+}
+finally
+{
+    connection.Close();
+}

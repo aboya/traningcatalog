@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlServerCe;
+using System.Configuration;
 
 namespace TrainingCatalog.Forms
 {
     public class BaseForm : System.Windows.Forms.Form
     {
+        public SqlCeConnection connection;
+        public SqlCeCommand cmd;
         public bool IsShown
         {
             get;
@@ -32,6 +36,8 @@ namespace TrainingCatalog.Forms
             Form mainForm = Application.OpenForms["mainForm"];
             if (mainForm != null)
                 this.Location = mainForm.Location;
+            if(ConfigurationManager.ConnectionStrings["db"] != null)
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
             
         }
 
@@ -50,6 +56,8 @@ namespace TrainingCatalog.Forms
 
         private void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (connection != null) connection.Dispose();
+            if (cmd != null) connection.Dispose();
             if (this.Name != "mainForm")
             {
                 Form mainForm = Application.OpenForms["mainForm"];
