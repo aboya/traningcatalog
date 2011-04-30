@@ -60,7 +60,7 @@ namespace TrainingCatalog
                 connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
                 if (_TemplateID > 0)
                 {
-                    List<TemplateExersizesType>  templateExersizes = TrainingBusiness.GetTemplate(connection,_TemplateID);
+                    List<TemplateExersizesType>  templateExersizes = TrainingBusiness.GetTemplateExersizes(connection,_TemplateID);
                     templateViewerControl.LoadTemplateExersizes(templateExersizes);
                     txtTemplateName.Text = GetTemplateName(_TemplateID);
                 }

@@ -31,8 +31,8 @@ namespace TrainingCatalog.Controls
         TimeUnit LastSpeedTime ;
         DistanceUnit LastDistance;
         TimeUnit LastTime;
-        CardioIntervalType _defaultCardioType;
-        public CardioIntervalType DefaultCardioType
+        CardioExersizeType _defaultCardioType;
+        public CardioExersizeType DefaultCardioType
         {
             get
             {
@@ -142,10 +142,14 @@ namespace TrainingCatalog.Controls
         {
             return ConvertFromUnits(intervals.ToList());
         }
-        public void AddRow(CardioIntervalType i)
+        public void AddRow(CardioExersizeType i)
         {
-            if (i == null || i.CardioTypeId <= 0 || i.Name == null ) return;
-            intervals.Add(i);
+            if (i == null || i.Id <= 0 || i.Name == null) return;
+            intervals.Add(new CardioIntervalType()
+            {
+                CardioTypeId = i.Id,
+                Name = i.Name
+            });
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -166,7 +170,7 @@ namespace TrainingCatalog.Controls
                 CardioIntervalType i = intervals.Last();
                 if (i.CardioTypeId <= 0 && DefaultCardioType != null)
                 {
-                    i.CardioTypeId = DefaultCardioType.CardioTypeId;
+                    i.CardioTypeId = DefaultCardioType.Id;
                     i.Name = DefaultCardioType.Name;
                 }
                 if (intervals.Count > 2)

@@ -15,7 +15,6 @@ namespace TrainingCatalog.Forms
 {
     public partial class CardioTemplateSelector : BaseForm
     {
-        BindingSource bs;
         public CardioTemplateSelector()
         {
             InitializeComponent();
@@ -26,44 +25,52 @@ namespace TrainingCatalog.Forms
             if (lstTemplates.SelectedValue != null)
             {
                 new CardioTemplate(Convert.ToInt32(lstTemplates.SelectedValue)).ShowDialog(this);
+                BindTemplates();
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+         
             new CardioTemplate().ShowDialog(this);
-            bs.DataSource = GetTemplates();
+            BindTemplates();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (lstTemplates.SelectedValue != null)
             {
-                DeleteCardioTemplate(new CardioTemplateType()
+                DeleteCardioTemplate(new TemplateType()
                 {
                     Id = Convert.ToInt32(lstTemplates.SelectedValue)
                 });
+                BindTemplates();
             }
         }
 
         private void CardioTemplateSelector_Load(object sender, EventArgs e)
         {
             connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-            bs = new BindingSource();
             lstTemplates.DisplayMember = "Name";
             lstTemplates.ValueMember = "Id";
-            bs.DataSource = GetTemplates();
-            lstTemplates.DataSource = bs;
+            lstTemplates.DataSource = GetTemplates();
+
         }
-        private List<CardioTemplateType> GetTemplates()
+        private void BindTemplates()
         {
-            List<CardioTemplateType> list = new List<CardioTemplateType>();
+            int index = lstTemplates.SelectedIndex;
+            lstTemplates.DataSource = GetTemplates();
+            lstTemplates.SelectedIndex = index;
+        }
+        private List<TemplateType> GetTemplates()
+        {
+            List<TemplateType> list = new List<TemplateType>();
             try
             {
                 connection.Open();
                 using (cmd = connection.CreateCommand())
                 {
-                    list = TrainingBusiness.GetCardioTemplates(cmd);
+                    list = TrainingBusiness.GetCardioTemplate(cmd);
                 }
             }
             catch (Exception ee)
@@ -74,21 +81,17 @@ namespace TrainingCatalog.Forms
             {
                 connection.Close();
             }
-            list.Find(delegate(CardioTemplateType a) {
-                TrainingBusiness.SaveBodyWeight(cmd, DateTime.Now, 0);
-                return true; });
             return list;
             
         }
-        private void SaveCardioTemplate(CardioTemplateType i)
+        private void SaveCardioTemplate(TemplateType i)
         {
             try
             {
                 connection.Open();
                 using (cmd = connection.CreateCommand())
                 {
-                    TrainingBusiness.SaveCardioTemplates(cmd, i);
- 
+                    TrainingBusiness.SaveCardioTemplatesExersizes(cmd, i, null);
                 }
             }
             catch (Exception e)
@@ -101,7 +104,7 @@ namespace TrainingCatalog.Forms
             }
  
         }
-        private void DeleteCardioTemplate(CardioTemplateType i)
+        private void DeleteCardioTemplate(TemplateType i)
         {
           
             try
@@ -124,19 +127,24 @@ namespace TrainingCatalog.Forms
 
         private void lstTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(lstTemplates.SelectedValue != null)
-                txtName.Text = ((CardioTemplateType)lstTemplates.SelectedValue).Name;
+            if(lstTemplates.SelectedItem != null)
+                txtName.Text = ((TemplateType)lstTemplates.SelectedItem).Name;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (lstTemplates.SelectedValue != null)
             {
-                CardioTemplateType i = (CardioTemplateType)lstTemplates.SelectedValue;
+                TemplateType i = (TemplateType)lstTemplates.SelectedItem;
                 i.Name = txtName.Text.Replace("'", string.Empty).Replace(";", string.Empty).Trim();
                 if (i.Name.Length > 0)
                 {
                     SaveCardioTemplate(i);
+                }
+                else
+                {
+                    txtName.Name = i.Name;
+                    MessageBox.Show("Имя не может быть пустым");
                 }
             }
         }

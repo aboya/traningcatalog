@@ -94,6 +94,7 @@ namespace TrainingCatalog.Forms
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            cardioExersizesControl.AddRow((CardioExersizeType)lstExersizes.SelectedItem);
         }
 
         private void lstExersizes_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,11 +102,7 @@ namespace TrainingCatalog.Forms
             if (lstExersizes.SelectedItem != null)
             {
                 CardioExersizeType i = (CardioExersizeType)lstExersizes.SelectedItem;
-                cardioExersizesControl.DefaultCardioType = new CardioIntervalType()
-                {
-                    CardioTypeId = i.Id,
-                    Name = i.Name
-                };
+                cardioExersizesControl.DefaultCardioType = i;
             }
         }
 
