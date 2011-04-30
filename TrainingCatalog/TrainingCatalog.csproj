@@ -115,6 +115,7 @@
     <Compile Include="BusinessLogic\Types\CardioIntervalType.cs" />
     <Compile Include="BusinessLogic\Types\CardioParamsType.cs" />
     <Compile Include="BusinessLogic\Types\CardioSessionType.cs" />
+    <Compile Include="BusinessLogic\Types\CardioTemplateType.cs" />
     <Compile Include="BusinessLogic\Types\CategoryType.cs" />
     <Compile Include="BusinessLogic\dbBusiness.cs" />
     <Compile Include="BusinessLogic\Types\ExersizeSource.cs" />
@@ -198,6 +199,12 @@
     </Compile>
     <Compile Include="Forms\CardioTemplate.Designer.cs">
       <DependentUpon>CardioTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CardioTemplateSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CardioTemplateSelector.Designer.cs">
+      <DependentUpon>CardioTemplateSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CardioTraining.cs">
       <SubType>Form</SubType>
@@ -314,6 +321,9 @@
     <EmbeddedResource Include="Forms\CardioTemplate.resx">
       <DependentUpon>CardioTemplate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CardioTemplateSelector.resx">
+      <DependentUpon>CardioTemplateSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CardioTraining.resx">
       <DependentUpon>CardioTraining.cs</DependentUpon>
     </EmbeddedResource>
@@ -400,6 +410,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="aTemplate.txt" />
     <Content Include="Calendar.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

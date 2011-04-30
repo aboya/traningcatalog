@@ -101,6 +101,11 @@ namespace TrainingCatalog
             new EditCardio().Show();
         }
 
+        private void btnCardioTemplates_Click(object sender, EventArgs e)
+        {
+            new CardioTemplateSelector().Show();
+        }
+
 
     }
 }

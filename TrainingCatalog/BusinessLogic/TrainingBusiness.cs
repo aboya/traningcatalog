@@ -9,6 +9,7 @@ using System.Configuration;
 using System.IO;
 using TrainingCatalog.BusinessLogic.Types;
 
+
 namespace TrainingCatalog.BusinessLogic
 {
     public class TrainingBusiness
@@ -870,6 +871,18 @@ namespace TrainingCatalog.BusinessLogic
             }
             cmd.Parameters.Clear();
             return res;
+        }
+
+        public static List<CardioTemplateType> GetCardioTemplates(SqlCeCommand cmd)
+        {
+            return new List<CardioTemplateType>();
+        }
+        public static CardioTemplateType SaveCardioTemplates(SqlCeCommand cmd, CardioTemplateType i)
+        {
+            return new CardioTemplateType();
+        }
+        public static void DeleteCardioTemplate(SqlCeCommand cmd, CardioTemplateType i)
+        { 
         }
     }
 }
