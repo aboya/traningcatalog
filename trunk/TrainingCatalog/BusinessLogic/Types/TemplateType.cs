@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TrainingCatalog.BusinessLogic.Types
 {
-    public class CardioTemplateType
+    public class TemplateType
     {
         public int Id { get; set; }
         public string Name { get; set; }

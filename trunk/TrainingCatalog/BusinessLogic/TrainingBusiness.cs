@@ -486,7 +486,7 @@ namespace TrainingCatalog.BusinessLogic
             }
         }
 
-        public static List<TemplateExersizesType> GetTemplate(SqlCeConnection connection, int templateId)
+        public static List<TemplateExersizesType> GetTemplateExersizes(SqlCeConnection connection, int templateId)
         {
             List<TemplateExersizesType> res = new List<TemplateExersizesType>();
             try
@@ -873,16 +873,197 @@ namespace TrainingCatalog.BusinessLogic
             return res;
         }
 
-        public static List<CardioTemplateType> GetCardioTemplates(SqlCeCommand cmd)
+        public static List<TemplateType> GetCardioTemplate(SqlCeCommand cmd)
         {
-            return new List<CardioTemplateType>();
+            List<TemplateType> res = new List<TemplateType>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select t.Id,t.Name from Template t inner join CardioTemplate ct on t.Id = ct.TemplateId group by t.Id,t.Name";
+            using(SqlCeDataReader reader = cmd.ExecuteReader()) 
+            {
+                while(reader.Read())
+                {
+                    res.Add(new TemplateType() {
+                         Id = Convert.ToInt32(reader["Id"]),
+                         Name = Convert.ToString(reader["Name"])
+                    });
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
         }
-        public static CardioTemplateType SaveCardioTemplates(SqlCeCommand cmd, CardioTemplateType i)
+        public static void SaveTemplate(SqlCeCommand cmd, TemplateType template)
         {
-            return new CardioTemplateType();
+            cmd.Parameters.Clear();
+            if (template.Name.Length > 100) template.Name = template.Name.Substring(0, 100);
+            if (template.Id <= 0)
+            {
+                cmd.CommandText = "insert into Template (Name) values (@name)";
+                cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = template.Name.Replace("'", string.Empty).Trim();
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "select @@Identity";
+                template.Id = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            else
+            {
+                cmd.CommandText = "update Template set Name = @name where Id = @Id";
+                cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = template.Name.Replace("'", string.Empty).Trim();
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = template.Id;
+                cmd.ExecuteNonQuery();
+            }
+            cmd.Parameters.Clear();
         }
-        public static void DeleteCardioTemplate(SqlCeCommand cmd, CardioTemplateType i)
-        { 
+        public static TemplateType SaveCardioTemplatesExersizes(SqlCeCommand cmd, TemplateType template, IList<CardioIntervalType> intervals)
+        {
+            cmd.Parameters.Clear();
+            using (SqlCeTransaction transaction = cmd.Connection.BeginTransaction())
+            {
+                try
+                {
+                    if (template != null)
+                    {
+                        SaveTemplate(cmd, template);                       
+                    }
+                    if (intervals != null)
+                    {
+                        foreach (CardioIntervalType i in intervals)
+                        {
+                            cmd.Parameters.Clear();
+                            if (i.Id == 0)
+                            {
+                                cmd.CommandText = "insert into CardioTemplate(CardioTypeId,TemplateId, Distance, HeartRate,Intensivity,Resistance,Time,Velocity)" +
+                                                    "values(@CardioTypeId, @CardioSessionId, @Distance, @HeartRate,@Intensivity,@Resistance,@Time,@Velocity)";
+                                cmd.Parameters.Add("@CardioSessionId", SqlDbType.Int).Value = template.Id;
+                            }
+                            else
+                            {
+                                cmd.CommandText = "update CardioTemplate set CardioTypeId=@CardioTypeId, Distance = @Distance, HeartRate = @HeartRate,Intensivity = @Intensivity,Resistance = @Resistance,Time = @Time,Velocity = @Velocity " +
+                                                   "where Id = @Id";
+                                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = i.Id;
+                            }
+                            cmd.Parameters.Add("@CardioTypeId", SqlDbType.Int).Value = i.CardioTypeId == 0 ? DBNull.Value : (object)i.CardioTypeId;
+                            cmd.Parameters.Add("@Distance", SqlDbType.Float).Value = i.Distance == 0 ? DBNull.Value : (object)i.Distance;
+                            cmd.Parameters.Add("@HeartRate", SqlDbType.Float).Value = i.HeartRate == 0 ? DBNull.Value : (object)i.HeartRate;
+                            cmd.Parameters.Add("@Intensivity", SqlDbType.Float).Value = i.Intensivity == 0 ? DBNull.Value : (object)i.Intensivity;
+                            cmd.Parameters.Add("@Resistance", SqlDbType.Float).Value = i.Resistance == 0 ? DBNull.Value : (object)i.Resistance;
+                            cmd.Parameters.Add("@Time", SqlDbType.Float).Value = i.Time == 0 ? DBNull.Value : (object)i.Time;
+                            cmd.Parameters.Add("@Velocity", SqlDbType.Float).Value = i.Velocity == 0 ? DBNull.Value : (object)i.Velocity;
+                            cmd.ExecuteNonQuery();
+                            if (i.Id == 0)
+                            {
+                                cmd.Parameters.Clear();
+                                cmd.CommandText = "select @@Identity";
+                                i.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                            }
+                        }
+                        // deleting intervals that not exists
+                        cmd.Parameters.Clear();
+                        string idList = string.Join(",", (from ci in intervals select ci.Id.ToString()).ToArray());
+                        cmd.CommandText = "delete from CardioTemplate " +
+                                           " where TemplateId = @TemplateId " +
+                                            (idList.Length > 0 ? " and Id not in (" + idList + ") " : string.Empty);
+                        cmd.Parameters.Add("@TemplateId", SqlDbType.Int).Value = template.Id;
+
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    throw e;
+                }
+                finally
+                {
+                    cmd.Parameters.Clear();
+                }
+            }
+           
+            return new TemplateType();
+        }
+        public static void DeleteCardioTemplate(SqlCeCommand cmd, TemplateType i)
+        {
+            cmd.Parameters.Clear();
+            using (SqlCeTransaction transaction = cmd.Connection.BeginTransaction())
+            {
+                try
+                {
+                    cmd.CommandText = "delete from CardioTemplate where TemplateId = @Id";
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = i.Id;
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = "delete from Template where Id = @Id";
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    throw e;
+                }
+                finally
+                {
+                    cmd.Parameters.Clear();
+                }
+                
+            }
+            
+        }
+
+        public static TemplateType GetTemplate(SqlCeCommand cmd, int TemplateId)
+        {
+            cmd.Parameters.Clear();
+            TemplateType res = new TemplateType();
+            cmd.CommandText = "select Id,Name from Template where Id = @id";
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = TemplateId;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    res.Id = TemplateId;
+                    res.Name = Convert.ToString(reader["Name"]);
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+        }
+
+        public static List<CardioIntervalType> GetCardioTemplateExersizes(SqlCeCommand cmd, TemplateType template)
+        {
+            List<CardioIntervalType> res = new List<CardioIntervalType>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = @"select CardioTemplate.Id, CardioTemplate.CardioTypeId,
+                                        CardioTemplate.Velocity, CardioTemplate.Time, CardioTemplate.Distance, 
+                                        CardioTemplate.Intensivity, CardioTemplate.Resistance, CardioTemplate.HeartRate, 
+                                        CardioType.Name
+                                        from CardioTemplate  
+                                        INNER JOIN CardioType ON CardioTemplate.CardioTypeId = CardioType.Id
+                                        where TemplateId = @id 
+                                ";   
+                                
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = template.Id;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res.Add(new CardioIntervalType()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        CardioTypeId = Convert.ToInt32(reader["CardioTypeId"]),
+                        Distance = reader["Distance"] is DBNull ? 0 : Convert.ToDouble(reader["Distance"]),
+                        HeartRate = reader["HeartRate"] is DBNull ? 0 : Convert.ToDouble(reader["HeartRate"]),
+                        Intensivity = reader["Intensivity"] is DBNull ? 0 : Convert.ToDouble(reader["Intensivity"]),
+                        Resistance = reader["Resistance"] is DBNull ? 0 : Convert.ToDouble(reader["Resistance"]),
+                        Name = reader["Name"] is DBNull ? string.Empty : Convert.ToString(reader["Name"]),
+                        Time = reader["Time"] is DBNull ? 0 : Convert.ToDouble(reader["Time"]),
+                        Velocity = reader["Velocity"] is DBNull ? 0 : Convert.ToDouble(reader["Velocity"])
+                         
+                    });
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
         }
     }
 }

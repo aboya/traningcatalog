@@ -85,7 +85,7 @@ namespace TrainingCatalog
         private void ddlTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(ddlTemplates.SelectedValue);
-            ucTemplate.LoadTemplateExersizes(TrainingBusiness.GetTemplate(connection, id));
+            ucTemplate.LoadTemplateExersizes(TrainingBusiness.GetTemplateExersizes(connection, id));
         }
 
         private void btnSaveTemplate_Click(object sender, EventArgs e)
