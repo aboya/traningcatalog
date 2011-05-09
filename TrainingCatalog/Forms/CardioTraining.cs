@@ -217,7 +217,7 @@ namespace TrainingCatalog.Forms
                     if (MaxResistance > 0)
                     {
 
-                        double scaleResistance = MaxV / MaxResistance;
+                        double scaleResistance = (MaxV + MaxV * 0.1) / MaxResistance;
                         TotalTime = 0;
                         foreach (CardioIntervalType i in intervals)
                         {
