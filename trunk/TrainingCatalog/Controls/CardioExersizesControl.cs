@@ -150,10 +150,20 @@ namespace TrainingCatalog.Controls
                 CardioTypeId = i.Id,
                 Name = i.Name
             });
-        }
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            intervals.AddNew();
+            if (intervals.Count > 2)
+            {
+                var i1 = intervals.Last();
+                var i2 = intervals[intervals.Count - 3];
+                if (i1.CardioTypeId == i2.CardioTypeId)
+                {
+                    i1.HeartRate = i2.HeartRate;
+                    i1.Distance = i2.Distance;
+                    i1.Intensivity = i2.Intensivity;
+                    i1.Resistance = i2.Resistance;
+                    i1.Time = i2.Time;
+                    i1.Velocity = i2.Velocity;
+                }
+            }
         }
 
         private void lstExersizes_SelectedIndexChanged(object sender, EventArgs e)
@@ -164,7 +174,7 @@ namespace TrainingCatalog.Controls
 
         private void gvMain_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-
+            // auto adding row
             if (intervals != null && intervals.Count > 0)
             {
                 CardioIntervalType i = intervals.Last();
@@ -173,24 +183,6 @@ namespace TrainingCatalog.Controls
                     i.CardioTypeId = DefaultCardioType.Id;
                     i.Name = DefaultCardioType.Name;
                 }
-                if (intervals.Count > 2)
-                {
-
-                    var i2 = intervals[intervals.Count - 3];
-                    if (i.CardioTypeId == i2.CardioTypeId)
-                    {
-                        i.HeartRate = i2.HeartRate;
-                        i.Distance = i2.Distance;
-                        i.Intensivity = i2.Intensivity;
-                        i.Resistance = i2.Resistance;
-                        i.Time = i2.Time;
-                        i.Velocity = i2.Velocity;
-                    }
-                }
-
-                if (i.CardioTypeId <= 0) intervals.Remove(i);
-
-
             }
 
         }
@@ -468,6 +460,12 @@ namespace TrainingCatalog.Controls
 
         }
         #endregion
+
+        private void gvMain_DataSourceChanged(object sender, EventArgs e)
+        {
+            int a;
+            a = 0;
+        }
 
     }
 }

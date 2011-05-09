@@ -68,6 +68,7 @@
             this.gvMain.Name = "gvMain";
             this.gvMain.Size = new System.Drawing.Size(569, 275);
             this.gvMain.TabIndex = 9;
+            this.gvMain.DataSourceChanged += new System.EventHandler(this.gvMain_DataSourceChanged);
             this.gvMain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellClick);
             this.gvMain.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMain_CellEnter);
             this.gvMain.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.gvMain_RowsAdded);
@@ -174,6 +175,8 @@
             this.cbSpeedDistance.Name = "cbSpeedDistance";
             this.cbSpeedDistance.Size = new System.Drawing.Size(52, 21);
             this.cbSpeedDistance.TabIndex = 13;
+            this.cbSpeedDistance.SelectedIndexChanged += new System.EventHandler(this.cbSpeedDistance_SelectedIndexChanged);
+            this.cbSpeedDistance.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedDistance_SelectionChangeCommitted);
             // 
             // lblDistance
             // 
@@ -193,6 +196,8 @@
             this.cbSpeedTime.Name = "cbSpeedTime";
             this.cbSpeedTime.Size = new System.Drawing.Size(52, 21);
             this.cbSpeedTime.TabIndex = 14;
+            this.cbSpeedTime.SelectedIndexChanged += new System.EventHandler(this.cbSpeedTime_SelectedIndexChanged);
+            this.cbSpeedTime.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedTime_SelectionChangeCommitted);
             // 
             // lblTime
             // 
@@ -212,6 +217,8 @@
             this.cbTime.Name = "cbTime";
             this.cbTime.Size = new System.Drawing.Size(49, 21);
             this.cbTime.TabIndex = 15;
+            this.cbTime.SelectedIndexChanged += new System.EventHandler(this.cbTime_SelectedIndexChanged);
+            this.cbTime.SelectionChangeCommitted += new System.EventHandler(this.cbTime_SelectionChangeCommitted);
             // 
             // cbDistance
             // 
@@ -222,6 +229,8 @@
             this.cbDistance.Name = "cbDistance";
             this.cbDistance.Size = new System.Drawing.Size(47, 21);
             this.cbDistance.TabIndex = 16;
+            this.cbDistance.SelectedIndexChanged += new System.EventHandler(this.cbDistance_SelectedIndexChanged);
+            this.cbDistance.SelectionChangeCommitted += new System.EventHandler(this.cbDistance_SelectionChangeCommitted);
             // 
             // CardioExersizesControl
             // 
@@ -236,16 +245,6 @@
             this.gpSettings.ResumeLayout(false);
             this.gpSettings.PerformLayout();
             this.ResumeLayout(false);
-
-            this.cbDistance.SelectedIndexChanged += new System.EventHandler(this.cbDistance_SelectedIndexChanged);
-            this.cbDistance.SelectionChangeCommitted += new System.EventHandler(this.cbDistance_SelectionChangeCommitted);
-            this.cbTime.SelectedIndexChanged += new System.EventHandler(this.cbTime_SelectedIndexChanged);
-            this.cbTime.SelectionChangeCommitted += new System.EventHandler(this.cbTime_SelectionChangeCommitted);
-            this.cbSpeedTime.SelectedIndexChanged += new System.EventHandler(this.cbSpeedTime_SelectedIndexChanged);
-            this.cbSpeedTime.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedTime_SelectionChangeCommitted);
-            this.cbSpeedDistance.SelectedIndexChanged += new System.EventHandler(this.cbSpeedDistance_SelectedIndexChanged);
-            this.cbSpeedDistance.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedDistance_SelectionChangeCommitted);
-        
 
         }
 
