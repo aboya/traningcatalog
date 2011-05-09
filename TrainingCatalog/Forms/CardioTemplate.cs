@@ -131,6 +131,7 @@ namespace TrainingCatalog.Forms
         {
             try
             {
+              
                 connection.Open();
                 using (cmd = connection.CreateCommand())
                 {

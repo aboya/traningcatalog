@@ -96,6 +96,7 @@ namespace TrainingCatalog.Forms
         {
             if (lstSession.SelectedIndex >= 0)
             {
+                int SessionId = Convert.ToInt32(lstSession.SelectedValue);
                 var res = MessageBox.Show("Вы действительно хотите удалить сессию ?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
                 if (res == System.Windows.Forms.DialogResult.Yes)
                 {
@@ -104,9 +105,9 @@ namespace TrainingCatalog.Forms
                         connection.Open();
                         using (cmd = connection.CreateCommand())
                         {
-                            int SessionId = Convert.ToInt32(lstSession.SelectedValue);
+                           
                             TrainingBusiness.DeleteCardioSession(cmd, SessionId);
-                            sessions.Remove((from s in sessions where s.Id == SessionId select s).FirstOrDefault());
+                            
                             // sessions = new BindingList<CardioSessionType>(TrainingBusiness.GetCardioSessions(cmd, mCalendar.SelectionStart.Date));
                         }
                     }
@@ -119,6 +120,7 @@ namespace TrainingCatalog.Forms
                         connection.Close();
                     }
                 }
+                sessions.Remove((from s in sessions where s.Id == SessionId select s).FirstOrDefault());
             }
             else
             {
@@ -184,52 +186,57 @@ namespace TrainingCatalog.Forms
             PointPairList mainIntervals = new PointPairList();
             PointPairList Resistance = new PointPairList();
             double TotalTime = 0;
-            double MaxV = 0;
+            
             foreach (CardioIntervalType i in intervals)
             {
                 if (i.Velocity > 0 && i.Time > 0)
                 {
+                    mainIntervals.Add(TotalTime, 0);
                     mainIntervals.Add(TotalTime, i.Velocity);
-                    BoxObj box = new BoxObj(TotalTime, i.Velocity, i.Time, i.Velocity);
-                   // box.IsClippedToChartRect = true;
-                    box.Border.Color = Color.Black;
-                    if (i.Velocity > MaxV) MaxV = i.Velocity;
-                   // box.Fill.SecondaryValueGradientColor = Color.Brown;
-                   // box.Fill.Color = Color.Black;
-                   // box.Fill.Type = FillType.GradientByColorValue;
-                 //   pane.GraphObjList.Add(box);
+                    mainIntervals.Add(TotalTime + i.Time, i.Velocity);
+                    mainIntervals.Add(TotalTime + i.Time, 0);
                     TotalTime += i.Time;
 
                 }
             }
-            BarItem bi = pane.AddBar("", mainIntervals, Color.Red);
-            if (TotalTime == 0) return;
-            // add resistance
-            pane.XAxis.Scale.Min = 0;
-            pane.XAxis.Scale.Max = TotalTime;
-            pane.YAxis.Scale.Min = 0;
-            pane.YAxis.Scale.Max = MaxV;
-           
-            double MaxResistance = (from i in intervals
-                                    where i.Resistance > 0
-                                    select i.Resistance).Max();
-            if (MaxResistance== 0) return;
-            
-            double scaleResistance = MaxV / MaxResistance;
-            TotalTime = 0;
-            foreach (CardioIntervalType i in intervals)
+
+            if (TotalTime > 0)
             {
-                string tag = string.Format("{0:0}", i.Resistance);
-                Resistance.Add(TotalTime, scaleResistance * i.Resistance, tag);
-                TotalTime += i.Time;
+                double MaxV = (from i in intervals
+                               select i.Velocity).Max();
+                if (MaxV > 0)
+                {
+                    // add resistance
+                    pane.XAxis.Scale.Min = 0;
+                    pane.XAxis.Scale.Max = TotalTime;
+                    pane.YAxis.Scale.Min = 0;
+                    pane.YAxis.Scale.Max = MaxV + MaxV * 0.2;
+
+                    double MaxResistance = (from i in intervals
+                                            select i.Resistance).Max();
+                    if (MaxResistance > 0)
+                    {
+
+                        double scaleResistance = MaxV / MaxResistance;
+                        TotalTime = 0;
+                        foreach (CardioIntervalType i in intervals)
+                        {
+                            if (i.Time > 0)
+                            {
+                                string tag = string.Format("{0:0}", i.Resistance);
+                                Resistance.Add(TotalTime, scaleResistance * i.Resistance, tag);
+                                Resistance.Add(TotalTime + i.Time, scaleResistance * i.Resistance, tag);
+                                TotalTime += i.Time;
+                            }
+                        }
+                       LineItem lineItemR = pane.AddCurve("Resistance", Resistance, Color.Blue, SymbolType.None);
+                       lineItemR.Line.Width = 3.0F;
+                    }
+                }
             }
-            BoxObj box1 = new BoxObj(1, 10, 1, 1);
-            pane.GraphObjList.Add(box1);
+            LineItem lineItem = pane.AddCurve("Velocity", mainIntervals, Color.Black, SymbolType.None);
+            lineItem.Line.Fill = new Fill(Color.White, Color.Red, 45F);
 
-
-            
-            // pane.AddCurve("Weight", mainIntervals, Color.Brown, SymbolType.None);
-            pane.AddCurve("", Resistance, Color.Blue, SymbolType.Circle);
             zedGraphControl.AxisChange();
             zedGraphControl.Refresh();
         }
