@@ -13,12 +13,11 @@ using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog.Forms
 {
-    public partial class EditCardio : BaseForm
+    public partial class CardioEdit : BaseForm
     {
-        SqlCeConnection connection;
-        SqlCeCommand cmd;
+
         const int CardioTypesCount = 6;
-        public EditCardio()
+        public CardioEdit()
         {
             InitializeComponent();
             connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);

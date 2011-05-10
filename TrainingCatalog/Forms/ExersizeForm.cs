@@ -13,7 +13,7 @@ namespace TrainingCatalog
 {
     public partial class ExersizeForm : BaseForm
     {
-        SqlCeConnection connection;
+
         DataSet categories = new DataSet();
         public ExersizeForm()
         {

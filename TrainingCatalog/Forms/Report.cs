@@ -49,25 +49,6 @@ namespace TrainingCatalog
             }
         }
 
-        private SqlCeConnection _connection;
-        protected SqlCeConnection connection
-        {
-            get
-            {
-                if (_connection == null)
-                {
-                    try
-                    {
-                        _connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-                    }
-                    catch (Exception ee)
-                    {
-                        MessageBox.Show(ee.Message);
-                    }
-                }
-                return _connection;
-            }
-        }
         public Report()
         {
             InitializeComponent();

@@ -18,8 +18,7 @@ namespace TrainingCatalog.Forms
     {
         BindingSource bs;
         BindingList<CardioSessionType> sessions;
-        SqlCeConnection connection;
-        SqlCeCommand cmd;
+
         public CardioTraining()
         {
             InitializeComponent();

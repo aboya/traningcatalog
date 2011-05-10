@@ -35,7 +35,7 @@ namespace TrainingCatalog.Forms
                 connection.Open();
                 using (cmd = connection.CreateCommand())
                 {
-                    templateList = TrainingBusiness.GetCardioTemplate(cmd);
+                    templateList = TrainingBusiness.GetCardioTemplates(cmd);
                 }
 
             }

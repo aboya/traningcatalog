@@ -4,13 +4,16 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.Forms;
+using TrainingCatalog.BusinessLogic.Types;
+using System.Collections.Generic;
+using TrainingCatalog.BusinessLogic;
 
 namespace TrainingCatalog
 {
     public partial class Templates : BaseForm
     {
-        DataSet templates;
-        SqlCeConnection connection;
+        List<TemplateType> templates;
+
         public Templates()
         {
             InitializeComponent();
@@ -27,8 +30,7 @@ namespace TrainingCatalog
         {
             try
             {
-                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-                templates = new DataSet();
+                templates = new List<TemplateType>();
                 FillData();
                 GridBind();
             }
@@ -42,11 +44,11 @@ namespace TrainingCatalog
         {
             dataGridView1.Rows.Clear();
             int i = 0;
-            foreach (DataRow dr in templates.Tables[0].Rows)
+            foreach (var t in templates)
             {
-                dataGridView1.Rows.Add(new[] { dr["Name"] });
+                dataGridView1.Rows.Add(new[] { t.Name });
                 dataGridView1.Rows[i].Cells[1].Value = "Remove";
-                dataGridView1.Rows[i].Tag = dr["ID"];
+                dataGridView1.Rows[i].Tag = t.Id;
                 i++;
             }
  
@@ -56,14 +58,9 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (SqlCeCommand cmd = connection.CreateCommand())
+                using (cmd = connection.CreateCommand())
                 {
-                    cmd.CommandText = "select * from Template";
-                    SqlCeDataAdapter da = new SqlCeDataAdapter();
-                    da.SelectCommand = cmd;
-                    templates.Clear();
-                    da.Fill(templates);
-
+                    templates = TrainingBusiness.GetWeightLigtingTemplates(cmd);
                 }
             }
             catch (Exception e)

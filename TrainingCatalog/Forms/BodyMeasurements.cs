@@ -15,7 +15,7 @@ namespace TrainingCatalog.Forms
 {
     public partial class BodyMeasurements : BaseForm
     {
-        SqlCeConnection connection;
+
         bool IsSaved = true;
         bool fromCode = false;
         DateTime lastDate;

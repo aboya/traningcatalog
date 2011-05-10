@@ -468,8 +468,7 @@ namespace TrainingCatalog.Controls
 
         private void gvMain_DataSourceChanged(object sender, EventArgs e)
         {
-            int a;
-            a = 0;
+
         }
 
     }

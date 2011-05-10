@@ -70,7 +70,7 @@ namespace TrainingCatalog.Forms
                 connection.Open();
                 using (cmd = connection.CreateCommand())
                 {
-                    list = TrainingBusiness.GetCardioTemplate(cmd);
+                    list = TrainingBusiness.GetCardioTemplates(cmd);
                 }
             }
             catch (Exception ee)
