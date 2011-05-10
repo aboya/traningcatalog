@@ -49,6 +49,8 @@ namespace TrainingCatalog.Forms
             using (CardioSession cardioSession = new CardioSession(SessionId))
             {
                 cardioSession.ShowDialog(this);
+                mCalendar.AddBoldedDate(mCalendar.SelectionStart);
+                mCalendar.UpdateBoldedDates();
             }
             
         }
@@ -79,6 +81,7 @@ namespace TrainingCatalog.Forms
                 using (cmd = connection.CreateCommand())
                 {
                     sessions = new BindingList<CardioSessionType>(TrainingBusiness.GetCardioSessions(cmd, mCalendar.SelectionStart.Date));
+                    mCalendar.BoldedDates = TrainingBusiness.GetCardioTrainingDays(cmd).ToArray();
                 }
             }
             catch (Exception ee)
@@ -111,8 +114,8 @@ namespace TrainingCatalog.Forms
                         {
                            
                             TrainingBusiness.DeleteCardioSession(cmd, SessionId);
-                            
-                            // sessions = new BindingList<CardioSessionType>(TrainingBusiness.GetCardioSessions(cmd, mCalendar.SelectionStart.Date));
+
+                            mCalendar.BoldedDates = TrainingBusiness.GetCardioTrainingDays(cmd).ToArray();
                         }
                     }
                     catch (Exception ee)
@@ -202,10 +205,10 @@ namespace TrainingCatalog.Forms
                 if (i.Velocity > 0 && i.Time > 0)
                 {
                     string tag = string.Format("{0:0}",i.Velocity);
-                    mainIntervals.Add(TotalTime, 0,string.Empty);
-                    mainIntervals.Add(TotalTime, i.Velocity, string.Empty);
-                    mainIntervals.Add(TotalTime + i.Time, i.Velocity, string.Empty);
-                    mainIntervals.Add(TotalTime + i.Time, 0, string.Empty);
+                    mainIntervals.Add(TotalTime, 0, tag);
+                    mainIntervals.Add(TotalTime, i.Velocity, tag);
+                    mainIntervals.Add(TotalTime + i.Time, i.Velocity, tag);
+                    mainIntervals.Add(TotalTime + i.Time, 0, tag);
                     TotalTime += i.Time;
 
                 }
