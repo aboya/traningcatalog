@@ -46,7 +46,10 @@ namespace TrainingCatalog.Forms
             {
                 connection.Close();
             }
-            new CardioSession(SessionId).ShowDialog(this);
+            using (CardioSession cardioSession = new CardioSession(SessionId))
+            {
+                cardioSession.ShowDialog(this);
+            }
             
         }
 
@@ -57,7 +60,6 @@ namespace TrainingCatalog.Forms
                 zedGraphControl.Visible = true;
                 this.MinimumSize = new System.Drawing.Size(465, 426);
                 this.MaximumSize = new Size(0, 0);
-                
                 CreateCgraph();
             }
             else
@@ -199,6 +201,7 @@ namespace TrainingCatalog.Forms
             {
                 if (i.Velocity > 0 && i.Time > 0)
                 {
+                    string tag = string.Format("{0:0}",i.Velocity);
                     mainIntervals.Add(TotalTime, 0,string.Empty);
                     mainIntervals.Add(TotalTime, i.Velocity, string.Empty);
                     mainIntervals.Add(TotalTime + i.Time, i.Velocity, string.Empty);
@@ -269,6 +272,10 @@ namespace TrainingCatalog.Forms
                 connection.Close();
             }
             return res;
+        }
+        private void mCalendar_DoubleClick(object sender,  EventArgs args)
+        {
+             
         }
         
 
