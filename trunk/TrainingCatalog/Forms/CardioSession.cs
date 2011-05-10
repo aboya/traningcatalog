@@ -68,9 +68,6 @@ namespace TrainingCatalog.Forms
             if (session.EndTime > 0)
                 txtEndTime.Text = string.Format("{0:00}{1:00}", session.EndTime / 60, session.EndTime % 60);
             if (intervals != null) cardioExersizesControl.LoadCardioExersizes(intervals);
-             
-
-
 
         }
 

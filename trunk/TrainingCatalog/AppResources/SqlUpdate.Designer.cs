@@ -173,7 +173,7 @@ namespace TrainingCatalog.AppResources {
         /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE Settings
         ///(
-        ///   [Key] nvarchar(20) NOT NULL constraint PK_Settings_Key PRIMARY KEY,
+        ///   [Key] nvarchar(50) NOT NULL constraint PK_Settings_Key PRIMARY KEY,
         ///   Value nvarchar(100) not null
         ///).
         /// </summary>

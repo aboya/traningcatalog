@@ -18,4 +18,5 @@ namespace TrainingCatalog.BusinessLogic.Types
         public double Distance { get; set; }
         public double HeartRate { get; set; }
     }
+
 }

@@ -75,7 +75,19 @@ namespace TrainingCatalog.Controls
             intervals = new BindingList<CardioIntervalType>();
             bs.DataSource = intervals;
             gvMain.DataSource = bs;
+
+            string o;
+            o = dbBusiness.GetValue("DistanceUnit");
+            if (!string.IsNullOrEmpty(o)) cbDistance.SelectedIndex = Convert.ToInt32(o);
+            o = dbBusiness.GetValue("TimeUnit");
+            if (!string.IsNullOrEmpty(o)) cbTime.SelectedIndex = Convert.ToInt32(o);
+            o = dbBusiness.GetValue("Velocity_DistanceUnit");
+            if (!string.IsNullOrEmpty(o)) cbSpeedDistance.SelectedIndex = Convert.ToInt32(o);
+            o = dbBusiness.GetValue("Velocity_TimeUnit");
+            if (!string.IsNullOrEmpty(o)) cbSpeedTime.SelectedIndex = Convert.ToInt32(o);
+            
         }
+        
         private void gvMain_DistanceChanged(DataGridViewCell lastEditedCell)
         {
 
@@ -228,6 +240,7 @@ namespace TrainingCatalog.Controls
             double s = GetDistanceKoefficient(LastDistance, current);
             DoConvert(intervals, s, 1, 1);
             bs.ResetBindings(false);
+            dbBusiness.SaveValue("DistanceUnit", Convert.ToString((int)current));
         }
         private void cbTime_SelectionChangeCommitted(object sender, EventArgs e)
         {
@@ -235,6 +248,7 @@ namespace TrainingCatalog.Controls
             double t = GetTimeKoefficient(LastTime, current);
             DoConvert(intervals, 1, 1, t);
             bs.ResetBindings(false);
+            dbBusiness.SaveValue("TimeUnit", Convert.ToString((int)current));
         }
         private void cbSpeedDistance_SelectionChangeCommitted(object sender, EventArgs e)
         {
@@ -243,6 +257,8 @@ namespace TrainingCatalog.Controls
             double v = GetDistanceKoefficient(LastSpeedDistance, current);
             DoConvert(intervals, 1, v, 1);
             bs.ResetBindings(false);
+            dbBusiness.SaveValue("Velocity_DistanceUnit", Convert.ToString((int)current));
+            
         }
         private void cbSpeedTime_SelectionChangeCommitted(object sender, EventArgs e)
         {
@@ -250,6 +266,7 @@ namespace TrainingCatalog.Controls
             double v = 1.0 / GetTimeKoefficient(LastSpeedTime, current);
             DoConvert(intervals, 1, v, 1);
             bs.ResetBindings(false);
+            dbBusiness.SaveValue("Velocity_TimeUnit", Convert.ToString((int)current));
         }
         //==========================================================================================================================
         #endregion
