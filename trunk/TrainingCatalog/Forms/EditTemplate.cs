@@ -17,7 +17,7 @@ namespace TrainingCatalog
     public partial class EditTemplate : BaseForm
     {
         private int _TemplateID;
-        SqlCeConnection connection;
+
         public EditTemplate()
         {
             InitializeComponent();

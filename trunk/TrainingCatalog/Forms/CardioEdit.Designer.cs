@@ -1,6 +1,6 @@
 ﻿namespace TrainingCatalog.Forms
 {
-    partial class EditCardio
+    partial class CardioEdit
     {
         /// <summary>
         /// Required designer variable.

@@ -17,7 +17,6 @@ namespace TrainingCatalog
 {
     public partial class Training : BaseForm
     {
-        SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
         SqlCeDataAdapter table = new SqlCeDataAdapter();
         public DateTime TrainingDate = DateTime.Now;
         public Training()

@@ -15,8 +15,7 @@ namespace TrainingCatalog.Forms
 {
     public partial class Categories : BaseForm
     {
-        SqlCeConnection connection;
-        SqlCeCommand cmd;
+
         public Categories()
         {
             InitializeComponent();

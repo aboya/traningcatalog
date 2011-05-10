@@ -14,7 +14,7 @@ namespace TrainingCatalog
 {
     public partial class ExersizesList : BaseForm
     {
-        SqlCeConnection connection;
+
         SqlCeDataAdapter table = new SqlCeDataAdapter();
         DataSet Exersizes = new DataSet();
         DataSet categories = new DataSet();

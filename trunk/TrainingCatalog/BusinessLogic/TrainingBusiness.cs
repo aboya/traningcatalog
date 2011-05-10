@@ -873,7 +873,7 @@ namespace TrainingCatalog.BusinessLogic
             return res;
         }
 
-        public static List<TemplateType> GetCardioTemplate(SqlCeCommand cmd)
+        public static List<TemplateType> GetCardioTemplates(SqlCeCommand cmd)
         {
             List<TemplateType> res = new List<TemplateType>();
             cmd.Parameters.Clear();
@@ -885,6 +885,25 @@ namespace TrainingCatalog.BusinessLogic
                     res.Add(new TemplateType() {
                          Id = Convert.ToInt32(reader["Id"]),
                          Name = Convert.ToString(reader["Name"])
+                    });
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+        }
+        public static List<TemplateType> GetWeightLigtingTemplates(SqlCeCommand cmd)
+        {
+            List<TemplateType> res = new List<TemplateType>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select t.Id,t.Name from Template t inner join TrainingTemplate tt on t.Id = tt.TemplateId group by t.Id,t.Name";
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res.Add(new TemplateType()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        Name = Convert.ToString(reader["Name"])
                     });
                 }
             }

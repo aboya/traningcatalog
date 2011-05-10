@@ -26,7 +26,7 @@ namespace TrainingCatalog.Forms
         /// store last selected date for rollback if unsaved data exists
         /// </summary>
         DateTime lastDate;
-        SqlCeConnection connection;
+
         public DayComment()
         {
             connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);

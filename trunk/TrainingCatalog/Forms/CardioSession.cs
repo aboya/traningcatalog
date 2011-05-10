@@ -17,8 +17,7 @@ namespace TrainingCatalog.Forms
 {
     public partial class CardioSession : BaseForm
     {
-        SqlCeConnection connection;
-        SqlCeCommand cmd;
+
      
         //int sessionId;
         CardioSessionType session;

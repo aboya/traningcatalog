@@ -18,7 +18,7 @@ namespace TrainingCatalog
 {
     public partial class Perfomance : BaseForm
     {
-        SqlCeConnection connection;
+
         protected DateTime MinDateTime;
         protected DateTime MaxDateTime;
         private bool _IsShown = false;

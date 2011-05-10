@@ -109,6 +109,7 @@
       <DependentUpon>DataBaseSchema.xsd</DependentUpon>
     </Compile>
     <Compile Include="BusinessLogic\Enums\CardioGridEnum.cs" />
+    <Compile Include="BusinessLogic\Enums\TemplateTypeEnum.cs" />
     <Compile Include="BusinessLogic\StatisticsBusiness.cs" />
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
     <Compile Include="BusinessLogic\Types\CardioExersizeType.cs" />
@@ -233,11 +234,11 @@
     <Compile Include="Forms\DayComment.Designer.cs">
       <DependentUpon>DayComment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EditCardio.cs">
+    <Compile Include="Forms\CardioEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\EditCardio.Designer.cs">
-      <DependentUpon>EditCardio.cs</DependentUpon>
+    <Compile Include="Forms\CardioEdit.Designer.cs">
+      <DependentUpon>CardioEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\EditTemplate.cs">
       <SubType>Form</SubType>
@@ -342,8 +343,8 @@
     <EmbeddedResource Include="Forms\DayComment.resx">
       <DependentUpon>DayComment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditCardio.resx">
-      <DependentUpon>EditCardio.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CardioEdit.resx">
+      <DependentUpon>CardioEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditTemplate.resx">
       <DependentUpon>EditTemplate.cs</DependentUpon>

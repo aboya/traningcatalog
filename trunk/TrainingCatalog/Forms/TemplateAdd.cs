@@ -15,7 +15,7 @@ namespace TrainingCatalog
 {
     public partial class TemplateAdd : BaseForm
     {
-        SqlCeConnection connection;
+
         DataSet templates;
         DateTime _trainingDay;
         public TemplateAdd(DateTime trainingDay)
