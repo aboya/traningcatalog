@@ -20,8 +20,6 @@ namespace TrainingCatalog.Forms
         public CardioEdit()
         {
             InitializeComponent();
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-            cmd = connection.CreateCommand();
         }
         private bool CheckName(string str)
         {
@@ -42,17 +40,20 @@ namespace TrainingCatalog.Forms
             try
             {
                 connection.Open();
-                CardioExersizeType exersize = new CardioExersizeType();
-                exersize.Name = txtName.Text;
-                exersize.Id = Convert.ToInt32(lstExersizes.SelectedValue);
-                Dictionary<int, bool> cardioTypes = new Dictionary<int, bool>();
-                for (int i = 1; i <= CardioTypesCount; i++)
+                using (cmd = connection.CreateCommand())
                 {
-                    cardioTypes[i] = lstProperties.GetItemChecked(i - 1);
-                }
+                    CardioExersizeType exersize = new CardioExersizeType();
+                    exersize.Name = txtName.Text;
+                    exersize.Id = Convert.ToInt32(lstExersizes.SelectedValue);
+                    Dictionary<int, bool> cardioTypes = new Dictionary<int, bool>();
+                    for (int i = 1; i <= CardioTypesCount; i++)
+                    {
+                        cardioTypes[i] = lstProperties.GetItemChecked(i - 1);
+                    }
 
-                TrainingBusiness.SaveCardioExersize(cmd, exersize, cardioTypes);
-                exersizes = TrainingBusiness.GetCardioExersizes(cmd);
+                    TrainingBusiness.SaveCardioExersize(cmd, exersize, cardioTypes);
+                    exersizes = TrainingBusiness.GetCardioExersizes(cmd);
+                }
             }
             catch (Exception ee)
             {
@@ -77,16 +78,19 @@ namespace TrainingCatalog.Forms
             try
             {
                 connection.Open();
-                CardioExersizeType exersize = new CardioExersizeType();
-                exersize.Name = txtName.Text;
-                Dictionary<int, bool> cardioTypes = new Dictionary<int, bool>();
-                for (int i = 1; i <= CardioTypesCount; i++)
+                using (cmd = connection.CreateCommand())
                 {
-                    cardioTypes[i] = lstProperties.GetItemChecked(i - 1);
-                }
+                    CardioExersizeType exersize = new CardioExersizeType();
+                    exersize.Name = txtName.Text;
+                    Dictionary<int, bool> cardioTypes = new Dictionary<int, bool>();
+                    for (int i = 1; i <= CardioTypesCount; i++)
+                    {
+                        cardioTypes[i] = lstProperties.GetItemChecked(i - 1);
+                    }
 
-                TrainingBusiness.SaveCardioExersize(cmd, exersize, cardioTypes);
-                exersizes = TrainingBusiness.GetCardioExersizes(cmd);
+                    TrainingBusiness.SaveCardioExersize(cmd, exersize, cardioTypes);
+                    exersizes = TrainingBusiness.GetCardioExersizes(cmd);
+                }
             }
             catch (Exception ee)
             {
@@ -110,11 +114,14 @@ namespace TrainingCatalog.Forms
             try
             {
                 connection.Open();
-                CardioExersizeType exersize = new CardioExersizeType();
-                exersize.Name = txtName.Text;
-                             
-                TrainingBusiness.DeleteCardioExersize(cmd, Convert.ToInt32(lstExersizes.SelectedValue));
-                exersizes = TrainingBusiness.GetCardioExersizes(cmd); ;
+                using (cmd = connection.CreateCommand())
+                {
+                    CardioExersizeType exersize = new CardioExersizeType();
+                    exersize.Name = txtName.Text;
+
+                    TrainingBusiness.DeleteCardioExersize(cmd, Convert.ToInt32(lstExersizes.SelectedValue));
+                    exersizes = TrainingBusiness.GetCardioExersizes(cmd);
+                }
             }
             catch (Exception ee)
             {
@@ -139,15 +146,18 @@ namespace TrainingCatalog.Forms
             try
             {
                 connection.Open();
-                exersizes = TrainingBusiness.GetCardioExersizes(cmd); 
-                
-                lstExersizes.ValueMember = "Id";
-                lstExersizes.DisplayMember = "Name";
-                Dictionary<int, string> types = TrainingBusiness.GetCardioTypes();
-                lstProperties.Items.Clear();
-                for (int i = 1; i <= CardioTypesCount; i++)
+                using (cmd = connection.CreateCommand())
                 {
-                    lstProperties.Items.Add(types[i], false);
+                    exersizes = TrainingBusiness.GetCardioExersizes(cmd);
+
+                    lstExersizes.ValueMember = "Id";
+                    lstExersizes.DisplayMember = "Name";
+                    Dictionary<int, string> types = TrainingBusiness.GetCardioTypes();
+                    lstProperties.Items.Clear();
+                    for (int i = 1; i <= CardioTypesCount; i++)
+                    {
+                        lstProperties.Items.Add(types[i], false);
+                    }
                 }
             }
             catch (Exception ee)
@@ -169,13 +179,16 @@ namespace TrainingCatalog.Forms
             {
                 connection.Open();
                 int exersizeId = Convert.ToInt32(lstExersizes.SelectedValue);
-                Dictionary<int, bool> types = TrainingBusiness.GetCardioTypesForExersize(cmd, exersizeId);
-
-                for (int i = 1; i <= CardioTypesCount; i++)
+                using (cmd = connection.CreateCommand())
                 {
-                    lstProperties.SetItemChecked(i - 1, types[i]);
+                    Dictionary<int, bool> types = TrainingBusiness.GetCardioTypesForExersize(cmd, exersizeId);
+
+                    for (int i = 1; i <= CardioTypesCount; i++)
+                    {
+                        lstProperties.SetItemChecked(i - 1, types[i]);
+                    }
+                    txtName.Text = lstExersizes.Text;
                 }
-                txtName.Text = lstExersizes.Text;
             }
             catch (Exception ee)
             {

@@ -184,7 +184,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                     else res = Convert.ToString(o);
                 }
             }
-            return res;
+            return res + string.Empty;
         }
         public static void SetValue(string key, string value)
         {
@@ -215,6 +215,46 @@ namespace TrainingCatalog.BusinessLogic.Types
                     cmd.Parameters.Add("@val", SqlDbType.NVarChar).Value = value == null ? DBNull.Value : (object)value;
                     cmd.ExecuteNonQuery();
                 }
+            }
+        }
+        /// <summary>
+        /// saves value. if value not exist creating new
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public static void SaveValue(string key, string value)
+        {
+            try
+            {
+                if (!CheckKey(key)) return;
+                using (SqlCeConnection connection = new SqlCeConnection(connectionString))
+                {
+                    using (SqlCeCommand cmd = connection.CreateCommand())
+                    {
+                        connection.Open();
+                        cmd.CommandText = "select count([Key]) from Settings where value = @key";
+                        cmd.Parameters.Add("@key", SqlDbType.NVarChar).Value = key;
+                        int cnt = Convert.ToInt32(cmd.ExecuteNonQuery());
+                        cmd.Parameters.Clear();
+                        if (cnt > 0)
+                        {
+                            cmd.CommandText = "update Settings set Value = @val where [Key] = @k";
+                        }
+                        else
+                        {
+
+                            cmd.CommandText = "insert into Settings ([Key],value) values (@k,@val)";
+                        }
+                        cmd.Parameters.Add("@k", SqlDbType.NVarChar).Value = key;
+                        cmd.Parameters.Add("@val", SqlDbType.NVarChar).Value = value == null ? DBNull.Value : (object)value;
+                        cmd.ExecuteNonQuery();
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
         /// <summary>

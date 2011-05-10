@@ -196,7 +196,7 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
   <data name="v18" xml:space="preserve">
     <value>CREATE TABLE Settings
 (
-   [Key] nvarchar(20) NOT NULL constraint PK_Settings_Key PRIMARY KEY,
+   [Key] nvarchar(50) NOT NULL constraint PK_Settings_Key PRIMARY KEY,
    Value nvarchar(100) not null
 )</value>
     <comment>0018</comment>
