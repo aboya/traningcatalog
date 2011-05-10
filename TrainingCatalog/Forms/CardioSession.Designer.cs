@@ -158,7 +158,7 @@ namespace TrainingCatalog.Forms
             this.btnFromOtherDay.Name = "btnFromOtherDay";
             this.btnFromOtherDay.Size = new System.Drawing.Size(50, 23);
             this.btnFromOtherDay.TabIndex = 15;
-            this.btnFromOtherDay.Text = "baseButton2";
+            this.btnFromOtherDay.Text = "День";
             this.btnFromOtherDay.UseVisualStyleBackColor = true;
             this.btnFromOtherDay.Click += new System.EventHandler(this.btnFromOtherDay_Click);
             // 

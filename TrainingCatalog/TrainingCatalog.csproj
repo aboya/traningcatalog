@@ -189,6 +189,12 @@
     <Compile Include="Forms\BodyMeasurements.Designer.cs">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CardioAddFromAnotherDay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CardioAddFromAnotherDay.Designer.cs">
+      <DependentUpon>CardioAddFromAnotherDay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CardioAddFromTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BodyMeasurements.resx">
       <DependentUpon>BodyMeasurements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CardioAddFromAnotherDay.resx">
+      <DependentUpon>CardioAddFromAnotherDay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CardioAddFromTemplate.resx">
       <DependentUpon>CardioAddFromTemplate.cs</DependentUpon>

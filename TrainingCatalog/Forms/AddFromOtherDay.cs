@@ -12,10 +12,8 @@ using TrainingCatalog.BusinessLogic;
 
 namespace TrainingCatalog.Forms
 {
-    public partial class AddFromOtherDay : Form
+    public partial class AddFromOtherDay : BaseForm
     {
-        SqlCeConnection connection;
-        SqlCeCommand cmd;
         DateTime trainingDate;
         public AddFromOtherDay()
         {
@@ -32,28 +30,29 @@ namespace TrainingCatalog.Forms
         }
         private void AddFromOtherDay_Load(object sender, EventArgs e)
         {
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-            cmd = connection.CreateCommand();
-            try
+            using (cmd = connection.CreateCommand())
             {
-                connection.Open();
-                mc.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
-                mc.MaxDate = TrainingBusiness.GetEndTrainingDay(cmd);
-                mc.BoldedDates = TrainingBusiness.GetTrainingDays(cmd, mc.MinDate, mc.MaxDate).ToArray();
-                mc.AddBoldedDate(DateTime.MaxValue);
-                mc.AddBoldedDate(DateTime.MinValue);
-                if (mc.BoldedDates.Contains(mc.SelectionStart))
+                try
                 {
-                    templateViewerControl.LoadTemplateExersizes(TrainingBusiness.GetExersizes(cmd, mc.SelectionStart));
+                    connection.Open();
+                    mc.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
+                    mc.MaxDate = TrainingBusiness.GetEndTrainingDay(cmd);
+                    mc.BoldedDates = TrainingBusiness.GetTrainingDays(cmd, mc.MinDate, mc.MaxDate).ToArray();
+                    mc.AddBoldedDate(DateTime.MaxValue);
+                    mc.AddBoldedDate(DateTime.MinValue);
+                    if (mc.BoldedDates.Contains(mc.SelectionStart))
+                    {
+                        templateViewerControl.LoadTemplateExersizes(TrainingBusiness.GetExersizes(cmd, mc.SelectionStart));
+                    }
                 }
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show(ee.Message);
-            }
-            finally
-            {
-                connection.Close();
+                catch (Exception ee)
+                {
+                    MessageBox.Show(ee.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
 

@@ -47,6 +47,7 @@ namespace TrainingCatalog.Forms
                 connection.Close();
             }
             new CardioSession(SessionId).ShowDialog(this);
+            
         }
 
         private void chkGraph_CheckedChanged(object sender, EventArgs e)
@@ -175,7 +176,12 @@ namespace TrainingCatalog.Forms
             Bar a;
             
             List<CardioIntervalType> intervals = GetCardioIntervals();
-            if (intervals.Count == 0) return;
+            if (intervals.Count == 0)
+            {
+                zedGraphControl.AxisChange();
+                zedGraphControl.Refresh();
+                return;
+            }
             //pane.XAxis.Type = AxisType.Linear;
             // Set the Titles
             pane.GraphObjList.Clear();
