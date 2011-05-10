@@ -57,11 +57,13 @@ namespace TrainingCatalog.Forms
                 zedGraphControl.Visible = true;
                 this.MinimumSize = new System.Drawing.Size(465, 426);
                 this.MaximumSize = new Size(0, 0);
+                
                 CreateCgraph();
             }
             else
             {
                 zedGraphControl.Visible = false;
+                this.WindowState = FormWindowState.Normal;
                 this.MaximumSize = this.MinimumSize = new System.Drawing.Size(465, 228);
             }
         }
@@ -133,6 +135,7 @@ namespace TrainingCatalog.Forms
             if (lstSession.SelectedValue != null)
             {
                 new CardioSession(Convert.ToInt32(lstSession.SelectedValue)).ShowDialog(this);
+                CreateCgraph();
                 
             }
         }
@@ -191,10 +194,10 @@ namespace TrainingCatalog.Forms
             {
                 if (i.Velocity > 0 && i.Time > 0)
                 {
-                    mainIntervals.Add(TotalTime, 0);
-                    mainIntervals.Add(TotalTime, i.Velocity);
-                    mainIntervals.Add(TotalTime + i.Time, i.Velocity);
-                    mainIntervals.Add(TotalTime + i.Time, 0);
+                    mainIntervals.Add(TotalTime, 0,string.Empty);
+                    mainIntervals.Add(TotalTime, i.Velocity, string.Empty);
+                    mainIntervals.Add(TotalTime + i.Time, i.Velocity, string.Empty);
+                    mainIntervals.Add(TotalTime + i.Time, 0, string.Empty);
                     TotalTime += i.Time;
 
                 }

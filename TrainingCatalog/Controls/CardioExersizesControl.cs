@@ -165,7 +165,12 @@ namespace TrainingCatalog.Controls
                 }
             }
         }
+        public void AddRow(CardioIntervalType i)
+        {
+            if (i == null || i.Name == null || i.CardioTypeId == 0) return;
+            intervals.Add(i);
 
+        }
         private void lstExersizes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
