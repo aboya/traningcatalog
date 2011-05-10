@@ -1084,5 +1084,24 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
+
+        public static List<DateTime> GetCardioTrainingDays(SqlCeCommand cmd)
+        {
+            List<DateTime> res = new List<DateTime>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = @"SELECT Training.Day
+                                    FROM  Training INNER JOIN
+                                    CardioSession ON Training.Id = CardioSession.TrainingId
+                                    GROUP BY Training.Day  ";
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    res.Add(Convert.ToDateTime(reader["Day"]));
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+        }
     }
 }
