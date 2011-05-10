@@ -68,8 +68,8 @@ namespace TrainingCatalog.Forms
                 txtBeginTime.Text = string.Format("{0:00}{1:00}", session.StartTime / 60, session.StartTime % 60);
             if (session.EndTime > 0)
                 txtEndTime.Text = string.Format("{0:00}{1:00}", session.EndTime / 60, session.EndTime % 60);
-            if (session.StartTime > 0 && session.EndTime > 0)
-                txtDuration.Text = string.Format("{0:00}{1:00}", (session.EndTime + session.StartTime) / 60, (session.EndTime + session.StartTime) % 60);
+          //  if (session.StartTime > 0 && session.EndTime > 0)
+          //      txtDuration.Text = string.Format("{0:00}{1:00}", (session.EndTime + session.StartTime) / 60, (session.EndTime + session.StartTime) % 60);
            // gvMain.OnDurationChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(DurationChanged);
            // gvMain.OnDistanceChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(DistanceChanged);
          // /  gvMain.OnVelocityChanged += new TrainingCatalog.Controls.CardioDataGridView.CustomCellValueChanged(VelocityChanged);
@@ -158,6 +158,21 @@ namespace TrainingCatalog.Forms
             {
                 connection.Close();
             }
+
+        }
+
+        private void btnFromTemplate_Click(object sender, EventArgs e)
+        {
+            List<CardioIntervalType> res;
+            new CardioAddFromTemplate(session, out res).ShowDialog(this);
+            foreach(CardioIntervalType i in res) 
+            {
+                this.cardioExersizesControl.AddRow(i);  
+            }
+        }
+
+        private void btnFromOtherDay_Click(object sender, EventArgs e)
+        {
 
         }
 

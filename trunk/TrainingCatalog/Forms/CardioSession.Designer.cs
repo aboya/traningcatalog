@@ -9,10 +9,8 @@ namespace TrainingCatalog.Forms
         private System.ComponentModel.IContainer components = null;
         private TrainingCatalog.Controls.BaseMaskedTextBox txtBeginTime;
         private Controls.BaseMaskedTextBox txtEndTime;
-        private Controls.BaseMaskedTextBox txtDuration;
         private Controls.BaseLabel lblStart;
         private Controls.BaseLabel lblEnd;
-        private Controls.BaseLabel lblDuration;
         private System.Windows.Forms.ListBox lstExersizes;
         private TrainingCatalog.Controls.BaseButton btnAdd;
         private Controls.BaseGroupBox baseGroupBox1;
@@ -42,14 +40,14 @@ namespace TrainingCatalog.Forms
             this.btnOk = new TrainingCatalog.Controls.BaseButton();
             this.txtBeginTime = new TrainingCatalog.Controls.BaseMaskedTextBox();
             this.txtEndTime = new TrainingCatalog.Controls.BaseMaskedTextBox();
-            this.txtDuration = new TrainingCatalog.Controls.BaseMaskedTextBox();
             this.lblStart = new TrainingCatalog.Controls.BaseLabel();
             this.lblEnd = new TrainingCatalog.Controls.BaseLabel();
-            this.lblDuration = new TrainingCatalog.Controls.BaseLabel();
             this.lstExersizes = new System.Windows.Forms.ListBox();
             this.btnAdd = new TrainingCatalog.Controls.BaseButton();
             this.baseGroupBox1 = new TrainingCatalog.Controls.BaseGroupBox();
             this.cardioExersizesControl = new TrainingCatalog.Controls.CardioExersizesControl();
+            this.btnFromTemplate = new TrainingCatalog.Controls.BaseButton();
+            this.btnFromOtherDay = new TrainingCatalog.Controls.BaseButton();
             this.baseGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,16 +81,6 @@ namespace TrainingCatalog.Forms
             this.txtEndTime.TabIndex = 2;
             this.txtEndTime.ValidatingType = typeof(System.DateTime);
             // 
-            // txtDuration
-            // 
-            this.txtDuration.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDuration.Location = new System.Drawing.Point(123, 60);
-            this.txtDuration.Mask = "00:00";
-            this.txtDuration.Name = "txtDuration";
-            this.txtDuration.Size = new System.Drawing.Size(49, 20);
-            this.txtDuration.TabIndex = 4;
-            this.txtDuration.ValidatingType = typeof(System.DateTime);
-            // 
             // lblStart
             // 
             this.lblStart.AutoSize = true;
@@ -110,15 +98,6 @@ namespace TrainingCatalog.Forms
             this.lblEnd.Size = new System.Drawing.Size(105, 13);
             this.lblEnd.TabIndex = 6;
             this.lblEnd.Text = "Врмея завершения";
-            // 
-            // lblDuration
-            // 
-            this.lblDuration.AutoSize = true;
-            this.lblDuration.Location = new System.Drawing.Point(6, 62);
-            this.lblDuration.Name = "lblDuration";
-            this.lblDuration.Size = new System.Drawing.Size(111, 13);
-            this.lblDuration.TabIndex = 7;
-            this.lblDuration.Text = "Продолжительность";
             // 
             // lstExersizes
             // 
@@ -145,7 +124,7 @@ namespace TrainingCatalog.Forms
             // baseGroupBox1
             // 
             this.baseGroupBox1.Controls.Add(this.lstExersizes);
-            this.baseGroupBox1.Location = new System.Drawing.Point(15, 86);
+            this.baseGroupBox1.Location = new System.Drawing.Point(15, 59);
             this.baseGroupBox1.Name = "baseGroupBox1";
             this.baseGroupBox1.Size = new System.Drawing.Size(150, 215);
             this.baseGroupBox1.TabIndex = 12;
@@ -157,21 +136,42 @@ namespace TrainingCatalog.Forms
             this.cardioExersizesControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.cardioExersizesControl.DefaultCardioType = null;
             this.cardioExersizesControl.Location = new System.Drawing.Point(178, 8);
             this.cardioExersizesControl.Name = "cardioExersizesControl";
             this.cardioExersizesControl.Size = new System.Drawing.Size(563, 355);
             this.cardioExersizesControl.TabIndex = 13;
             // 
+            // btnFromTemplate
+            // 
+            this.btnFromTemplate.Location = new System.Drawing.Point(15, 281);
+            this.btnFromTemplate.Name = "btnFromTemplate";
+            this.btnFromTemplate.Size = new System.Drawing.Size(50, 23);
+            this.btnFromTemplate.TabIndex = 14;
+            this.btnFromTemplate.Text = "Добавить из шаблона";
+            this.btnFromTemplate.UseVisualStyleBackColor = true;
+            this.btnFromTemplate.Click += new System.EventHandler(this.btnFromTemplate_Click);
+            // 
+            // btnFromOtherDay
+            // 
+            this.btnFromOtherDay.Location = new System.Drawing.Point(115, 280);
+            this.btnFromOtherDay.Name = "btnFromOtherDay";
+            this.btnFromOtherDay.Size = new System.Drawing.Size(50, 23);
+            this.btnFromOtherDay.TabIndex = 15;
+            this.btnFromOtherDay.Text = "baseButton2";
+            this.btnFromOtherDay.UseVisualStyleBackColor = true;
+            this.btnFromOtherDay.Click += new System.EventHandler(this.btnFromOtherDay_Click);
+            // 
             // CardioSession
             // 
             this.ClientSize = new System.Drawing.Size(753, 375);
+            this.Controls.Add(this.btnFromOtherDay);
+            this.Controls.Add(this.btnFromTemplate);
             this.Controls.Add(this.cardioExersizesControl);
             this.Controls.Add(this.baseGroupBox1);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.lblDuration);
             this.Controls.Add(this.lblEnd);
             this.Controls.Add(this.lblStart);
-            this.Controls.Add(this.txtDuration);
             this.Controls.Add(this.txtEndTime);
             this.Controls.Add(this.txtBeginTime);
             this.Controls.Add(this.btnOk);
@@ -189,6 +189,8 @@ namespace TrainingCatalog.Forms
         #endregion
 
         private Controls.CardioExersizesControl cardioExersizesControl;
+        private Controls.BaseButton btnFromTemplate;
+        private Controls.BaseButton btnFromOtherDay;
 
 
 
