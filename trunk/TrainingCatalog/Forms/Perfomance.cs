@@ -19,8 +19,8 @@ namespace TrainingCatalog
     public partial class Perfomance : BaseForm
     {
 
-        protected DateTime MinDateTime;
-        protected DateTime MaxDateTime;
+        protected DateTime MinDateTime = DateTime.MinValue;
+        protected DateTime MaxDateTime = DateTime.MaxValue;
         private bool _IsShown = false;
 
         protected DateTime startTimeOld, endTimeOld;
@@ -62,8 +62,8 @@ namespace TrainingCatalog
                 connection.Open();
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    MinDateTime = dtpFrom.Value = dtpTo.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
-                    MaxDateTime = dtpTo.Value = dtpTo.MaxDate = TrainingBusiness.GetEndTrainingDay(cmd);
+                    MinDateTime = TrainingBusiness.GetStartTrainingDay(cmd);
+                    MaxDateTime = TrainingBusiness.GetEndTrainingDay(cmd);
                 }
             }
             catch (Exception ee)
@@ -74,7 +74,10 @@ namespace TrainingCatalog
             {
                 connection.Close();
             }
-            
+            dtpFrom.Value = MinDateTime;
+            dtpTo.Value = MaxDateTime;
+            dtpFrom.MinDate = dtpTo.MinDate = MinDateTime;
+            dtpFrom.MaxDate = dtpTo.MaxDate = MaxDateTime;
             ExersizeCategoryLoad();
             ExersizeLoad();
             this._IsShown = true;
@@ -492,9 +495,11 @@ namespace TrainingCatalog
                 connection.Close();
             }
             TrainingList.DataSource = exersizes;
-            TrainingList.SelectedIndex = 0;
-            dtpFrom.Value = MinDateTime;
-            dtpTo.Value = MaxDateTime;
+            if (exersizes.Count > 0)
+            {
+                TrainingList.SelectedIndex = 0;
+            }
+
             startTimeOld = MinDateTime;
             endTimeOld = MaxDateTime;
         }

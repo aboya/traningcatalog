@@ -78,7 +78,7 @@ namespace TrainingCatalog
                 connection.Close();
             }
             
-            if(ok) TrainingList.SelectedIndex = 0;
+            if(ok && Exersizes.Tables[0].Rows.Count > 0) TrainingList.SelectedIndex = 0;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

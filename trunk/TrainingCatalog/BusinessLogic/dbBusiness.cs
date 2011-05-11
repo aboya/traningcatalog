@@ -66,7 +66,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                     
                     if (File.Exists(backupPath))
                     {
-                        backupPath = path + "." + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss_fff");
+                        backupPath = String.Format("{0}.{1:yyyy-MM-dd_hh-mm-ss_fff}", path, DateTime.Now);
                     }
                     File.Copy(path, backupPath, true);
                     using (SqlCeConnection connection = new SqlCeConnection(connectionString))
@@ -87,6 +87,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                                     cmd.Parameters.Add("@ver", SqlDbType.Float).Value = version;
                                     cmd.ExecuteNonQuery();
                                     cmd.Parameters.Clear();
+
                                 }
                             }
                         }
@@ -277,7 +278,6 @@ namespace TrainingCatalog.BusinessLogic.Types
                 }
             }
         }
-
 
     }
 }
