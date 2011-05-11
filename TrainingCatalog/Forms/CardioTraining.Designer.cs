@@ -43,7 +43,7 @@
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 0;
             this.mCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mCalendar_DateSelected);
-            this.mCalendar.DoubleClick += new System.EventHandler(mCalendar_DoubleClick);
+            
             // 
             // lstSession
             // 

@@ -259,8 +259,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Perfomance";
             this.Load += new System.EventHandler(this.Perfomance_Load);
-            this.Shown += new System.EventHandler(this.Perfomance_Shown);
-            this.Resize += new System.EventHandler(this.Perfomance_Resize);
+            
+            
             this.pnlFilters.ResumeLayout(false);
             this.pnlFilters.PerformLayout();
             this.ResumeLayout(false);

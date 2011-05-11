@@ -139,7 +139,10 @@ namespace TrainingCatalog.Forms
         {
             if (lstSession.SelectedValue != null)
             {
-                new CardioSession(Convert.ToInt32(lstSession.SelectedValue)).ShowDialog(this);
+                using (CardioSession cardioSession = new CardioSession(Convert.ToInt32(lstSession.SelectedValue)))
+                {
+                    cardioSession.ShowDialog(this);
+                }
                 CreateCgraph();
                 
             }
@@ -178,7 +181,6 @@ namespace TrainingCatalog.Forms
             GraphPane pane = zedGraphControl.GraphPane;
 
             pane.CurveList.Clear();
-            Bar a;
             
             List<CardioIntervalType> intervals = GetCardioIntervals();
             if (intervals.Count == 0)
@@ -275,10 +277,6 @@ namespace TrainingCatalog.Forms
                 connection.Close();
             }
             return res;
-        }
-        private void mCalendar_DoubleClick(object sender,  EventArgs args)
-        {
-             
         }
         
 

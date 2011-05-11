@@ -170,7 +170,7 @@ namespace TrainingCatalog
                         }
                         lastBodyWeight = p;
                     }
-                    LineItem myCurve2 = myPane.AddCurve("Вес Тела", pointBodyWeight, Color.Blue, SymbolType.Circle);
+                    myPane.AddCurve("Вес Тела", pointBodyWeight, Color.Blue, SymbolType.Circle);
 
                 }
 
@@ -466,11 +466,6 @@ namespace TrainingCatalog
             }
             return res;
         }
-        private void Perfomance_Resize(object sender, EventArgs e)
-        {
-            //SetSize();
-            //TrainingList.Top = this.Height - 65;
-        }
         public void ExersizeLoad()
         {
             List<ExersizeSource> exersizes = new List<ExersizeSource>();
@@ -539,13 +534,6 @@ namespace TrainingCatalog
         private void rbNone_CheckedChanged(object sender, EventArgs e)
         {
             CreateGraph(mainGraphControl);
-        }
-
-        private void Perfomance_Shown(object sender, EventArgs e)
-        {
-            
-            //CreateGraph(mainGraphControl);
-            
         }
 
         private void chkTotalWork_CheckedChanged(object sender, EventArgs e)
