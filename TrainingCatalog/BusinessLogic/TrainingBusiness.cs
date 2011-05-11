@@ -76,7 +76,7 @@ namespace TrainingCatalog.BusinessLogic
             cmd.CommandText = "select min(Day) from Training";
             object o = cmd.ExecuteScalar();
             cmd.Parameters.Clear();
-            if (o is DBNull) return DateTime.MinValue;
+            if (o is DBNull) return new DateTime(1980,1,1);
             return Convert.ToDateTime(o);
         }
         public static DateTime GetEndTrainingDay(SqlCeCommand cmd)
