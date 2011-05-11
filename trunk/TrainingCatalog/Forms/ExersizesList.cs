@@ -55,17 +55,19 @@ namespace TrainingCatalog
             {
                 connection.Open();
 
-                SqlCeCommand cmd = new SqlCeCommand("select ID as ExersizeID, ShortName, Description from Exersize order by ShortName asc", connection);
-                cmd.Connection = connection;
-                //SqlCeDataReader reader = cmd.ExecuteReader();
-
-                table.SelectCommand = cmd;
-                table.Fill(Exersizes);
-                for (int i = 0; i < Exersizes.Tables[0].Rows.Count; i++)
+                using (cmd = new SqlCeCommand("select ID as ExersizeID, ShortName, Description from Exersize order by ShortName asc", connection))
                 {
-                    TrainingList.Items.Add(Exersizes.Tables[0].Rows[i]["ShortName"]);
+                    cmd.Connection = connection;
+                    //SqlCeDataReader reader = cmd.ExecuteReader();
+
+                    table.SelectCommand = cmd;
+                    table.Fill(Exersizes);
+                    for (int i = 0; i < Exersizes.Tables[0].Rows.Count; i++)
+                    {
+                        TrainingList.Items.Add(Exersizes.Tables[0].Rows[i]["ShortName"]);
+                    }
+                    TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
                 }
-                TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
 
             }
             catch (Exception ee)
@@ -106,17 +108,17 @@ namespace TrainingCatalog
 
                 }
                 //saving name & description
-                SqlCeCommand cmd = new SqlCeCommand();
-                string shortName = txtExersizeName.Text.Trim().Replace("\"", "").Replace(@"'", "").Replace(";", "");
-                string description = txtDescription.Text.Trim().Replace("\"", "").Replace(@"'", "").Replace(";", "");
-                cmd.Connection = connection;
-                cmd.CommandText = string.Format(@"update Exersize
-                                                set ShortName = '{0}',
-                                                Description = '{1}'
-                                                where ID = {2}", shortName,
-                                                                        description, exersizeId);
-
-                cmd.ExecuteNonQuery();
+                using (cmd = connection.CreateCommand())
+                {
+                    string shortName = txtExersizeName.Text.Trim().Replace("\"", "").Replace(@"'", "").Replace(";", "");
+                    string description = txtDescription.Text.Trim().Replace("\"", "").Replace(@"'", "").Replace(";", "");
+                    cmd.Connection = connection;
+                    cmd.CommandText = string.Format(@"update Exersize
+                                                                set ShortName = '{0}',
+                                                                Description = '{1}'
+                                                                where ID = {2}", shortName, description, exersizeId);
+                    cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ee)
             {
@@ -132,40 +134,41 @@ namespace TrainingCatalog
         }
         private void deleteLink(int exersizeId, int exersizeCategoryId)
         {
-            SqlCeCommand cmd = new SqlCeCommand();
-            cmd.Connection = connection;
+            using (cmd = connection.CreateCommand())
+            {
+                cmd.Connection = connection;
 
 
-            cmd.CommandText = string.Format(@"delete from ExersizeCategoryLink
+                cmd.CommandText = string.Format(@"delete from ExersizeCategoryLink
                                               where ExersizeID={0} and ExersizeCategoryID={1} ", exersizeId, exersizeCategoryId);
-            cmd.ExecuteNonQuery();
-            cmd = null;
+                cmd.ExecuteNonQuery();
+            }
         }
         private void addLink(int exersizeId, int exersizeCategoryId)
         {
             // assume connection is open & do Not close
-            SqlCeCommand cmd = new SqlCeCommand();
-            cmd.Connection = connection;
-
-            cmd.CommandText = @"insert into ExersizeCategoryLink (ExersizeId, ExersizeCategoryId)
+            using (cmd = connection.CreateCommand())
+            {
+                cmd.CommandText = @"insert into ExersizeCategoryLink (ExersizeId, ExersizeCategoryId)
                                values( @exersizeId, @exersizeCategoryId)";
-            cmd.Parameters.Add("@exersizeId", SqlDbType.Int).Value = exersizeId;
-            cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = exersizeCategoryId;
-            cmd.ExecuteNonQuery();
-            cmd = null;
+                cmd.Parameters.Add("@exersizeId", SqlDbType.Int).Value = exersizeId;
+                cmd.Parameters.Add("@exersizeCategoryId", SqlDbType.Int).Value = exersizeCategoryId;
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private bool isExistLink(int exersizeId, int exersizeCategoryId)
         {
             // assume connection is open & do Not close
-            SqlCeCommand cmd = new SqlCeCommand();
-            cmd.Connection = connection;
-            cmd.CommandText = string.Format(@"select count(*) from ExersizeCategoryLink inner join 
+            using (cmd = connection.CreateCommand())
+            {
+                cmd.CommandText = string.Format(@"select count(*) from ExersizeCategoryLink inner join 
                                                 ExersizeCategory on
                                                 ExersizeCategoryLink.ExersizeCategoryID = ExersizeCategory.ID
                                                 where ExersizeID = {0} and ExersizeCategory.ID = {1}", exersizeId, exersizeCategoryId);
-            
-            return Convert.ToBoolean(cmd.ExecuteScalar());
+
+                return Convert.ToBoolean(cmd.ExecuteScalar());
+            }
 
         }
         private void TrainingList_SelectedIndexChanged(object sender, EventArgs e)
@@ -183,25 +186,26 @@ namespace TrainingCatalog
                 txtDescription.Text = Convert.ToString(Exersizes.Tables[0].Rows[index]["Description"]);
 
                 int exersizeId = Convert.ToInt32(Exersizes.Tables[0].Rows[index]["ExersizeID"]);
-                SqlCeCommand cmd = new SqlCeCommand();
-                cmd.Connection = connection;
-                cmd.CommandText = string.Format(@"select * from ExersizeCategoryLink inner join 
+                using (cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = string.Format(@"select * from ExersizeCategoryLink inner join 
                                                 ExersizeCategory on
                                                 ExersizeCategoryLink.ExersizeCategoryID = ExersizeCategory.ID
                                                 where ExersizeID = {0}", exersizeId);
-                SqlCeDataReader dataReader = cmd.ExecuteReader();
+                    SqlCeDataReader dataReader = cmd.ExecuteReader();
 
-                while (dataReader.Read())
-                {
-                    int categoryId = Convert.ToInt32(dataReader["ExersizeCategoryID"]);
-                    int k = 0;
-                    foreach (DataRow dr in categories.Tables[0].Rows)
+                    while (dataReader.Read())
                     {
-                        if (Convert.ToInt32(dr["ID"]) == categoryId)
+                        int categoryId = Convert.ToInt32(dataReader["ExersizeCategoryID"]);
+                        int k = 0;
+                        foreach (DataRow dr in categories.Tables[0].Rows)
                         {
-                            chkLstExersizeCategories.SetItemChecked(k, true);
+                            if (Convert.ToInt32(dr["ID"]) == categoryId)
+                            {
+                                chkLstExersizeCategories.SetItemChecked(k, true);
+                            }
+                            k++;
                         }
-                        k++;
                     }
                 }
 
@@ -223,9 +227,11 @@ namespace TrainingCatalog
                 connection.Open();
                 cmd.Connection = connection;
                 cmd.CommandText = "select * from ExersizeCategory order by Name";
-                SqlCeDataAdapter dataAdapter = new SqlCeDataAdapter();
-                dataAdapter.SelectCommand = cmd;
-                dataAdapter.Fill(categories);
+                using (SqlCeDataAdapter dataAdapter = new SqlCeDataAdapter())
+                {
+                    dataAdapter.SelectCommand = cmd;
+                    dataAdapter.Fill(categories);
+                }
                 foreach (DataRow dr in categories.Tables[0].Rows)
                 {
                     chkLstExersizeCategories.Items.Add(dr["Name"], false);

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data.SqlServerCe;
 using System.Windows.Forms;
 using System.Configuration;
@@ -23,15 +21,11 @@ namespace TrainingCatalog.BusinessLogic.Types
                 return _connstring;
             }
         }
-        public static object GetObject(SqlCeCommand cmd, object o)
-        {
 
-            return new object();
-        }
         public static void UpdateBase()
         {
            // string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
-            string path = Application.StartupPath + "\\" + ConfigurationManager.AppSettings["databasePath"];
+            string path = String.Format("{0}\\{1}", Application.StartupPath, ConfigurationManager.AppSettings["databasePath"]);
 
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
             nfi.NumberDecimalSeparator = "_";
@@ -94,7 +88,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                     }
                     //shrink db
                     string date;
-                    string key = "LastShrinkDate";
+                    const string key = "LastShrinkDate";
                     if (CheckValue(key) == 0)
                     {
                         AddValue(key, DateTime.Now.ToString());
@@ -141,7 +135,6 @@ namespace TrainingCatalog.BusinessLogic.Types
                     currentVersion = Convert.ToDouble(cmd.ExecuteScalar());
                 }
             }
-            List<string> res = new List<string>();
             List<double> versions = new List<double>();
             double v;
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
@@ -165,7 +158,7 @@ namespace TrainingCatalog.BusinessLogic.Types
         private static bool CheckKey(string key)
         {
             if (key == null) return false;
-            if(key.Contains('\'')) return false;
+            if(key.Contains("'")) return false;
             if (key.Length == 0) return false;
             return true;
         }

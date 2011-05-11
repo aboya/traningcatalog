@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Data.SqlServerCe;
 using System.Data;
 using System.Windows.Forms;
-using System.Configuration;
-using System.IO;
 using TrainingCatalog.BusinessLogic.Types;
 
 
