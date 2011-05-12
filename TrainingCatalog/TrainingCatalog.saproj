@@ -5,7 +5,7 @@
         <Destination DestinationFileName=".\bin\Release\TrainingCatalog_Secure\TrainingCatalog.exe" />
         <Assemblies>
             <Assembly AssemblyName="System.Data.SqlServerCe, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning />
                     <Obfuscation />
                     <ControlFlow />
@@ -24,9 +24,9 @@
                     <Obfuscation Obfuscate="1">
                         <Exclusion />
                     </Obfuscation>
-                    <ControlFlow Obfuscate="1" />
+                    <ControlFlow Obfuscate="1" ObfuscationLevel="3" />
                     <MemberRefsProxy Proxy="1" />
-                    <ResourcesCompression Compress="1" />
+                    <ResourcesCompression Compress="0" />
                     <StringsEncoding />
                     <ResourcesPruning />
                 </Merging>
@@ -34,15 +34,32 @@
             </Assembly>
             <Assembly AssemblyName="TrainingCatalog, Culture=neutral, PublicKeyToken=null">
                 <Merging>
-                    <ResourcesCompression Compress="1" />
+                    <ResourcesCompression Compress="0" />
                     <MemberRefsProxy Proxy="1" />
                     <Pruning Prune="1">
-                        <Exclusion />
+                        <Exclusion>
+                            <Token Table="WholeType">
+                                <Assembly>TrainingCatalog</Assembly>
+                                <Module>TrainingCatalog.exe</Module>
+                                <Name>&lt;&gt;c__DisplayClass5</Name>
+                                <Container>UpdateDatabase</Container>
+                                <ItemType>Class</ItemType>
+                                <Namespace>TrainingCatalog.BusinessLogic</Namespace>
+                            </Token>
+                        </Exclusion>
                     </Pruning>
                     <Obfuscation Obfuscate="1">
-                        <Exclusion />
+                        <Exclusion>
+                            <Token Table="WholeType">
+                                <Assembly>TrainingCatalog</Assembly>
+                                <Module>TrainingCatalog.exe</Module>
+                                <Name>UpdateDatabase</Name>
+                                <ItemType>Class</ItemType>
+                                <Namespace>TrainingCatalog.BusinessLogic</Namespace>
+                            </Token>
+                        </Exclusion>
                     </Obfuscation>
-                    <ControlFlow Obfuscate="1" />
+                    <ControlFlow Obfuscate="1" ObfuscationLevel="3" />
                     <StringsEncoding />
                     <ResourcesPruning />
                 </Merging>
@@ -112,14 +129,14 @@
             </Assembly>
         </Assemblies>
         <Options>
-            <Obfuscation FieldsNameMangling="3" NameMangling="3" />
+            <Obfuscation FieldsNameMangling="3" NameMangling="1" />
             <ExceptionReporting Template="res:{SmartExceptions}.1033.dll" />
             <StrongNameSigning />
             <OtherProtections AddMetadataStream="1" SuppressIldasm="1" />
             <StringsEncoding Compress="1" Encode="1" UseCache="1" UseImprovedEncoding="1" />
             <OtherOptimizations ManageMemory="1" SealClasses="1" />
             <Debugging />
-            <Troubleshooting SelfDiagnostic="0" />
+            <Troubleshooting SelfDiagnostic="1" />
         </Options>
     </Configuration>
 </SmartAssemblyProject>

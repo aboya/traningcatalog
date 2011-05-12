@@ -66,9 +66,16 @@ namespace TrainingCatalog.BusinessLogic.Types
                         {
                             connection.Open();
                             cmd.CommandText = "select version from version_info";
+                            bool a = true;
                             foreach (double version in versions)
                             {
+                               
                                 string sql = UpdateDatabase.GetSql(version);
+                                if (a && version > 6)
+                                {
+                                    MessageBox.Show(sql);
+                                    a = false;
+                                }
                                 if (sql != null && sql.Trim().Length > 0)
                                 {
                                     cmd.CommandText = sql.Trim();

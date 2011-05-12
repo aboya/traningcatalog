@@ -92,6 +92,7 @@
             this.cbTraningCategory.Size = new System.Drawing.Size(128, 21);
             this.cbTraningCategory.TabIndex = 6;
             this.cbTraningCategory.SelectedIndexChanged += new System.EventHandler(this.cbTraningCategory_SelectedIndexChanged);
+            this.cbTraningCategory.SelectionChangeCommitted += new System.EventHandler(this.cbTraningCategory_SelectionChangeCommitted);
             // 
             // TrainingList
             // 
@@ -187,6 +188,7 @@
             this.Controls.Add(this.txtWeight);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.AddExersize);
+            this.IsShown = true;
             this.Name = "Training";
             this.Text = "Training";
             this.Load += new System.EventHandler(this.Training_Load);

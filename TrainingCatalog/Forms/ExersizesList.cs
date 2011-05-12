@@ -86,8 +86,10 @@ namespace TrainingCatalog
         private void btnSave_Click(object sender, EventArgs e)
         {
             bool ok = true;
+            if (Exersizes.Tables[0].Rows.Count == 0) return;
             try
             {
+
                 connection.Open();
                 int exersizeId = Convert.ToInt32(Exersizes.Tables[0].Rows[TrainingList.SelectedIndex]["ExersizeID"]);
                 // processing categories

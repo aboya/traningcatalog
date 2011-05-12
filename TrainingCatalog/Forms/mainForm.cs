@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TrainingCatalog.Forms;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog
 {
@@ -17,6 +18,7 @@ namespace TrainingCatalog
             InitializeComponent();
             this.BackgroundImage = TrainingCatalog.AppResources.AppResources.kachok;
             this.BackgroundImageLayout = ImageLayout.Center;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
