@@ -26,9 +26,6 @@ namespace TrainingCatalog.BusinessLogic.Types
         {
            // string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
             string path = String.Format("{0}\\{1}", Application.StartupPath, ConfigurationManager.AppSettings["databasePath"]);
-
-            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
-            nfi.NumberDecimalSeparator = "_";
             try
             {
                 // create new db if not exist
@@ -71,7 +68,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                             cmd.CommandText = "select version from version_info";
                             foreach (double version in versions)
                             {
-                                string sql = TrainingCatalog.AppResources.SqlUpdate.ResourceManager.GetString("v"+version.ToString(nfi));
+                                string sql = UpdateDatabase.GetSql(version);
                                 if (sql != null && sql.Trim().Length > 0)
                                 {
                                     cmd.CommandText = sql.Trim();
@@ -135,25 +132,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                     currentVersion = Convert.ToDouble(cmd.ExecuteScalar());
                 }
             }
-            List<double> versions = new List<double>();
-            double v;
-            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
-            nfi.NumberDecimalSeparator = "_";
-            nfi.PositiveSign = "v";
-            foreach (PropertyInfo field in typeof(TrainingCatalog.AppResources.SqlUpdate).GetProperties())
-            {
-                if (double.TryParse(field.Name, NumberStyles.Float, nfi, out v))
-                {
-                    if (v > currentVersion)
-                    {
-                        versions.Add(v);
-                    }
-                }
-
-            }
-            
-            versions.Sort();
-            return versions;
+            return UpdateDatabase.GetVersionsUpdate(currentVersion);
         }
         private static bool CheckKey(string key)
         {

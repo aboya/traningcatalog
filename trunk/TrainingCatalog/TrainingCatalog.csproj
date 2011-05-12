@@ -123,6 +123,7 @@
     <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
+    <Compile Include="BusinessLogic\UpdateDatabase.cs" />
     <Compile Include="BusinessLogic\Utils.cs" />
     <Compile Include="Controls\BaseControls\BaseButton.cs">
       <SubType>Component</SubType>
