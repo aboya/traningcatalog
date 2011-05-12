@@ -17,7 +17,6 @@ namespace TrainingCatalog
 {
     public partial class Training : BaseForm
     {
-        SqlCeDataAdapter table = new SqlCeDataAdapter();
         public DateTime TrainingDate = DateTime.Now;
         public Training()
         {
@@ -93,8 +92,11 @@ namespace TrainingCatalog
             TrainingList.DisplayMember = "ShortName";
             cbTraningCategory.ValueMember = "Id";
             cbTraningCategory.DisplayMember = "Name";
+            
             CategoryFilterLoad();
+            ExersizeLoad();
             GridBind();
+
         }
         protected void CategoryFilterLoad()
         {
@@ -107,9 +109,8 @@ namespace TrainingCatalog
             try
             {
                 connection.Open();
-                using (SqlCeCommand cmd = new SqlCeCommand())
+                using (cmd = connection.CreateCommand())
                 {
-                    cmd.Connection = connection;
                     cmd.Parameters.Clear();
                     categories.AddRange(TrainingBusiness.GetCategories(cmd));
                 }
@@ -127,21 +128,20 @@ namespace TrainingCatalog
             cbTraningCategory.DataSource = categories;
             // и этой строчкой тоже)
             cbTraningCategory.SelectedIndex = 0;
+
+         
         }
         private void ExersizeLoad()
         {
+            List<ExersizeSource> exersizes = new List<ExersizeSource>();
             try
             {
                 connection.Open();
-                using (SqlCeCommand cmd = new SqlCeCommand())
+                using (cmd = connection.CreateCommand())
                 {
-                    cmd.Connection = connection;
                     int exersizeCategoryId = Convert.ToInt32(cbTraningCategory.SelectedValue);
-                    List<ExersizeSource> exersizes = TrainingBusiness.GetExersizes(cmd, exersizeCategoryId);
-                    TrainingList.DataSource = exersizes;
-                    if (exersizes.Count > 0)
-                        TrainingList.SelectedIndex = 0;
-                    TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
+                    exersizes = TrainingBusiness.GetExersizes(cmd, exersizeCategoryId);
+
                 }
 
             }
@@ -154,6 +154,10 @@ namespace TrainingCatalog
                 connection.Close();
                 
             }
+            
+            TrainingList.DataSource = exersizes;
+            if (exersizes.Count > 0)
+                TrainingList.SelectedIndex = 0;
         }
         private void GridBind()
         {
@@ -260,9 +264,7 @@ namespace TrainingCatalog
 
         private void cbTraningCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // внутырь функции ExersizeLoad не пихать эти две строчки, поотому что там идут реукрсивные вызовы
-            // когда вызывается .selectedIndex = 0
-            ExersizeLoad();
+
         }
 
  
@@ -333,6 +335,11 @@ namespace TrainingCatalog
                 od.ShowDialog(this);
                 GridBind();
             }
+        }
+
+        private void cbTraningCategory_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ExersizeLoad();
         }
 
     }
