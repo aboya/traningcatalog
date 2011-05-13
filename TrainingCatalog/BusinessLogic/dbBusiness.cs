@@ -51,7 +51,6 @@ namespace TrainingCatalog.BusinessLogic.Types
                 // update databse
                 List<double> versions = GetVersionProperties();
                 //need update
-                Console.WriteLine(versions.Count);
                 if (versions.Count > 0)
                 {
                     string backupPath = path + ".backup";
