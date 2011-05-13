@@ -37,7 +37,7 @@ namespace TrainingCatalog.Forms
                     connection.Open();
                     mc.MinDate = TrainingBusiness.GetStartTrainingDay(cmd);
                     mc.MaxDate = TrainingBusiness.GetEndTrainingDay(cmd);
-                    mc.BoldedDates = TrainingBusiness.GetTrainingDays(cmd, mc.MinDate, mc.MaxDate).ToArray();
+                    mc.BoldedDates = TrainingBusiness.GetTrainingDays(cmd).ToArray();
                     mc.AddBoldedDate(DateTime.MaxValue);
                     mc.AddBoldedDate(DateTime.MinValue);
                     if (mc.BoldedDates.Contains(mc.SelectionStart))
@@ -62,7 +62,10 @@ namespace TrainingCatalog.Forms
             try
             {
                 connection.Open();
-                templateViewerControl.LoadTemplateExersizes(TrainingBusiness.GetExersizes(cmd, mc.SelectionStart));
+                using (cmd = connection.CreateCommand())
+                {
+                    templateViewerControl.LoadTemplateExersizes(TrainingBusiness.GetExersizes(cmd, mc.SelectionStart));
+                }
             }
             catch (Exception ee)
             {
@@ -84,16 +87,18 @@ namespace TrainingCatalog.Forms
                 {
                     try
                     {
-
-                        cmd.Transaction = transaction;
-                        List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
-                        int trainingDayId = TrainingBusiness.GetTrainingDayId(cmd,trainingDate);
-
-                        foreach (TemplateExersizesType exersize in list)
+                        using (cmd = connection.CreateCommand())
                         {
-                            TrainingBusiness.AddExersize(cmd, trainingDayId, exersize.ExersizeID, exersize.Weight, exersize.Count);
+                            cmd.Transaction = transaction;
+                            List<TemplateExersizesType> list = templateViewerControl.GetTemplateExersizes();
+                            int trainingDayId = TrainingBusiness.GetTrainingDayId(cmd, trainingDate);
+
+                            foreach (TemplateExersizesType exersize in list)
+                            {
+                                TrainingBusiness.AddExersize(cmd, trainingDayId, exersize.ExersizeID, exersize.Weight, exersize.Count);
+                            }
+                            transaction.Commit();
                         }
-                        transaction.Commit();
                     }
                     catch (Exception ex)
                     {
@@ -110,7 +115,6 @@ namespace TrainingCatalog.Forms
             finally
             {
                 connection.Close();
-                cmd.Transaction = null;
                 this.Close();
             }
         }

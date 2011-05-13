@@ -85,17 +85,14 @@ namespace TrainingCatalog.BusinessLogic
             if (o is DBNull) return DateTime.Today;
             return Convert.ToDateTime(o);
         }
-        public static List<DateTime> GetTrainingDays(SqlCeCommand cmd, DateTime start, DateTime end)
+        public static List<DateTime> GetTrainingDays(SqlCeCommand cmd)
         {
             List<DateTime> res = new List<DateTime>();
             cmd.Parameters.Clear();
             cmd.CommandText = @"SELECT Training.Day
                                     FROM  Training INNER JOIN
                                     Link ON Training.Id = Link.TrainingId
-                                    where Day Between @start and @end
                                     GROUP BY Training.Day  ";
-            cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
-            cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end;
             using (SqlCeDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
