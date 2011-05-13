@@ -51,6 +51,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                 // update databse
                 List<double> versions = GetVersionProperties();
                 //need update
+                Console.WriteLine(versions.Count);
                 if (versions.Count > 0)
                 {
                     string backupPath = path + ".backup";
@@ -91,6 +92,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                     {
                         AddValue(key, DateTime.Now.ToString());
                     }
+
                     date = GetValue(key);
                     if (!string.IsNullOrEmpty(date))
                     {
@@ -103,6 +105,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                                 {
                                     en.Shrink();
                                 }
+                                SetValue(key, DateTime.Now.ToString());
                             }
                         }
                     }
