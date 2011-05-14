@@ -866,6 +866,28 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
+        public static Dictionary<int, bool> GetVisibleType(SqlCeCommand cmd, List<int> ids)
+        {
+            Dictionary<int, bool> res = new Dictionary<int, bool>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = string.Format("select Intensivity,Resistance,Velocity,Time,Distance,HeartRate from CardioType where Id in ({0})", string.Join(",", (from a in ids
+                                                                                                                                                                  select a.ToString()).ToArray()));
+            for (int i = 1; i < 7; i++) res[i] = false;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (!res[1]) res[1] = Convert.ToBoolean(reader["Intensivity"]);
+                    if (!res[2]) res[1] = Convert.ToBoolean(reader["Resistance"]);
+                    if (!res[3]) res[1] = Convert.ToBoolean(reader["Velocity"]);
+                    if (!res[4]) res[1] = Convert.ToBoolean(reader["Time"]);
+                    if (!res[5]) res[1] = Convert.ToBoolean(reader["Distance"]);
+                    if (!res[6]) res[1] = Convert.ToBoolean(reader["HeartRate"]);
+                }
+            }
+            cmd.Parameters.Clear();
+            return res;
+        }
 
         public static List<TemplateType> GetCardioTemplates(SqlCeCommand cmd)
         {
@@ -1097,5 +1119,7 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
+
+        
     }
 }

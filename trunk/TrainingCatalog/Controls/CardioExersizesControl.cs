@@ -10,6 +10,7 @@ using System.Data.SqlServerCe;
 using TrainingCatalog.BusinessLogic.Types;
 using TrainingCatalog.BusinessLogic.Enums;
 using TrainingCatalog.BusinessLogic;
+using System.Configuration;
 
 namespace TrainingCatalog.Controls
 {
@@ -32,6 +33,9 @@ namespace TrainingCatalog.Controls
         DistanceUnit LastDistance;
         TimeUnit LastTime;
         CardioExersizeType _defaultCardioType;
+        private Dictionary<int, bool> visibleColumns = new Dictionary<int, bool>();
+        SqlCeConnection connection;
+        SqlCeCommand cmd;
         public CardioExersizeType DefaultCardioType
         {
             get
@@ -50,7 +54,7 @@ namespace TrainingCatalog.Controls
         }
         private void CardioExersizesControl_Load(object sender, EventArgs e)
         {
-
+            
             cbDistance.ValueMember = "Type";
             cbDistance.DisplayMember = "Name";
 
@@ -85,6 +89,8 @@ namespace TrainingCatalog.Controls
             if (!string.IsNullOrEmpty(o)) cbSpeedDistance.SelectedIndex = Convert.ToInt32(o);
             o = dbBusiness.GetValue("Velocity_TimeUnit");
             if (!string.IsNullOrEmpty(o)) cbSpeedTime.SelectedIndex = Convert.ToInt32(o);
+            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+
             
         }
         
@@ -149,6 +155,19 @@ namespace TrainingCatalog.Controls
         {
             intervals = new BindingList<CardioIntervalType>(ConvertToUnits(input));
             bs.DataSource = intervals;
+
+            using (cmd = connection.CreateCommand())
+            {
+                connection.Open();
+                visibleColumns = TrainingBusiness.GetVisibleType(cmd, (from a in input
+                                                      group a by a.CardioTypeId into g
+                                                      select g.Key).ToList());
+                //for (int i = 1; i < 7; i++)
+                //{
+                //    gvMain.Columns[i].Visible = visibleColumns[i];
+                //}
+            }
+            
         }
         public IList<CardioIntervalType> GetCardioExersizes()
         {
