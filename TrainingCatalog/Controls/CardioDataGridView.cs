@@ -108,7 +108,7 @@ namespace TrainingCatalog.Controls
             }
             if (keyData == Keys.Tab || keyData == Keys.Enter || keyData == Keys.Back
                 || keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Oemcomma 
-                || (int)keyData == 65727 /*ru comma*/ || keyData == Keys.Delete)
+                || (int)keyData == 65727 /*ru comma*/ || keyData == Keys.Delete || keyData == Keys.Up || keyData == Keys.Down)
             {
                 string s = (this.CurrentCell.EditedFormattedValue as string);
                 if (s == null || s.Trim().Length == 0) this.CurrentCell.Value = 0;
