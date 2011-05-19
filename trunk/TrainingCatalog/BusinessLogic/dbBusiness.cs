@@ -17,7 +17,8 @@ namespace TrainingCatalog.BusinessLogic.Types
         {
             get
             {
-                if (_connstring == null) _connstring = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
+                
+                if (_connstring == null && ConfigurationManager.ConnectionStrings["db"] != null) _connstring = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
                 return _connstring;
             }
         }
@@ -147,6 +148,7 @@ namespace TrainingCatalog.BusinessLogic.Types
         public static string GetValue(string key)
         {
             string res = string.Empty;
+            if (connectionString == null) return string.Empty;
             if (!CheckKey(key)) return res;
             using (SqlCeConnection connection = new SqlCeConnection(connectionString))
             {
@@ -208,9 +210,9 @@ namespace TrainingCatalog.BusinessLogic.Types
                     using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         connection.Open();
-                        cmd.CommandText = "select count([Key]) from Settings where value = @key";
-                        cmd.Parameters.Add("@key", SqlDbType.NVarChar).Value = key;
-                        int cnt = Convert.ToInt32(cmd.ExecuteNonQuery());
+                        cmd.CommandText = "select count(*) from Settings where [Key] = @k";
+                        cmd.Parameters.Add("@k", SqlDbType.NVarChar).Value = key;
+                        int cnt = Convert.ToInt32(cmd.ExecuteScalar());
                         cmd.Parameters.Clear();
                         if (cnt > 0)
                         {

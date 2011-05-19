@@ -89,8 +89,10 @@ namespace TrainingCatalog.Controls
             if (!string.IsNullOrEmpty(o)) cbSpeedDistance.SelectedIndex = Convert.ToInt32(o);
             o = dbBusiness.GetValue("Velocity_TimeUnit");
             if (!string.IsNullOrEmpty(o)) cbSpeedTime.SelectedIndex = Convert.ToInt32(o);
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
-
+            if (ConfigurationManager.ConnectionStrings["db"] != null)
+            {
+                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            }
             
         }
         
@@ -153,19 +155,22 @@ namespace TrainingCatalog.Controls
         }
         public void LoadCardioExersizes(IList<CardioIntervalType> input) 
         {
-            intervals = new BindingList<CardioIntervalType>(ConvertToUnits(input));
-            bs.DataSource = intervals;
-
-            using (cmd = connection.CreateCommand())
+            try
             {
-                connection.Open();
-                visibleColumns = TrainingBusiness.GetVisibleType(cmd, (from a in input
-                                                      group a by a.CardioTypeId into g
-                                                      select g.Key).ToList());
-                //for (int i = 1; i < 7; i++)
-                //{
-                //    gvMain.Columns[i].Visible = visibleColumns[i];
-                //}
+                intervals = new BindingList<CardioIntervalType>(ConvertToUnits(input));
+                bs.DataSource = intervals;
+
+                using (cmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    visibleColumns = TrainingBusiness.GetVisibleType(cmd, (from a in input
+                                                                           group a by a.CardioTypeId into g
+                                                                           select g.Key).ToList());
+                }
+            }
+            finally
+            {
+                connection.Close();
             }
             
         }
@@ -199,7 +204,9 @@ namespace TrainingCatalog.Controls
         public void AddRow(CardioIntervalType i)
         {
             if (i == null || i.Name == null || i.CardioTypeId == 0) return;
-            intervals.Add(i);
+            List<CardioIntervalType> t = new List<CardioIntervalType>();
+            t.Add(i);
+            intervals.Add(ConvertToUnits(t)[0]);
 
         }
         private void lstExersizes_SelectedIndexChanged(object sender, EventArgs e)

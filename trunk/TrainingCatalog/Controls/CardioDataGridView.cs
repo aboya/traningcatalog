@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using TrainingCatalog.BusinessLogic.Enums;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace TrainingCatalog.Controls
 {
@@ -101,10 +102,11 @@ namespace TrainingCatalog.Controls
         {
             //hook pressing keys on grid
           //  Debug.WriteLine((int)keyData);
+            
             if (keyData == Keys.Oemcomma || (int)keyData == 65727 /*rus comma*/)
             {
                 string s = (this.CurrentCell.EditedFormattedValue as string);
-                if (s.Contains(",")) return true;
+                if (s.Contains(CultureInfo.InstalledUICulture.NumberFormat.CurrencyDecimalSeparator )) return true;
             }
             if (keyData == Keys.Tab || keyData == Keys.Enter || keyData == Keys.Back
                 || keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Oemcomma 
