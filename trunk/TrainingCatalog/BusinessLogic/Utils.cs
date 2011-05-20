@@ -14,6 +14,7 @@ namespace TrainingCatalog.BusinessLogic
         }
         public static bool IsZero(double a)
         {
+            
             return Math.Abs(a) < 0.0001; 
         }
     }
