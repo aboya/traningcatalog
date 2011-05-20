@@ -163,10 +163,18 @@ namespace TrainingCatalog.Controls
                 using (cmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    visibleColumns = TrainingBusiness.GetVisibleType(cmd, (from a in input
-                                                                           group a by a.CardioTypeId into g
-                                                                           select g.Key).ToList());
+                    if (intervals.Count > 0)
+                    {
+                        TrainingBusiness.GetVisibleType(cmd, ref visibleColumns,(from a in input
+                                                                               group a by a.CardioTypeId into g
+                                                                               select g.Key).ToList());
+                    }
+                    foreach (int key in visibleColumns.Keys)
+                    {
+                        gvMain.Columns[key].Visible = visibleColumns[key];
+                    }
                 }
+
             }
             finally
             {
@@ -200,6 +208,29 @@ namespace TrainingCatalog.Controls
                     i1.Velocity = i2.Velocity;
                 }
             }
+            try
+            {
+                using (cmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    if (intervals.Count > 0)
+                    {
+                        List<int> a = new List<int>();
+                        a.Add(i.Id);
+                        TrainingBusiness.GetVisibleType(cmd, ref visibleColumns, a);
+                    }
+                    foreach (int key in visibleColumns.Keys)
+                    {
+                        gvMain.Columns[key].Visible = visibleColumns[key];
+                    }
+                }
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            
         }
         public void AddRow(CardioIntervalType i)
         {
@@ -207,6 +238,28 @@ namespace TrainingCatalog.Controls
             List<CardioIntervalType> t = new List<CardioIntervalType>();
             t.Add(i);
             intervals.Add(ConvertToUnits(t)[0]);
+            try
+            {
+                using (cmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    if (intervals.Count > 0)
+                    {
+                        List<int> a = new List<int>();
+                        a.Add(i.CardioTypeId);
+                        TrainingBusiness.GetVisibleType(cmd, ref visibleColumns, a);
+                    }
+                    foreach (int key in visibleColumns.Keys)
+                    {
+                        gvMain.Columns[key].Visible = visibleColumns[key];
+                    }
+                }
+
+            }
+            finally
+            {
+                connection.Close();
+            }
 
         }
         private void lstExersizes_SelectedIndexChanged(object sender, EventArgs e)

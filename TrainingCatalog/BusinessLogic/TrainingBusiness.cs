@@ -866,27 +866,34 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             return res;
         }
-        public static Dictionary<int, bool> GetVisibleType(SqlCeCommand cmd, List<int> ids)
+        public static void GetVisibleType(SqlCeCommand cmd, ref Dictionary<int, bool> res, List<int> ids)
         {
-            Dictionary<int, bool> res = new Dictionary<int, bool>();
+            if (res == null)
+            {
+                res = new Dictionary<int, bool>();
+              
+            }
+            if (res.Count == 0)
+            {
+                for (int i = 1; i < 7; i++) res[i] = false;
+            }
             cmd.Parameters.Clear();
             cmd.CommandText = string.Format("select Intensivity,Resistance,Velocity,Time,Distance,HeartRate from CardioType where Id in ({0})", string.Join(",", (from a in ids
                                                                                                                                                                   select a.ToString()).ToArray()));
-            for (int i = 1; i < 7; i++) res[i] = false;
+            
             using (SqlCeDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
                     if (!res[1]) res[1] = Convert.ToBoolean(reader["Intensivity"]);
-                    if (!res[2]) res[1] = Convert.ToBoolean(reader["Resistance"]);
-                    if (!res[3]) res[1] = Convert.ToBoolean(reader["Velocity"]);
-                    if (!res[4]) res[1] = Convert.ToBoolean(reader["Time"]);
-                    if (!res[5]) res[1] = Convert.ToBoolean(reader["Distance"]);
-                    if (!res[6]) res[1] = Convert.ToBoolean(reader["HeartRate"]);
+                    if (!res[2]) res[2] = Convert.ToBoolean(reader["Resistance"]);
+                    if (!res[3]) res[3] = Convert.ToBoolean(reader["Velocity"]);
+                    if (!res[4]) res[4] = Convert.ToBoolean(reader["Time"]);
+                    if (!res[5]) res[5] = Convert.ToBoolean(reader["Distance"]);
+                    if (!res[6]) res[6] = Convert.ToBoolean(reader["HeartRate"]);
                 }
             }
             cmd.Parameters.Clear();
-            return res;
         }
 
         public static List<TemplateType> GetCardioTemplates(SqlCeCommand cmd)
