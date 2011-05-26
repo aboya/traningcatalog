@@ -51,7 +51,12 @@ namespace TrainingCatalog.Forms
         private void btnAdd_Click(object sender, EventArgs e)
         {
             exersizes.Clear();
-            exersizes.AddRange(cardioExersizesControl.GetCardioExersizes());
+            var list = cardioExersizesControl.GetCardioExersizes();
+            foreach (var item in list)
+            {
+                item.Id = 0;
+            }
+            exersizes.AddRange(list);
             this.Close();
         }
 
