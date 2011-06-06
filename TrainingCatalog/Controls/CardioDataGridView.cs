@@ -86,17 +86,26 @@ namespace TrainingCatalog.Controls
         {
             int rowIndex = this.CurrentCell.RowIndex;
             int colIndex = this.CurrentCell.ColumnIndex;
-           // RaiseChangedEvents();
-
-            colIndex++;
-            if (colIndex >= this.Columns.Count)
+            //skip invisible cells
+            while (true)
             {
-                colIndex = 1;
-                rowIndex++;
+                colIndex++;
+                if (colIndex >= this.Columns.Count)
+                {
+                    colIndex = 1;
+                    rowIndex++;
+                }
+                if (colIndex == 0) colIndex++;
+                if (rowIndex >= this.Rows.Count) rowIndex = 0;
+                if (this.Rows[rowIndex].Cells[colIndex].Visible) break;
             }
-            if (colIndex == 0) colIndex++;
-            if (rowIndex >= this.Rows.Count) rowIndex = 0;
             return this.Rows[rowIndex].Cells[colIndex];
+        }
+        protected override void OnCellLeave(DataGridViewCellEventArgs e)
+        {
+            string s = (this.CurrentCell.EditedFormattedValue as string);
+            if (s == null || s.Trim().Length == 0) this.CurrentCell.Value = 0;
+            base.OnCellLeave(e);
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
