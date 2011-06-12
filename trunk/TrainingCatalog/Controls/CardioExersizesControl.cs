@@ -184,7 +184,7 @@ namespace TrainingCatalog.Controls
         }
         public IList<CardioIntervalType> GetCardioExersizes()
         {
-            return ConvertFromUnits(intervals.ToList());
+            return ConvertFromUnits(intervals.ToList()).Where(i => i.CardioTypeId > 0).ToList();
         }
         public void AddRow(CardioExersizeType i)
         {
