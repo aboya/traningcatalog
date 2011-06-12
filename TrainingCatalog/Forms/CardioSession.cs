@@ -126,6 +126,7 @@ namespace TrainingCatalog.Forms
                     return;
                 }
             }
+            
             try
             {
                 connection.Open();
