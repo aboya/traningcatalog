@@ -99,7 +99,7 @@ namespace TrainingCatalog.Controls
         private void gvMain_DistanceChanged(DataGridViewCell lastEditedCell)
         {
 
-            double distance = Convert.ToInt32(lastEditedCell.Value);
+            double distance = Convert.ToDouble(lastEditedCell.Value);
             double velocity = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value);
             double Time = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value);
             if (distance > 0 && Utils.IsZero(velocity) && Time > 0)
@@ -119,7 +119,7 @@ namespace TrainingCatalog.Controls
         }
         private void gvMain_VelocityChanged(DataGridViewCell lastEditedCell)
         {
-            double distance = Convert.ToInt32(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value);
+            double distance = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value);
             double velocity = Convert.ToDouble(lastEditedCell.Value);
             double Time = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Time].Value);
             if (Utils.IsZero(distance) && velocity > 0 && Time > 0)
@@ -137,7 +137,7 @@ namespace TrainingCatalog.Controls
         }
         private void gvMain_DurationChanged(DataGridViewCell lastEditedCell)
         {
-            double distance = Convert.ToInt32(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value);
+            double distance = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Distance].Value);
             double velocity = Convert.ToDouble(gvMain.Rows[lastEditedCell.RowIndex].Cells[CardioGridEnum.Velocity].Value);
             double Time = Convert.ToDouble(lastEditedCell.Value);
             if (distance > 0 && Utils.IsZero(velocity) && Time > 0)
