@@ -27,7 +27,18 @@ namespace TrainingCatalog.Controls
         public event TimeChangedHandler TimeChanged;
 
         BindingSource bs;
-        BindingList<CardioIntervalType> intervals;
+        BindingList<CardioIntervalType> _intervals;
+        BindingList<CardioIntervalType> intervals
+        {
+            get
+            {
+                return _intervals;
+            }
+            set
+            {
+                _intervals = value;
+            }
+        }
         DistanceUnit LastSpeedDistance;
         TimeUnit LastSpeedTime ;
         DistanceUnit LastDistance;
@@ -189,6 +200,7 @@ namespace TrainingCatalog.Controls
         public void AddRow(CardioExersizeType i)
         {
             if (i == null || i.Id <= 0 || i.Name == null) return;
+            MagicHook();
             intervals.Add(new CardioIntervalType()
             {
                 CardioTypeId = i.Id,
@@ -232,9 +244,21 @@ namespace TrainingCatalog.Controls
             }
             
         }
+        /// <summary>
+        /// this is voodoo magic.  http://code.google.com/p/traningcatalog/issues/detail?id=31
+        /// </summary>
+        private void MagicHook()
+        {
+            if (gvMain.Rows.Count == 1)
+            {
+                intervals = new BindingList<CardioIntervalType>();
+                bs.DataSource = intervals;
+            }
+        }
         public void AddRow(CardioIntervalType i)
         {
             if (i == null || i.Name == null || i.CardioTypeId == 0) return;
+            MagicHook();
             List<CardioIntervalType> t = new List<CardioIntervalType>();
             t.Add(i);
             intervals.Add(ConvertToUnits(t)[0]);
@@ -565,6 +589,32 @@ namespace TrainingCatalog.Controls
         private void gvMain_DataSourceChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void gvMain_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+           
+            
+        }
+
+        private void gvMain_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+        private void gvMain_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            //if (gvMain.Rows.Count == 2) // this is voodoo magic.  http://code.google.com/p/traningcatalog/issues/detail?id=31
+            //{
+            //    intervals = new BindingList<CardioIntervalType>();
+            //    bs.DataSource = intervals;
+            //}
+             
+        }
+
+        private void gvMain_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+          
         }
 
     }

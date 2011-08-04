@@ -135,6 +135,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                     cmd.CommandText = "select version from version_info";
                     currentVersion = Convert.ToDouble(cmd.ExecuteScalar());
                 }
+                connection.Close();
             }
             return UpdateDatabase.GetVersionsUpdate(currentVersion);
         }
