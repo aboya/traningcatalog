@@ -16,7 +16,7 @@ namespace TrainingCatalog.BusinessLogic.Types
         {
             get
             {
-                return string.Format("{0} {1}:{2}", Date.ToString("yyyy.MM.dd"), StartTime / 60, StartTime % 60);
+                return string.Format("{0:00}:{1:00}", StartTime / 60, StartTime % 60);
             }
         }
         public static bool operator >(CardioSessionType x, CardioSessionType y)

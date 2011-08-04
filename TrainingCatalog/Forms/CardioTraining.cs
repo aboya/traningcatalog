@@ -51,10 +51,33 @@ namespace TrainingCatalog.Forms
                 cardioSession.ShowDialog(this);
                 mCalendar.AddBoldedDate(mCalendar.SelectionStart);
                 mCalendar.UpdateBoldedDates();
+              
             }
+            UpdateSessions();
             
         }
+        private void UpdateSessions()
+        {
+            try
+            {
+                connection.Open();
+                using (cmd = connection.CreateCommand())
+                {
+                    sessions = new BindingList<CardioSessionType>(TrainingBusiness.GetCardioSessions(cmd, mCalendar.SelectionStart.Date));
 
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            bs.DataSource = sessions;
+    
+        }
         private void chkGraph_CheckedChanged(object sender, EventArgs e)
         {
             if (chkGraph.Checked)
@@ -144,30 +167,14 @@ namespace TrainingCatalog.Forms
                     cardioSession.ShowDialog(this);
                 }
                 CreateCgraph();
+                UpdateSessions();
                 
             }
         }
 
         private void mCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
-            try
-            {
-                using (cmd = connection.CreateCommand())
-                {
-                    connection.Open();
-                    sessions = new BindingList<CardioSessionType>(TrainingBusiness.GetCardioSessions(cmd, mCalendar.SelectionStart.Date));
-                    
-                }
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show(ee.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-            bs.DataSource = sessions;
+            UpdateSessions();
         }
 
         private void lstSession_SelectedIndexChanged(object sender, EventArgs e)
