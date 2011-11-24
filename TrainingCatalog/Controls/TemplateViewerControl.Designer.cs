@@ -39,6 +39,7 @@
             // 
             // gv_templates
             // 
+            this.gv_templates.AllowDrop = true;
             this.gv_templates.AllowUserToAddRows = false;
             this.gv_templates.AllowUserToDeleteRows = false;
             this.gv_templates.AllowUserToResizeRows = false;

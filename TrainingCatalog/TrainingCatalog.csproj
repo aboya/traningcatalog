@@ -76,6 +76,7 @@
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -115,6 +116,7 @@
     <Compile Include="BusinessLogic\Types\CardioExersizeType.cs" />
     <Compile Include="BusinessLogic\Types\CardioIntervalType.cs" />
     <Compile Include="BusinessLogic\Types\CardioParamsType.cs" />
+    <Compile Include="BusinessLogic\Types\CardioResultsType.cs" />
     <Compile Include="BusinessLogic\Types\CardioSessionType.cs" />
     <Compile Include="BusinessLogic\Types\TemplateType.cs" />
     <Compile Include="BusinessLogic\Types\CategoryType.cs" />
@@ -201,6 +203,18 @@
     </Compile>
     <Compile Include="Forms\CardioAddFromTemplate.Designer.cs">
       <DependentUpon>CardioAddFromTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CardioResults\CardioResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CardioResults\CardioResults.Designer.cs">
+      <DependentUpon>CardioResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CardioResults\CardioResultsOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CardioResults\CardioResultsOptions.Designer.cs">
+      <DependentUpon>CardioResultsOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CardioSession.cs">
       <SubType>Form</SubType>
@@ -334,6 +348,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CardioAddFromTemplate.resx">
       <DependentUpon>CardioAddFromTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CardioResults\CardioResults.resx">
+      <DependentUpon>CardioResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CardioResults\CardioResultsOptions.resx">
+      <DependentUpon>CardioResultsOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CardioSession.resx">
       <DependentUpon>CardioSession.cs</DependentUpon>

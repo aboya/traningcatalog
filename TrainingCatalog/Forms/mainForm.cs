@@ -58,7 +58,7 @@ namespace TrainingCatalog
 
         private void btnStatistics_Click(object sender, EventArgs e)
         {
-            new Statistics().Show();
+            //new Statistics().Show();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -106,6 +106,11 @@ namespace TrainingCatalog
         private void btnCardioTemplates_Click(object sender, EventArgs e)
         {
             new CardioTemplateSelector().Show();
+        }
+
+        private void btnCardioResults_Click(object sender, EventArgs e)
+        {
+            new CardioResults().Show();
         }
 
 
