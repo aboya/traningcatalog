@@ -12,7 +12,7 @@ namespace TrainingCatalog.Controls
         DateTime lastTime = DateTime.MinValue;
         const int eps = 1;
         TimeSpan timeEps = new TimeSpan(0,0,0,0,100); // 100 milisec
-        public event EventHandler DoubleClick;
+        public event EventHandler DoubleMouseClick;
         public BaseMonthCalendar()
         {
             this.MaxSelectionCount = 1;
@@ -23,9 +23,9 @@ namespace TrainingCatalog.Controls
             {
                 if (DateTime.Now.Subtract(lastTime) < timeEps)
                 {
-                    if (DoubleClick != null)
+                    if (DoubleMouseClick != null)
                     {
-                        this.DoubleClick(this, e);
+                        this.DoubleMouseClick(this, e);
                     }
                 }
             }
