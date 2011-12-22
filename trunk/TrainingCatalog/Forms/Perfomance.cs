@@ -11,7 +11,6 @@ using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic.Types;
 using TrainingCatalog.Forms;
-using TimeHighway.BusinessLogic.Common.Types;
 using System.Diagnostics;
 using TrainingCatalog.BusinessLogic;
 namespace TrainingCatalog

@@ -125,6 +125,7 @@
     <Compile Include="BusinessLogic\Types\MeasurementType.cs" />
     <Compile Include="BusinessLogic\Types\pair.cs" />
     <Compile Include="BusinessLogic\Types\PerfomanceDataType.cs" />
+    <Compile Include="BusinessLogic\Units.cs" />
     <Compile Include="BusinessLogic\UpdateDatabase.cs" />
     <Compile Include="BusinessLogic\Utils.cs" />
     <Compile Include="Controls\BaseControls\BaseButton.cs">
@@ -454,7 +455,9 @@
     <Content Include="Calendar.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="db.sdf" />
+    <Content Include="db.sdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="BusinessLogic\DataBaseSchema.xsc">
       <DependentUpon>DataBaseSchema.xsd</DependentUpon>
     </None>

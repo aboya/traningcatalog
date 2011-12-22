@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TimeHighway.BusinessLogic.Common.Types
+namespace TrainingCatalog.BusinessLogic.Types
 {
     public class pair<T, U>
     {

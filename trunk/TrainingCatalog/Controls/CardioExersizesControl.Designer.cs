@@ -95,7 +95,6 @@
             this.cbSpeedDistance.Name = "cbSpeedDistance";
             this.cbSpeedDistance.Size = new System.Drawing.Size(52, 21);
             this.cbSpeedDistance.TabIndex = 13;
-            this.cbSpeedDistance.SelectedIndexChanged += new System.EventHandler(this.cbSpeedDistance_SelectedIndexChanged);
             this.cbSpeedDistance.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedDistance_SelectionChangeCommitted);
             // 
             // lblDistance
@@ -116,7 +115,6 @@
             this.cbSpeedTime.Name = "cbSpeedTime";
             this.cbSpeedTime.Size = new System.Drawing.Size(52, 21);
             this.cbSpeedTime.TabIndex = 14;
-            this.cbSpeedTime.SelectedIndexChanged += new System.EventHandler(this.cbSpeedTime_SelectedIndexChanged);
             this.cbSpeedTime.SelectionChangeCommitted += new System.EventHandler(this.cbSpeedTime_SelectionChangeCommitted);
             // 
             // lblTime
@@ -137,7 +135,6 @@
             this.cbTime.Name = "cbTime";
             this.cbTime.Size = new System.Drawing.Size(49, 21);
             this.cbTime.TabIndex = 15;
-            this.cbTime.SelectedIndexChanged += new System.EventHandler(this.cbTime_SelectedIndexChanged);
             this.cbTime.SelectionChangeCommitted += new System.EventHandler(this.cbTime_SelectionChangeCommitted);
             // 
             // cbDistance
@@ -149,7 +146,6 @@
             this.cbDistance.Name = "cbDistance";
             this.cbDistance.Size = new System.Drawing.Size(47, 21);
             this.cbDistance.TabIndex = 16;
-            this.cbDistance.SelectedIndexChanged += new System.EventHandler(this.cbDistance_SelectedIndexChanged);
             this.cbDistance.SelectionChangeCommitted += new System.EventHandler(this.cbDistance_SelectionChangeCommitted);
             // 
             // gvMain
