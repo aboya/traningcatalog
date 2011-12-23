@@ -42,8 +42,8 @@
             this.mCalendar.MaxSelectionCount = 1;
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 0;
+            this.mCalendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mCalendar_DateChanged);
             this.mCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mCalendar_DateSelected);
-            
             // 
             // lstSession
             // 
@@ -63,7 +63,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.zedGraphControl.Location = new System.Drawing.Point(18, 192);
-            this.zedGraphControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.zedGraphControl.Margin = new System.Windows.Forms.Padding(4);
             this.zedGraphControl.Name = "zedGraphControl";
             this.zedGraphControl.ScrollGrace = 0D;
             this.zedGraphControl.ScrollMaxX = 0D;

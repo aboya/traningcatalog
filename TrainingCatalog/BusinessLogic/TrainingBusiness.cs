@@ -771,7 +771,7 @@ namespace TrainingCatalog.BusinessLogic
                           inner join cardioSession on cardiosession.id = CardioInterval.CardioSessionId
 						  inner join Training on Training.Id = cardioSession.Trainingid
                           where Training.Day between @start and @end
-                          order by Training.Day";
+                          order by Training.Day, CardioInterval.Id";
             cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
             cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end;
             Dictionary<int, List<CardioIntervalType>> res = new Dictionary<int, List<CardioIntervalType>>();

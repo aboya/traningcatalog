@@ -69,6 +69,7 @@
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(142, 20);
             this.dtpTo.TabIndex = 11;
+            this.dtpTo.ValueChanged += new System.EventHandler(this.dtpTo_ValueChanged);
             // 
             // dtpFrom
             // 
@@ -76,6 +77,7 @@
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(138, 20);
             this.dtpFrom.TabIndex = 10;
+            this.dtpFrom.ValueChanged += new System.EventHandler(this.dtpFrom_ValueChanged);
             // 
             // TrainingList
             // 
@@ -105,6 +107,7 @@
             this.cbType.Name = "cbType";
             this.cbType.Size = new System.Drawing.Size(126, 21);
             this.cbType.TabIndex = 14;
+            this.cbType.SelectionChangeCommitted += new System.EventHandler(this.cbType_SelectionChangeCommitted);
             // 
             // btnOptions
             // 

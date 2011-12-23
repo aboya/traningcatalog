@@ -16,6 +16,7 @@ namespace TrainingCatalog.Forms
 {
     public partial class CardioResults : BaseForm
     {
+        Dictionary<int, List<CardioIntervalType>> cardioTrainingReport = new Dictionary<int, List<CardioIntervalType>>();
         public CardioResults()
         {
             InitializeComponent();
@@ -23,7 +24,8 @@ namespace TrainingCatalog.Forms
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            new CardioResultsOptions().ShowDialog();
+            new CardioResultsOptions(cardioTrainingReport).ShowDialog();
+            CreateCgraph();
         }
 
         private void CardioResults_Load(object sender, EventArgs e)
@@ -37,25 +39,52 @@ namespace TrainingCatalog.Forms
                     using (SqlCeCommand cmd = connection.CreateCommand())
                     {
                         connection.Open();
-                        TrainingList.DataSource = TrainingBusiness.GetCardioExersizes(cmd);
+                        var exersizes = TrainingBusiness.GetCardioExersizes(cmd);
+                        exersizes.Insert(0,new CardioExersizeType()
+                        {
+                            Id = -1,
+                            Name = "Все"
+                        });
+                        TrainingList.DataSource = exersizes;
                         TrainingList.ValueMember = "Id";
                         TrainingList.DisplayMember = "Name";
 
                         dtpFrom.Value = TrainingBusiness.GetStartTrainingDay(cmd);
                         dtpTo.Value = TrainingBusiness.GetEndTrainingDay(cmd);
-
-                        CreateCgraph(TrainingBusiness.GetCardioReport(cmd, dtpFrom.Value, dtpTo.Value));
+                        cardioTrainingReport = TrainingBusiness.GetCardioReport(cmd, dtpFrom.Value, dtpTo.Value);
+                        
 
                         connection.Close();
                     }
                 }
+                string o;
+                Units.DistanceUnit SpeedDistance = Units.DistanceUnit.Meters, Distance = Units.DistanceUnit.Meters;
+                Units.TimeUnit Time = Units.TimeUnit.Hour, SpeedTime = Units.TimeUnit.Hour;
+                o = dbBusiness.GetValue("DistanceUnit");
+                if (!string.IsNullOrEmpty(o)) Distance = (Units.DistanceUnit) Convert.ToInt32(o);
+                o = dbBusiness.GetValue("TimeUnit");
+                if (!string.IsNullOrEmpty(o)) Time= (Units.TimeUnit) Convert.ToInt32(o);
+                o = dbBusiness.GetValue("Velocity_DistanceUnit");
+                if (!string.IsNullOrEmpty(o)) SpeedDistance= (Units.DistanceUnit) Convert.ToInt32(o);
+                o = dbBusiness.GetValue("Velocity_TimeUnit");
+                if (!string.IsNullOrEmpty(o)) SpeedTime = (Units.TimeUnit) Convert.ToInt32(o);
+                if (ConfigurationManager.ConnectionStrings["db"] != null)
+                {
+                    connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                }
+                Units units = new Units(SpeedDistance, SpeedTime, Distance, Time);
+                foreach (var l in cardioTrainingReport.Values)
+                {
+                    units.ConvertToUnits(l);
+                }
+                CreateCgraph();
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message);
             }
         }
-        private void CreateCgraph(Dictionary<int, List<CardioIntervalType> > cardioTrainingReport)
+        private void CreateCgraph()
         {
 
             GraphPane pane = mainGraphControl.GraphPane;
@@ -81,8 +110,9 @@ namespace TrainingCatalog.Forms
             pane.XAxis.Type = AxisType.Date;
             PointPairList mainIntervals = new PointPairList();
             PointPairList Resistance = new PointPairList();
-            
-            int Type = 1;
+
+            int Type = cbType.SelectedIndex + 1;
+            int cardioExersizeId = Convert.ToInt32(TrainingList.SelectedValue);
             foreach (var sessionId in cardioTrainingReport.Keys)
             {
                 var intervals = cardioTrainingReport[sessionId];
@@ -90,54 +120,25 @@ namespace TrainingCatalog.Forms
 
                 foreach (CardioIntervalType i in intervals)
                 {
-                    if (i.Velocity > 0 && i.Time > 0)
+                    double value;
+                    if (Type == 1) value = i.Velocity;
+                    else if (Type == 2) value = i.Time;
+                    else value = i.Distance;
+                    if (cardioExersizeId >= 0 && cardioExersizeId != i.CardioTypeId) continue;
+                    if (value > 0 && i.Time > 0)
                     {
-                        string tag = string.Format("{0:0}", i.Velocity);
-                        //mainIntervals.Add(i.Date.ToOADate()+TotalTime, 0, tag);
-                        //mainIntervals.Add(i.Date.ToOADate()+TotalTime, i.Velocity, tag);
-                        //mainIntervals.Add(i.Date.ToOADate()+TotalTime + i.Time, i.Velocity, tag);
-                        //mainIntervals.Add(i.Date.ToOADate()+TotalTime + i.Time, 0, tag);
-                        mainIntervals.Add(i.Date.ToOADate(), i.Velocity);
+                        string tag = string.Format("{0:0}", value);
+                        mainIntervals.Add(i.Date.AddSeconds(TotalTime).ToOADate(), 0, tag);
+                        mainIntervals.Add(i.Date.AddSeconds(TotalTime).ToOADate(), value, tag);
+                        mainIntervals.Add(i.Date.AddSeconds(TotalTime + i.Time).ToOADate(), value, tag);
+                        mainIntervals.Add(i.Date.AddSeconds(TotalTime + i.Time).ToOADate(), 0, tag);
                         TotalTime += i.Time;
-
                     }
+                    
                 }
             }
 
-            //if (TotalTime > 0)
-            //{
-            //    double MaxV = (from i in intervals
-            //                   select i.Velocity).Max();
-            //    if (MaxV > 0)
-            //    {
-            //        // add resistance
-            //        pane.XAxis.Scale.Min = 0;
-            //        pane.XAxis.Scale.Max = TotalTime;
-            //        pane.YAxis.Scale.Min = 0;
-            //        pane.YAxis.Scale.Max = MaxV + MaxV * 0.2;
 
-            //        double MaxResistance = (from i in intervals
-            //                                select i.Resistance).Max();
-            //        if (MaxResistance > 0)
-            //        {
-
-            //            double scaleResistance = (MaxV + MaxV * 0.1) / MaxResistance;
-            //            TotalTime = 0;
-            //            foreach (CardioIntervalType i in intervals)
-            //            {
-            //                if (i.Time > 0)
-            //                {
-            //                    string tag = string.Format("{0:0}", i.Resistance);
-            //                    Resistance.Add(TotalTime, scaleResistance * i.Resistance, tag);
-            //                    Resistance.Add(TotalTime + i.Time, scaleResistance * i.Resistance, tag);
-            //                    TotalTime += i.Time;
-            //                }
-            //            }
-            //            LineItem lineItemR = pane.AddCurve("Resistance", Resistance, Color.Blue, SymbolType.None);
-            //            lineItemR.Line.Width = 3.0F;
-            //        }
-            //    }
-            //}
             LineItem lineItem = pane.AddCurve("Velocity", mainIntervals, Color.Black, SymbolType.None);
             lineItem.Line.Fill = new Fill(Color.White, Color.Red, 45F);
 
@@ -146,20 +147,23 @@ namespace TrainingCatalog.Forms
         }
         private void TrainingList_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            try
-            {
-                using (connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
-                {
-                    using (SqlCeCommand cmd = connection.CreateCommand())
-                    {
-        
-                    }
-                }
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show(ee.Message);
-            }
+            CreateCgraph();
+
+        }
+
+        private void cbType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CreateCgraph();
+        }
+
+        private void dtpFrom_ValueChanged(object sender, EventArgs e)
+        {
+            CreateCgraph();
+        }
+
+        private void dtpTo_ValueChanged(object sender, EventArgs e)
+        {
+            CreateCgraph();
         }
     }
 }
