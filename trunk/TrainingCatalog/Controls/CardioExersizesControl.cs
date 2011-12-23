@@ -409,5 +409,10 @@ namespace TrainingCatalog.Controls
           
         }
 
+        private void gpSettings_Enter(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

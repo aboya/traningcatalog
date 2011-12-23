@@ -67,6 +67,7 @@
             this.gpSettings.TabIndex = 14;
             this.gpSettings.TabStop = false;
             this.gpSettings.Text = "Настройки меры";
+            this.gpSettings.Enter += new System.EventHandler(this.gpSettings_Enter);
             // 
             // lblVelocity
             // 

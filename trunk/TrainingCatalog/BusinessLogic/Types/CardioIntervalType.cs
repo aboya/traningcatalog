@@ -17,7 +17,7 @@ namespace TrainingCatalog.BusinessLogic.Types
         public double Time { get; set; }
         public double Distance { get; set; }
         public double HeartRate { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date;
     }
 
 }

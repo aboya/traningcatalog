@@ -174,7 +174,9 @@ namespace TrainingCatalog.Forms
 
         private void mCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
+          
             UpdateSessions();
+
         }
 
         private void lstSession_SelectedIndexChanged(object sender, EventArgs e)
@@ -284,6 +286,13 @@ namespace TrainingCatalog.Forms
                 connection.Close();
             }
             return res;
+        }
+
+        private void mCalendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            UpdateSessions();
+            CreateCgraph();
+            
         }
         
 
