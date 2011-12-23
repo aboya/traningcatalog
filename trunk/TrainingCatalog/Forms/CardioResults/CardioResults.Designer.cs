@@ -51,7 +51,7 @@
             this.mainGraphControl.ScrollMinX = 0D;
             this.mainGraphControl.ScrollMinY = 0D;
             this.mainGraphControl.ScrollMinY2 = 0D;
-            this.mainGraphControl.Size = new System.Drawing.Size(593, 345);
+            this.mainGraphControl.Size = new System.Drawing.Size(593, 357);
             this.mainGraphControl.TabIndex = 1;
             // 
             // bntClear
@@ -84,10 +84,11 @@
             this.TrainingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TrainingList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.TrainingList.FormattingEnabled = true;
-            this.TrainingList.Location = new System.Drawing.Point(144, 389);
+            this.TrainingList.Location = new System.Drawing.Point(144, 401);
             this.TrainingList.Name = "TrainingList";
             this.TrainingList.Size = new System.Drawing.Size(458, 21);
             this.TrainingList.TabIndex = 13;
+            this.TrainingList.SelectionChangeCommitted += new System.EventHandler(this.TrainingList_SelectionChangeCommitted);
             // 
             // cbType
             // 
@@ -100,7 +101,7 @@
             "Speed",
             "Time",
             "Distance"});
-            this.cbType.Location = new System.Drawing.Point(12, 389);
+            this.cbType.Location = new System.Drawing.Point(12, 401);
             this.cbType.Name = "cbType";
             this.cbType.Size = new System.Drawing.Size(126, 21);
             this.cbType.TabIndex = 14;
@@ -119,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(614, 422);
+            this.ClientSize = new System.Drawing.Size(614, 434);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.TrainingList);

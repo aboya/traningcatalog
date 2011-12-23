@@ -727,7 +727,7 @@ namespace TrainingCatalog.BusinessLogic
         public static List<CardioIntervalType> GetCardioIntervals(SqlCeCommand cmd, int sessionId)
         {
             cmd.Parameters.Clear();
-            cmd.CommandText = @"SELECT CardioInterval.Id, CardioInterval.CardioSessionId, CardioInterval.CardioTypeId,
+            cmd.CommandText = @"SELECT CardioInterval.Id, CardioInterval.CardioTypeId,
                                         CardioInterval.Velocity, CardioInterval.Time, CardioInterval.Distance, 
                                         CardioInterval.Intensivity, CardioInterval.Resistance, CardioInterval.HeartRate, 
                                         CardioType.Name
@@ -756,6 +756,59 @@ namespace TrainingCatalog.BusinessLogic
                 }
             }
            
+            cmd.Parameters.Clear();
+            return res;
+        }
+        public static Dictionary<int, List<CardioIntervalType> > GetCardioReport(SqlCeCommand cmd, DateTime start, DateTime end)
+        {
+            cmd.Parameters.Clear();
+            cmd.CommandText = @"SELECT Training.Day,cardioSession.starttime, CardioInterval.Id, CardioInterval.CardioSessionId, CardioInterval.CardioTypeId,
+                                        CardioInterval.Velocity, CardioInterval.Time, CardioInterval.Distance, 
+                                        CardioInterval.Intensivity, CardioInterval.Resistance, CardioInterval.HeartRate, 
+                                        CardioType.Name
+                          FROM CardioInterval 
+						  INNER JOIN CardioType ON CardioInterval.CardioTypeId = CardioType.Id  
+                          inner join cardioSession on cardiosession.id = CardioInterval.CardioSessionId
+						  inner join Training on Training.Id = cardioSession.Trainingid
+                          where Training.Day between @start and @end
+                          order by Training.Day";
+            cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
+            cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end;
+            Dictionary<int, List<CardioIntervalType>> res = new Dictionary<int, List<CardioIntervalType>>();
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    int sessionId = Convert.ToInt32(reader["CardioSessionId"]);
+                    List<CardioIntervalType> l ;
+                    CardioIntervalType c = new CardioIntervalType()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        CardioTypeId = Convert.ToInt32(reader["CardioTypeId"]),
+                        Distance = reader["Distance"] is DBNull ? 0 : Convert.ToDouble(reader["Distance"]),
+                        HeartRate = reader["HeartRate"] is DBNull ? 0 : Convert.ToDouble(reader["HeartRate"]),
+                        Intensivity = reader["Intensivity"] is DBNull ? 0 : Convert.ToDouble(reader["Intensivity"]),
+                        Name = reader["Name"] is DBNull ? string.Empty : Convert.ToString(reader["Name"]),
+                        Resistance = reader["Resistance"] is DBNull ? 0 : Convert.ToDouble(reader["Resistance"]),
+                        Time = reader["Time"] is DBNull ? 0 : Convert.ToDouble(reader["Time"]),
+                        Velocity = reader["Velocity"] is DBNull ? 0 : Convert.ToDouble(reader["Velocity"]),
+                        Date = Convert.ToDateTime(reader["Day"]).AddMinutes(reader["starttime"] is DBNull ? 0 : Convert.ToInt32(reader["starttime"]))
+                    };
+                    if (!res.TryGetValue(sessionId, out l))
+                    {
+                        l = new List<CardioIntervalType>();
+                        l.Add(c);
+                        res[sessionId] = l;
+                    }
+                    else
+                    {
+                        l.Add(c);
+                    }
+
+           
+                }
+            }
+
             cmd.Parameters.Clear();
             return res;
         }

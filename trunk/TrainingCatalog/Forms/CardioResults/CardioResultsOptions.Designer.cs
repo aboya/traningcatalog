@@ -28,123 +28,147 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.baseLabel3 = new TrainingCatalog.Controls.BaseLabel();
-            this.baseLabel2 = new TrainingCatalog.Controls.BaseLabel();
-            this.baseLabel1 = new TrainingCatalog.Controls.BaseLabel();
-            this.baseTextBox5 = new TrainingCatalog.Controls.BaseTextBox();
-            this.baseTextBox6 = new TrainingCatalog.Controls.BaseTextBox();
-            this.baseTextBox3 = new TrainingCatalog.Controls.BaseTextBox();
-            this.baseTextBox4 = new TrainingCatalog.Controls.BaseTextBox();
-            this.baseTextBox2 = new TrainingCatalog.Controls.BaseTextBox();
-            this.baseTextBox1 = new TrainingCatalog.Controls.BaseTextBox();
+            this.gpSettings = new TrainingCatalog.Controls.BaseGroupBox();
+            this.lblVelocity = new System.Windows.Forms.Label();
+            this.lblSlash = new System.Windows.Forms.Label();
+            this.cbSpeedDistance = new TrainingCatalog.Controls.BaseComboBox();
+            this.lblDistance = new System.Windows.Forms.Label();
+            this.cbSpeedTime = new TrainingCatalog.Controls.BaseComboBox();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.cbTime = new TrainingCatalog.Controls.BaseComboBox();
+            this.cbDistance = new TrainingCatalog.Controls.BaseComboBox();
+            this.gpSettings.SuspendLayout();
             this.SuspendLayout();
             // 
-            // baseLabel3
+            // gpSettings
             // 
-            this.baseLabel3.AutoSize = true;
-            this.baseLabel3.Location = new System.Drawing.Point(12, 61);
-            this.baseLabel3.Name = "baseLabel3";
-            this.baseLabel3.Size = new System.Drawing.Size(33, 13);
-            this.baseLabel3.TabIndex = 32;
-            this.baseLabel3.Text = "Time:";
+            this.gpSettings.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.gpSettings.Controls.Add(this.lblVelocity);
+            this.gpSettings.Controls.Add(this.lblSlash);
+            this.gpSettings.Controls.Add(this.cbSpeedDistance);
+            this.gpSettings.Controls.Add(this.lblDistance);
+            this.gpSettings.Controls.Add(this.cbSpeedTime);
+            this.gpSettings.Controls.Add(this.lblTime);
+            this.gpSettings.Controls.Add(this.cbTime);
+            this.gpSettings.Controls.Add(this.cbDistance);
+            this.gpSettings.Location = new System.Drawing.Point(12, 12);
+            this.gpSettings.Name = "gpSettings";
+            this.gpSettings.Size = new System.Drawing.Size(269, 165);
+            this.gpSettings.TabIndex = 15;
+            this.gpSettings.TabStop = false;
+            this.gpSettings.Text = "Настройки меры";
             // 
-            // baseLabel2
+            // lblVelocity
             // 
-            this.baseLabel2.AutoSize = true;
-            this.baseLabel2.Location = new System.Drawing.Point(12, 35);
-            this.baseLabel2.Name = "baseLabel2";
-            this.baseLabel2.Size = new System.Drawing.Size(47, 13);
-            this.baseLabel2.TabIndex = 31;
-            this.baseLabel2.Text = "Velocity:";
+            this.lblVelocity.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblVelocity.AutoSize = true;
+            this.lblVelocity.Location = new System.Drawing.Point(18, 27);
+            this.lblVelocity.Name = "lblVelocity";
+            this.lblVelocity.Size = new System.Drawing.Size(58, 13);
+            this.lblVelocity.TabIndex = 17;
+            this.lblVelocity.Text = "Скорость:";
             // 
-            // baseLabel1
+            // lblSlash
             // 
-            this.baseLabel1.AutoSize = true;
-            this.baseLabel1.Location = new System.Drawing.Point(12, 9);
-            this.baseLabel1.Name = "baseLabel1";
-            this.baseLabel1.Size = new System.Drawing.Size(52, 13);
-            this.baseLabel1.TabIndex = 30;
-            this.baseLabel1.Text = "Distance:";
+            this.lblSlash.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblSlash.AutoSize = true;
+            this.lblSlash.Location = new System.Drawing.Point(140, 27);
+            this.lblSlash.Name = "lblSlash";
+            this.lblSlash.Size = new System.Drawing.Size(12, 13);
+            this.lblSlash.TabIndex = 20;
+            this.lblSlash.Text = "/";
             // 
-            // baseTextBox5
+            // cbSpeedDistance
             // 
-            this.baseTextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseTextBox5.Location = new System.Drawing.Point(119, 59);
-            this.baseTextBox5.Name = "baseTextBox5";
-            this.baseTextBox5.Size = new System.Drawing.Size(34, 20);
-            this.baseTextBox5.TabIndex = 29;
+            this.cbSpeedDistance.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cbSpeedDistance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSpeedDistance.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbSpeedDistance.FormattingEnabled = true;
+            this.cbSpeedDistance.Location = new System.Drawing.Point(82, 23);
+            this.cbSpeedDistance.Name = "cbSpeedDistance";
+            this.cbSpeedDistance.Size = new System.Drawing.Size(52, 21);
+            this.cbSpeedDistance.TabIndex = 13;
             // 
-            // baseTextBox6
+            // lblDistance
             // 
-            this.baseTextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseTextBox6.Location = new System.Drawing.Point(70, 59);
-            this.baseTextBox6.Name = "baseTextBox6";
-            this.baseTextBox6.Size = new System.Drawing.Size(34, 20);
-            this.baseTextBox6.TabIndex = 28;
+            this.lblDistance.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblDistance.AutoSize = true;
+            this.lblDistance.Location = new System.Drawing.Point(6, 80);
+            this.lblDistance.Name = "lblDistance";
+            this.lblDistance.Size = new System.Drawing.Size(70, 13);
+            this.lblDistance.TabIndex = 19;
+            this.lblDistance.Text = "Расстояние:";
             // 
-            // baseTextBox3
+            // cbSpeedTime
             // 
-            this.baseTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseTextBox3.Location = new System.Drawing.Point(119, 33);
-            this.baseTextBox3.Name = "baseTextBox3";
-            this.baseTextBox3.Size = new System.Drawing.Size(34, 20);
-            this.baseTextBox3.TabIndex = 27;
+            this.cbSpeedTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cbSpeedTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSpeedTime.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbSpeedTime.FormattingEnabled = true;
+            this.cbSpeedTime.Location = new System.Drawing.Point(158, 23);
+            this.cbSpeedTime.Name = "cbSpeedTime";
+            this.cbSpeedTime.Size = new System.Drawing.Size(52, 21);
+            this.cbSpeedTime.TabIndex = 14;
             // 
-            // baseTextBox4
+            // lblTime
             // 
-            this.baseTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseTextBox4.Location = new System.Drawing.Point(70, 33);
-            this.baseTextBox4.Name = "baseTextBox4";
-            this.baseTextBox4.Size = new System.Drawing.Size(34, 20);
-            this.baseTextBox4.TabIndex = 26;
+            this.lblTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblTime.AutoSize = true;
+            this.lblTime.Location = new System.Drawing.Point(33, 53);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(43, 13);
+            this.lblTime.TabIndex = 18;
+            this.lblTime.Text = "Время:";
             // 
-            // baseTextBox2
+            // cbTime
             // 
-            this.baseTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseTextBox2.Location = new System.Drawing.Point(119, 7);
-            this.baseTextBox2.Name = "baseTextBox2";
-            this.baseTextBox2.Size = new System.Drawing.Size(34, 20);
-            this.baseTextBox2.TabIndex = 25;
+            this.cbTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cbTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTime.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbTime.FormattingEnabled = true;
+            this.cbTime.Location = new System.Drawing.Point(82, 50);
+            this.cbTime.Name = "cbTime";
+            this.cbTime.Size = new System.Drawing.Size(49, 21);
+            this.cbTime.TabIndex = 15;
             // 
-            // baseTextBox1
+            // cbDistance
             // 
-            this.baseTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.baseTextBox1.Location = new System.Drawing.Point(70, 7);
-            this.baseTextBox1.Name = "baseTextBox1";
-            this.baseTextBox1.Size = new System.Drawing.Size(34, 20);
-            this.baseTextBox1.TabIndex = 24;
+            this.cbDistance.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cbDistance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDistance.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbDistance.FormattingEnabled = true;
+            this.cbDistance.Location = new System.Drawing.Point(82, 77);
+            this.cbDistance.Name = "cbDistance";
+            this.cbDistance.Size = new System.Drawing.Size(47, 21);
+            this.cbDistance.TabIndex = 16;
             // 
             // CardioResultsOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.baseLabel3);
-            this.Controls.Add(this.baseLabel2);
-            this.Controls.Add(this.baseLabel1);
-            this.Controls.Add(this.baseTextBox5);
-            this.Controls.Add(this.baseTextBox6);
-            this.Controls.Add(this.baseTextBox3);
-            this.Controls.Add(this.baseTextBox4);
-            this.Controls.Add(this.baseTextBox2);
-            this.Controls.Add(this.baseTextBox1);
+            this.ClientSize = new System.Drawing.Size(294, 193);
+            this.Controls.Add(this.gpSettings);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.IsShown = true;
             this.Name = "CardioResultsOptions";
             this.Text = "CardioResultsOptions";
+            this.gpSettings.ResumeLayout(false);
+            this.gpSettings.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Controls.BaseLabel baseLabel3;
-        private Controls.BaseLabel baseLabel2;
-        private Controls.BaseLabel baseLabel1;
-        private Controls.BaseTextBox baseTextBox5;
-        private Controls.BaseTextBox baseTextBox6;
-        private Controls.BaseTextBox baseTextBox3;
-        private Controls.BaseTextBox baseTextBox4;
-        private Controls.BaseTextBox baseTextBox2;
-        private Controls.BaseTextBox baseTextBox1;
+        private Controls.BaseGroupBox gpSettings;
+        private System.Windows.Forms.Label lblVelocity;
+        private System.Windows.Forms.Label lblSlash;
+        private Controls.BaseComboBox cbSpeedDistance;
+        private System.Windows.Forms.Label lblDistance;
+        private Controls.BaseComboBox cbSpeedTime;
+        private System.Windows.Forms.Label lblTime;
+        private Controls.BaseComboBox cbTime;
+        private Controls.BaseComboBox cbDistance;
+
     }
 }
