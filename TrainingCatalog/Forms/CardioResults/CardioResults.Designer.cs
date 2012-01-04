@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.mainGraphControl = new ZedGraph.ZedGraphControl();
-            this.bntClear = new TrainingCatalog.Controls.BaseButton();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.TrainingList = new TrainingCatalog.Controls.BaseComboBox();
@@ -53,15 +52,6 @@
             this.mainGraphControl.ScrollMinY2 = 0D;
             this.mainGraphControl.Size = new System.Drawing.Size(593, 357);
             this.mainGraphControl.TabIndex = 1;
-            // 
-            // bntClear
-            // 
-            this.bntClear.Location = new System.Drawing.Point(301, 12);
-            this.bntClear.Name = "bntClear";
-            this.bntClear.Size = new System.Drawing.Size(36, 20);
-            this.bntClear.TabIndex = 12;
-            this.bntClear.Text = "C";
-            this.bntClear.UseVisualStyleBackColor = true;
             // 
             // dtpTo
             // 
@@ -127,7 +117,6 @@
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.TrainingList);
-            this.Controls.Add(this.bntClear);
             this.Controls.Add(this.dtpTo);
             this.Controls.Add(this.dtpFrom);
             this.Controls.Add(this.mainGraphControl);
@@ -142,7 +131,6 @@
         #endregion
 
         private ZedGraph.ZedGraphControl mainGraphControl;
-        private Controls.BaseButton bntClear;
         private System.Windows.Forms.DateTimePicker dtpTo;
         private System.Windows.Forms.DateTimePicker dtpFrom;
         private Controls.BaseComboBox TrainingList;
