@@ -294,6 +294,25 @@ namespace TrainingCatalog.Forms
             CreateCgraph();
             
         }
+
+        private void mCalendar_DoubleMouseClick(object sender, EventArgs e)
+        {
+
+            if (lstSession.SelectedValue != null)
+            {
+                using (CardioSession cardioSession = new CardioSession(Convert.ToInt32(lstSession.SelectedValue)))
+                {
+                    cardioSession.ShowDialog(this);
+                }
+                CreateCgraph();
+                UpdateSessions();
+
+            }
+            else
+            {
+                btnAdd_Click(null, null);
+            }
+        }
         
 
     }
