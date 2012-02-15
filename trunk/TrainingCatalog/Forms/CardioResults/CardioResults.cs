@@ -128,7 +128,8 @@ namespace TrainingCatalog.Forms
                     if (i.Date < dtpFrom.Value || i.Date > dtpTo.Value) continue;
                     if (value > 0 && i.Time > 0)
                     {
-                        string tag = string.Format("{0:0}", value);
+                        string tag = string.Format("S/V/T:{0:0.##} | {1} ({2})", value, i.Date.AddSeconds(TotalTime).ToString("dd.MM.yy"), i.Date.AddSeconds(TotalTime).DayOfWeek.ToString());
+                       // string tag = string.Format("{0:0}", value);
                         mainIntervals.Add(i.Date.AddSeconds(TotalTime).ToOADate(), 0, tag);
                         mainIntervals.Add(i.Date.AddSeconds(TotalTime).ToOADate(), value, tag);
                         mainIntervals.Add(i.Date.AddSeconds(TotalTime + i.Time).ToOADate(), value, tag);

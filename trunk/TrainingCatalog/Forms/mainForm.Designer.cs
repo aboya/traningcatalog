@@ -39,7 +39,7 @@
             this.btnMeasurment = new TrainingCatalog.Controls.BaseButton();
             this.btnCategory = new TrainingCatalog.Controls.BaseButton();
             this.button7 = new TrainingCatalog.Controls.BaseButton();
-            this.button8 = new TrainingCatalog.Controls.BaseButton();
+            this.btnBodyMeasurementsReport = new TrainingCatalog.Controls.BaseButton();
             this.button9 = new TrainingCatalog.Controls.BaseButton();
             this.btnCardioExersizes = new TrainingCatalog.Controls.BaseButton();
             this.btnCardioTemplates = new TrainingCatalog.Controls.BaseButton();
@@ -155,15 +155,15 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Visible = false;
             // 
-            // button8
+            // btnBodyMeasurementsReport
             // 
-            this.button8.Location = new System.Drawing.Point(13, 166);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(84, 41);
-            this.button8.TabIndex = 11;
-            this.button8.Text = "Редактор блюд";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Visible = false;
+            this.btnBodyMeasurementsReport.Location = new System.Drawing.Point(13, 166);
+            this.btnBodyMeasurementsReport.Name = "btnBodyMeasurementsReport";
+            this.btnBodyMeasurementsReport.Size = new System.Drawing.Size(84, 41);
+            this.btnBodyMeasurementsReport.TabIndex = 11;
+            this.btnBodyMeasurementsReport.Text = "Результаты измерений";
+            this.btnBodyMeasurementsReport.UseVisualStyleBackColor = true;
+            this.btnBodyMeasurementsReport.Click += new System.EventHandler(this.btnBodyMeasurementsReport_Click);
             // 
             // button9
             // 
@@ -203,7 +203,7 @@
             this.Controls.Add(this.btnCardioTemplates);
             this.Controls.Add(this.btnCardioExersizes);
             this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
+            this.Controls.Add(this.btnBodyMeasurementsReport);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.btnCategory);
             this.Controls.Add(this.btnMeasurment);
@@ -239,10 +239,10 @@
         private TrainingCatalog.Controls.BaseButton btnMeasurment;
         private TrainingCatalog.Controls.BaseButton btnCategory;
         private TrainingCatalog.Controls.BaseButton button7;
-        private TrainingCatalog.Controls.BaseButton button8;
         private TrainingCatalog.Controls.BaseButton button9;
         private TrainingCatalog.Controls.BaseButton btnCardioExersizes;
         private Controls.BaseButton btnCardioTemplates;
+        private Controls.BaseButton btnBodyMeasurementsReport;
     }
 }
 
