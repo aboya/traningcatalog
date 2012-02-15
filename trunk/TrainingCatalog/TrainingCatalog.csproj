@@ -113,11 +113,13 @@
     <Compile Include="BusinessLogic\Enums\TemplateTypeEnum.cs" />
     <Compile Include="BusinessLogic\StatisticsBusiness.cs" />
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
+    <Compile Include="BusinessLogic\Types\BaseReportDay.cs" />
     <Compile Include="BusinessLogic\Types\CardioExersizeType.cs" />
     <Compile Include="BusinessLogic\Types\CardioIntervalType.cs" />
     <Compile Include="BusinessLogic\Types\CardioParamsType.cs" />
     <Compile Include="BusinessLogic\Types\CardioResultsType.cs" />
     <Compile Include="BusinessLogic\Types\CardioSessionType.cs" />
+    <Compile Include="BusinessLogic\Types\ReportDayTypeHtml.cs" />
     <Compile Include="BusinessLogic\Types\TemplateType.cs" />
     <Compile Include="BusinessLogic\Types\CategoryType.cs" />
     <Compile Include="BusinessLogic\dbBusiness.cs" />
