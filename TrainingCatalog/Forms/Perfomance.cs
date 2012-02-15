@@ -185,7 +185,7 @@ namespace TrainingCatalog
                 // symbols, and "Porsche" in the legend
                 if (chkWeighCount.Checked)
                 {
-                    LineItem myCurve = myPane.AddCurve("Вес * Повторения",
+                    myPane.AddCurve("Вес * Повторения",
                           pointWeightCount, Color.Red, SymbolType.Circle);
                 }
 

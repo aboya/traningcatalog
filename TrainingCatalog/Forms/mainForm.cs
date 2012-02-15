@@ -113,6 +113,11 @@ namespace TrainingCatalog
             new CardioResults().Show();
         }
 
+        private void btnBodyMeasurementsReport_Click(object sender, EventArgs e)
+        {
+            new MeasurementsReport().Show();
+        }
+
 
     }
 }

@@ -9,27 +9,26 @@ namespace TrainingCatalog.BusinessLogic.Types
     {
         public int TrainingId;
         public DateTime date;
-        public float Waistline_h;
-        public float Waistline_l;
-        public float Biceps_h;
-        public float Biceps_l;
-        public float Chest_h;
-        public float Chest_l;
-        public float Hip_h;
-        public float Hip_l;
-        public float Midarm_l;
-        public float Midarm_h;
-        public float BodyFat;
-        public float BodyWeight;
-        public bool IsEmpty
+        public float Waistline_h { get; set; }
+        public float Waistline_l { get; set; }
+        public float Biceps_h { get; set; }
+        public float Biceps_l { get; set; }
+        public float Chest_h { get; set; }
+        public float Chest_l { get; set; }
+        public float Hip_h { get; set; }
+        public float Hip_l { get; set; }
+        public float Midarm_l { get; set; }
+        public float Midarm_h { get; set; }
+        public float BodyFat { get; set; }
+        public float BodyWeight { get; set; }
+        public bool IsEmpty()
         {
-            get
-            {
+           
                 return this.Biceps_h == 0 && this.Biceps_l == 0 && this.BodyFat == 0 && this.Chest_h == 0 && this.Chest_l == 0
                     && this.Hip_h == 0 && this.Hip_l == 0 && this.Midarm_h == 0 && this.Midarm_l == 0 && this.Waistline_h == 0
                     && this.Waistline_l == 0;
                  
-            }
+            
         }
     }
 }

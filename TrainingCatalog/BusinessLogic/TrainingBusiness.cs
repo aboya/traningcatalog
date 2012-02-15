@@ -168,7 +168,7 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             if (!isExist)
             {
-                if (!m.IsEmpty)
+                if (!m.IsEmpty())
                 {
                     cmd.CommandText = @"insert into BodyMeasurement(TrainingId,Biceps_h, Biceps_l, BodyFat, Chest_h, Chest_l, Hip_h, Hip_l, Midarm_h, Midarm_l, Waistline_h, Waistline_l)
                                    values(@trId,@Biceps_h, @Biceps_l, @BodyFat, @Chest_h, @Chest_l, @Hip_h, @Hip_l, @Midarm_h, @Midarm_l, @Waistline_h, @Waistline_l)";
@@ -190,7 +190,7 @@ namespace TrainingCatalog.BusinessLogic
             }
             else
             {
-                if (!m.IsEmpty)
+                if (!m.IsEmpty())
                 {
                     cmd.CommandText = @"update BodyMeasurement set
                                       Biceps_h = @Biceps_h,
@@ -204,8 +204,7 @@ namespace TrainingCatalog.BusinessLogic
                                       Midarm_l = @Midarm_l,
                                       Waistline_h = @Waistline_h,
                                       Waistline_l = @Waistline_l
-                                      where TrainingId = @trId
-                            ";
+                                      where TrainingId = @trId";
                     cmd.Parameters.Add("@Biceps_h", SqlDbType.Float).Value = m.Biceps_h;
                     cmd.Parameters.Add("@Biceps_l", SqlDbType.Float).Value = m.Biceps_l;
                     cmd.Parameters.Add("@BodyFat", SqlDbType.Float).Value = m.BodyFat;
@@ -245,6 +244,41 @@ namespace TrainingCatalog.BusinessLogic
             }
             cmd.Parameters.Clear();
             return res;
+        }
+        public static List<MeasurementType> GetMeasurementReport(SqlCeCommand cmd, DateTime start, DateTime end)
+        {
+            List<MeasurementType> result = new List<MeasurementType>();
+           
+
+            cmd.Parameters.Clear();
+            cmd.CommandText = @"select Day,BodyWeight,Biceps_h,Biceps_l,BodyFat,Chest_h,Chest_l,Hip_h,Hip_l,Midarm_h,Midarm_l,Waistline_h,Waistline_l from BodyMeasurement 
+                                right join Training on BodyMeasurement.TrainingId = Training.ID 
+                                where Training.Day between @start and @end";
+            cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start.Date;
+            cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end.Date; ;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    MeasurementType res = new MeasurementType();
+                    res.Biceps_h = Convert.ToSingle(reader["Biceps_h"] is DBNull ? 0 : reader["Biceps_h"]);
+                    res.Biceps_l = Convert.ToSingle(reader["Biceps_l"]is DBNull ? 0 :reader["Biceps_l"]);
+                    res.BodyFat = Convert.ToSingle(reader["BodyFat"] is DBNull ? 0 : reader["BodyFat"]);
+                    res.Chest_h = Convert.ToSingle(reader["Chest_h"] is DBNull ? 0 : reader["Chest_h"]);
+                    res.Chest_l = Convert.ToSingle(reader["Chest_l"] is DBNull ? 0 : reader["Chest_l"]);
+                    res.date = Convert.ToDateTime(reader["Day"] is DBNull ? 0 : reader["Day"]);
+                    res.Hip_h = Convert.ToSingle(reader["Hip_h"] is DBNull ? 0 : reader["Hip_h"]);
+                    res.Hip_l = Convert.ToSingle(reader["Hip_l"] is DBNull ? 0 : reader["Hip_l"]);
+                    res.Midarm_h = Convert.ToSingle(reader["Midarm_h"] is DBNull ? 0 : reader["Midarm_h"]);
+                    res.Midarm_l = Convert.ToSingle(reader["Midarm_l"] is DBNull ? 0 : reader["Midarm_l"]);
+                    res.Waistline_h = Convert.ToSingle(reader["Waistline_h"] is DBNull ? 0 : reader["Waistline_h"]);
+                    res.Waistline_l = Convert.ToSingle(reader["Waistline_l"] is DBNull ? 0 : reader["Waistline_l"]);
+                    res.BodyWeight = Convert.ToSingle(reader["BodyWeight"] is DBNull ? 0 : reader["BodyWeight"]);
+                    result.Add(res);
+                }
+            }
+            cmd.Parameters.Clear();
+            return result;
         }
         public static float GetBodyWeight(SqlCeCommand cmd, DateTime date)
         {
