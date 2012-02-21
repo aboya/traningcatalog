@@ -6,19 +6,13 @@ using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog
 {
-    public class ReportDayType : BaseReportDay
+    public class ReportCsv : BaseReportDay
     {
         private static string Delimetr = ";";
 
-        public ReportDayType(DateTime _date, double _bodyWeight)
+        public ReportCsv(string _fileName, DateTime _start, DateTime _end)
+            : base(_fileName, _start, _end)
         {
-            date = _date;
-            bodyWeight = _bodyWeight;
-            exersizes = new List<ReportExersizeType>();
-        }
-        public void Add(ReportExersizeType exersizeItem)
-        {
-            exersizes.Add(exersizeItem);
         }
         public override string ToString()
         {
