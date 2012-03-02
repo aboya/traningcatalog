@@ -15,9 +15,12 @@ namespace TrainingCatalog.BusinessLogic.Types
        public DateTime date;
        public delegate void ProcessIndicator(int completed);
        public event ProcessIndicator ProcessIndicatorEvent;
+       protected Dictionary<int, int> LastMaximumExersizeWeight;
+       protected int[] ProgressTable;
        string fileName;
        DateTime start;
        DateTime end;
+        
         public BaseReportDay(string _fileName, DateTime _start, DateTime _end)
        {
            fileName = _fileName;
@@ -28,13 +31,14 @@ namespace TrainingCatalog.BusinessLogic.Types
        {
 
            Dictionary<int, int> LineForExersize = new Dictionary<int, int>();
+           Dictionary<int, int> ExersizeForLine = new Dictionary<int, int>();
            int avaibleLine = 0;
            foreach (ReportExersizeType e in exersizes)
            {
                if (!LineForExersize.ContainsKey(e.Id))
                {
-                   LineForExersize[e.Id] = ++avaibleLine;
-
+                   ExersizeForLine[++avaibleLine] = e.Id;
+                   LineForExersize[e.Id] = avaibleLine;
                }
            }
            string[,] resulst = new string[LineForExersize.Count + 1, 2];
@@ -50,6 +54,24 @@ namespace TrainingCatalog.BusinessLogic.Types
            }
            resulst[0, 0] = string.Format("Дата:{0} ({1})", date.ToString("dd/MM/yyyy"), date.DayOfWeek);
            resulst[0, 1] = "Вес:" + bodyWeight.ToString(); ;
+
+           //заполняем таблицу прогресса. Если 0 - прогреса нету, +1 есть, -1 регресс
+           ProgressTable = new int[LineForExersize.Count+1];
+           ProgressTable[0] = 0;
+           for (int i = 1; i <= LineForExersize.Count; i++)
+           {
+               ProgressTable[i] = 0;
+
+               int ExersizeId = ExersizeForLine[i];
+               int LastWeight;
+               LastMaximumExersizeWeight.TryGetValue(ExersizeId, out LastWeight);
+               int MaxCurrentDay = (from e in exersizes
+                                    where e.Id == ExersizeId
+                                    select e.weight).Max();
+               if (LastWeight > MaxCurrentDay) ProgressTable[i] = -1;
+               else if (LastWeight < MaxCurrentDay) ProgressTable[i] = 1;
+
+           }
            return resulst;
        }
        public void Add(ReportExersizeType exersizeItem)
@@ -93,6 +115,8 @@ namespace TrainingCatalog.BusinessLogic.Types
                        {
                            DateTime lastDate = DateTime.MinValue;
                            DateTime currentDate = DateTime.MinValue;
+                           //хранит максимальный вес предыдущего упражения
+                            LastMaximumExersizeWeight = new Dictionary<int, int>();
                            while (dr.Read())
                            {
                                currentDate = Convert.ToDateTime(dr["Day"]);
@@ -108,6 +132,21 @@ namespace TrainingCatalog.BusinessLogic.Types
                                            ProcessIndicatorEvent(current * 100 / total);
                                        }
                                        current++;
+
+                                       //сохраняем максимальный вес упражения за день
+                                       
+                                       //1. Очищаем список - убираем те упражнения которые использовались за текущий день, что бы они не влияли на результат максимума
+                                       foreach (var e in exersizes)
+                                       {
+                                           LastMaximumExersizeWeight[e.Id] = 0;
+                                       }
+
+                                       //2. Заливаем максимальный вес по каждому упражнению
+                                       foreach (var e in exersizes)
+                                       {
+                                           if (e.weight > LastMaximumExersizeWeight[e.Id]) LastMaximumExersizeWeight[e.Id] = e.weight;
+                                       }
+
                                        System.Windows.Forms.Application.DoEvents();
                                    }
                                    if (dr["BodyWeight"] is DBNull) bodyWeight = 0;

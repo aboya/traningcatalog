@@ -93,7 +93,8 @@ namespace TrainingCatalog
                 DateTime end = dtpEnd.Value;
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
-                    saveFileDialog.Filter = "Excel CSV File|*.csv";
+                    if (rbCsv.Checked) saveFileDialog.Filter = "Excel CSV File|*.csv";
+                    else if (rbHtml.Checked) saveFileDialog.Filter = "Html File|*.html";
                     if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         string path = saveFileDialog.FileName;
