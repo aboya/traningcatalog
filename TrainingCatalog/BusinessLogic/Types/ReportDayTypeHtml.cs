@@ -19,16 +19,21 @@ namespace TrainingCatalog.BusinessLogic.Types
             string[,] table = GetTable();
             n = table.GetLength(0);
             m = table.GetLength(1);
-            
+
             for (i = 0; i < n; i++)
             {
-                result.AppendFormat("<tr style=\"{0}\">",GetColumnStyle());
+                result.AppendFormat("<tr style=\"{0}\">", GetColumnStyle());
                 for (j = 0; j < m; j++)
                 {
-                    result.AppendFormat("<td style=\"{0}\">",GetCellStyle());
+                    result.AppendFormat("<td style=\"{0}\">", GetCellStyle());
                     result.Append(table[i, j]);
                     result.Append("</td>");
+
                 }
+                result.Append("<td>");
+                if (ProgressTable[i] > 0) result.Append("<font color=\"339900\">&uarr;</font>");
+                if (ProgressTable[i] < 0) result.Append("<font color=\"#FF0000\">&darr;</font>");
+                result.Append("</td>");
                 result.Append("</tr>");
             }
             result.AppendFormat("<tr><td colspan=\"{0}\"> <hr> </td></tr>", m);
@@ -39,15 +44,11 @@ namespace TrainingCatalog.BusinessLogic.Types
         }
         private string GetColumnStyle()
         {
-            return @"
-                width:100px;
-
-";
+            return @"";
         }
         private string GetCellStyle()
         {
-            return @" 
-               ";
+            return @"width:350px";
         }
         private string GetTableBorderStyle()
         {
@@ -60,8 +61,7 @@ namespace TrainingCatalog.BusinessLogic.Types
             border-width: 1px;
             border-color: gray;
             border-style: outset;
-            border-bottim: none;
-";
+            border-bottim: none;";
         }
         protected override string GenerateHeader()
         {
