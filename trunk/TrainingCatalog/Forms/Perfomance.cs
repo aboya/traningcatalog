@@ -101,6 +101,7 @@ namespace TrainingCatalog
                 Debug.WriteLine("GraphRecreated");
                 mainGraphControl.IsShowPointValues = true;
                 GraphPane myPane = zgc.GraphPane;
+                
                 myPane.CurveList.Clear();
                 myPane.XAxis.Type = AxisType.Date;
                 // Set the Titles
@@ -209,7 +210,6 @@ namespace TrainingCatalog
 
                 zgc.AxisChange();
                 zgc.Refresh();
-
 
             }
             catch (Exception ee)
