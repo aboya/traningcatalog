@@ -46,21 +46,23 @@ namespace TrainingCatalog.BusinessLogic.Types
                                 cmd.ExecuteNonQuery();
                             }
                         }
-                         
+
                     }
                 }
                 // update databse
                 List<double> versions = GetVersionProperties();
                 //need update
+
+                string backupPath = path + ".backup";
+
+                if (File.Exists(backupPath))
+                {
+                    backupPath = String.Format("{0}.{1:yyyy-MM-dd_hh-mm-ss_fff}", path, DateTime.Now);
+                }
+                File.Copy(path, backupPath, true);
                 if (versions.Count > 0)
                 {
-                    string backupPath = path + ".backup";
-                    
-                    if (File.Exists(backupPath))
-                    {
-                        backupPath = String.Format("{0}.{1:yyyy-MM-dd_hh-mm-ss_fff}", path, DateTime.Now);
-                    }
-                    File.Copy(path, backupPath, true);
+                    //update sql scripts
                     using (SqlCeConnection connection = new SqlCeConnection(connectionString))
                     {
                         using (SqlCeCommand cmd = connection.CreateCommand())
@@ -69,7 +71,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                             cmd.CommandText = "select version from version_info";
                             foreach (double version in versions)
                             {
-                               
+
                                 string sql = UpdateDatabase.GetSql(version);
                                 if (sql != null && sql.Trim().Length > 0)
                                 {
@@ -85,33 +87,34 @@ namespace TrainingCatalog.BusinessLogic.Types
                             }
                         }
                     }
-                    //shrink db
-                    string date;
-                    const string key = "LastShrinkDate";
-                    if (CheckValue(key) == 0)
-                    {
-                        AddValue(key, DateTime.Now.ToString());
-                    }
+                }
+                //shrink db
+                string date;
+                const string key = "LastShrinkDate";
+                if (CheckValue(key) == 0)
+                {
+                    AddValue(key, DateTime.Now.ToString());
+                }
 
-                    date = GetValue(key);
-                    if (!string.IsNullOrEmpty(date))
+                date = GetValue(key);
+                if (!string.IsNullOrEmpty(date))
+                {
+                    DateTime dt;
+                    if (DateTime.TryParse(date, out dt))
                     {
-                        DateTime dt;
-                        if (DateTime.TryParse(date, out dt))
+                        if (DateTime.Now.Subtract(dt).TotalDays > 90)
                         {
-                            if (DateTime.Now.Subtract(dt).TotalDays > 90)
+                            using (SqlCeEngine en = new SqlCeEngine(connectionString))
                             {
-                                using (SqlCeEngine en = new SqlCeEngine(connectionString))
-                                {
-                                    en.Shrink();
-                                }
-                                SetValue(key, DateTime.Now.ToString());
+                                en.Shrink();
                             }
+                            SetValue(key, DateTime.Now.ToString());
                         }
                     }
-
-                    File.Delete(backupPath);
                 }
+
+                File.Delete(backupPath);
+
             }
             catch (Exception e)
             {
