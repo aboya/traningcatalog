@@ -49,10 +49,29 @@ namespace TrainingCatalog.BusinessLogic
             sql[6.07] = @"insert into exersizecategory (Name) values('Пресс')";
             sql[6.08] = @"insert into exersizecategory (Name) values('Икры')";
             sql[6.09] = @"insert into exersizecategory (Name) values('Грудь')";
-            sql[6.11] = @"insert into exersizecategory (Name) values('Бицепц')";
+            sql[6.10] = @"insert into exersizecategory (Name) values('Бицепц')";
             sql[6.11] = @"insert into exersizecategory (Name) values('Трицепц')";
             sql[6.12] = @"insert into exersizecategory (Name) values('Предплечья')";
-            sql[6.03] = @"insert into exersizecategory (Name) values('Руки')";
+            sql[6.13] = @"insert into exersizecategory (Name) values('Руки')";
+
+            sql[6.14] = @"insert into Exersize (ShortName) values('Жим штанги лёжа')";
+            sql[6.15] = @"insert into Exersize (ShortName) values('Жим штанги сидя')";
+            sql[6.16] = @"insert into Exersize (ShortName) values('Подъем штанги стоя на бицепц')";
+            sql[6.17] = @"insert into Exersize (ShortName) values('Приседания со штангой')";
+            sql[6.18] = @"insert into Exersize (ShortName) values('Становая тяга')";
+            sql[6.19] = @"insert into Exersize (ShortName) values('Жим гантелей лёжа')";
+            sql[6.20] = @"insert into Exersize (ShortName) values('Жим гантелей сидя')";
+            sql[6.21] = @"insert into Exersize (ShortName) values('Подтягивания')";
+            sql[6.22] = @"insert into Exersize (ShortName) values('Французский жим')";
+            sql[6.23] = @"insert into Exersize (ShortName) values('Тяга штанги к поясу в наклоне')";
+            sql[6.24] = @"insert into Exersize (ShortName) values('Тяга штанги к подбородку')";
+            sql[6.25] = @"insert into Exersize (ShortName) values('Разведене гантелей стоя в наклоне')";
+            sql[6.26] = @"insert into Exersize (ShortName) values('Разгибание ног на тренажере сидя')";
+            sql[6.27] = @"insert into Exersize (ShortName) values('Разведение гантелей лёжа')";
+            sql[6.28] = @"insert into Exersize (ShortName) values('Подъем гантелей на бицепц')";
+            sql[6.29] = @"insert into Exersize (ShortName) values('Трицепц у блока стоя')";
+            sql[6.30] = @"insert into Exersize (ShortName) values('Тяга ветрикального блока за голову')";
+            sql[6.31] = @"insert into Exersize (ShortName) values('Тяга вертикального блока к животу')";
 
             sql[7] = @"CREATE TABLE ExersizeCategoryLink
                         (

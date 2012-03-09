@@ -37,9 +37,6 @@ namespace TrainingCatalog.BusinessLogic.Types
                 result.Append("</tr>");
             }
             result.AppendFormat("<tr><td colspan=\"{0}\"> <hr> </td></tr>", m);
-
-            
-           
             return result.ToString();
         }
         private string GetColumnStyle()
