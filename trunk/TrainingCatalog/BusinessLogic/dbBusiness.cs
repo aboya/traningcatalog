@@ -50,7 +50,7 @@ namespace TrainingCatalog.BusinessLogic.Types
                     }
                 }
                 // update databse
-                List<double> versions = GetVersionProperties();
+              
                 //need update
 
                 string backupPath = path + ".backup";
@@ -60,58 +60,9 @@ namespace TrainingCatalog.BusinessLogic.Types
                     backupPath = String.Format("{0}.{1:yyyy-MM-dd_hh-mm-ss_fff}", path, DateTime.Now);
                 }
                 File.Copy(path, backupPath, true);
-                if (versions.Count > 0)
-                {
-                    //update sql scripts
-                    using (SqlCeConnection connection = new SqlCeConnection(connectionString))
-                    {
-                        using (SqlCeCommand cmd = connection.CreateCommand())
-                        {
-                            connection.Open();
-                            cmd.CommandText = "select version from version_info";
-                            foreach (double version in versions)
-                            {
 
-                                string sql = UpdateDatabase.GetSql(version);
-                                if (sql != null && sql.Trim().Length > 0)
-                                {
-                                    cmd.CommandText = sql.Trim();
-                                    cmd.ExecuteNonQuery();
-
-                                    cmd.CommandText = "update version_info set version = @ver";
-                                    cmd.Parameters.Add("@ver", SqlDbType.Float).Value = version;
-                                    cmd.ExecuteNonQuery();
-                                    cmd.Parameters.Clear();
-
-                                }
-                            }
-                        }
-                    }
-                }
-                //shrink db
-                string date;
-                const string key = "LastShrinkDate";
-                if (CheckValue(key) == 0)
-                {
-                    AddValue(key, DateTime.Now.ToString());
-                }
-
-                date = GetValue(key);
-                if (!string.IsNullOrEmpty(date))
-                {
-                    DateTime dt;
-                    if (DateTime.TryParse(date, out dt))
-                    {
-                        if (DateTime.Now.Subtract(dt).TotalDays > 90)
-                        {
-                            using (SqlCeEngine en = new SqlCeEngine(connectionString))
-                            {
-                                en.Shrink();
-                            }
-                            SetValue(key, DateTime.Now.ToString());
-                        }
-                    }
-                }
+                UpdateDatabaseByVersions();
+                ShrinkDatabase();
 
                 File.Delete(backupPath);
 
@@ -126,7 +77,65 @@ namespace TrainingCatalog.BusinessLogic.Types
             }
 
         }
+        public static void UpdateDatabaseByVersions()
+        {
+            List<double> versions = GetVersionProperties();
+            if (versions.Count > 0)
+            {
+                //update sql scripts
+                using (SqlCeConnection connection = new SqlCeConnection(connectionString))
+                {
+                    using (SqlCeCommand cmd = connection.CreateCommand())
+                    {
+                        connection.Open();
+                        cmd.CommandText = "select version from version_info";
+                        foreach (double version in versions)
+                        {
 
+                            string sql = UpdateDatabase.GetSql(version);
+                            if (sql != null && sql.Trim().Length > 0)
+                            {
+                                cmd.CommandText = sql.Trim();
+                                cmd.ExecuteNonQuery();
+
+                                cmd.CommandText = "update version_info set version = @ver";
+                                cmd.Parameters.Add("@ver", SqlDbType.Float).Value = version;
+                                cmd.ExecuteNonQuery();
+                                cmd.Parameters.Clear();
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public static void ShrinkDatabase()
+        {
+            //shrink db
+            string date;
+            const string key = "LastShrinkDate";
+            if (CheckValue(key) == 0)
+            {
+                AddValue(key, DateTime.Now.ToString());
+            }
+
+            date = GetValue(key);
+            if (!string.IsNullOrEmpty(date))
+            {
+                DateTime dt;
+                if (DateTime.TryParse(date, out dt))
+                {
+                    if (DateTime.Now.Subtract(dt).TotalDays > 90)
+                    {
+                        using (SqlCeEngine en = new SqlCeEngine(connectionString))
+                        {
+                            en.Shrink();
+                        }
+                        SetValue(key, DateTime.Now.ToString());
+                    }
+                }
+            }
+        }
         public static List<double> GetVersionProperties()
         {
             double currentVersion;
