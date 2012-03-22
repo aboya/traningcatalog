@@ -38,9 +38,9 @@
             // 
             // mainGraphControl
             // 
-            this.mainGraphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainGraphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mainGraphControl.Location = new System.Drawing.Point(9, 38);
             this.mainGraphControl.Name = "mainGraphControl";
             this.mainGraphControl.ScrollGrace = 0D;
@@ -71,8 +71,8 @@
             // 
             // TrainingList
             // 
-            this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TrainingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TrainingList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.TrainingList.FormattingEnabled = true;
@@ -84,8 +84,7 @@
             // 
             // cbType
             // 
-            this.cbType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbType.FormattingEnabled = true;
