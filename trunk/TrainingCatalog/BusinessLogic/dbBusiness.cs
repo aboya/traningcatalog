@@ -52,19 +52,21 @@ namespace TrainingCatalog.BusinessLogic.Types
                 // update databse
               
                 //need update
-
-                string backupPath = path + ".backup";
-
-                if (File.Exists(backupPath))
+                if (NeedDatabaseBackUp())
                 {
-                    backupPath = String.Format("{0}.{1:yyyy-MM-dd_hh-mm-ss_fff}", path, DateTime.Now);
+                    string backupPath = path + ".backup";
+
+                    if (File.Exists(backupPath))
+                    {
+                        backupPath = String.Format("{0}.{1:yyyy-MM-dd_hh-mm-ss_fff}", path, DateTime.Now);
+                    }
+                    File.Copy(path, backupPath, true);
+
+                    UpdateDatabaseByVersions();
+                    ShrinkDatabase();
+
+                    File.Delete(backupPath);
                 }
-                File.Copy(path, backupPath, true);
-
-                UpdateDatabaseByVersions();
-                ShrinkDatabase();
-
-                File.Delete(backupPath);
 
             }
             catch (Exception e)
@@ -76,6 +78,30 @@ namespace TrainingCatalog.BusinessLogic.Types
                 TrainingCatalog.AppResources.SqlUpdate.ResourceManager.ReleaseAllResources();
             }
 
+        }
+        public static bool NeedDatabaseBackUp()
+        {
+            //need sql update
+            List<double> versions = GetVersionProperties();
+            if (versions.Count > 0) return true;
+
+            //need shrink
+            
+            string date;
+            const string key = "LastShrinkDate";
+            date = GetValue(key);
+            if (!string.IsNullOrEmpty(date))
+            {
+                DateTime dt;
+                if (DateTime.TryParse(date, out dt))
+                {
+                    if (DateTime.Now.Subtract(dt).TotalDays > 90)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         public static void UpdateDatabaseByVersions()
         {
