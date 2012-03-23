@@ -34,13 +34,14 @@
             this.TrainingList = new TrainingCatalog.Controls.BaseComboBox();
             this.cbType = new TrainingCatalog.Controls.BaseComboBox();
             this.btnOptions = new TrainingCatalog.Controls.BaseButton();
+            this.baseButton1 = new TrainingCatalog.Controls.BaseButton();
             this.SuspendLayout();
             // 
             // mainGraphControl
             // 
-            this.mainGraphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainGraphControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mainGraphControl.Location = new System.Drawing.Point(9, 38);
             this.mainGraphControl.Name = "mainGraphControl";
             this.mainGraphControl.ScrollGrace = 0D;
@@ -71,8 +72,8 @@
             // 
             // TrainingList
             // 
-            this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TrainingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.TrainingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TrainingList.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.TrainingList.FormattingEnabled = true;
@@ -100,7 +101,7 @@
             // 
             // btnOptions
             // 
-            this.btnOptions.Location = new System.Drawing.Point(343, 12);
+            this.btnOptions.Location = new System.Drawing.Point(301, 12);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(69, 20);
             this.btnOptions.TabIndex = 15;
@@ -108,11 +109,22 @@
             this.btnOptions.UseVisualStyleBackColor = true;
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
             // 
+            // baseButton1
+            // 
+            this.baseButton1.Location = new System.Drawing.Point(376, 12);
+            this.baseButton1.Name = "baseButton1";
+            this.baseButton1.Size = new System.Drawing.Size(63, 20);
+            this.baseButton1.TabIndex = 16;
+            this.baseButton1.Text = "Сброс";
+            this.baseButton1.UseVisualStyleBackColor = true;
+            this.baseButton1.Click += new System.EventHandler(this.baseButton1_Click);
+            // 
             // CardioResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 434);
+            this.Controls.Add(this.baseButton1);
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.TrainingList);
@@ -135,5 +147,6 @@
         private Controls.BaseComboBox TrainingList;
         private Controls.BaseComboBox cbType;
         private Controls.BaseButton btnOptions;
+        private Controls.BaseButton baseButton1;
     }
 }

@@ -17,10 +17,11 @@ namespace TrainingCatalog.Forms
     {
         Dictionary<int, List<CardioIntervalType> > cardioReport ;
         Units units;
-        public CardioResultsOptions(Dictionary<int, List<CardioIntervalType> > cardioRpr)
+        CardioFiltrationType filter;
+        public CardioResultsOptions(Dictionary<int, List<CardioIntervalType> > cardioRpr, CardioFiltrationType _filter)
         {
             cardioReport = cardioRpr;
-            
+            filter = _filter;
             InitializeComponent();
         }
 
@@ -57,6 +58,20 @@ namespace TrainingCatalog.Forms
                     (Units.TimeUnit)cbSpeedTime.SelectedValue,
                     (Units.DistanceUnit)cbDistance.SelectedValue,
                     (Units.TimeUnit)cbTime.SelectedValue);
+
+            if (filter != null)
+            {
+                if (filter.DistanceFrom > 0.01) txtDistanceFrom.Text = filter.DistanceFrom.ToString();
+                if (filter.DistanceTo > 0.01) txtDistanceTo.Text = filter.DistanceTo.ToString();
+
+                if (filter.TimeFrom > 0.01) txtTimeFrom.Text = filter.TimeFrom.ToString();
+                if (filter.TimeTo > 0.01) txtTimeTo.Text = filter.TimeTo.ToString();
+
+                if (filter.VelocityFrom > 0.01) txtSpeedFrom.Text = filter.VelocityFrom.ToString();
+                if (filter.VelocityTo > 0.01) txtSpeedTo.Text = filter.VelocityTo.ToString();
+
+            }
+
         }
 
         private void cbDistance_SelectionChangeCommitted(object sender, EventArgs e)
@@ -107,6 +122,18 @@ namespace TrainingCatalog.Forms
             }
             units.SpeedTimeChanged(current, ll);
             dbBusiness.SaveValue("Velocity_TimeUnit", Convert.ToString((int)current));
+        }
+
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            float.TryParse(txtDistanceFrom.Text, out filter.DistanceFrom);
+            float.TryParse(txtDistanceTo.Text, out filter.DistanceTo);
+
+            float.TryParse(txtTimeFrom.Text, out filter.TimeFrom);
+            float.TryParse(txtTimeTo.Text, out filter.TimeTo);
+
+            float.TryParse(txtSpeedFrom.Text, out filter.VelocityFrom);
+            float.TryParse(txtSpeedTo.Text, out filter.VelocityTo);
         }
     }
 }
