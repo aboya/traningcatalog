@@ -125,7 +125,7 @@ namespace TrainingCatalog.Forms
                     else if (Type == 2) value = i.Time;
                     else value = i.Distance;
                     if (cardioExersizeId >= 0 && cardioExersizeId != i.CardioTypeId) continue;
-                    if (i.Date < dtpFrom.Value || i.Date > dtpTo.Value) continue;
+                    if (i.Date < dtpFrom.Value || i.Date.Date > dtpTo.Value) continue;
                     if (value > 0 && i.Time > 0)
                     {
                         string tag = string.Format("S/V/T:{0:0.##} | {1} ({2})", value, i.Date.AddSeconds(TotalTime).ToString("dd.MM.yy"), i.Date.AddSeconds(TotalTime).DayOfWeek.ToString());
