@@ -115,6 +115,7 @@
     <Compile Include="BusinessLogic\TrainingBusiness.cs" />
     <Compile Include="BusinessLogic\Types\BaseReportDay.cs" />
     <Compile Include="BusinessLogic\Types\CardioExersizeType.cs" />
+    <Compile Include="BusinessLogic\Types\CardioFiltrationType.cs" />
     <Compile Include="BusinessLogic\Types\CardioIntervalType.cs" />
     <Compile Include="BusinessLogic\Types\CardioParamsType.cs" />
     <Compile Include="BusinessLogic\Types\CardioResultsType.cs" />
