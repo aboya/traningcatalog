@@ -10,6 +10,7 @@ using TrainingCatalog.BusinessLogic.Types;
 using System.Configuration;
 using System.Data.SqlServerCe;
 using TrainingCatalog.BusinessLogic;
+using System.Globalization;
 
 namespace TrainingCatalog.Forms
 {
@@ -127,10 +128,10 @@ namespace TrainingCatalog.Forms
         private void btnApply_Click(object sender, EventArgs e)
         {
             float.TryParse(txtDistanceFrom.Text, out filter.DistanceFrom);
-            float.TryParse(txtDistanceTo.Text, out filter.DistanceTo);
+            float.TryParse(txtDistanceTo.Text,  out filter.DistanceTo);
 
             float.TryParse(txtTimeFrom.Text, out filter.TimeFrom);
-            float.TryParse(txtTimeTo.Text, out filter.TimeTo);
+            float.TryParse(txtTimeTo.Text,  out filter.TimeTo);
 
             float.TryParse(txtSpeedFrom.Text, out filter.VelocityFrom);
             float.TryParse(txtSpeedTo.Text, out filter.VelocityTo);
