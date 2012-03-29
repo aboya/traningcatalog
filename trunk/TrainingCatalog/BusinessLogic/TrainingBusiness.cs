@@ -5,6 +5,7 @@ using System.Data.SqlServerCe;
 using System.Data;
 using System.Windows.Forms;
 using TrainingCatalog.BusinessLogic.Types;
+using ZedGraph;
 
 
 namespace TrainingCatalog.BusinessLogic
@@ -320,6 +321,54 @@ namespace TrainingCatalog.BusinessLogic
             cmd.Parameters.Clear();
             if (bodyWeight == null || bodyWeight is DBNull) return 0;
             return Convert.ToSingle(bodyWeight);
+        }
+        public static PointPairList GetApproxWeight(List<PerfomanceDataType> weights, int iters)
+        {
+            PointPairList res = new PointPairList();
+            List<pair<double, double>> points = new List<pair<double, double>>();
+
+            if (weights.Count > 2)
+            {
+                foreach (PerfomanceDataType i in weights)
+                {
+                    points.Add(new pair<double, double>(i.Day.ToOADate(), i.BodyWeight));
+                }
+                for (int i = 0; i < iters; i++)
+                {
+                    for (int j = 1; j < weights.Count; j++)
+                    {
+                        points[j].First = (points[j].First + points[j - 1].First) / 2;
+                        points[j].Second = (points[j - 1].Second + points[j].Second) / 2;
+                    }
+                }
+                for (int i = 0; i < weights.Count; i++)
+                {
+                    res.Add(points[i].First, points[i].Second);
+                }
+
+            }
+
+            return res;
+        }
+        public static List<PerfomanceDataType> GetBodyWeight(SqlCeCommand cmd, DateTime start, DateTime end)
+        {
+            List<PerfomanceDataType> res = new List<PerfomanceDataType>();
+            cmd.Parameters.Clear();
+            cmd.CommandText = "select BodyWeight,Day from Training where Day between @start and @end and BodyWeight is not null and BodyWeight > 0";
+            cmd.Parameters.Add("@start", SqlDbType.DateTime).Value =start;
+            cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (!(reader[0] is DBNull)) res.Add(new PerfomanceDataType()
+                    {
+                        BodyWeight = (double)reader["BodyWeight"],
+                        Day = Convert.ToDateTime(reader["Day"])
+                    });
+                }
+            }
+            return res;
         }
         public static int SaveBodyWeight(SqlCeCommand cmd, DateTime date, float bodyWeight)
         {
