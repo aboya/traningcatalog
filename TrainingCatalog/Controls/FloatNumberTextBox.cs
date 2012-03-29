@@ -29,7 +29,6 @@ namespace TrainingCatalog.Controls
             }
           //  CultureInfo.InstalledUICulture.NumberFormat.CurrencyDecimalSeparator = ",";
           //  CultureInfo.InstalledUICulture.NumberFormat.CurrencyDecimalSeparator
-             
         }
         public override string Text
         {

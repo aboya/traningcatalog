@@ -10,6 +10,7 @@ using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic;
 using TrainingCatalog.Forms;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog
 {
@@ -27,7 +28,7 @@ namespace TrainingCatalog
         private void TemplateAdd_Load(object sender, EventArgs e)
         {
             try {
-                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(dbBusiness.connectionString);
                 templates = new DataSet();
                 LoadData();
                 ddlBind();

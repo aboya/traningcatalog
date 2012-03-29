@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog.Forms
 {
@@ -36,8 +37,8 @@ namespace TrainingCatalog.Forms
             Form mainForm = Application.OpenForms["mainForm"];
             if (mainForm != null)
                 this.Location = mainForm.Location;
-            if(ConfigurationManager.ConnectionStrings["db"] != null)
-                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            if(dbBusiness.connectionString != null)
+                connection = new SqlCeConnection(dbBusiness.connectionString);
             
         }
 

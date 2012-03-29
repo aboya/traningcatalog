@@ -9,12 +9,13 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog.Forms
 {
     public partial class Statistics : Form
     {
-        SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+        SqlCeConnection connection = new SqlCeConnection(dbBusiness.connectionString);
         public Statistics()
         {
             InitializeComponent();

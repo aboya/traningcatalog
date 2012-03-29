@@ -22,7 +22,7 @@ namespace TrainingCatalog.Forms
         public BodyMeasurements()
         {
             InitializeComponent();
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(dbBusiness.connectionString);
         }
 
         private void btnSave_Click(object sender, EventArgs e)

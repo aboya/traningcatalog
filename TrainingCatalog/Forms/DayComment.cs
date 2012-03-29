@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.BusinessLogic;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog.Forms
 {
@@ -29,7 +30,7 @@ namespace TrainingCatalog.Forms
 
         public DayComment()
         {
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(dbBusiness.connectionString);
             InitializeComponent();
             AddCommentDays();
             saved = true;

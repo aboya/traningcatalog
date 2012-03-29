@@ -99,9 +99,9 @@ namespace TrainingCatalog.Controls
             if (!string.IsNullOrEmpty(o)) cbSpeedDistance.SelectedIndex = Convert.ToInt32(o);
             o = dbBusiness.GetValue("Velocity_TimeUnit");
             if (!string.IsNullOrEmpty(o)) cbSpeedTime.SelectedIndex = Convert.ToInt32(o);
-            if (ConfigurationManager.ConnectionStrings["db"] != null)
+            if (dbBusiness.connectionString != null)
             {
-                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(dbBusiness.connectionString);
             }
             units = new Units((Units.DistanceUnit)cbSpeedDistance.SelectedValue,
                                 (Units.TimeUnit)cbSpeedTime.SelectedValue,

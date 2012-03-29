@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.Forms;
+using TrainingCatalog.BusinessLogic.Types;
 
 namespace TrainingCatalog
 {
@@ -21,7 +22,7 @@ namespace TrainingCatalog
         public ExersizesList()
         {
 
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(dbBusiness.connectionString);
             InitializeComponent();
         }
 

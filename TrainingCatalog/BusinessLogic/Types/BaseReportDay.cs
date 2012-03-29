@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlServerCe;
 using System.Configuration;
 using System.IO;
+using System.Windows.Forms;
 
 namespace TrainingCatalog.BusinessLogic.Types
 {
@@ -17,10 +18,11 @@ namespace TrainingCatalog.BusinessLogic.Types
        public event ProcessIndicator ProcessIndicatorEvent;
        protected Dictionary<int, int> LastMaximumExersizeWeight;
        protected int[] ProgressTable;
-       string fileName;
-       DateTime start;
-       DateTime end;
-        
+       protected string fileName;
+       protected DateTime start;
+       protected DateTime end;
+       int current = 0;
+       int total = 0;
         public BaseReportDay(string _fileName, DateTime _start, DateTime _end)
        {
            fileName = _fileName;
@@ -86,11 +88,34 @@ namespace TrainingCatalog.BusinessLogic.Types
        {
            return string.Empty;
        }
+       protected virtual int TactsForFooter()
+       {
+           return 0;
+       }
+       protected virtual int TactsForHeader()
+       {
+           return 0;
+       }
+       protected void IncrementProgress(int koef = 1)
+       {
+           if (ProcessIndicatorEvent != null)
+           {
+               ProcessIndicatorEvent(current * 100 / total);
+               Application.DoEvents();
+           }
+           current += koef;
+       }
+       protected void InitializeProgress(int _total)
+       {
+           total = _total;
+           current = 0;
+       }
+
        public void GenerateReport()
        {
            using (StreamWriter sw = new StreamWriter(fileName, false, Encoding.Default))
            {
-               using (SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
+               using (SqlCeConnection connection = new SqlCeConnection(dbBusiness.connectionString))
                {
                    connection.Open();
                    using (SqlCeCommand command = new SqlCeCommand())
@@ -98,11 +123,14 @@ namespace TrainingCatalog.BusinessLogic.Types
                        command.Connection = connection;
                        command.Parameters.Add("@start", System.Data.SqlDbType.DateTime).Value = start.Date;
                        command.Parameters.Add("@end", System.Data.SqlDbType.DateTime).Value = end.Date;
-                       command.CommandText = @"select count(Day) from Training " +
-                                               "where Day between @start and  @end ";
+                       command.CommandText = @"select count(*) from (( Link " +
+                                                 "inner join Training on Training.ID = Link.TrainingID) " +
+                                                 "inner join Exersize on Exersize.ID = Link.ExersizeID ) " +
+                                                 "where  " +
+                                                 "Day between @start and  @end ";
 
-                       int total = Convert.ToInt32(command.ExecuteScalar());
-                       int current = 0;
+                       
+                       InitializeProgress(Convert.ToInt32(command.ExecuteScalar()) + TactsForFooter() + TactsForHeader());
                        command.CommandText =
                                      "select Day,Weight,Count,BodyWeight,Exersize.ShortName, Exersize.ID as ExersizeID from (( Link " +
                                      "inner join Training on Training.ID = Link.TrainingID) " +
@@ -120,19 +148,14 @@ namespace TrainingCatalog.BusinessLogic.Types
                            while (dr.Read())
                            {
                                currentDate = Convert.ToDateTime(dr["Day"]);
-               
+                               IncrementProgress();
                                if (currentDate != lastDate)
                                {
                                    lastDate = currentDate;
                                    if (exersizes != null)
                                    {
                                        sw.WriteLine(this.ToString());
-                                       if (ProcessIndicatorEvent != null)
-                                       {
-                                           ProcessIndicatorEvent(current * 100 / total);
-                                       }
-                                       current++;
-
+                                       
                                        //сохраняем максимальный вес упражения за день
                                        
                                        //1. Очищаем список - убираем те упражнения которые использовались за текущий день, что бы они не влияли на результат максимума

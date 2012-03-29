@@ -13,11 +13,11 @@ namespace TrainingCatalog.BusinessLogic.Types
     public class dbBusiness
     {
         private static string _connstring;
-        private static string connectionString
+        public static string connectionString
         {
             get
             {
-                
+
                 if (_connstring == null && ConfigurationManager.ConnectionStrings["db"] != null) _connstring = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
                 return _connstring;
             }
@@ -25,7 +25,7 @@ namespace TrainingCatalog.BusinessLogic.Types
 
         public static void UpdateBase()
         {
-           // string connectionString = ConfigurationManager.ConnectionStrings["db"].ConnectionString;
+           // string connectionString = dbBusiness.connectionString;
             string path = String.Format("{0}\\{1}", Application.StartupPath, ConfigurationManager.AppSettings["databasePath"]);
             try
             {

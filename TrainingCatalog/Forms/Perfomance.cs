@@ -43,7 +43,7 @@ namespace TrainingCatalog
 
         private void Perfomance_Load(object sender, EventArgs e)
         {
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(dbBusiness.connectionString);
             this.MinimumSize = new Size(475, 319);
             TrainingList.DropDownStyle = ComboBoxStyle.DropDownList;
             cbExersizeCategory.ValueMember = "Id";
@@ -418,39 +418,14 @@ namespace TrainingCatalog
         }
         private List<PerfomanceDataType> GetPerfomance()
         {
-            List<PerfomanceDataType> res = new List<PerfomanceDataType>();
+            
             try
             {
                 int ExersizeId = Convert.ToInt32(TrainingList.SelectedValue); 
                 connection.Open();
-                using (SqlCeCommand cmd = new SqlCeCommand())
+                using (SqlCeCommand cmd = connection.CreateCommand())
                 {
-                    cmd.Connection = connection;
-                    cmd.CommandText =
-                        String.Format("select Day,Weight,Count,BodyWeight,Training.ID as TrainingID from Link " +
-                                      "inner join Training on Training.ID = Link.TrainingID " +
-                                      "where ExersizeID = @exersizeId " +
-                                      "and Day between @start and  @end " +
-                                      "order by Day, Weight");
-                    cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = dtpFrom.Value.Date;
-                    cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = dtpTo.Value.Date;
-                    cmd.Parameters.Add("@exersizeId", SqlDbType.Int).Value = ExersizeId;
-                    using (SqlCeDataReader reader = cmd.ExecuteReader())
-                    {
-
-                        while (reader.Read())
-                        {
-                            PerfomanceDataType dt = new PerfomanceDataType();
-                            dt.Weight = (int)reader["Weight"];
-                            dt.Count = (int)reader["Count"];
-                            dt.Day = (DateTime)reader["Day"];
-                            if (reader["BodyWeight"] is DBNull) dt.BodyWeight = 0;
-                            else dt.BodyWeight = Convert.ToDouble(reader["BodyWeight"]);
-                            dt.TrainingID = (int) reader["TrainingID"];
-                            res.Add(dt);
-                        }
-                    }
-
+                     return TrainingBusiness.GetPerfomance(cmd, dtpFrom.Value.Date, dtpTo.Value.Date, ExersizeId);
                 }
 
                 //zgc.Refresh();
@@ -463,7 +438,7 @@ namespace TrainingCatalog
             {
                 connection.Close();
             }
-            return res;
+            return null;
         }
         public void ExersizeLoad()
         {
@@ -475,9 +450,6 @@ namespace TrainingCatalog
                 {
                     // fill exersizes
                     exersizes = TrainingBusiness.GetExersizes(cmd, Convert.ToInt32(cbExersizeCategory.SelectedValue));
-
-                   
-                    
                 }
             }
             catch (Exception ee)

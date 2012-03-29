@@ -36,6 +36,9 @@
             this.btnCreateReport = new TrainingCatalog.Controls.BaseButton();
             this.pbProgress = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.baseLabel1 = new TrainingCatalog.Controls.BaseLabel();
+            this.txtHeight = new TrainingCatalog.Controls.PostiveIntegerTextBox();
+            this.txtWidth = new TrainingCatalog.Controls.PostiveIntegerTextBox();
             this.rbHtml = new System.Windows.Forms.RadioButton();
             this.rbCsv = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
@@ -87,7 +90,7 @@
             // 
             // btnCreateReport
             // 
-            this.btnCreateReport.Location = new System.Drawing.Point(265, 121);
+            this.btnCreateReport.Location = new System.Drawing.Point(265, 146);
             this.btnCreateReport.Name = "btnCreateReport";
             this.btnCreateReport.Size = new System.Drawing.Size(98, 23);
             this.btnCreateReport.TabIndex = 5;
@@ -97,21 +100,51 @@
             // 
             // pbProgress
             // 
-            this.pbProgress.Location = new System.Drawing.Point(12, 150);
+            this.pbProgress.Location = new System.Drawing.Point(12, 175);
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Size = new System.Drawing.Size(351, 23);
             this.pbProgress.TabIndex = 6;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.baseLabel1);
+            this.groupBox1.Controls.Add(this.txtHeight);
+            this.groupBox1.Controls.Add(this.txtWidth);
             this.groupBox1.Controls.Add(this.rbHtml);
             this.groupBox1.Controls.Add(this.rbCsv);
             this.groupBox1.Location = new System.Drawing.Point(16, 60);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(132, 84);
+            this.groupBox1.Size = new System.Drawing.Size(184, 109);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Тип";
+            // 
+            // baseLabel1
+            // 
+            this.baseLabel1.AutoSize = true;
+            this.baseLabel1.Location = new System.Drawing.Point(20, 66);
+            this.baseLabel1.Name = "baseLabel1";
+            this.baseLabel1.Size = new System.Drawing.Size(67, 13);
+            this.baseLabel1.TabIndex = 4;
+            this.baseLabel1.Text = "Screen Size:";
+            // 
+            // txtHeight
+            // 
+            this.txtHeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHeight.Location = new System.Drawing.Point(136, 61);
+            this.txtHeight.Name = "txtHeight";
+            this.txtHeight.Size = new System.Drawing.Size(37, 20);
+            this.txtHeight.TabIndex = 3;
+            this.txtHeight.Text = "480";
+            // 
+            // txtWidth
+            // 
+            this.txtWidth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWidth.Location = new System.Drawing.Point(93, 61);
+            this.txtWidth.Name = "txtWidth";
+            this.txtWidth.Size = new System.Drawing.Size(37, 20);
+            this.txtWidth.TabIndex = 2;
+            this.txtWidth.Text = "640";
             // 
             // rbHtml
             // 
@@ -122,6 +155,7 @@
             this.rbHtml.TabIndex = 1;
             this.rbHtml.Text = "Html";
             this.rbHtml.UseVisualStyleBackColor = true;
+            this.rbHtml.CheckedChanged += new System.EventHandler(this.rbHtml_CheckedChanged);
             // 
             // rbCsv
             // 
@@ -139,7 +173,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 186);
+            this.ClientSize = new System.Drawing.Size(378, 210);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pbProgress);
             this.Controls.Add(this.btnCreateReport);
@@ -172,6 +206,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbHtml;
         private System.Windows.Forms.RadioButton rbCsv;
+        private Controls.BaseLabel baseLabel1;
+        private Controls.PostiveIntegerTextBox txtHeight;
+        private Controls.PostiveIntegerTextBox txtWidth;
 
     }
 }
