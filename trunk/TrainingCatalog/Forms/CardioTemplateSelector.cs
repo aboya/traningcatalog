@@ -50,7 +50,7 @@ namespace TrainingCatalog.Forms
 
         private void CardioTemplateSelector_Load(object sender, EventArgs e)
         {
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(dbBusiness.connectionString);
             lstTemplates.DisplayMember = "Name";
             lstTemplates.ValueMember = "Id";
             lstTemplates.DataSource = GetTemplates();

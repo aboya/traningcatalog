@@ -36,6 +36,36 @@ namespace TrainingCatalog.BusinessLogic
             return Convert.ToInt32(o);
         }
 
+        public static List<PerfomanceDataType> GetPerfomance(SqlCeCommand cmd, DateTime start, DateTime end, int ExersizeId)
+        {
+            List<PerfomanceDataType> res = new List<PerfomanceDataType>();
+            cmd.Parameters.Clear();
+            cmd.CommandText =
+                                 String.Format("select Day,Weight,Count,BodyWeight,Training.ID as TrainingID from Link " +
+                                               "inner join Training on Training.ID = Link.TrainingID " +
+                                               "where ExersizeID = @exersizeId " +
+                                               "and Day between @start and  @end " +
+                                               "order by Day, Weight");
+            cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
+            cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = end;
+            cmd.Parameters.Add("@exersizeId", SqlDbType.Int).Value = ExersizeId;
+            using (SqlCeDataReader reader = cmd.ExecuteReader())
+            {
+
+                while (reader.Read())
+                {
+                    PerfomanceDataType dt = new PerfomanceDataType();
+                    dt.Weight = (int)reader["Weight"];
+                    dt.Count = (int)reader["Count"];
+                    dt.Day = (DateTime)reader["Day"];
+                    if (reader["BodyWeight"] is DBNull) dt.BodyWeight = 0;
+                    else dt.BodyWeight = Convert.ToDouble(reader["BodyWeight"]);
+                    dt.TrainingID = (int)reader["TrainingID"];
+                    res.Add(dt);
+                }
+            }
+            return res;
+        }
         public static void AddExersize(SqlCeCommand cmd, int TrainingId, int ExersizeId, int weight, int count)
         {
             cmd.Parameters.Clear();

@@ -62,7 +62,10 @@ namespace TrainingCatalog
             dtpEnd.Value = MaxDateTime;
             report_ProcessIndicatorEvent = new BaseReportDay.ProcessIndicator(ProcessShow);
             pbProgress.Maximum = 100;
+            pbProgress.Minimum = 0;
             pbProgress.Value = 0;
+
+            rbHtml_CheckedChanged(null, null);
         }
         private void ProcessShow(int current)
         {
@@ -95,12 +98,19 @@ namespace TrainingCatalog
                 {
                     if (rbCsv.Checked) saveFileDialog.Filter = "Excel CSV File|*.csv";
                     else if (rbHtml.Checked) saveFileDialog.Filter = "Html File|*.html";
+                    saveFileDialog.FileName = "report";
                     if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         string path = saveFileDialog.FileName;
                         BaseReportDay report = null;
                         if (rbCsv.Checked) report = new ReportCsv(path, start, end) ;
-                        else if (rbHtml.Checked)report =  new ReportHtml(path, start, end) ;
+                        else if (rbHtml.Checked)
+                        {
+                            int w, h;
+                            int.TryParse(txtWidth.Text, out w);
+                            int.TryParse(txtHeight.Text, out h);
+                            report = new ReportHtml(path, start, end, w, h);
+                        }
                         if (report != null)
                         {
                             report.ProcessIndicatorEvent += new BaseReportDay.ProcessIndicator(report_ProcessIndicatorEvent);
@@ -120,11 +130,19 @@ namespace TrainingCatalog
             }
             
         }
+
+        private void rbHtml_CheckedChanged(object sender, EventArgs e)
+        {
+   
+                txtHeight.Enabled = rbHtml.Checked;
+                txtWidth.Enabled = rbHtml.Checked;
+           
+        }
         //private void GenerateReport(string filePath, DateTime start, DateTime end)
         //{
         //    using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.Default))
         //    {
-        //        using (SqlCeConnection connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
+        //        using (SqlCeConnection connection = new SqlCeConnection(dbBusiness.connectionString))
         //        {
         //            connection.Open();
         //            using (SqlCeCommand command = new SqlCeCommand())

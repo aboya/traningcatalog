@@ -97,7 +97,7 @@ namespace TrainingCatalog.Forms
 
         private void CardioTraining_Load(object sender, EventArgs e)
         {
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(dbBusiness.connectionString);
             try
             {
                 connection.Open();

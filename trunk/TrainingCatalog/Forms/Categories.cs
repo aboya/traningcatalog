@@ -25,7 +25,7 @@ namespace TrainingCatalog.Forms
         {
             try
             {
-                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(dbBusiness.connectionString);
                 cmd = connection.CreateCommand();
                 LoadCatagories();
                 if (lstCategory.Items.Count > 0)

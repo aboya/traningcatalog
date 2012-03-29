@@ -40,7 +40,7 @@ namespace TrainingCatalog.Forms
          //   TrainingBusiness.GetCardioResults();
             try
             {
-                using (connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
+                using (connection = new SqlCeConnection(dbBusiness.connectionString))
                 {
                     using (SqlCeCommand cmd = connection.CreateCommand())
                     {
@@ -80,7 +80,7 @@ namespace TrainingCatalog.Forms
                 if (!string.IsNullOrEmpty(o)) SpeedTime = (Units.TimeUnit) Convert.ToInt32(o);
                 if (ConfigurationManager.ConnectionStrings["db"] != null)
                 {
-                    connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                    connection = new SqlCeConnection(dbBusiness.connectionString);
                 }
                 Units units = new Units(SpeedDistance, SpeedTime, Distance, Time);
                 foreach (var l in cardioTrainingReport.Values)

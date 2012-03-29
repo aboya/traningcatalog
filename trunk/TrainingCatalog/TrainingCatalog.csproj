@@ -175,6 +175,9 @@
     </Compile>
     <Compile Include="Controls\HighLightCalendarPicker.cs" />
     <Compile Include="Controls\HighLightDates.cs" />
+    <Compile Include="Controls\PostiveIntegerTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\about.cs">
       <SubType>Form</SubType>
     </Compile>

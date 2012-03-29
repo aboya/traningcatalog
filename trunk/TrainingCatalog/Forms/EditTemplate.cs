@@ -10,6 +10,7 @@ using System.Data.SqlServerCe;
 using System.Configuration;
 using TrainingCatalog.Forms;
 using TrainingCatalog.BusinessLogic;
+using TrainingCatalog.BusinessLogic.Types;
 
 
 namespace TrainingCatalog
@@ -57,7 +58,7 @@ namespace TrainingCatalog
         {
             try
             {
-                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(dbBusiness.connectionString);
                 if (_TemplateID > 0)
                 {
                     List<TemplateExersizesType>  templateExersizes = TrainingBusiness.GetTemplateExersizes(connection,_TemplateID);

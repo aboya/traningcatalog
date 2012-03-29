@@ -244,7 +244,7 @@ namespace TrainingCatalog
         {
             if (ConfigurationManager.ConnectionStrings["db"] != null)
             {
-                connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+                connection = new SqlCeConnection(dbBusiness.connectionString);
                 command = new SqlCeCommand();
                 command.Connection = connection;
                 FillCategoryList();

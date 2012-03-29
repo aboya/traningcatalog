@@ -32,7 +32,7 @@ namespace TrainingCatalog.Forms
 
             this.btnAdd.Image = TrainingCatalog.AppResources.AppResources.Plus_green_32x32;
             this.btnOk.Image = TrainingCatalog.AppResources.AppResources.save_48x48;
-            connection = new SqlCeConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+            connection = new SqlCeConnection(dbBusiness.connectionString);
             cmd = connection.CreateCommand();
             List<CardioExersizeType> exersizes = null;
             List<CardioIntervalType> intervals = null;

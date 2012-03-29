@@ -279,6 +279,10 @@ namespace ZedGraph
 			Clipboard.SetDataObject( ImageRender(), true );
 		}
 
+        public Image CreateImage()
+        {
+            return ImageRender();
+        }
 		// 
 		/// <summary>
 		/// Setup for creation of a new image, applying appropriate anti-alias properties and
@@ -433,7 +437,6 @@ namespace ZedGraph
 								case 5: format = ImageFormat.Tiff; break;
 								case 6: format = ImageFormat.Bmp; break;
 							}
-
 							ImageRender().Save( myStream, format );
 							//_masterPane.GetImage().Save( myStream, format );
 							myStream.Close();
