@@ -176,7 +176,7 @@ namespace TrainingCatalog
 
                 if (chkApprox.Checked)
                 {
-                    LineItem myCurve3 = myPane.AddCurve("ApproxWeight", this.GetApproxWeight(BodyWeight,3), Color.Teal, SymbolType.None);
+                    LineItem myCurve3 = myPane.AddCurve("ApproxWeight", TrainingBusiness.GetApproxWeight(BodyWeight,3), Color.Teal, SymbolType.None);
                     myCurve3.Line.IsSmooth = true;
                     myCurve3.Line.IsAntiAlias = true;
                     myCurve3.Line.SmoothTension = 0.6f;
@@ -218,34 +218,7 @@ namespace TrainingCatalog
             }
 
         }
-        private PointPairList GetApproxWeight(List<PerfomanceDataType> weights, int iters)
-        {
-            PointPairList res = new PointPairList();
-            List<pair<double, double>> points = new List<pair<double, double>>();
 
-            if (weights.Count > 2)
-            {
-                foreach (PerfomanceDataType i in weights)
-                {
-                    points.Add(new pair<double, double>(i.Day.ToOADate(), i.BodyWeight));
-                }
-                for (int i = 0; i < iters; i++)
-                {
-                    for (int j = 1; j < weights.Count; j++)
-                    {
-                        points[j].First = (points[j].First + points[j - 1].First) / 2;
-                        points[j].Second = (points[j - 1].Second + points[j].Second) / 2;
-                    }
-                }
-                for (int i = 0; i < weights.Count; i++)
-                {
-                    res.Add(points[i].First, points[i].Second);
-                }
-
-            }
-            
-            return res;
-        }
         private List<PerfomanceDataType> GetBodyWeight()
         {
             List<PerfomanceDataType> res = new List<PerfomanceDataType>();
@@ -254,21 +227,7 @@ namespace TrainingCatalog
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    cmd.CommandText = "select BodyWeight,Day from Training where Day between @start and @end and BodyWeight is not null and BodyWeight > 0";
-                    cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = dtpFrom.Value.Date;
-                    cmd.Parameters.Add("@end", SqlDbType.DateTime).Value = dtpTo.Value.Date;
-                    using (SqlCeDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            if (!(reader[0] is DBNull)) res.Add(new PerfomanceDataType()
-                            {
-                                BodyWeight = (double)reader["BodyWeight"],
-                                Day = Convert.ToDateTime(reader["Day"])
-                            });
-                        }
-                    }
-
+                    TrainingBusiness.GetBodyWeight(cmd, dtpFrom.Value.Date, dtpTo.Value.Date);
                 }
             }
             catch (Exception e)

@@ -100,8 +100,11 @@ namespace TrainingCatalog.BusinessLogic.Types
 
            
             //myPane.Title.IsVisible = false;
-            zgc.GraphPane.XAxis.Title.Text = "Date";
-            zgc.GraphPane.YAxis.Title.Text = "Weight";
+            zgc.GraphPane.XAxis.Title.IsVisible = false;
+            zgc.GraphPane.YAxis.Title.IsVisible = false;
+            zgc.GraphPane.Legend.IsVisible = false;
+            zgc.GraphPane.YAxis.MajorGrid.IsVisible = true;
+            zgc.GraphPane.XAxis.MajorGrid.IsVisible = true;
             zgc.GraphPane.XAxis.Type = AxisType.Date;
             result.Append("<table>");
             using (SqlCeConnection connection = new SqlCeConnection(dbBusiness.connectionString))
@@ -113,20 +116,23 @@ namespace TrainingCatalog.BusinessLogic.Types
                     // PointPairList pointBodyWeight = new PointPairList();
                     PointPairList pointWeight = new PointPairList();
                     PerfomanceDataType previous = null;
+                    PointPairList pointBodyWeight = new PointPairList();
+                    int lastTrainingId = -1;
                     foreach (var exersize in TrainingBusiness.GetExersizes(cmd))
                     {
                         #region ExersizeReport
                         pointWeight.Clear();
                         pointWeightCount.Clear();
-                        foreach (PerfomanceDataType p in TrainingBusiness.GetPerfomance(cmd, start, end, exersize.ExersizeID))
+                        foreach (PerfomanceDataType p in  ApplyFilters(TrainingBusiness.GetPerfomance(cmd, start, end, exersize.ExersizeID),2))
                         {
                             string tag = string.Format("Дата:{0} {1}x{2}={3}", p.Day.ToString("dd.MM.yyyy"), p.Weight, p.Count, p.Weight * p.Count);
 
                             pointWeightCount.Add(p.Day.ToOADate(), p.Weight * p.Count, tag);
 
-                            if (previous == null || previous.Weight != p.Weight)
+                            if (previous == null || lastTrainingId != p.TrainingID || previous.Weight != p.Weight)
                                 pointWeight.Add(p.Day.ToOADate(), p.Weight, tag);
 
+                            lastTrainingId = p.TrainingID;
                             previous = p;
                         }
                         result.Append("<tr><td>");
@@ -139,18 +145,13 @@ namespace TrainingCatalog.BusinessLogic.Types
                         {
                             imageFilePath = string.Format("{0}\\{1}_{2}_WeightCount.jpg", path, exersize.ShortName, exersize.ExersizeID).
                                 Replace("\n", string.Empty).Replace("\r", string.Empty).Replace("\r", string.Empty);
-                            try
-                            {
+                          
                                 SaveBitmapByExtension(imageFilePath, img, System.Drawing.Imaging.ImageFormat.Jpeg);
-                            }
-                            catch (Exception e)
-                            {
-                                string ee = e.Message;
-                            }
+                             
                         }
                         result.AppendFormat("<img src='{0}' />", imageFilePath);
                         result.Append("</td><td>");
-                        
+
                         zgc.GraphPane.CurveList.Clear();
                         zgc.GraphPane.AddCurve("Weight", pointWeight, Color.Brown, SymbolType.Circle);
                         zgc.AxisChange();
@@ -160,15 +161,9 @@ namespace TrainingCatalog.BusinessLogic.Types
 
                             imageFilePath = string.Format("{0}\\{1}_{2}_Weight.jpg", path, exersize.ShortName, exersize.ExersizeID).
                                 Replace("\n", string.Empty).Replace("\r", string.Empty).Replace("\r", string.Empty);
-                            try
-                            {
-                                SaveBitmapByExtension(imageFilePath, img, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                //img.Save(imageFilePath, );
-                            }
-                            catch (Exception e)
-                            {
-                                string ee = e.Message;
-                            }
+
+                            SaveBitmapByExtension(imageFilePath, img, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            //img.Save(imageFilePath, );
                         }
                         result.AppendFormat("<img src='{0}' />", imageFilePath);
 
@@ -178,19 +173,137 @@ namespace TrainingCatalog.BusinessLogic.Types
 
                         base.IncrementProgress(Koef);
                     }
-                    connection.Close();
+                   
+
+                    result.Append("</table><table>");
+                    #region Weight & Measurements Report
+
+                    var measurements = TrainingBusiness.GetMeasurementReport(cmd, start, end);
+                    foreach (var p in typeof(MeasurementType).GetProperties())
+                    {
+                        result.Append("<tr><td>");
+                        pointWeightCount.Clear();
+                        foreach (var m in measurements)
+                        {
+                            float value = Convert.ToSingle(typeof(MeasurementType).GetProperty(p.Name).GetValue(m, null));
+                            double date = m.date.ToOADate();
+                            if (Math.Abs(value) <= 0.01) continue;
+                            string tag = string.Format("Cm:{0:0.##} | {1} ({2})", value, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
+                            pointWeightCount.Add(date, value, tag);
+
+                        }
+                        zgc.GraphPane.Title.Text = p.Name;
+                        zgc.GraphPane.CurveList.Clear();
+                        zgc.GraphPane.AddCurve("Cm", pointWeightCount, Color.Brown, SymbolType.Circle);
+                        zgc.AxisChange();
+                        zgc.Refresh();
+                        using (Image img = zgc.CreateImage())
+                        {
+
+                            imageFilePath = string.Format("{0}\\{1}_BodyMeasurement.jpg", path, p.Name).
+                                Replace("\n", string.Empty).Replace("\r", string.Empty).Replace("\r", string.Empty);
+                      
+                                SaveBitmapByExtension(imageFilePath, img, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                //img.Save(imageFilePath, );
+                       
+                        }
+                        result.AppendFormat("<img src='{0}'", imageFilePath);
+                        result.Append("</tr></td>");
+                    }
+
+                    result.Append("<tr><td>");
+                    zgc.GraphPane.CurveList.Clear();
+                    zgc.GraphPane.Title.Text = "Approx Body Weight";
+                    zgc.GraphPane.AddCurve("Approx", TrainingBusiness.GetApproxWeight(TrainingBusiness.GetBodyWeight(cmd, start, end),3), Color.Blue, SymbolType.None);
+                    zgc.AxisChange();
+                    zgc.Refresh();
+                    using (Image img = zgc.CreateImage())
+                    {
+
+                        imageFilePath = string.Format("{0}\\ApproxBodyWeight.jpg", path).
+                            Replace("\n", string.Empty).Replace("\r", string.Empty).Replace("\r", string.Empty);
+                  
+                            SaveBitmapByExtension(imageFilePath, img, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            //img.Save(imageFilePath, );
+                
+                    }
+                    result.AppendFormat("<img src='{0}'", imageFilePath);
+                    result.Append("</tr></td>");
+                    result.Append("</table>");
+                    #endregion
                 }
+                connection.Close();
             }
-            result.Append("</table>");
-            #region Weight & Measurements Report
-
-            #endregion
-
             result.Append("</body>");
             result.Append("</html>");
 
             
             return result.ToString();
+        }
+        private List<PerfomanceDataType> ApplyFilters(List<PerfomanceDataType> items, int Type)
+        {
+            
+            List<PerfomanceDataType> res = new List<PerfomanceDataType>();
+            Dictionary<int, int> maxes = new Dictionary<int, int>();
+            Dictionary<int, int> maxes2 = new Dictionary<int, int>();
+            Dictionary<int, int> indexes = new Dictionary<int, int>();
+            int index = 0;
+            if (Type == 1)
+            {
+                foreach (PerfomanceDataType p in items)
+                {
+                    int m, m2;
+                    if (maxes.TryGetValue(p.TrainingID, out m))
+                    {
+                        m2 = maxes2[p.TrainingID];
+                        if (m < p.Weight * p.Count || m == p.Weight * p.Count && m2 < p.Weight)
+                        {
+                            maxes[p.TrainingID] = p.Weight * p.Count;
+                            maxes2[p.TrainingID] = p.Weight;
+                            indexes[p.TrainingID] = index;
+                        }
+                    }
+                    else
+                    {
+                        maxes[p.TrainingID] = p.Weight * p.Count;
+                        maxes2[p.TrainingID] = p.Weight;
+                        indexes[p.TrainingID] = index;
+                    }
+                    index++;
+
+                }
+
+            }
+            else if (Type == 2)
+            {
+                foreach (PerfomanceDataType p in items)
+                {
+                    int m, m2;
+                    if (maxes.TryGetValue(p.TrainingID, out m))
+                    {
+                        m2 = maxes2[p.TrainingID];
+                        if (m < p.Weight || m == p.Weight && m2 < p.Weight * p.Count)
+                        {
+                            maxes[p.TrainingID] = p.Weight;
+                            maxes2[p.TrainingID] = p.Weight * p.Count;
+                            indexes[p.TrainingID] = index;
+                        }
+                    }
+                    else
+                    {
+                        maxes[p.TrainingID] = p.Weight;
+                        maxes2[p.TrainingID] = p.Weight * p.Count;
+                        indexes[p.TrainingID] = index;
+                    }
+                    index++;
+
+                }
+            }
+            foreach (int i in indexes.Values)
+            {
+                res.Add(items[i]);
+            }
+            return res;
         }
         private static Bitmap ExtractBitmapFromOpenedFile(Image curentImage)
         {
