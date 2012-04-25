@@ -169,8 +169,6 @@ namespace TrainingCatalog.BusinessLogic.Types
 
                         result.Append("</td></tr>");
                         #endregion
-
-
                         base.IncrementProgress(Koef);
                     }
                    
