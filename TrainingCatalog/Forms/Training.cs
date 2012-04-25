@@ -303,11 +303,25 @@ namespace TrainingCatalog
         }
         private void txtWeight_KeyDown(object sender, KeyEventArgs e)
         {
-            DisableIncorectKeys(e);
+            if (e.KeyValue == 13)
+            {
+                btnSaveWeight_Click(null, null);
+            }
+            else
+            {
+                DisableIncorectKeys(e);
+            }
         }
         private void txtCount_KeyDown(object sender, KeyEventArgs e)
         {
-            DisableIncorectKeys(e);
+            if (e.KeyValue == 13)
+            {
+                AddExersize_Click(null, null);
+            }
+            else
+            {
+                DisableIncorectKeys(e);
+            }
         }
         private void DisableIncorectKeys(KeyEventArgs e)
         {
@@ -315,11 +329,15 @@ namespace TrainingCatalog
             // 46 - delete
             // 37 - left arrow
             // 39 - right arrow
-            if (e.KeyValue != 8 && e.KeyValue != 46 && e.KeyValue != 37 && e.KeyValue != 39)
-            {
-                if(e.KeyValue < '0' || e.KeyValue > '9') e.SuppressKeyPress = true;
-                if (e.KeyValue >= 96 && e.KeyValue <= 105) e.SuppressKeyPress = false;
-            }
+            // 13 - enter
+
+      
+                if (e.KeyValue != 8 && e.KeyValue != 46 && e.KeyValue != 37 && e.KeyValue != 39)
+                {
+                    if (e.KeyValue < '0' || e.KeyValue > '9') e.SuppressKeyPress = true;
+                    if (e.KeyValue >= 96 && e.KeyValue <= 105) e.SuppressKeyPress = false;
+                }
+          
         }
 
         private void btnAddFromTemplate_Click(object sender, EventArgs e)
