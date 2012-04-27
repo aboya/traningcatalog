@@ -27,7 +27,7 @@ namespace TrainingCatalog
         {
             InitializeComponent();
         }
-        private List<PerfomanceDataType> _bodyWeight;
+        private List<PerfomanceDataType> _bodyWeight = null;
         private List<PerfomanceDataType> BodyWeight
         {
             get
@@ -227,7 +227,7 @@ namespace TrainingCatalog
                 using (SqlCeCommand cmd = connection.CreateCommand())
                 {
                     connection.Open();
-                    TrainingBusiness.GetBodyWeight(cmd, dtpFrom.Value.Date, dtpTo.Value.Date);
+                    res = TrainingBusiness.GetBodyWeight(cmd, dtpFrom.Value.Date, dtpTo.Value.Date);
                 }
             }
             catch (Exception e)
