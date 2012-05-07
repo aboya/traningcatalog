@@ -194,6 +194,7 @@ namespace TrainingCatalog
                 dataGridView1.Columns.Add("Count", "Count");
                 DataGridViewColumn col = new System.Windows.Forms.DataGridViewButtonColumn();
                 col.HeaderText = "-";
+               // DataGridViewCell cell = 
 
                 dataGridView1.Columns.Add(col);
                 for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)

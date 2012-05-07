@@ -178,6 +178,12 @@
     <Compile Include="Controls\PostiveIntegerTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\UpDown.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UpDown.Designer.cs">
+      <DependentUpon>UpDown.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\about.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -344,6 +350,9 @@
     <EmbeddedResource Include="Controls\CardioExersizesControl.resx">
       <DependentUpon>CardioExersizesControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UpDown.resx">
+      <DependentUpon>UpDown.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\about.resx">
       <DependentUpon>about.cs</DependentUpon>
     </EmbeddedResource>
@@ -498,6 +507,8 @@
     <Content Include="dumbbells.ico" />
     <None Include="Resources\Plus_green_32x32.png" />
     <None Include="Resources\dumbbells.png" />
+    <None Include="Resources\DownArrow.png" />
+    <None Include="Resources\UpArrow.png" />
     <Content Include="SqlCeBin\sqlceca35.dll" />
     <Content Include="SqlCeBin\sqlcecompact35.dll" />
     <Content Include="SqlCeBin\sqlceer35EN.dll" />
