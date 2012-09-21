@@ -75,11 +75,11 @@ namespace TrainingCatalog.Forms
             cbSessions.DisplayMember = "Name";
             
             DataBind();
-            if (data.Count == 0)
-            {
-                MessageBox.Show("Вы не провели ниодной кардио тренировки");
-                this.Close();
-            }
+            //if (data.Count == 0)
+            //{
+            //    MessageBox.Show("Вы не провели ниодной кардио тренировки");
+            //    this.Close();
+            //}
         }
         private void DataBind()
         {
