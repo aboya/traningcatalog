@@ -45,6 +45,8 @@ namespace TrainingCatalog.Forms
                     m.Midarm_l = Convert.ToSingle(txtMidarm_l.Text);
                     m.Waistline_h = Convert.ToSingle(txtWaistline_h.Text);
                     m.Waistline_l = Convert.ToSingle(txtWaistline_l.Text);
+                    m.Muscule = Convert.ToSingle(txtMuscule.Text);
+                    m.Water = Convert.ToSingle(txtWater.Text);
                     m.date = mCalendar.SelectionStart.Date;
                     TrainingBusiness.SaveMeasurement(cmd, m);
                     BindBoldedDates(cmd);
@@ -96,6 +98,8 @@ namespace TrainingCatalog.Forms
                     txtMidarm_l.Text = m.Midarm_l.ToString();
                     txtWaistline_h.Text = m.Waistline_h.ToString();
                     txtWaistline_l.Text = m.Waistline_l.ToString();
+                    txtMuscule.Text = m.Muscule.ToString();
+                    txtWater.Text = m.Water.ToString();
                     if (bindBoldDates)
                     {
                         BindBoldedDates(cmd);

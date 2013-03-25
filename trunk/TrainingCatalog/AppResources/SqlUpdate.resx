@@ -227,6 +227,9 @@ WITH (STATISTICS_NORECOMPUTE = OFF)</value>
 )</value>
     <comment>0021</comment>
   </data>
+  <data name="v22" xml:space="preserve">
+    <value>Alter table BodyMeasurement add Muscule float constraint DF_BodyFat default(0)</value>
+  </data>
   <data name="v3" xml:space="preserve">
     <value>CREATE TABLE Training
 (

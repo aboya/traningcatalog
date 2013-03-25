@@ -165,6 +165,9 @@ namespace TrainingCatalog.BusinessLogic
                             Resistance float,
                             HeartRate float
                         )";
+            sql[22] = @"Alter table BodyMeasurement add Muscule float constraint DF_Muscule default(0)";
+
+            sql[23] = @"Alter table BodyMeasurement add Water float constraint DF_Water default(0)";
 
         }
         public static List<string> GetListUpdates(double version)

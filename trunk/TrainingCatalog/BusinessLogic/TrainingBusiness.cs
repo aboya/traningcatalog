@@ -183,6 +183,8 @@ namespace TrainingCatalog.BusinessLogic
                     res.Midarm_l = Convert.ToSingle(reader["Midarm_l"]);
                     res.Waistline_h = Convert.ToSingle(reader["Waistline_h"]);
                     res.Waistline_l = Convert.ToSingle(reader["Waistline_l"]);
+                    res.Muscule = Convert.ToSingle(reader["Muscule"]);
+                    res.Water = Convert.ToSingle(reader["Water"]);
                 }
             }
             res.BodyWeight = GetBodyWeight(cmd, date);
@@ -201,8 +203,8 @@ namespace TrainingCatalog.BusinessLogic
             {
                 if (!m.IsEmpty())
                 {
-                    cmd.CommandText = @"insert into BodyMeasurement(TrainingId,Biceps_h, Biceps_l, BodyFat, Chest_h, Chest_l, Hip_h, Hip_l, Midarm_h, Midarm_l, Waistline_h, Waistline_l)
-                                   values(@trId,@Biceps_h, @Biceps_l, @BodyFat, @Chest_h, @Chest_l, @Hip_h, @Hip_l, @Midarm_h, @Midarm_l, @Waistline_h, @Waistline_l)";
+                    cmd.CommandText = @"insert into BodyMeasurement(TrainingId,Biceps_h, Biceps_l, BodyFat, Chest_h, Chest_l, Hip_h, Hip_l, Midarm_h, Midarm_l, Waistline_h, Waistline_l,Muscule,Water)
+                                   values(@trId,@Biceps_h, @Biceps_l, @BodyFat, @Chest_h, @Chest_l, @Hip_h, @Hip_l, @Midarm_h, @Midarm_l, @Waistline_h, @Waistline_l,@Muscule,@Water)";
                     cmd.Parameters.Add("@Biceps_h", SqlDbType.Float).Value = m.Biceps_h;
                     cmd.Parameters.Add("@Biceps_l", SqlDbType.Float).Value = m.Biceps_l;
                     cmd.Parameters.Add("@BodyFat", SqlDbType.Float).Value = m.BodyFat;
@@ -214,6 +216,8 @@ namespace TrainingCatalog.BusinessLogic
                     cmd.Parameters.Add("@Midarm_l", SqlDbType.Float).Value = m.Midarm_l;
                     cmd.Parameters.Add("@Waistline_h", SqlDbType.Float).Value = m.Waistline_h;
                     cmd.Parameters.Add("@Waistline_l", SqlDbType.Float).Value = m.Waistline_l;
+                    cmd.Parameters.Add("@Muscule", SqlDbType.Float).Value = m.Muscule;
+                    cmd.Parameters.Add("@Water", SqlDbType.Float).Value = m.Water;
                     cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
                     cmd.ExecuteNonQuery();
                 }
@@ -234,7 +238,9 @@ namespace TrainingCatalog.BusinessLogic
                                       Midarm_h = @Midarm_h,
                                       Midarm_l = @Midarm_l,
                                       Waistline_h = @Waistline_h,
-                                      Waistline_l = @Waistline_l
+                                      Waistline_l = @Waistline_l,
+                                      Muscule = @Muscule,
+                                      Water = @Water
                                       where TrainingId = @trId";
                     cmd.Parameters.Add("@Biceps_h", SqlDbType.Float).Value = m.Biceps_h;
                     cmd.Parameters.Add("@Biceps_l", SqlDbType.Float).Value = m.Biceps_l;
@@ -247,6 +253,8 @@ namespace TrainingCatalog.BusinessLogic
                     cmd.Parameters.Add("@Midarm_l", SqlDbType.Float).Value = m.Midarm_l;
                     cmd.Parameters.Add("@Waistline_h", SqlDbType.Float).Value = m.Waistline_h;
                     cmd.Parameters.Add("@Waistline_l", SqlDbType.Float).Value = m.Waistline_l;
+                    cmd.Parameters.Add("@Muscule", SqlDbType.Float).Value = m.Muscule;
+                    cmd.Parameters.Add("@Water", SqlDbType.Float).Value = m.Water;
                     cmd.Parameters.Add("@trId", SqlDbType.Int).Value = m.TrainingId;
                     cmd.ExecuteNonQuery();
                 }
@@ -282,7 +290,8 @@ namespace TrainingCatalog.BusinessLogic
            
 
             cmd.Parameters.Clear();
-            cmd.CommandText = @"select Day,BodyWeight,Biceps_h,Biceps_l,BodyFat,Chest_h,Chest_l,Hip_h,Hip_l,Midarm_h,Midarm_l,Waistline_h,Waistline_l from BodyMeasurement 
+            cmd.CommandText = @"select Day,BodyWeight,Biceps_h,Biceps_l,BodyFat,Chest_h,Chest_l,Hip_h,Hip_l,Midarm_h,Midarm_l,Waistline_h,Waistline_l,Water,Muscule 
+                                from BodyMeasurement 
                                 right join Training on BodyMeasurement.TrainingId = Training.ID 
                                 where Training.Day between @start and @end";
             cmd.Parameters.Add("@start", SqlDbType.DateTime).Value = start.Date;
@@ -305,6 +314,8 @@ namespace TrainingCatalog.BusinessLogic
                     res.Waistline_h = Convert.ToSingle(reader["Waistline_h"] is DBNull ? 0 : reader["Waistline_h"]);
                     res.Waistline_l = Convert.ToSingle(reader["Waistline_l"] is DBNull ? 0 : reader["Waistline_l"]);
                     res.BodyWeight = Convert.ToSingle(reader["BodyWeight"] is DBNull ? 0 : reader["BodyWeight"]);
+                    res.Water = Convert.ToSingle(reader["Water"] is DBNull ? 0 : reader["Water"]);
+                    res.Muscule = Convert.ToSingle(reader["Muscule"] is DBNull ? 0 : reader["Muscule"]);
                     result.Add(res);
                 }
             }

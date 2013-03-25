@@ -21,12 +21,14 @@ namespace TrainingCatalog.BusinessLogic.Types
         public float Midarm_h { get; set; }
         public float BodyFat { get; set; }
         public float BodyWeight { get; set; }
+        public float Muscule { get; set; }
+        public float Water { get; set; }
         public bool IsEmpty()
         {
            
                 return this.Biceps_h == 0 && this.Biceps_l == 0 && this.BodyFat == 0 && this.Chest_h == 0 && this.Chest_l == 0
                     && this.Hip_h == 0 && this.Hip_l == 0 && this.Midarm_h == 0 && this.Midarm_l == 0 && this.Waistline_h == 0
-                    && this.Waistline_l == 0;
+                    && this.Waistline_l == 0 && Water == 0 && Muscule == 0;
                  
             
         }
