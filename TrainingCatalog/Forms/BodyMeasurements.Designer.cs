@@ -58,6 +58,10 @@ namespace TrainingCatalog.Forms
             this.btnSave = new TrainingCatalog.Controls.BaseButton();
             this.btnPrev = new TrainingCatalog.Controls.BaseButton();
             this.btnNext = new TrainingCatalog.Controls.BaseButton();
+            this.baseLabel1 = new TrainingCatalog.Controls.BaseLabel();
+            this.txtMuscule = new TrainingCatalog.Controls.FloatNumberTextBox();
+            this.baseLabel2 = new TrainingCatalog.Controls.BaseLabel();
+            this.txtWater = new TrainingCatalog.Controls.FloatNumberTextBox();
             this.SuspendLayout();
             // 
             // lblInfo
@@ -72,7 +76,7 @@ namespace TrainingCatalog.Forms
             // lblBodyWeight
             // 
             this.lblBodyWeight.AutoSize = true;
-            this.lblBodyWeight.Location = new System.Drawing.Point(409, 153);
+            this.lblBodyWeight.Location = new System.Drawing.Point(409, 179);
             this.lblBodyWeight.Name = "lblBodyWeight";
             this.lblBodyWeight.Size = new System.Drawing.Size(54, 13);
             this.lblBodyWeight.TabIndex = 25;
@@ -207,7 +211,7 @@ namespace TrainingCatalog.Forms
             // txtBodyWeight
             // 
             this.txtBodyWeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBodyWeight.Location = new System.Drawing.Point(469, 148);
+            this.txtBodyWeight.Location = new System.Drawing.Point(469, 174);
             this.txtBodyWeight.Name = "txtBodyWeight";
             this.txtBodyWeight.Size = new System.Drawing.Size(100, 20);
             this.txtBodyWeight.TabIndex = 12;
@@ -297,7 +301,7 @@ namespace TrainingCatalog.Forms
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(517, 183);
+            this.btnSave.Location = new System.Drawing.Point(515, 208);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(50, 50);
             this.btnSave.TabIndex = 0;
@@ -306,7 +310,8 @@ namespace TrainingCatalog.Forms
             // 
             // btnPrev
             // 
-            this.btnPrev.Location = new System.Drawing.Point(267, 185);
+            this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrev.Location = new System.Drawing.Point(270, 211);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(78, 48);
             this.btnPrev.TabIndex = 27;
@@ -315,18 +320,57 @@ namespace TrainingCatalog.Forms
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(353, 185);
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Location = new System.Drawing.Point(356, 211);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(78, 48);
             this.btnNext.TabIndex = 28;
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // baseLabel1
+            // 
+            this.baseLabel1.AutoSize = true;
+            this.baseLabel1.Location = new System.Drawing.Point(409, 153);
+            this.baseLabel1.Name = "baseLabel1";
+            this.baseLabel1.Size = new System.Drawing.Size(46, 13);
+            this.baseLabel1.TabIndex = 30;
+            this.baseLabel1.Text = "Мышц%";
+            // 
+            // txtMuscule
+            // 
+            this.txtMuscule.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMuscule.Location = new System.Drawing.Point(469, 148);
+            this.txtMuscule.Name = "txtMuscule";
+            this.txtMuscule.Size = new System.Drawing.Size(100, 20);
+            this.txtMuscule.TabIndex = 29;
+            // 
+            // baseLabel2
+            // 
+            this.baseLabel2.AutoSize = true;
+            this.baseLabel2.Location = new System.Drawing.Point(207, 177);
+            this.baseLabel2.Name = "baseLabel2";
+            this.baseLabel2.Size = new System.Drawing.Size(43, 13);
+            this.baseLabel2.TabIndex = 32;
+            this.baseLabel2.Text = "Вода %";
+            // 
+            // txtWater
+            // 
+            this.txtWater.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWater.Location = new System.Drawing.Point(267, 172);
+            this.txtWater.Name = "txtWater";
+            this.txtWater.Size = new System.Drawing.Size(100, 20);
+            this.txtWater.TabIndex = 31;
+            // 
             // BodyMeasurements
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 240);
+            this.ClientSize = new System.Drawing.Size(577, 265);
+            this.Controls.Add(this.baseLabel2);
+            this.Controls.Add(this.txtWater);
+            this.Controls.Add(this.baseLabel1);
+            this.Controls.Add(this.txtMuscule);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrev);
             this.Controls.Add(this.lblInfo);
@@ -397,5 +441,9 @@ namespace TrainingCatalog.Forms
         private TrainingCatalog.Controls.BaseLabel lblInfo;
         private TrainingCatalog.Controls.BaseButton btnPrev;
         private TrainingCatalog.Controls.BaseButton btnNext;
+        private BaseLabel baseLabel1;
+        private FloatNumberTextBox txtMuscule;
+        private BaseLabel baseLabel2;
+        private FloatNumberTextBox txtWater;
     }
 }
