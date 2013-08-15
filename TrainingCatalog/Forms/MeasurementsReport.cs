@@ -30,6 +30,8 @@ namespace TrainingCatalog.Forms
             {
                 cbBodyPart.Items.Add(p.Name);
             }
+            cbBodyPart.Items.Add("BodyFat Relative");
+            cbBodyPart.Items.Add("Muscule Relative");
             try
             {
                 connection.Open();
@@ -94,40 +96,73 @@ namespace TrainingCatalog.Forms
                 string fieldName = Convert.ToString(cbBodyPart.SelectedItem);
                 PointPairList pointWeightCount = new PointPairList();
                 bool IsBodyWeight = (fieldName == "BodyWeight");
+                bool IsBodyFatRelative = (fieldName == "BodyFat Relative");
+                bool IsMuscleRelative = (fieldName == "Muscule Relative");
                 PointPairList pointBodyFat = new PointPairList();
                 PointPairList pointWater = new PointPairList();
                 PointPairList pointMuscule = new PointPairList();
 
-                foreach (var m in measurements)
+                if (IsBodyFatRelative)
                 {
-                   float value = Convert.ToSingle(typeof(MeasurementType).GetProperty(fieldName).GetValue(m, null));
-                   double date = m.date.ToOADate();
-                   if (Math.Abs(value) <= 0.01) continue;
-                   string tag = string.Format("Cm:{0:0.##} | {1} ({2})", value, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
-                   pointWeightCount.Add(date, value, tag);
-                   if (IsBodyWeight)
-                   {
-                       float Percent;
-                       Percent = Convert.ToSingle(typeof(MeasurementType).GetProperty("BodyFat").GetValue(m, null));
-                       if (Math.Abs(Percent) > 0.01) {
-                           tag = string.Format("Cm:{0:0.##} | {1} ({2})", value * Percent / 100.0, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
-                           pointBodyFat.Add(date, value * Percent / 100.0, tag); 
-                       }
-                       Percent = Convert.ToSingle(typeof(MeasurementType).GetProperty("Water").GetValue(m, null));
-                       if (Math.Abs(Percent) > 0.01)
-                       {
-                           tag = string.Format("Cm:{0:0.##} | {1} ({2})", value * Percent / 100.0, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
-                           pointWater.Add(date, value * Percent / 100.0, tag);
-                       }
-                       Percent = Convert.ToSingle(typeof(MeasurementType).GetProperty("Muscule").GetValue(m, null));
-                       if (Math.Abs(Percent) > 0.01)
-                       {
-                           tag = string.Format("Cm:{0:0.##} | {1} ({2})", value * Percent / 100.0, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
-                           pointMuscule.Add(date, value * Percent / 100.0, tag);
-                       }
+                    foreach (var m in measurements)
+                    {
+                        if (m.BodyFat > 0 && m.BodyWeight > 0)
+                        {
+                            float value = Convert.ToSingle(m.BodyFat / m.BodyWeight);
+                            double date = m.date.ToOADate();
+                            string tag = string.Format("Cm:{0:0.##} | {1} ({2})", value, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
+                            pointWeightCount.Add(date, value, tag);
+                        }
+                    }
+                }
+                else if (IsMuscleRelative)
+                {
+                    foreach (var m in measurements)
+                    {
+                        if (m.Muscule > 0 && m.BodyWeight > 0)
+                        {
+                            float value = Convert.ToSingle(m.Muscule / m.BodyWeight);
+                            double date = m.date.ToOADate();
+                            string tag = string.Format("Cm:{0:0.##} | {1} ({2})", value, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
+                            pointWeightCount.Add(date, value, tag);
+                        }
+                    }
+                }
+                else
+                {
 
-                   }
+                    foreach (var m in measurements)
+                    {
+                        float value = Convert.ToSingle(typeof(MeasurementType).GetProperty(fieldName).GetValue(m, null));
+                        double date = m.date.ToOADate();
+                        if (Math.Abs(value) <= 0.01) continue;
+                        string tag = string.Format("Cm:{0:0.##} | {1} ({2})", value, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
+                        pointWeightCount.Add(date, value, tag);
+                        if (IsBodyWeight)
+                        {
+                            float Percent;
+                            Percent = Convert.ToSingle(typeof(MeasurementType).GetProperty("BodyFat").GetValue(m, null));
+                            if (Math.Abs(Percent) > 0.01)
+                            {
+                                tag = string.Format("Cm:{0:0.##} | {1} ({2})", value * Percent / 100.0, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
+                                pointBodyFat.Add(date, value * Percent / 100.0, tag);
+                            }
+                            Percent = Convert.ToSingle(typeof(MeasurementType).GetProperty("Water").GetValue(m, null));
+                            if (Math.Abs(Percent) > 0.01)
+                            {
+                                tag = string.Format("Cm:{0:0.##} | {1} ({2})", value * Percent / 100.0, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
+                                pointWater.Add(date, value * Percent / 100.0, tag);
+                            }
+                            Percent = Convert.ToSingle(typeof(MeasurementType).GetProperty("Muscule").GetValue(m, null));
+                            if (Math.Abs(Percent) > 0.01)
+                            {
+                                tag = string.Format("Cm:{0:0.##} | {1} ({2})", value * Percent / 100.0, m.date.ToString("dd.MM.yy"), m.date.DayOfWeek.ToString());
+                                pointMuscule.Add(date, value * Percent / 100.0, tag);
+                            }
 
+                        }
+
+                    }
                 }
                 myPane.AddCurve("Cm", pointWeightCount, Color.Brown, SymbolType.Circle);
                 if (IsBodyWeight)
